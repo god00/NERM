@@ -1,0 +1,18 @@
+ก่อน train
+- corpus 
+- dict
+- rule ( คล้าย dict )
+- เลือก ml ตัวไหน -> set parameter ( Deep learning, CRF++, others )
+
+
+ระหว่าง train
+- Progress
+
+หลัง train
+- output model
+- เลือก model -> run -> submit
+- export model
+- delete model
+
+นำ model ไปใช้
+- ใส่ tags ในข้อความให้ -> หน้าตาเหมือนไฟล์ train
