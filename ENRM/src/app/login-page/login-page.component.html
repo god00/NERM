@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Entity Name Recognizer Model</title>
+</head>
+
+<body class="d-flex justify-content-center align-items-center flex-row justify-content-around">
+  <div class="jumbotron special-card" style="max-width:50%; padding-bottom:2rem">
+    <div class="container">
+      <h1 class="display-4">WELCOME TO ENRM</h1>
+      <p class="lead">
+        <img src="../../assets/images/model.jpg" class="ENRM-logo">Entity Name Recognizer Model</p>
+      <hr class="my-4">
+      <p>
+        The objective of this technique is to provide a long description without requiring the user to jump off to another location
+        for the description. It also allows all users to see the description which may be useful to anyone who might miss
+        some features in the non-text content. With this technique, the long description is provided as part of the standard
+        presentation (i.e., everyone receives it). The description is located near the non-text content but does not have
+        to be the very next item. For example, there may be a caption under a chart with the long description provided in
+        the following paragraph. The location of this long description is then provided within the short text alternative
+        so the user knows where to look for it if they cannot view the non-text content.
+      </p>
+      <hr class="my-0">
+    </div>
+    <div class="container text-center">
+      <a href="https://www.cpe.ku.ac.th" style="display: inline-block;">
+        <img src="../../assets/images/eng-ku-logo.jpg" class="logo">
+      </a>
+    </div>
+  </div>
+
+  <div class="card border-primary mb-3 special-card" style="width:25%">
+    <div class="card-header">
+      <h5 class="card-title">Login to your account</h5>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="loginForm">
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" formControlName="email">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group" style="margin-bottom:0.5rem">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password">
+        </div>
+        <div class="form-check d-flex justify-content-between">
+          <input type="checkbox" class="form-check-input login-checkbox" id="logincheckbox">
+          <label class="form-check-label" for="logincheckbox">Remember me</label>
+          <a href="">
+            <label>
+              <small style="color:gray">Forget Password?</small>
+            </label>
+          </a>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block" (click)="onLogin()">Login</button>
+        <p class="d-flex justify-content-center" style="margin-top:0.5rem">or</p>
+        <button type="submit" class="btn btn-block btn-lg" data-toggle="modal" data-target="#register">Register</button>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content special-card">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ModalCenterTitle">Create New Account</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="loginForm">
+            <div class="form-group">
+              <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter your email" formControlName="email">
+            </div>
+            <div class="form-group" style="margin-bottom:0.5rem">
+              <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password">
+            </div>
+            <div class="form-group" style="margin-bottom:0.5rem">
+              <input type="password" class="form-control" id="password" placeholder="Confirm Password" formControlName="confirmPassword">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary btn-block btn-lg" data-dismiss="modal" (click)="onRegister()">Create account</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

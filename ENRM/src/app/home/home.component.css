@@ -1,0 +1,39 @@
+.jumbotron {
+    width: 85%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.btm-padding{
+    padding: 2.5rem 1rem;
+}
+
+#verticalline {
+    border-left: 1px solid gray;
+    height: 10rem;
+  }
+
+.list{
+    overflow: scroll; 
+    max-height:7rem ; 
+    width: 14rem ;
+}
+
+.list-group-item{
+    padding: .25rem .75rem;
+}
+
+.p-text{
+    margin:0;
+    font-size: 1rem;
+    display: inline-flex;
+}
+
+.btm-dict{
+    font-size:0.75rem;
+}
+
+.table{
+    margin-bottom: 0;
+    font-size: 0.75rem;
+}

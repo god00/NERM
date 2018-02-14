@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+html,body {
+    height: 100vh;
+}
+
+body{
+    background: url('assets/background.jpg') no-repeat center;
+    background-size: 100% 100%;
+    background-position: center;
+}
+
+.special-card {
+    /* create a custom class so you 
+       do not run into specificity issues 
+       against bootstraps styles
+       which tends to work better than using !important 
+       (future you will thank you later)*/
+
+      background-color: rgba(245, 245, 245, 1);
+      opacity: .88;
+    }
+
+.img-logo{
+    width: 35px;
+    height: 40px;
+}

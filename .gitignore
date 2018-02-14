@@ -1,1 +1,0 @@
-find https://github.com/god00/NERM.git -type d ! -path "*.git*" -empty -exec cp .gitignore '{}'/ \;

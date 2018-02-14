@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Entity Name Recognizer Model</title>
+</head>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#/home;email={{email}}">
+      <img src="../../assets/images/model.jpg" class="img-logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#/home;email={{email}}">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">Model</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item">Upload</a>
+            <a class="dropdown-item">View Progress</a>
+            <div class="dropdown-divider"></div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled">Disabled</a>
+        </li>
+      </ul>
+      <!-- <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form> -->
+    </div>
+    <i class="fa fa-user-circle" style="font-size:1.2rem; padding-right:0.25rem"></i>
+    {{email}}
+  </nav>
+<body>
+  
+  <div class="d-flex flex-column align-items-center">
+    <div class="jumbotron special-card d-flex flex-column">
+      <h1 class="display-3">Start New Model</h1>
+      <p class="lead">Use the noun creation to describe bringing something into existence, such as the creation of a new organization or
+        the creation of a cutting-edge computer program.</p>
+      <hr class="my-4">
+      <p class="lead">
+        <a class="btn btn-primary btn-lg" href="#/upload" role="button" (click)="createModal()">Get Started</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="d-flex flex-column align-items-center">
+    <div class="jumbotron special-card d-flex justify-content-around btm-padding">
+      <div style="text-align: center;">
+        <i class="fa fa-file-code-o" aria-hidden="true"></i>
+        <p  class="lead p-text">Your Model</p>
+          <div id="list-example" class="list-group list">
+            <a class="list-group-item list-group-item-action" href="#/list-Model-1"><small>Model 1</small></a>
+            <a class="list-group-item list-group-item-action" href="#/list-Model-2"><small>Model 2</small></a>
+            <a class="list-group-item list-group-item-action" href="#/list-Model-3"><small>Model 3</small></a>
+            <a class="list-group-item list-group-item-action" href="#/list-Model-4"><small>Model 4</small></a>
+            <a class="list-group-item list-group-item-action" href="#/list-Model-5"><small>Model 5</small></a>
+            <a class="list-group-item list-group-item-action" href="#/list-Model-6"><small>Model 6</small></a>
+            <a class="list-group-item list-group-item-action" href="#/list-Model-7"><small>Model 7</small></a>
+            <a class="list-group-item list-group-item-action" href="#/list-Model-8"><small>Model 8</small></a>
+            <a class="list-group-item list-group-item-action" href="#/list-Model-9"><small>Model 9</small></a>
+          </div>
+      </div>
+      <div id="verticalline"></div>
+      <div style="text-align: center;">
+        <i class="fa fa-cogs" aria-hidden="true"></i>
+        <p class="lead p-text">(Recent) Model 9</p><br>
+        <circle-progress
+        [percent]="85"
+        [radius]="60"
+        [outerStrokeWidth]="8"
+        [innerStrokeWidth]="4"
+        [outerStrokeColor]="'#78C000'"
+        [innerStrokeColor]="'#C7E596'"
+        [animation]="true"
+        [animationDuration]="300"
+        style="font-size:1rem"
+        ></circle-progress>
+      </div>
+      <div id="verticalline"></div>
+      <div style="text-align: center;">
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+        <p class="lead p-text">(Recent) Output Model 9</p>
+        <div class="card table-responsive" style="overflow-x: scroll; max-width:14rem ;">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Total</th>
+                <th scope="col">organization</th>
+                <th scope="col">person</th>
+                <th scope="col">others</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Name Entity</th>
+                <td>2561</td>
+                <td>222</td>
+                <td>1250</td>
+                <td>1089</td>
+              </tr>
+              <tr>
+                <th scope="row">Acc.</th>
+                <td>95.98%</td>
+                <td>98.98%</td>
+                <td>95.58%</td>
+                <td>93.33%</td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+        <p class="lead p-text">Total 3 tags</p>
+      </div>
+      <div id="verticalline"></div>
+      <div style="text-align: center;">
+        <i class="fa fa-book" aria-hidden="true"></i>
+        <p class="lead p-text"> Dictionary</p>
+          <div id="list-example" class="list-group list">
+            <a class="list-group-item list-group-item-action" href="#/list-Dict-1"><small>Dict. 1</small></a>
+            <a class="list-group-item list-group-item-action" href="#/list-Dict-2"><small>Dict. 2</small></a>
+            <a class="list-group-item list-group-item-action" href="#/list-Dict-3"><small>Dict. 3</small></a>
+            <a class="list-group-item list-group-item-action" href="#/list-Dict-4"><small>Dict. 4</small></a>
+            <a class="list-group-item list-group-item-action" href="#/list-Dict-5"><small>Dict. 5</small></a>
+            <a class="list-group-item list-group-item-action" href="#/list-Dict-6"><small>Dict. 6</small></a>
+            <a class="list-group-item list-group-item-action" href="#/list-Dict-7"><small>Dict. 7</small></a>
+            <a class="list-group-item list-group-item-action" href="#/list-Dict-8"><small>Dict. 8</small></a>
+            <a class="list-group-item list-group-item-action" href="#/list-Dict-9"><small>Dict. 9</small></a>
+          </div>
+        <div style="text-align: center;">
+          <a class="btn btn-outline-success btn-lg btm-dict" href="#/upload" role="button">Upload Dict.</a>
+        </div>
+    </div>
+    </div>
+  </div>
+
+
+</body>
+
+</html>
