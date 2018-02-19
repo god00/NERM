@@ -11,6 +11,8 @@ import { Routes, RouterModule } from "@angular/router";
 import { HomeComponent } from './home/home.component';
 import { CreateModelComponent } from './create-model/create-model.component';
 
+import { DatabaseService } from './database.service';
+
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full'},
   { path: 'login', component: LoginPageComponent },
@@ -29,7 +31,7 @@ const routes: Routes = [
     BrowserModule,
     RouterModule.forRoot(routes , {useHash:true}),
     NgbModule.forRoot(),
-    ReactiveFormsModule, 
+    ReactiveFormsModule,
     NgCircleProgressModule.forRoot({
       // set defaults here
       radius: 100,
@@ -40,7 +42,9 @@ const routes: Routes = [
       animationDuration: 300,
     })
   ],
-  providers: [],
+  providers: [
+    DatabaseService
+  ],
   bootstrap: [
     AppComponent,
     LoginPageComponent

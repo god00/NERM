@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { collectExternalReferences } from '@angular/compiler/src/output/output_ast';
+import { DatabaseService } from '../database.service';
+import { MongoClient } from 'mongodb';
 
 @Component({
   selector: 'app-login-page',
@@ -17,18 +19,31 @@ export class LoginPageComponent implements OnInit {
 
   constructor(
     private router: Router,
+    public databaseService: DatabaseService
   ) {
   }
 
   ngOnInit() {
     this.createFormControls();
     this.createForm();
+    this.databaseService.dbConnection().then(
+      (db : MongoClient) => {
+         let cursor = db.collection('user').find();
+        //  return cursor.count();
+       }
+     ).then(
+       count => {
+         console.log(count);
+       }).catch(
+         (err)=>{
+         console.log(err);
+       })
   }
 
   createFormControls() {
     this.email = new FormControl('', [
       Validators.required,
-      Validators.pattern("[^ @]*@[^ @]*")
+      Validators.pattern("[^ @]*@[^ @]*.*")
     ]);
     this.password = new FormControl('', [
       Validators.required,
@@ -69,7 +84,6 @@ export class LoginPageComponent implements OnInit {
       console.log('error')
     }
   }
-
 }
 
 
