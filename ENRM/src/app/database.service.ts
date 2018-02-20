@@ -4,11 +4,10 @@ import * as mysqlConfig from './mysql.config'
 
 @Injectable()
 export class DatabaseService {
-  public con;
   config;
 
-
   constructor(
+    public con
   ) {
     this.config = mysqlConfig.config
     this.con = mysql.createConnection(this.config)
