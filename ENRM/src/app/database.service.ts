@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core'
+
 import mysql = require('mysql')
+import fs = require('fs');
+import stream = require('stream');
+
 import * as mysqlConfig from './mysql.config'
 
 @Injectable()
@@ -16,7 +20,7 @@ export class DatabaseService {
   }
 
   dbConnection() {
-      this.con.__proto__.connect();
+      this.con.connect();
   }
 
   dbDisconnection() {
