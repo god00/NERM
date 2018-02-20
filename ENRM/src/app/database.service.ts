@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core'
+import mysql = require('mysql')
 import * as mysqlConfig from './mysql.config'
-
-const mysql = require('mysql');
 
 @Injectable()
 export class DatabaseService {
