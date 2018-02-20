@@ -1,16 +1,22 @@
 import { Injectable } from '@angular/core'
-import { mysql } from 'mysql'
 import * as mysqlConfig from './mysql.config'
+
+const mysql = require('mysql');
 
 @Injectable()
 export class DatabaseService {
   public con;
-  config = mysqlConfig.config
+  config;
+
+
+  constructor(
+  ) {
+    this.config = mysqlConfig.config
+    this.con = mysql.createConnection(this.config)
+  }
 
   dbConnection() {
-    console.log(this.config)
     return new Promise((resolve, reject) => {
-      this.con = mysql.createConnection(this.config);
       this.con.connect((err) => {
         if (err) {
           this.dbDisconnection()
@@ -19,6 +25,8 @@ export class DatabaseService {
         }
         resolve();
       });
+
+
     });
   }
 

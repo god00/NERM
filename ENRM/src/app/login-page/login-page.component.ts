@@ -28,7 +28,8 @@ export class LoginPageComponent implements OnInit {
     this.databaseService.dbConnection().then(()=>{
       console.log('Connection established');
       this.databaseService.readDBFromTable('user');
-    }).catch((err)=>{
+    })
+    .catch((err)=>{
       console.log('Error connecting to Db');
     })
 
