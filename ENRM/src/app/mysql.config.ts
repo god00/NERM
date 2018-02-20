@@ -1,6 +1,6 @@
 export const config = {
-    host: "localhost",
-    user: "root",
+    host: "158.108.34.72",
+    user: "tin",
     password: "01110110",
     database: "NERM"
 }
