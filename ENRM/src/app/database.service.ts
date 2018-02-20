@@ -12,6 +12,7 @@ export class DatabaseService {
   ) {
     this.config = mysqlConfig.config
     this.con = mysql.createConnection(this.config)
+    console.log(this.con)
   }
 
   dbConnection() {
