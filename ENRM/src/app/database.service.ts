@@ -16,7 +16,7 @@ export class DatabaseService {
   }
 
   dbConnection() {
-      this.con.connect();
+      this.con.__proto__.connect();
   }
 
   dbDisconnection() {
