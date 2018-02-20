@@ -5,10 +5,10 @@ import * as mysqlConfig from './mysql.config'
 @Injectable()
 export class DatabaseService {
   public con;
-  config = mysqlConfig.default
+  config = mysqlConfig.config
 
   dbConnection() {
-    console.log(mysqlConfig.default)
+    console.log(this.config)
     return new Promise((resolve, reject) => {
       this.con = mysql.createConnection(this.config);
       this.con.connect((err) => {
@@ -29,10 +29,10 @@ export class DatabaseService {
     }
   }
 
-  readDBFromTable(table: string){
-    this.con.query(`SELECT * FROM ${table}`, (err,rows) => {
-      if(err) throw err;
-    
+  readDBFromTable(table: string) {
+    this.con.query(`SELECT * FROM ${table}`, (err, rows) => {
+      if (err) throw err;
+
       console.log('Data received from Db:\n');
       console.log(rows);
     });
