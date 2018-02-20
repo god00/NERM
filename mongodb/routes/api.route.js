@@ -1,10 +1,10 @@
 var express = require('express')
 
 var router = express.Router()
-var NERMs = require('./api/NERMs.route')
+var nerms = require('./api/NERMs.route')
 
 
-router.use('/NERMs', NERMs);
+router.use('/nerms', nerms);
 
 
 module.exports = router;
