@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgCircleProgressModule } from 'ng-circle-progress';
@@ -11,7 +12,8 @@ import { Routes, RouterModule } from "@angular/router";
 import { HomeComponent } from './home/home.component';
 import { CreateModelComponent } from './create-model/create-model.component';
 
-import { DatabaseService } from './database.service';
+import { DatabaseService } from './services/database.service';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -40,7 +42,8 @@ const routes: Routes = [
       outerStrokeColor: "#78C000",
       innerStrokeColor: "#C7E596",
       animationDuration: 300,
-    })
+    }),
+    HttpClientModule
   ],
   providers: [
     DatabaseService

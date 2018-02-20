@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { collectExternalReferences } from '@angular/compiler/src/output/output_ast';
-import { DatabaseService } from '../database.service';
+import { Response } from '@angular/http';
+
+import { DatabaseService } from '../services/database.service';
+
+import NERM from '../models/nerm.model';
+
 
 @Component({
   selector: 'app-login-page',
@@ -16,25 +21,22 @@ export class LoginPageComponent implements OnInit {
   password: FormControl;
   confirmPassword: FormControl;
 
+  NERMsList: NERM[];
+
   constructor(
     private router: Router,
-    public databaseService: DatabaseService
+    public databaseService: DatabaseService,
   ) {
   }
 
   ngOnInit() {
     this.createFormControls();
     this.createForm();
-    this.databaseService.dbConnection()
-    this.databaseService.readDBFromTable('user')
-    // .then(()=>{
-    //   console.log('Connection established');
-    //   this.databaseService.readDBFromTable('user');
-    // })
-    // .catch((err)=>{
-    //   console.log('Error connecting to Db');
-    // })
-
+    this.databaseService.getNERMs()
+      .subscribe(nerms => {
+        this.NERMsList = nerms;
+        console.log(nerms)
+      })
   }
 
   createFormControls() {
@@ -61,26 +63,60 @@ export class LoginPageComponent implements OnInit {
 
   onLogin() {
     if (this.loginForm.valid) {
+
       //Check Email in database
-      let email = this.loginForm.controls.email.value
-      this.router.navigate(['home', { clearHistory: true, email }])
+      if (this.checkDB) {
+        let email = this.loginForm.controls.email.value
+        this.router.navigate(['home', { clearHistory: true, email }])
+      }
     }
     else {
       console.log("try again")
-      console.log(this.loginForm.controls.email.value)
-      console.log(this.loginForm.controls.password.value)
     }
   }
 
   onRegister() {
-    if(this.confirmPassword.value === this.password.value){
-      //Create Emain in database
-      this.onLogin()
+    if (this.confirmPassword.value === this.password.value) {
+      
+      // Create Email in database
+      this.createDB().then(() => {
+        this.onLogin();
+      })
+        .catch((err) => {
+          console.log(err);
+        })
+
     }
-    else{
+    else {
       console.log('error')
     }
   }
+
+  checkDB() {
+    return this.NERMsList.filter(nerm =>
+      nerm.email === this.email.value && nerm.password === this.password.value
+    )
+  }
+
+  createDB() {
+    let newNERM = new NERM()
+    newNERM.email = this.email.value;
+    newNERM.password = this.password.value;
+    return new Promise((resolve, reject) => {
+      let databasesub = this.databaseService.createNERM(newNERM)
+        .subscribe((res) => {
+          this.NERMsList.push(res.data)
+          databasesub.unsubscribe();
+          resolve();
+        }
+          , (err) => {
+            reject(err)
+          })
+    })
+
+
+  }
+
 }
 
 
