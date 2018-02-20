@@ -12,11 +12,12 @@ export class DatabaseService {
   ) {
     this.config = mysqlConfig.config
     this.con = mysql.createConnection(this.config)
-    console.log(this.con)
+    
   }
 
   dbConnection() {
       this.con.connect();
+      console.log(this.con.connect())
   }
 
   dbDisconnection() {
