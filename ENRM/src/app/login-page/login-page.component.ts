@@ -26,6 +26,7 @@ export class LoginPageComponent implements OnInit {
     this.createFormControls();
     this.createForm();
     this.databaseService.dbConnection()
+    this.databaseService.readDBFromTable('user')
     // .then(()=>{
     //   console.log('Connection established');
     //   this.databaseService.readDBFromTable('user');
