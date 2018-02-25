@@ -35,6 +35,7 @@ export class LoginPageComponent implements OnInit {
     this.databaseService.getNERMs()
       .subscribe(nerms => {
         this.NERMsList = nerms;
+        console.log(this.NERMsList)
       })
   }
 
@@ -62,17 +63,19 @@ export class LoginPageComponent implements OnInit {
 
   onLogin() {
     if (this.loginForm.valid) {
-      console.log(this.NERMsList)
+      
       //Check Email in database
-      console.log(this.checkDB)
-      if (this.checkDB.length != 0) {
-        let email = this.loginForm.controls.email.value
-        this.router.navigate(['home', { clearHistory: true, email }])
-      }
+      this.checkDB().then((user: any) => {
+        if (user.length !== 0) {
+          let email = this.loginForm.controls.email.value
+          this.router.navigate(['home', { clearHistory: true, email }])
+        }
+        else {
+          console.log("try again")
+        }
+      })
     }
-    else {
-      console.log("try again")
-    }
+
   }
 
   onRegister() {
@@ -93,11 +96,12 @@ export class LoginPageComponent implements OnInit {
   }
 
   checkDB() {
-    console.log(this.email.value)
-    console.log(this.password.value)
-    return this.NERMsList.filter((nerms) =>
-      nerms.email === this.email.value && nerms.password === this.password.value
-    )
+    return new Promise((resolve, reject) => {
+      let user = this.NERMsList.filter((nerms) =>
+        nerms.email === this.email.value && nerms.password === this.password.value
+      )
+      resolve(user);
+    })
   }
 
   createDB() {
