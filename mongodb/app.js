@@ -40,10 +40,10 @@ app.use('/users', users);
 app.use('/api', api);
 
 app.use(function(req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", "http://158.108.34.72:4200");
-  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.setHeader('Access-Control-Allow-Credentials', true);
+  res.header("Access-Control-Allow-Origin", "http://158.108.34.72:4200/*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header('Access-Control-Allow-Credentials', true);
   next();
 });
 
