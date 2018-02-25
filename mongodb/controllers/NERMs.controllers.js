@@ -22,7 +22,7 @@ exports.getNERM = async function(req, res, next){
         
         // Return the todos list with the appropriate HTTP Status Code and Message.
         
-        return res.status(200).json({status: 200, data: nerms, message: "Succesfully Todos Recieved"});
+        return res.status(200).json({status: 200, data: nerms, message: "Succesfully nermsdb Recieved"});
         
     }catch(e){
         

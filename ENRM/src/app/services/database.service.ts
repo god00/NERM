@@ -10,7 +10,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class DatabaseService {
 
-  api_url = 'http://158.108.34.72:3000';
+  api_url = 'http://localhost:3000';
   nermUrl = `${this.api_url}/api/nerms`;
 
   constructor(
@@ -29,7 +29,7 @@ export class DatabaseService {
     return this.http.get(this.nermUrl)
     .map(res  => {
       //Maps the response object sent from the server
-        
+      console.log(res);
       return res["data"].docs as NERM[];
     })
   }
