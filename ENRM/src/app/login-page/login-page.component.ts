@@ -35,7 +35,7 @@ export class LoginPageComponent implements OnInit {
     this.databaseService.getNERMs()
       .subscribe(nerms => {
         this.NERMsList = nerms;
-        console.log(nerms)
+        console.log(nerms);
       })
   }
 
@@ -63,7 +63,7 @@ export class LoginPageComponent implements OnInit {
 
   onLogin() {
     if (this.loginForm.valid) {
-
+      console.log(this.NERMsList)
       //Check Email in database
       console.log(this.checkDB.length)
       if (this.checkDB.length != 0) {
