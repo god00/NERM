@@ -93,9 +93,10 @@ export class LoginPageComponent implements OnInit {
   }
 
   checkDB() {
-    return this.NERMsList.filter(function (nerms) {
+    var user_db = this.NERMsList.filter(function (nerms) {
       return nerms.email === this.email.value && nerms.password === this.password.value
     })
+    return user_db
   }
 
   createDB() {
