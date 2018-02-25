@@ -64,8 +64,7 @@ export class LoginPageComponent implements OnInit {
     if (this.loginForm.valid) {
       console.log(this.NERMsList)
       //Check Email in database
-      let a = this.checkDB
-      console.log(a)
+      console.log(this.checkDB)
       if (this.checkDB.length != 0) {
         let email = this.loginForm.controls.email.value
         this.router.navigate(['home', { clearHistory: true, email }])
@@ -94,10 +93,11 @@ export class LoginPageComponent implements OnInit {
   }
 
   checkDB() {
-    let user_db = this.NERMsList.filter(function (nerms) {
-      return nerms.email === this.email.value && nerms.password === this.password.value
-    })
-    return user_db
+    console.log(this.email.value)
+    console.log(this.password.value)
+    return this.NERMsList.filter((nerms) =>
+      nerms.email === this.email.value && nerms.password === this.password.value
+    )
   }
 
   createDB() {
