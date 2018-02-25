@@ -78,7 +78,7 @@ export class LoginPageComponent implements OnInit {
 
   onRegister() {
     if (this.confirmPassword.value === this.password.value) {
-      
+
       // Create Email in database
       this.createDB().then(() => {
         this.onLogin();
@@ -94,9 +94,9 @@ export class LoginPageComponent implements OnInit {
   }
 
   checkDB() {
-    return this.NERMsList.filter(nerm =>
-      nerm.email === this.email.value && nerm.password === this.password.value
-    )
+    return this.NERMsList.filter(function (nerms) {
+      return nerms.email === this.email.value && nerms.password === this.password.value
+    })
   }
 
   createDB() {
