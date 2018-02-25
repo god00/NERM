@@ -35,7 +35,6 @@ export class LoginPageComponent implements OnInit {
     this.databaseService.getNERMs()
       .subscribe(nerms => {
         this.NERMsList = nerms;
-        console.log(nerms);
       })
   }
 
@@ -65,7 +64,7 @@ export class LoginPageComponent implements OnInit {
     if (this.loginForm.valid) {
       console.log(this.NERMsList)
       //Check Email in database
-      console.log(this.checkDB.length)
+      console.log(this.checkDB)
       if (this.checkDB.length != 0) {
         let email = this.loginForm.controls.email.value
         this.router.navigate(['home', { clearHistory: true, email }])
