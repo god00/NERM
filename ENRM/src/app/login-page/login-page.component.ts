@@ -61,7 +61,9 @@ export class LoginPageComponent implements OnInit {
   }
 
   onLogin() {
+    console.log('login')
     if (this.loginForm.valid) {
+      console.log('loginform valid')
       this.getDB().then(() => {
         console.log(this.NERMsList)
         //Check Email in database
