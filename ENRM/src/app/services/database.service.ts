@@ -1,6 +1,6 @@
 import NERM from '../models/nerm.model'
 import { Observable } from 'rxjs/Rx';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Response } from '@angular/http';
 import { Injectable } from '@angular/core'
 
@@ -54,23 +54,5 @@ export class DatabaseService {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
   }
-
-  checkPassword(nerm: NERM): Observable<NERM[]> {
-    const params = new HttpParams({
-      fromString: `${nerm.password}`
-    });
-    return this.http
-      .request(
-        "GET",
-        this.nermUrl,
-        {
-          responseType: "json",
-          params
-        })
-      .do(console.log)
-      .map(data => { return data });
-
-  }
-
 
 }

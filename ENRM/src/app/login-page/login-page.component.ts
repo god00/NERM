@@ -65,10 +65,6 @@ export class LoginPageComponent implements OnInit {
       this.getDB().then(() => {
         //Check Email in database
         this.checkDB().then((user: any) => {
-          this.databaseService.checkPassword(user)
-            .subscribe(data => {
-              console.log(data);
-            });
           if (user.length !== 0) {
             let email = this.loginForm.controls.email.value;
             this.router.navigate(['home', { clearHistory: true, email }]);
