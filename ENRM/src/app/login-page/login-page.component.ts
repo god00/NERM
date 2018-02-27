@@ -73,7 +73,6 @@ export class LoginPageComponent implements OnInit {
 
   onLogin() {
     if (this.loginForm.valid) {
-      console.log('loginform valid')
       this.getDB().then(() => {
         console.log(this.NERMsList)
         //Check Email in database
@@ -93,6 +92,7 @@ export class LoginPageComponent implements OnInit {
   }
 
   onRegister() {
+
     if (this.registerForm.valid && this.rConfirmPassword.value === this.rPassword.value) {
 
       this.getDB().then(() => {
@@ -103,6 +103,7 @@ export class LoginPageComponent implements OnInit {
             this.createDB(this.rEmail, this.rPassword).then(() => {
               this.onLogin();
               this.getNERM.unsubscribe();
+              console.log('regis success')
             })
               .catch((err) => {
                 console.log(err);
