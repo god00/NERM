@@ -143,8 +143,8 @@ export class LoginPageComponent implements OnInit {
           this.NERMsList.push(res.data)
           databaseSub.unsubscribe();
           this.loginForm.setValue({
-            email: this.rEmail,
-            password: this.rPassword
+            email: this.rEmail.value,
+            password: this.rPassword.value
           });
           console.log(this.loginForm);
           resolve();
