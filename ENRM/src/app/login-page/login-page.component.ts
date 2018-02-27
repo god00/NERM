@@ -17,9 +17,11 @@ import NERM from '../models/nerm.model';
 export class LoginPageComponent implements OnInit {
   loginForm: FormGroup;
   registerForm: FormGroup;
-  email: FormControl;
-  password: FormControl;
-  confirmPassword: FormControl;
+  lEmail: FormControl;
+  lPassword: FormControl;
+  rEmail: FormControl;
+  rPassword: FormControl;
+  rConfirmPassword: FormControl;
   getNERM: any;
   NERMsList: NERM[];
 
@@ -35,34 +37,41 @@ export class LoginPageComponent implements OnInit {
   }
 
   createFormControls() {
-    this.email = new FormControl('', [
+    this.lEmail = new FormControl('', [
       Validators.required,
       Validators.pattern("[^ @]*@[^ @]*.*")
     ]);
-    this.password = new FormControl('', [
+    this.lPassword = new FormControl('', [
       Validators.required,
       Validators.minLength(8)
     ]);
-    this.confirmPassword = new FormControl(undefined, [
+    this.rEmail = new FormControl('', [
+      Validators.required,
+      Validators.pattern("[^ @]*@[^ @]*.*")
+    ]);
+    this.rPassword = new FormControl('', [
+      Validators.required,
+      Validators.minLength(8)
+    ]);
+    this.rConfirmPassword = new FormControl(undefined, [
+      Validators.required,
       Validators.minLength(8)
     ]);
   }
 
   createForm() {
     this.loginForm = new FormGroup({
-      email: this.email,
-      password: this.password
+      email: this.lEmail,
+      password: this.lPassword
     });
     this.registerForm = new FormGroup({
-      email: this.email,
-      password: this.password,
-      confirmPassword: this.confirmPassword
+      email: this.rEmail,
+      password: this.rPassword,
+      confirmPassword: this.rConfirmPassword
     });
   }
 
   onLogin() {
-    console.log('login')
-    console.log(this.loginForm.valid)
     if (this.loginForm.valid) {
       console.log('loginform valid')
       this.getDB().then(() => {
