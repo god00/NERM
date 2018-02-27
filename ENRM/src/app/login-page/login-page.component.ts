@@ -88,7 +88,7 @@ export class LoginPageComponent implements OnInit {
         })
       })
     }
-    else{
+    else {
       console.log('login error')
     }
 
@@ -143,8 +143,10 @@ export class LoginPageComponent implements OnInit {
           this.NERMsList.push(res.data)
           databaseSub.unsubscribe();
           this.loginForm.setValue({
-            email: this.rEmail, password: this.rPassword
+            email: this.rEmail,
+            password: this.rPassword
           });
+          console.log(this.loginForm);
           resolve();
         }
           , (err) => {
