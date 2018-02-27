@@ -62,6 +62,7 @@ export class LoginPageComponent implements OnInit {
 
   onLogin() {
     console.log('login')
+    console.log(this.loginForm.valid)
     if (this.loginForm.valid) {
       console.log('loginform valid')
       this.getDB().then(() => {
