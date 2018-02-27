@@ -105,10 +105,11 @@ export class LoginPageComponent implements OnInit {
         this.checkDB(this.rEmail, this.rPassword).then((user: any) => {
           if (user.length === 0) {
             this.createDB(this.rEmail, this.rPassword).then(() => {
-              console.log(this.loginForm)
-              this.onLogin();
-              this.getNERM.unsubscribe();
-              console.log('regis success')
+              this.setValueLoginForm().then(() => {
+                this.onLogin();
+                this.getNERM.unsubscribe();
+                console.log('regis success')
+              })
             })
               .catch((err) => {
                 console.log(err);
@@ -143,10 +144,6 @@ export class LoginPageComponent implements OnInit {
         .subscribe((res) => {
           this.NERMsList.push(res.data)
           databaseSub.unsubscribe();
-          this.loginForm.setValue({
-            email: this.rEmail.value,
-            password: this.rPassword.value
-          });
           resolve();
         }
           , (err) => {
@@ -162,6 +159,16 @@ export class LoginPageComponent implements OnInit {
           this.NERMsList = nerms;
           resolve();
         })
+    })
+  }
+
+  setValueLoginForm() {
+    return new Promise((resolve, reject) => {
+      this.loginForm.setValue({
+        email: this.rEmail.value,
+        password: this.rPassword.value
+      });
+      resolve();
     })
 
   }
