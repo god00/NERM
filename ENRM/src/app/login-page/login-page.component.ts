@@ -146,7 +146,6 @@ export class LoginPageComponent implements OnInit {
             email: this.rEmail.value,
             password: this.rPassword.value
           });
-          console.log(this.loginForm);
           resolve();
         }
           , (err) => {
