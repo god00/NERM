@@ -53,7 +53,7 @@ export class LoginPageComponent implements OnInit {
       email: this.email,
       password: this.password
     });
-    this.loginForm = new FormGroup({
+    this.registerForm = new FormGroup({
       email: this.email,
       password: this.password,
       confirmPassword: this.confirmPassword
