@@ -20,7 +20,7 @@ export class LoginPageComponent implements OnInit {
   email: FormControl;
   password: FormControl;
   confirmPassword: FormControl;
-
+  getNERM: any;
   NERMsList: NERM[];
 
   constructor(
@@ -32,11 +32,6 @@ export class LoginPageComponent implements OnInit {
   ngOnInit() {
     this.createFormControls();
     this.createForm();
-    this.databaseService.getNERMs()
-      .subscribe(nerms => {
-        this.NERMsList = nerms;
-        console.log(this.NERMsList)
-      })
   }
 
   createFormControls() {
@@ -67,16 +62,22 @@ export class LoginPageComponent implements OnInit {
 
   onLogin() {
     if (this.loginForm.valid) {
-
-      //Check Email in database
-      this.checkDB().then((user: any) => {
-        if (user.length !== 0) {
-          let email = this.loginForm.controls.email.value
-          this.router.navigate(['home', { clearHistory: true, email }])
-        }
-        else {
-          console.log("try again")
-        }
+      this.getDB().then(() => {
+        //Check Email in database
+        this.checkDB().then((user: any) => {
+          this.databaseService.checkPassword(user)
+            .subscribe(data => {
+              console.log(data);
+            });
+          if (user.length !== 0) {
+            let email = this.loginForm.controls.email.value;
+            this.router.navigate(['home', { clearHistory: true, email }]);
+            this.getNERM.unsubscribe();
+          }
+          else {
+            console.log("try again");
+          }
+        })
       })
     }
 
@@ -85,19 +86,22 @@ export class LoginPageComponent implements OnInit {
   onRegister() {
     if (this.confirmPassword.value === this.password.value) {
 
-      // Create Email in database
-      this.checkDB().then((user: any) => {
-        if (user.length === 0) {
-          this.createDB().then(() => {
-            this.onLogin();
-          })
-            .catch((err) => {
-              console.log(err);
+      this.getDB().then(() => {
+        // Create Email in database
+        this.checkDB().then((user: any) => {
+          if (user.length === 0) {
+            this.createDB().then(() => {
+              this.onLogin();
+              this.getNERM.unsubscribe();
             })
-        }
-        else {
-          console.log("try again")
-        }
+              .catch((err) => {
+                console.log(err);
+              })
+          }
+          else {
+            console.log("try again")
+          }
+        })
       })
     }
     else {
@@ -119,17 +123,26 @@ export class LoginPageComponent implements OnInit {
     newNERM.email = this.email.value;
     newNERM.password = this.password.value;
     return new Promise((resolve, reject) => {
-      let databasesub = this.databaseService.createNERM(newNERM)
+      let databaseSub = this.databaseService.createNERM(newNERM)
         .subscribe((res) => {
           this.NERMsList.push(res.data)
-          databasesub.unsubscribe();
+          databaseSub.unsubscribe();
           resolve();
         }
           , (err) => {
             reject(err)
           })
     })
+  }
 
+  getDB() {
+    return new Promise((resolve, reject) => {
+      this.getNERM = this.databaseService.getNERMs()
+        .subscribe(nerms => {
+          this.NERMsList = nerms;
+          resolve();
+        })
+    })
 
   }
 

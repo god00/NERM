@@ -1,6 +1,6 @@
 import NERM from '../models/nerm.model'
 import { Observable } from 'rxjs/Rx';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Response } from '@angular/http';
 import { Injectable } from '@angular/core'
 
@@ -19,40 +19,57 @@ export class DatabaseService {
   }
 
   //Create nerm, takes a NERM Object
-  createNERM(nerm: NERM): Observable<any>{
+  createNERM(nerm: NERM): Observable<any> {
     //returns the observable of http post request 
     return this.http.post(`${this.nermUrl}`, nerm);
   }
 
   //Read nerm, takes no arguments
-  getNERMs(): Observable<NERM[]>{
+  getNERMs(): Observable<NERM[]> {
     return this.http.get(this.nermUrl)
-    .map((res)  => {
-      //Maps the response object sent from the server
-      console.log(res);
-      return res["data"].docs as NERM[];
-    })
+      .map((res) => {
+        //Maps the response object sent from the server
+        console.log(res);
+        return res["data"].docs as NERM[];
+      })
   }
   //Update nerm, takes a NERM Object as parameter
-  editNERM(nerm:NERM){
+  editNERM(nerm: NERM) {
     let editUrl = `${this.nermUrl}`
     //returns the observable of http put request 
     return this.http.put(editUrl, nerm);
   }
 
-  deleteNERM(id:string):any{
+  deleteNERM(id: string): any {
     //Delete the object by the id
     let deleteUrl = `${this.nermUrl}/${id}`
     return this.http.delete(deleteUrl)
-    .map(res  => {
-      return res;
-    })
+      .map(res => {
+        return res;
+      })
   }
 
   //Default Error handling method.
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
+  }
+
+  checkPassword(nerm: NERM): Observable<NERM[]> {
+    const params = new HttpParams({
+      fromString: `${nerm.password}`
+    });
+    return this.http
+      .request(
+        "GET",
+        this.nermUrl,
+        {
+          responseType: "json",
+          params
+        })
+      .do(console.log)
+      .map(data => { return data });
+
   }
 
 
