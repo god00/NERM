@@ -112,7 +112,6 @@ export class LoginPageComponent implements OnInit {
                 this.createDB(this.rEmail, this.rPassword)
                   .then(() => {
                     this.onLogin();
-                    this.getNERM.unsubscribe();
                     console.log('regis success')
                   })
                   .catch((err) => {
