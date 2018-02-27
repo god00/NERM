@@ -29,7 +29,6 @@ export class DatabaseService {
     return this.http.get(this.nermUrl)
       .map((res) => {
         //Maps the response object sent from the server
-        console.log(res);
         return res["data"].docs as NERM[];
       })
   }

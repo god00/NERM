@@ -20,14 +20,12 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.email = params['email'];
-      console.log(this.email)
    });
    
    if(!this.email){
     this.router.navigate(['login'])
    }
 
-   console.log(this.email)
   }
   
   createModal(){
