@@ -88,6 +88,9 @@ export class LoginPageComponent implements OnInit {
         })
       })
     }
+    else{
+      console.log('login error')
+    }
 
   }
 
@@ -101,6 +104,7 @@ export class LoginPageComponent implements OnInit {
         this.checkDB(this.rEmail, this.rPassword).then((user: any) => {
           if (user.length === 0) {
             this.createDB(this.rEmail, this.rPassword).then(() => {
+              console.log(this.loginForm)
               this.onLogin();
               this.getNERM.unsubscribe();
               console.log('regis success')
