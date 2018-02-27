@@ -56,6 +56,10 @@ export class LoginPageComponent implements OnInit {
   createForm() {
     this.loginForm = new FormGroup({
       email: this.email,
+      password: this.password
+    });
+    this.loginForm = new FormGroup({
+      email: this.email,
       password: this.password,
       confirmPassword: this.confirmPassword
     });
@@ -63,7 +67,7 @@ export class LoginPageComponent implements OnInit {
 
   onLogin() {
     if (this.loginForm.valid) {
-      
+
       //Check Email in database
       this.checkDB().then((user: any) => {
         if (user.length !== 0) {
@@ -82,13 +86,19 @@ export class LoginPageComponent implements OnInit {
     if (this.confirmPassword.value === this.password.value) {
 
       // Create Email in database
-      this.createDB().then(() => {
-        this.onLogin();
+      this.checkDB().then((user: any) => {
+        if (user.length === 0) {
+          this.createDB().then(() => {
+            this.onLogin();
+          })
+            .catch((err) => {
+              console.log(err);
+            })
+        }
+        else {
+          console.log("try again")
+        }
       })
-        .catch((err) => {
-          console.log(err);
-        })
-
     }
     else {
       console.log('error')
