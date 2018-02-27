@@ -104,9 +104,16 @@ export class LoginPageComponent implements OnInit {
               this.loginForm.setValue({
                 email: this.rEmail, password: this.rPassword
               });
-              this.onLogin();
-              this.getNERM.unsubscribe();
-              console.log('regis success')
+              try {
+                this.onLogin();
+                this.getNERM.unsubscribe();
+                console.log('regis success')
+              }
+              catch{
+                console.log('error');
+              }
+
+
             })
               .catch((err) => {
                 console.log(err);
