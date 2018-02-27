@@ -62,8 +62,7 @@ export class LoginPageComponent implements OnInit {
 
   onLogin() {
     if (this.loginForm.valid) {
-      this.getDB().then((nerms: NERM[]) => {
-        this.NERMsList = nerms;
+      this.getDB().then(() => {
 
         //Check Email in database
         this.checkDB().then((user: any) => {
@@ -84,8 +83,7 @@ export class LoginPageComponent implements OnInit {
   onRegister() {
     if (this.confirmPassword.value === this.password.value) {
 
-      this.getDB().then((nerms: NERM[]) => {
-        this.NERMsList = nerms;
+      this.getDB().then(() => {
 
         // Create Email in database
         this.checkDB().then((user: any) => {
@@ -139,7 +137,8 @@ export class LoginPageComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.getNERM = this.databaseService.getNERMs()
         .subscribe(nerms => {
-          resolve(nerms);
+          this.NERMsList = nerms;
+          resolve();
         })
     })
 
