@@ -27,7 +27,7 @@ export class DatabaseService {
   //Read nerm, takes no arguments
   getNERMs(): Observable<NERM[]>{
     return this.http.get(this.nermUrl)
-    .map(res  => {
+    .map((res)  => {
       //Maps the response object sent from the server
       console.log(res);
       return res["data"].docs as NERM[];
