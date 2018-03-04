@@ -36,7 +36,7 @@ exports.createNERM = async function (nerm) {
     console.log(hashPassword(nerm.password))
     var newNERM = new NERM({
         email: nerm.email,
-        password: hashPassword(nerm.password),
+        password: await hashPassword(nerm.password),
         date: new Date(),
     })
 
