@@ -48,10 +48,12 @@ exports.createNERM = async function (req, res, next) {
         var nerms = await NERMService.getNERMs({}, page, limit);
         var NERMsList = nerms.docs;
         if (await NERMService.checkEmail(nerm.email, NERMsList)) {
+            console.log('if')
             var createdNERM = await NERMService.createNERM(nerm)
             return res.status(201).json({ status: 201, data: true, message: "Succesfully Created User" })
         }
         else {
+            console.log('else')
             return res.status(400).json({ status: 400, data: false, message: "This user already exists" })
         }
 
