@@ -54,7 +54,7 @@ exports.createNERM = async function (req, res, next) {
             return res.status(201).json({ status: 201, data: true, message: "Succesfully Created User" })
         }
         else {
-            return res.status(400).json({ status: 400, data: false, message: "This user already exists" })
+            return res.status(201).json({ status: 201, data: false, message: "This user already exists" })
         }
 
 
