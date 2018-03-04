@@ -115,17 +115,7 @@ exports.loginNERM = function (password, hash) {
     }
 }
 
-function hashPassword(password) {
-    try {
-        return bcrypt.hash(password, 10).then(hash => {
-            return hash;
-        })
-    } catch (e) {
-        throw Error("And Error occured while hashing Password");
-    }
-}
-
-function checkEmail(email,objsOfArr) {
+exports.checkEmail = function (email, objsOfArr) {
     var exist = objsOfArr.filter((nerms) =>
         nerms.email === email
     )
@@ -134,5 +124,15 @@ function checkEmail(email,objsOfArr) {
     }
     else {
         return false;
+    }
+}
+
+function hashPassword(password) {
+    try {
+        return bcrypt.hash(password, 10).then(hash => {
+            return hash;
+        })
+    } catch (e) {
+        throw Error("And Error occured while hashing Password");
     }
 }
