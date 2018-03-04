@@ -1,5 +1,6 @@
 var mongoose = require('mongoose')
 var mongoosePaginate = require('mongoose-paginate')
+var bcrypt = require('bcrypt')
 
 
 var NERMSchema = new mongoose.Schema({

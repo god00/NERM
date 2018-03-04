@@ -94,3 +94,7 @@ exports.removeNERM = async function(req, res, next){
     }
 
 }
+
+exports.loginNERM = async function(req, res, next){
+    
+}
