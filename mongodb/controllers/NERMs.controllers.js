@@ -36,7 +36,7 @@ exports.getNERM = async function (req, res, next) {
 exports.createNERM = async function (req, res, next) {
 
     // Req.Body contains the form submit values.
-    console.log(req)
+    console.log(req.body)
     var user = {
         email: req.body.email,
         password: req.body.password,
