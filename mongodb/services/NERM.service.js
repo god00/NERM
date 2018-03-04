@@ -33,7 +33,6 @@ exports.getNERMs = async function (query, page, limit) {
 }
 
 exports.createNERM = async function (nerm) {
-    console.log(hashPassword(nerm.password))
     var newNERM = new NERM({
         email: nerm.email,
         password: await hashPassword(nerm.password),
@@ -47,6 +46,7 @@ exports.createNERM = async function (nerm) {
 
         // Saving the Todo 
         var savedNERM = await newNERM.save()
+        console.log(savedNERM)
 
         return savedNERM;
     } catch (e) {
@@ -105,7 +105,6 @@ exports.deleteNERM = async function (id) {
 async function hashPassword(password) {
     try {
         var hash = bcrypt.hash(password, 10).then(hash => {
-            console.log(hash)
             return hash;
         })
     } catch (e) {
