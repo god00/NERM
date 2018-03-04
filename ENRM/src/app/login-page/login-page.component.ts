@@ -115,11 +115,11 @@ export class LoginPageComponent implements OnInit {
           this.setValue().then(() => {
             this.onLogin();
           })
-          this.loginNERM.unsubscribe();
+          this.createNERM.unsubscribe();
         }
         else if (res) {
           console.log(res.message);
-          this.loginNERM.unsubscribe();
+          this.createNERM.unsubscribe();
         }
         else{
           console.log('error')
