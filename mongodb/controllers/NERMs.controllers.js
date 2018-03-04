@@ -113,7 +113,7 @@ exports.loginNERM = async function (req, res, next) {
         )
         // Calling the Service function with the new object from the Request Body
         console.log(user.password)
-        console.log(hash)
+        console.log(hash.password)
         var loginStatus = await NERMService.loginNERM(user.password, hash);
         console.log(loginStatus);
         return res.status(201).json({ status: 201, data: loginStatus, message: "Succesfully Login" })
