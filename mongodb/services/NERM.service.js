@@ -1,5 +1,6 @@
 // Gettign the Newly created Mongoose Model we just created 
 var NERM = require('../models/NERM.model')
+var bcrypt = require('bcrypt')
 
 // Saving the context of this module inside the _the variable
 _this = this
