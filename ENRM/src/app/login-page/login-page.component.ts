@@ -81,6 +81,7 @@ export class LoginPageComponent implements OnInit {
       this.loginNERM = this.databaseService.loginNERM(user)
         .subscribe(res => {
           if (res) {
+            console.log(res)
             let email = this.loginForm.controls.email.value;
             this.router.navigate(['home', { clearHistory: true, email }]);
             this.loginNERM.unsubscribe();
