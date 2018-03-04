@@ -97,7 +97,7 @@ exports.removeNERM = async function (req, res, next) {
 
 exports.loginNERM = async function (req, res, next) {
 
-    var nerm = {
+    var user = {
         email: req.body.email,
         password: req.body.password,
     }
@@ -108,13 +108,13 @@ exports.loginNERM = async function (req, res, next) {
     try {
         var nerms = await NERMService.getNERMs({}, page, limit);
         var NERMsList = nerms.docs;
-        var user = await NERMsList.filter((nerms) =>
-            nerms.email === nerm.email
+        var hash = await NERMsList.filter((nerms) =>
+            nerms.email === user.email
         )
         // Calling the Service function with the new object from the Request Body
-        console.log(nerm.password)
         console.log(user.password)
-        var loginStatus = await NERMService.loginNERM(nerm.password, user.password);
+        console.log(hash)
+        var loginStatus = await NERMService.loginNERM(user.password, hash);
         console.log(loginStatus);
         return res.status(201).json({ status: 201, data: loginStatus, message: "Succesfully Login" })
     } catch (e) {
