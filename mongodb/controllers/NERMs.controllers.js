@@ -108,6 +108,7 @@ exports.loginNERM = async function (req, res, next) {
     try {
         var hash = await NERMService.getNERMs({}, page, limit);
         var NERMsList = hash.docs;
+        console.log(NERMsList)
         var user = await NERMsList.filter((nerms) =>
             nerms.email === nerm.email && nerms.password === nerm.password
         )
