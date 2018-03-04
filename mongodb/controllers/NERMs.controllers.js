@@ -37,11 +37,11 @@ exports.createNERM = async function (req, res, next) {
 
     // Req.Body contains the form submit values.
 
-    var nerm = {
+    var user = {
         email: req.body.email,
         password: req.body.password,
     }
-    console.log('hello')
+
     try {
         // Calling the Service function with the new object from the Request Body
         var nerms = await NERMService.getNERMs({}, page, limit);
@@ -49,22 +49,21 @@ exports.createNERM = async function (req, res, next) {
         var NERMsList = nerms.docs;
         console.log(NERMsList)
         console.log('before if')
-        if (NERMService.checkEmail(nerm.email, NERMsList)) {
-            console.log('if')
-            var createdNERM = await NERMService.createNERM(nerm)
-            return res.status(201).json({ status: 201, data: true, message: "Succesfully Created User" })
-        }
-        else {
-            console.log('else')
-            return res.status(400).json({ status: 400, data: false, message: "This user already exists" })
-        }
+        // if (NERMService.checkEmail(user.email, NERMsList)) {
+        //     console.log('if')
+        //     var createdNERM = await NERMService.createNERM(user)
+        //     return res.status(201).json({ status: 201, data: true, message: "Succesfully Created User" })
+        // }
+        // else {
+        //     console.log('else')
+        //     return res.status(400).json({ status: 400, data: false, message: "This user already exists" })
+        // }
 
 
     } catch (e) {
 
         //Return an Error Response Message with Code and the Error Message.
-
-        return res.status(400).json({ status: 400, message: "Todo Creation was Unsuccesfull" })
+        return res.status(400).json({ status: 400, message: "User Creation was Unsuccesfull" })
     }
 }
 
