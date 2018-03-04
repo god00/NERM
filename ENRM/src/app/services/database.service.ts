@@ -48,6 +48,11 @@ export class DatabaseService {
       })
   }
 
+  loginNERM(nerm: NERM): Observable<any> {
+    //returns the observable of http post request 
+    return this.http.post(`${this.nermUrl}/login`, nerm);
+  }
+
   //Default Error handling method.
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only

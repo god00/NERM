@@ -17,6 +17,8 @@ router.put('/', NERMController.updateNERM)
 
 router.delete('/:id',NERMController.removeNERM)
 
+router.post('/login',NERMController.loginNERM)
+
 
 // Export the Router
 

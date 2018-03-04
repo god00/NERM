@@ -34,7 +34,7 @@ exports.getNERMs = async function (query, page, limit) {
 
 exports.createNERM = async function (nerm) {
     var newPassword = await hashPassword(nerm.password)
-    console.log(newPassword);
+
     var newNERM = new NERM({
         email: nerm.email,
         password: newPassword,
@@ -48,8 +48,6 @@ exports.createNERM = async function (nerm) {
 
         // Saving the Todo 
         var savedNERM = await newNERM.save()
-        console.log(savedNERM)
-
         return savedNERM;
     } catch (e) {
 
@@ -101,6 +99,18 @@ exports.deleteNERM = async function (id) {
         return deleted
     } catch (e) {
         throw Error("Error Occured while Deleting the Todo")
+    }
+}
+
+exports.loginNERM = async function (password , hash) {
+    try {
+        return bcrypt.compare(password, hash).then(res => {
+            return res
+        });
+
+    }
+    catch (e) {
+        throw Error("Error Occured while Login")
     }
 }
 
