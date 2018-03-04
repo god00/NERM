@@ -43,7 +43,7 @@ exports.createNERM = async function (req, res, next) {
     }
     console.log('hello')
     try {
-
+        console.log('try')
         // Calling the Service function with the new object from the Request Body
         var nerms = await NERMService.getNERMs({}, page, limit);
         var NERMsList = nerms.docs;
