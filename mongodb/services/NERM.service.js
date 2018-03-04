@@ -103,8 +103,9 @@ exports.deleteNERM = async function (id) {
 }
 
 async function hashPassword(password) {
+    var newPassword ;
     var hash = await bcrypt.hash(password, 10, function (err, hash) {
-        return hash;
+        newPassword = hash;
     });
-    return hash;
+    return newPassword;
 }
