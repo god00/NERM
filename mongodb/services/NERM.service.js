@@ -116,12 +116,11 @@ exports.loginNERM = function (password, hash) {
 }
 
 exports.checkEmail = function (email, objsOfArr) {
-    console.log(email);
+
     var exist = objsOfArr.filter((nerms) =>
         nerms.email === email
     )
-    console.log('checkemail')
-    console.log(exist)
+
     if (exist.length === 0) {
         return true;    // no duplicate
     }
