@@ -106,7 +106,7 @@ exports.loginNERM = async function (req, res, next) {
     var limit = req.query.limit ? req.query.limit : 99999999;
 
     try {
-        var hash = await NERMService.getNERMs({ "data": { "doc": [] } }, page, limit)
+        var hash = await NERMService.getNERMs({ "data": { } }, page, limit)
         console.log(hash)
         // Calling the Service function with the new object from the Request Body
 
