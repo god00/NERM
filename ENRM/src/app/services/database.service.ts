@@ -10,7 +10,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class DatabaseService {
 
-  api_url = 'http://158.108.34.72:3000';
+  api_url = 'http://localhost:3000';
   nermUrl = `${this.api_url}/api/nerms`;
 
   constructor(
