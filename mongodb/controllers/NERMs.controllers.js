@@ -41,32 +41,31 @@ exports.createNERM = async function (req, res, next) {
         email: req.body.email,
         password: req.body.password,
     }
+    console.log(await NERMService.checkEmail(user.email, NERMsList))
 
-    // try {
+    try {
         // Calling the Service function with the new object from the Request Body
-        // var nerms = await NERMService.getNERMs({}, page, limit);
-        // console.log(nerms)
-        // var NERMsList = nerms.docs;
-        // console.log(NERMsList)
-        // console.log('before if')
-        // console.log(NERMService.checkEmail(user.email, NERMsList))
-        return res.status(400).json({ status: 400, data: false, message: "This user already exists" })
-        // if (NERMService.checkEmail(user.email, NERMsList)) {
-        //     console.log('if')
-        //     var createdNERM = await NERMService.createNERM(user)
-        //     return res.status(201).json({ status: 201, data: true, message: "Succesfully Created User" })
-        // }
-        // else {
-        //     console.log('else')
-        //     return res.status(400).json({ status: 400, data: false, message: "This user already exists" })
-        // }
+        var nerms = await NERMService.getNERMs({}, page, limit);
+        console.log(nerms)
+        var NERMsList = nerms.docs;
+        console.log(NERMsList)
+        console.log('before if')
+        if (NERMService.checkEmail(user.email, NERMsList)) {
+            console.log('if')
+            var createdNERM = await NERMService.createNERM(user)
+            return res.status(201).json({ status: 201, data: true, message: "Succesfully Created User" })
+        }
+        else {
+            console.log('else')
+            return res.status(400).json({ status: 400, data: false, message: "This user already exists" })
+        }
 
 
-    // } catch (e) {
+    } catch (e) {
 
-    //     //Return an Error Response Message with Code and the Error Message.
-    //     return res.status(400).json({ status: 400, message: "User Creation was Unsuccesfull" })
-    // }
+        //Return an Error Response Message with Code and the Error Message.
+        return res.status(400).json({ status: 400, message: "User Creation was Unsuccesfull" })
+    }
 }
 
 exports.updateNERM = async function (req, res, next) {
