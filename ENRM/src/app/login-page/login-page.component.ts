@@ -106,10 +106,10 @@ export class LoginPageComponent implements OnInit {
   onRegister() {
 
     if (this.registerForm.valid && this.rConfirmPassword.value === this.rPassword.value) {
-      let newNERM = new NERM()
-      newNERM.email = this.lEmail.value;
-      newNERM.password = this.lPassword.value;
-      this.createNERM = this.databaseService.createNERM(newNERM).subscribe(res => {
+      let newUser = new NERM()
+      newUser.email = this.lEmail.value;
+      newUser.password = this.lPassword.value;
+      this.createNERM = this.databaseService.createNERM(newUser).subscribe(res => {
         if (res.data) {
           console.log(res.message)
           this.setValue().then(() => {
