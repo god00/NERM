@@ -33,9 +33,11 @@ exports.getNERMs = async function (query, page, limit) {
 }
 
 exports.createNERM = async function (nerm) {
+    var newPassword = await hashPassword(nerm.password)
+    
     var newNERM = new NERM({
         email: nerm.email,
-        password: await hashPassword(nerm.password),
+        password: newPassword,
         date: new Date(),
     })
 
