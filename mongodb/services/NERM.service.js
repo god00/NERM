@@ -122,11 +122,11 @@ exports.checkEmail = function (email, objsOfArr) {
     )
     console.log('checkemail')
     console.log(exist)
-    if (exist.length !== 0) {
-        return true;
+    if (exist.length === 0) {
+        return true;    // no duplicate
     }
     else {
-        return false;
+        return false;   // duplicate
     }
 }
 

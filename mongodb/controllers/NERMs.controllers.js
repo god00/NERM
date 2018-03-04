@@ -36,7 +36,6 @@ exports.getNERM = async function (req, res, next) {
 exports.createNERM = async function (req, res, next) {
 
     // Req.Body contains the form submit values.
-    console.log(req.body)
     var user = {
         email: req.body.email,
         password: req.body.password,
@@ -49,8 +48,7 @@ exports.createNERM = async function (req, res, next) {
         // Calling the Service function with the new object from the Request Body
         var nerms = await NERMService.getNERMs({}, page, limit);
         var NERMsList = nerms.docs;
-        console.log(req.body.email)
-        console.log(NERMService.checkEmail(req.body.email, NERMsList))
+
         if (await NERMService.checkEmail(req.body.email, NERMsList)) {
             var createdNERM = await NERMService.createNERM(user)
             return res.status(201).json({ status: 201, data: true, message: "Succesfully Created User" })
