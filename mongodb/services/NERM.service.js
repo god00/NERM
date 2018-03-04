@@ -116,6 +116,8 @@ exports.loginNERM = function (password, hash) {
 }
 
 exports.checkEmail = function (email, objsOfArr) {
+    console.log(email);
+    console.log(objsOfArr)
     var exist = objsOfArr.filter((nerms) =>
         nerms.email === email
     )
