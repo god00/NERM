@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www",
+    "inspect": "kill-port --port 3000 && node --inspect=0.0.0.0:3000 ./app.js",
+    "start_watch_inspect": "nodemon --delay 80ms --watch build/ build/startup.js --exec 'npm run inspect'",
   },
   "dependencies": {
     "bcrypt": "^1.0.3",
