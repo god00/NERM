@@ -102,15 +102,19 @@ exports.loginNERM = async function (req, res, next) {
         password: req.body.password,
     }
 
-    var page = req.query.page ? req.query.page : 1
+    var page = req.query.page ? req.query.page : 1;
     var limit = req.query.limit ? req.query.limit : 99999999;
 
     try {
-        var hash = await NERMService.getNERMs({}, page, limit)
-        console.log(hash)
+        var hash = await NERMService.getNERMs({}, page, limit);
+        var NERMsList = hash.docs;
+        var user = await NERMsList.filter((nerms) =>
+            nerms.email === nerm.email && nerms.password === nerm.password
+        )
+        console.log(user)
         // Calling the Service function with the new object from the Request Body
 
-        var loginStatus = await NERMService.loginNERM(nerm.password, hash)
+        var loginStatus = await NERMService.loginNERM(nerm.password, user.password)
         return res.status(201).json({ status: 201, data: loginStatus, message: "Succesfully Login" })
     } catch (e) {
 
