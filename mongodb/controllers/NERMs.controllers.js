@@ -111,7 +111,7 @@ exports.loginNERM = async function (req, res, next) {
         console.log(nerm)
         console.log(NERMsList)
         var user = await NERMsList.filter((nerms) =>
-            nerms.email === nerm.email && nerms.password === nerm.password
+            nerms.email === nerm.email
         )
         console.log(user)
         // Calling the Service function with the new object from the Request Body
