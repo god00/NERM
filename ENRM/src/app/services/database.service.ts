@@ -48,9 +48,9 @@ export class DatabaseService {
       })
   }
 
-  loginNERM(nerm: NERM): Observable<any> {
+  loginNERM(user: NERM): Observable<any> {
     //returns the observable of http post request 
-    return this.http.post(`${this.nermUrl}/login`, nerm);
+    return this.http.post(`${this.nermUrl}/login`, user);
   }
 
   //Default Error handling method.

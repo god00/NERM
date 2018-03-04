@@ -23,6 +23,7 @@ export class LoginPageComponent implements OnInit {
   rPassword: FormControl;
   rConfirmPassword: FormControl;
   getNERM: any;
+  loginNERM: any;
   NERMsList: NERM[];
 
   constructor(
@@ -73,22 +74,38 @@ export class LoginPageComponent implements OnInit {
 
   onLogin() {
     if (this.loginForm.valid) {
-      this.getDB()
-        .then(() => {
-          //Check Email in database
-          this.checkDB(this.lEmail, this.lPassword)
-            .then((user: any) => {
-              if (user.length !== 0) {
-                let email = this.loginForm.controls.email.value;
-                this.router.navigate(['home', { clearHistory: true, email }]);
-                this.getNERM.unsubscribe();
-                console.log('login success')
-              }
-              else {
-                console.log("try again");
-              }
-            })
+      let user = new NERM()
+      user.email = this.lEmail.value;
+      user.password = this.lPassword.value;
+
+      this.loginNERM = this.databaseService.loginNERM(user)
+        .subscribe(res => {
+          if (res) {
+            let email = this.loginForm.controls.email.value;
+            this.router.navigate(['home', { clearHistory: true, email }]);
+            this.loginNERM.unsubscribe();
+          }
+          else {
+            console.log("try again");
+          }
         })
+
+      // this.getDB()
+      //   .then(() => {
+      //     //Check Email in database
+      //     this.checkDB(this.lEmail, this.lPassword)
+      //       .then((user: any) => {
+      //         if (user.length !== 0) {
+      //           let email = this.loginForm.controls.email.value;
+      //           this.router.navigate(['home', { clearHistory: true, email }]);
+      //           this.getNERM.unsubscribe();
+      //           console.log('login success')
+      //         }
+      //         else {
+      //           console.log("try again");
+      //         }
+      //       })
+      //   })
     }
     else {
       console.log('login error')
