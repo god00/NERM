@@ -42,7 +42,7 @@ exports.createNERM = async function (req, res, next) {
         password: req.body.password,
     }
 
-    try {
+    // try {
         // Calling the Service function with the new object from the Request Body
         var nerms = await NERMService.getNERMs({}, page, limit);
         console.log(nerms)
@@ -62,11 +62,11 @@ exports.createNERM = async function (req, res, next) {
         // }
 
 
-    } catch (e) {
+    // } catch (e) {
 
-        //Return an Error Response Message with Code and the Error Message.
-        return res.status(400).json({ status: 400, message: "User Creation was Unsuccesfull" })
-    }
+    //     //Return an Error Response Message with Code and the Error Message.
+    //     return res.status(400).json({ status: 400, message: "User Creation was Unsuccesfull" })
+    // }
 }
 
 exports.updateNERM = async function (req, res, next) {
