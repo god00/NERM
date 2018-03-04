@@ -103,9 +103,12 @@ exports.deleteNERM = async function (id) {
 }
 
 async function hashPassword(password) {
-    var newPassword;
-    var hash = await bcrypt.hash(password, 10, function (err, hash) {
-        newPassword = hash;
-    });
-    return newPassword;
+    try {
+        var hash = bcrypt.hash(password, 10).then(hash => {
+            return hash;
+        })
+    } catch (e) {
+        throw Error("And Error occured while hashing Password");
+    }
+
 }
