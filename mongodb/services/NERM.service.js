@@ -34,7 +34,7 @@ exports.getNERMs = async function (query, page, limit) {
 
 exports.createNERM = async function (nerm) {
     var newPassword = await hashPassword(nerm.password)
-    
+    console.log(newPassword);
     var newNERM = new NERM({
         email: nerm.email,
         password: newPassword,
@@ -104,7 +104,7 @@ exports.deleteNERM = async function (id) {
     }
 }
 
-async function hashPassword(password) {
+function hashPassword(password) {
     try {
         var hash = bcrypt.hash(password, 10).then(hash => {
             return hash;
