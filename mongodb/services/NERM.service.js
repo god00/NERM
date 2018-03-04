@@ -119,6 +119,8 @@ exports.checkEmail = function (email, objsOfArr) {
     var exist = objsOfArr.filter((nerms) =>
         nerms.email === email
     )
+    console.log('checkemail')
+    console.log(exist)
     if (exist.length !== 0) {
         return true;
     }

@@ -49,7 +49,7 @@ exports.createNERM = async function (req, res, next) {
         // Calling the Service function with the new object from the Request Body
         var nerms = await NERMService.getNERMs({}, page, limit);
         var NERMsList = nerms.docs;
-        console.log(NERMService.checkEmail(user.email, NERMsList)
+        console.log(NERMService.checkEmail(user.email, NERMsList))
         if (await NERMService.checkEmail(user.email, NERMsList)) {
             var createdNERM = await NERMService.createNERM(user)
             return res.status(201).json({ status: 201, data: true, message: "Succesfully Created User" })
