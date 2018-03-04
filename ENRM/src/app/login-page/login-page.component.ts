@@ -15,6 +15,7 @@ import NERM from '../models/nerm.model';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent implements OnInit {
+
   loginForm: FormGroup;
   registerForm: FormGroup;
   lEmail: FormControl;
@@ -22,9 +23,13 @@ export class LoginPageComponent implements OnInit {
   rEmail: FormControl;
   rPassword: FormControl;
   rConfirmPassword: FormControl;
+  NERMsList: NERM[];
+
+  //Subscription parameter
   getNERM: any;
   loginNERM: any;
-  NERMsList: NERM[];
+  createNERM: any;
+
 
   constructor(
     private router: Router,
@@ -101,28 +106,46 @@ export class LoginPageComponent implements OnInit {
   onRegister() {
 
     if (this.registerForm.valid && this.rConfirmPassword.value === this.rPassword.value) {
+      let newNERM = new NERM()
+      newNERM.email = this.lEmail.value;
+      newNERM.password = this.lPassword.value;
+      this.createNERM = this.databaseService.createNERM(newNERM).subscribe(res => {
+        if (res.data) {
+          console.log(res.message)
+          this.setValue().then(() => {
+            this.onLogin();
+          })
+          this.loginNERM.unsubscribe();
+        }
+        else if (res) {
+          console.log(res.message);
+          this.loginNERM.unsubscribe();
+        }
+        else{
+          console.log('error')
+        }
+      })
+      // this.getDB()
+      //   .then(() => {
 
-      this.getDB()
-        .then(() => {
-
-          // Create Email in database
-          this.checkDB(this.rEmail, this.rPassword)
-            .then((user: any) => {
-              if (user.length === 0) {
-                this.createDB(this.rEmail, this.rPassword)
-                  .then(() => {
-                    this.onLogin();
-                    console.log('regis success')
-                  })
-                  .catch((err) => {
-                    console.log(err);
-                  })
-              }
-              else {
-                console.log("try again")
-              }
-            })
-        })
+      //     // Create Email in database
+      //     this.checkDB(this.rEmail, this.rPassword)
+      //       .then((user: any) => {
+      //         if (user.length === 0) {
+      //           this.createDB(this.rEmail, this.rPassword)
+      //             .then(() => {
+      //               this.onLogin();
+      //               console.log('regis success')
+      //             })
+      //             .catch((err) => {
+      //               console.log(err);
+      //             })
+      //         }
+      //         else {
+      //           console.log("try again")
+      //         }
+      //       })
+      //   })
     }
     else {
       console.log('error')
@@ -168,6 +191,16 @@ export class LoginPageComponent implements OnInit {
         })
     })
 
+  }
+
+  setValue() {
+    return new Promise((resolve, reject) => {
+      this.loginForm.setValue({
+        email: this.rEmail.value,
+        password: this.rPassword.value
+      });
+      resolve();
+    })
   }
 
 }
