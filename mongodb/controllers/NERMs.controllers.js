@@ -45,9 +45,17 @@ exports.createNERM = async function (req, res, next) {
     try {
 
         // Calling the Service function with the new object from the Request Body
+        var nerms = await NERMService.getNERMs({}, page, limit);
+        var NERMsList = nerms.docs;
+        if (await NERMService.checkEmail(nerm.email, NERMsList)) {
+            var createdNERM = await NERMService.createNERM(nerm)
+            return res.status(201).json({ status: 201, data: createdNERM, message: "Succesfully Created User" })
+        }
+        else {
+            return res.status(400).json({ status: 400, message: "This user already exists" })
+        }
 
-        var createdNERM = await NERMService.createNERM(nerm)
-        return res.status(201).json({ status: 201, data: createdNERM, message: "Succesfully Created ToDo" })
+
     } catch (e) {
 
         //Return an Error Response Message with Code and the Error Message.
@@ -112,8 +120,7 @@ exports.loginNERM = async function (req, res, next) {
             nerms.email === user.email
         )
         // Calling the Service function with the new object from the Request Body
-        console.log(user.password)
-        console.log(hash[0].password)
+
         NERMService.loginNERM(user.password, hash[0].password)
             .then((status) => {
                 return res.status(201).json({ status: 201, data: status, message: "Succesfully Login" })

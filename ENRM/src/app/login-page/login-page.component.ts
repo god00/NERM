@@ -81,9 +81,9 @@ export class LoginPageComponent implements OnInit {
       this.loginNERM = this.databaseService.loginNERM(user)
         .subscribe(res => {
           if (res.data) {
-            console.log(res)
             let email = this.loginForm.controls.email.value;
             this.router.navigate(['home', { clearHistory: true, email }]);
+            console.log('login success')
             this.loginNERM.unsubscribe();
           }
           else {
@@ -91,23 +91,6 @@ export class LoginPageComponent implements OnInit {
             this.loginNERM.unsubscribe();
           }
         })
-
-      // this.getDB()
-      //   .then(() => {
-      //     //Check Email in database
-      //     this.checkDB(this.lEmail, this.lPassword)
-      //       .then((user: any) => {
-      //         if (user.length !== 0) {
-      //           let email = this.loginForm.controls.email.value;
-      //           this.router.navigate(['home', { clearHistory: true, email }]);
-      //           this.getNERM.unsubscribe();
-      //           console.log('login success')
-      //         }
-      //         else {
-      //           console.log("try again");
-      //         }
-      //       })
-      //   })
     }
     else {
       console.log('login error')

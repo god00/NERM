@@ -46,7 +46,7 @@ exports.createNERM = async function (nerm) {
 
     try {
 
-        // Saving the Todo 
+        // Saving the user 
         var savedNERM = await newNERM.save()
         return savedNERM;
     } catch (e) {
@@ -102,8 +102,8 @@ exports.deleteNERM = async function (id) {
     }
 }
 
-exports.loginNERM = function (password , hash) {
-    console.log('do function loginNERM')
+exports.loginNERM = function (password, hash) {
+
     try {
         return bcrypt.compare(password, hash).then(res => {
             return res
@@ -123,5 +123,16 @@ function hashPassword(password) {
     } catch (e) {
         throw Error("And Error occured while hashing Password");
     }
+}
 
+function checkEmail(email,objsOfArr) {
+    var exist = objsOfArr.filter((nerms) =>
+        nerms.email === email
+    )
+    if (exist.length !== 0) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
