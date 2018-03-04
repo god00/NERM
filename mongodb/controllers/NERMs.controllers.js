@@ -122,7 +122,6 @@ exports.loginNERM = async function (req, res, next) {
                 return res.status(201).json({ status: 201, data: err, message: "Login Failed" })
             });
 
-
     } catch (e) {
 
         //Return an Error Response Message with Code and the Error Message.

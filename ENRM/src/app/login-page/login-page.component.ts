@@ -80,7 +80,7 @@ export class LoginPageComponent implements OnInit {
 
       this.loginNERM = this.databaseService.loginNERM(user)
         .subscribe(res => {
-          if (res) {
+          if (res.data) {
             console.log(res)
             let email = this.loginForm.controls.email.value;
             this.router.navigate(['home', { clearHistory: true, email }]);
@@ -88,6 +88,7 @@ export class LoginPageComponent implements OnInit {
           }
           else {
             console.log("try again");
+            this.loginNERM.unsubscribe();
           }
         })
 
