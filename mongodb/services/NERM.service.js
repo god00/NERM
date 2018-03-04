@@ -102,7 +102,7 @@ exports.deleteNERM = async function (id) {
     }
 }
 
-exports.loginNERM = async function (password , hash) {
+exports.loginNERM = function (password , hash) {
     try {
         return bcrypt.compare(password, hash).then(res => {
             return res
