@@ -41,7 +41,7 @@ exports.createNERM = async function (req, res, next) {
         email: req.body.email,
         password: req.body.password,
     }
-    console.log(await NERMService.checkEmail(user.email, NERMsList))
+    console.log(NERMService.checkEmail(user.email, NERMsList))
 
     try {
         // Calling the Service function with the new object from the Request Body
