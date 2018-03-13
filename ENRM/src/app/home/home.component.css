@@ -37,3 +37,8 @@
     margin-bottom: 0;
     font-size: 0.75rem;
 }
+
+.navbar{
+    display: flex;
+    justify-content: space-between;
+}
