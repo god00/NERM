@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { AuthenticationService } from '../services/authentication.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -11,7 +13,8 @@ export class HomeComponent implements OnInit {
   user: Object;
   constructor(
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public authenicationService: AuthenticationService
   ) {
   }
 
@@ -21,6 +24,10 @@ export class HomeComponent implements OnInit {
 
   createModal() {
     this.router.navigate(['create']);
+  }
+
+  logout(){
+    this.authenicationService.logout();
   }
 
 }
