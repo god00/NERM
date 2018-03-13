@@ -8,17 +8,17 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   Model: string;
-  user;
+  user: Object;
   constructor(
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.user = localStorage.getItem('currentUser')
   }
 
   ngOnInit() {
-
-    console.log(this.user)
+    this.user = localStorage.getItem('currentUser')
+    console.log(this.user['email'])
+    console.log(this.user['token'])
   }
 
   createModal() {
