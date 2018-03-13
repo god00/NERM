@@ -87,7 +87,7 @@ export class LoginPageComponent implements OnInit {
         .subscribe(res => {
           if (res.data) {
             let email = this.loginForm.controls.email.value;
-            this.router.navigate(['home', { clearHistory: true, email }]);
+            this.router.navigate(['home']);
             console.log(res.message)
             this.loginNERM.unsubscribe();
           }
