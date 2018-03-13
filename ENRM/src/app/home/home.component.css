@@ -45,5 +45,10 @@
 
 .navbaricon{
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
+}
+
+.centerdropdown{
+    display: flex;
+    justify-content: center;
 }
