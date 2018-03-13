@@ -122,7 +122,7 @@ exports.loginNERM = async function (password, id, hash) {
                 }
             })
             .catch(err => {
-                resolve();
+                reject();
             })
 
         })
