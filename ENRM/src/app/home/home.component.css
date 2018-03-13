@@ -52,3 +52,7 @@
     display: flex;
     justify-content: center;
 }
+
+.fa-sign-out{
+    padding-left: 0.3rem;
+}
