@@ -16,9 +16,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = localStorage.getItem('currentUser')
+    this.user = JSON.parse(localStorage.getItem('currentUser'));
     console.log(this.user['email'])
-    console.log(this.user['token'])
+    console.log(this.user)
   }
 
   createModal() {
