@@ -15,16 +15,16 @@ export class AuthenticationService {
 
     loginNERM(user: NERM): Observable<any> {
         return this.http.post<any>(`${this.nermUrl}/login`, user)
-            .map(user => {
-                console.log(user);
-                console.log(user.token);
+            .map(res => {
+                console.log(res.data);
+                console.log(res.data.token);
                 // login successful if there's a jwt token in the response
-                if (user && user.token) {
+                if (res.data && res.data.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    localStorage.setItem('currentUser', JSON.stringify(res.data));
                 }
 
-                return user;
+                return res;
             });
     }
 

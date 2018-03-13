@@ -129,7 +129,7 @@ exports.loginNERM = async function (req, res, next) {
                     token
                 }
 
-                if (token)
+                if (token !== undefined)
                     return res.status(201).json({ status: 201, data: user, message: "Succesfully Login" })
                 else
                     return res.status(201).json({ status: 201, data: user, message: "Wrong password. Try again" })
