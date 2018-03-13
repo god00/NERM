@@ -11,7 +11,7 @@ export class AuthenticationService {
     constructor(private http: HttpClient) { }
 
     loginNERM(user: NERM): Observable<any> {
-        return this.http.post<any>(appConfig.apiUrl + '/login', user)
+        return this.http.post<any>(`${appConfig.apiUrl}/api/login`, user)
             .map(user => {
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {

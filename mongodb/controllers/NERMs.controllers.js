@@ -124,10 +124,15 @@ exports.loginNERM = async function (req, res, next) {
 
         NERMService.loginNERM(user.password, userDB._id, userDB[0].password)
             .then((token) => {
+                var user = {
+                    email: req.body.email,
+                    token
+                }
+
                 if (token)
-                    return res.status(201).json({ status: 201, data: token, message: "Succesfully Login" })
+                    return res.status(201).json({ status: 201, data: user, message: "Succesfully Login" })
                 else
-                    return res.status(201).json({ status: 201, data: token, message: "Wrong password. Try again" })
+                    return res.status(201).json({ status: 201, data: user, message: "Wrong password. Try again" })
             })
             .catch((err) => {
                 return res.status(201).json({ status: 201, data: err, message: "Login Failed" })
