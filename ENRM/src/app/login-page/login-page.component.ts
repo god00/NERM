@@ -88,17 +88,17 @@ export class LoginPageComponent implements OnInit {
           if (res.data) {
             let email = this.loginForm.controls.email.value;
             this.router.navigate(['home', { clearHistory: true, email }]);
-            console.log('login success')
+            console.log(res.message)
             this.loginNERM.unsubscribe();
           }
           else {
-            console.log("try again");
+            console.log(res.message);
             this.loginNERM.unsubscribe();
           }
         })
     }
     else {
-      console.log('login error')
+      console.log('Please Input Email & Password')
     }
 
   }
@@ -121,76 +121,14 @@ export class LoginPageComponent implements OnInit {
           console.log(res.message);
           this.createNERM.unsubscribe();
         }
-        else{
+        else {
           console.log('error')
         }
       })
-      // this.getDB()
-      //   .then(() => {
-
-      //     // Create Email in database
-      //     this.checkDB(this.rEmail, this.rPassword)
-      //       .then((user: any) => {
-      //         if (user.length === 0) {
-      //           this.createDB(this.rEmail, this.rPassword)
-      //             .then(() => {
-      //               this.onLogin();
-      //               console.log('regis success')
-      //             })
-      //             .catch((err) => {
-      //               console.log(err);
-      //             })
-      //         }
-      //         else {
-      //           console.log("try again")
-      //         }
-      //       })
-      //   })
     }
     else {
-      console.log('error')
+      console.log('Please Insert Form')
     }
-  }
-
-  checkDB(email, password) {
-    return new Promise((resolve, reject) => {
-      let user = this.NERMsList.filter((nerms) =>
-        nerms.email === email.value && nerms.password === password.value
-      )
-      resolve(user);
-    })
-  }
-
-  createDB(email, password) {
-    let newNERM = new NERM()
-    newNERM.email = email.value;
-    newNERM.password = password.value;
-    return new Promise((resolve, reject) => {
-      let databaseSub = this.databaseService.createNERM(newNERM)
-        .subscribe((res) => {
-          this.NERMsList.push(res.data)
-          databaseSub.unsubscribe();
-          this.loginForm.setValue({
-            email: this.rEmail.value,
-            password: this.rPassword.value
-          });
-          resolve();
-        }
-          , (err) => {
-            reject(err)
-          })
-    })
-  }
-
-  getDB() {
-    return new Promise((resolve, reject) => {
-      this.getNERM = this.databaseService.getNERMs()
-        .subscribe(nerms => {
-          this.NERMsList = nerms;
-          resolve();
-        })
-    })
-
   }
 
   setValue() {

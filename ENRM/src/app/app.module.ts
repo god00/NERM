@@ -14,11 +14,12 @@ import { CreateModelComponent } from './create-model/create-model.component';
 
 import { DatabaseService } from './services/database.service';
 
+import { AuthGuard } from './guard/auth.guard';
+
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full'},
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginPageComponent },
-  { path: 'home', component: HomeComponent},
   { path: 'create', component: CreateModelComponent}
  ];
 
@@ -46,11 +47,9 @@ const routes: Routes = [
     HttpClientModule
   ],
   providers: [
-    DatabaseService
+    DatabaseService,
+    AuthGuard
   ],
-  bootstrap: [
-    AppComponent,
-    LoginPageComponent
-  ]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

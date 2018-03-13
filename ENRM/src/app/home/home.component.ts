@@ -9,7 +9,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class HomeComponent implements OnInit {
   email: string;
   Model: string;
-  private sub: any;
 
   constructor(
     private router: Router,
@@ -18,20 +17,12 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      this.email = params['email'];
-   });
-   
-   if(!this.email){
-    this.router.navigate(['login'])
-   }
 
   }
   
   createModal(){
     let email = this.email
-    this.sub.unsubscribe()
-    this.router.navigate(['create', { clearHistory: true, email }])
+    this.router.navigate(['create']);
   }
 
 }
