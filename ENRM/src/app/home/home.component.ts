@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log(this.user.email)
+    console.log(this.user)
   }
 
   createModal() {
