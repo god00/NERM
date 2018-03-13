@@ -88,7 +88,7 @@ export class LoginPageComponent implements OnInit {
 
       this.loginNERM = this.authenicationService.loginNERM(user)
         .subscribe(res => {
-          if (res.data) {
+          if (res.data.token) {
             this.router.navigate(['']);
             console.log(res.data);
             console.log(res.message);
