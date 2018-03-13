@@ -8,10 +8,13 @@ import { appConfig } from '../app.config';
 
 @Injectable()
 export class AuthenticationService {
+
+    nermUrl = `${appConfig.apiUrl}/api/nerms`;
+    
     constructor(private http: HttpClient) { }
 
     loginNERM(user: NERM): Observable<any> {
-        return this.http.post<any>(`${appConfig.apiUrl}/api/login`, user)
+        return this.http.post<any>(`${this.nermUrl}/login`, user)
             .map(user => {
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {
