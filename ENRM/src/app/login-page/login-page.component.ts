@@ -89,7 +89,6 @@ export class LoginPageComponent implements OnInit {
       this.loginNERM = this.authenicationService.loginNERM(user)
         .subscribe(res => {
           this.router.navigate(['']);
-          console.log(res.data);
           console.log(res.message);
           this.loginNERM.unsubscribe();
         }
