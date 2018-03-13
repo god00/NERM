@@ -7,21 +7,19 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  email: string;
   Model: string;
-
+  user;
   constructor(
     private router: Router,
     private route: ActivatedRoute
-  ) { 
+  ) {
   }
 
   ngOnInit() {
-
+    this.user = localStorage.getItem('currentUser')
   }
-  
-  createModal(){
-    let email = this.email
+
+  createModal() {
     this.router.navigate(['create']);
   }
 
