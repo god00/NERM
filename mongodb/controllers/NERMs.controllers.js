@@ -121,8 +121,6 @@ exports.loginNERM = async function (req, res, next) {
             nerms.email === user.email
         )
         // Calling the Service function with the new object from the Request Body
-        console.log(user.password)
-        console.log(userDB[0].password)
         NERMService.loginNERM(user.password, userDB._id, userDB[0].password)
             .then((token) => {
                 var user = {
