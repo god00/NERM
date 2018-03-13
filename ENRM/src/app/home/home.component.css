@@ -42,3 +42,8 @@
     display: flex;
     justify-content: space-between;
 }
+
+.navbaricon{
+    display: flex;
+    justify-content: start;
+}
