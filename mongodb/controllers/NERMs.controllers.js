@@ -117,17 +117,17 @@ exports.loginNERM = async function (req, res, next) {
     try {
         var nerms = await NERMService.getNERMs({}, page, limit);
         var NERMsList = nerms.docs;
-        var hash = await NERMsList.filter((nerms) =>
+        var userDB = await NERMsList.filter((nerms) =>
             nerms.email === user.email
         )
         // Calling the Service function with the new object from the Request Body
 
-        NERMService.loginNERM(user.password, hash[0].password)
-            .then((status) => {
-                if (status)
-                    return res.status(201).json({ status: 201, data: status, message: "Succesfully Login" })
+        NERMService.loginNERM(user.password, userDB._id, userDB[0].password)
+            .then((token) => {
+                if (token)
+                    return res.status(201).json({ status: 201, data: token, message: "Succesfully Login" })
                 else
-                    return res.status(201).json({ status: 201, data: status, message: "Wrong password. Try again" })
+                    return res.status(201).json({ status: 201, data: token, message: "Wrong password. Try again" })
             })
             .catch((err) => {
                 return res.status(201).json({ status: 201, data: err, message: "Login Failed" })

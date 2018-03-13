@@ -1,8 +1,11 @@
-import NERM from '../models/nerm.model'
-import { Observable } from 'rxjs/Rx';
+import NERM from '../models/nerm.model';
+import { appConfig } from '../app.config';
+
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Response } from '@angular/http';
-import { Injectable } from '@angular/core'
+import { Response, RequestOptions } from '@angular/http';
+import { Injectable } from '@angular/core';
+
+import { Observable } from 'rxjs/Rx';
 
 //RxJS operator for mapping the observable
 import 'rxjs/add/operator/map';
@@ -10,8 +13,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class DatabaseService {
 
-  api_url = 'http://158.108.34.72:3000';
-  nermUrl = `${this.api_url}/api/nerms`;
+  nermUrl = `${appConfig.apiUrl}/api/nerms`;
 
   constructor(
     private http: HttpClient
@@ -46,11 +48,6 @@ export class DatabaseService {
       .map(res => {
         return res;
       })
-  }
-
-  loginNERM(user: NERM): Observable<any> {
-    //returns the observable of http post request 
-    return this.http.post(`${this.nermUrl}/login`, user);
   }
 
   //Default Error handling method.

@@ -15,6 +15,7 @@ import { CreateModelComponent } from './create-model/create-model.component';
 import { DatabaseService } from './services/database.service';
 
 import { AuthGuard } from './guard/auth.guard';
+import { AuthenticationService } from './services/authentication.service';
 
 
 const routes: Routes = [
@@ -48,6 +49,7 @@ const routes: Routes = [
   ],
   providers: [
     DatabaseService,
+    AuthenticationService,
     AuthGuard
   ],
   bootstrap: [AppComponent]

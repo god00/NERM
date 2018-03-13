@@ -1,6 +1,10 @@
+
 // Gettign the Newly created Mongoose Model we just created 
-var NERM = require('../models/NERM.model')
-var bcrypt = require('bcrypt')
+var NERM = require('../models/NERM.model');
+var config = require('config.json');
+var bcrypt = require('bcrypt');
+var jwt = require('jsonwebtoken');
+
 
 // Saving the context of this module inside the _the variable
 _this = this
@@ -102,12 +106,20 @@ exports.deleteNERM = async function (id) {
     }
 }
 
-exports.loginNERM = function (password, hash) {
+exports.loginNERM = async function (password, id, hash) {
 
     try {
-        return bcrypt.compare(password, hash).then(res => {
-            return res
-        });
+
+        return new Promise((resolve, reject) => {
+            if (await bcrypt.compare(password, hash)) {
+                let token = jwt.sign({ sub: id }, config.secret)
+                resolve(token);
+            }
+            else {
+                reject();
+            }
+        })
+
 
     }
     catch (e) {
@@ -127,6 +139,11 @@ exports.checkEmail = function (email, objsOfArr) {
     else {
         return false;   // duplicate
     }
+}
+
+exports.authenticate = async function (id) {
+
+
 }
 
 function hashPassword(password) {

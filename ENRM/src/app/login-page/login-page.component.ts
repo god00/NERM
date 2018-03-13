@@ -5,8 +5,10 @@ import { collectExternalReferences } from '@angular/compiler/src/output/output_a
 import { Response } from '@angular/http';
 
 import { DatabaseService } from '../services/database.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 import NERM from '../models/nerm.model';
+
 
 
 @Component({
@@ -34,6 +36,7 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private router: Router,
     public databaseService: DatabaseService,
+    public authenicationService: AuthenticationService
   ) {
   }
 
@@ -83,7 +86,7 @@ export class LoginPageComponent implements OnInit {
       user.email = this.lEmail.value;
       user.password = this.lPassword.value;
 
-      this.loginNERM = this.databaseService.loginNERM(user)
+      this.loginNERM = this.authenicationService.loginNERM(user)
         .subscribe(res => {
           if (res.data) {
             let email = this.loginForm.controls.email.value;
