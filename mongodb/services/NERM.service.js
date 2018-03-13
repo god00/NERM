@@ -111,14 +111,20 @@ exports.loginNERM = async function (password, id, hash) {
     try {
 
         return new Promise((resolve, reject) => {
-            if (bcrypt.compare(password, hash)) {
-                let token = jwt.sign({ sub: id }, config.secret)
-                console.log(token)
-                resolve(token);
-            }
-            else {
-                reject();
-            }
+            bcrypt.compare(password, hash).then(bool => {
+                if (bool) {
+                    let token = jwt.sign({ sub: id }, config.secret)
+                    console.log(token)
+                    resolve(token);
+                }
+                else {
+                    reject();
+                }
+            })
+            .catch(err => {
+                resolve();
+            })
+
         })
 
 
