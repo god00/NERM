@@ -47,3 +47,8 @@
     display: flex;
     justify-content: start;
 }
+
+.dropdown-menu{
+    display: flex;
+    justify-content: center;
+}
