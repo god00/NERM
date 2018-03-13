@@ -13,11 +13,12 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
+    this.user = localStorage.getItem('currentUser')
   }
 
   ngOnInit() {
-    this.user = localStorage.getItem('currentUser')
-    console.log(this.user)
+
+    console.log(this.user.email)
   }
 
   createModal() {
