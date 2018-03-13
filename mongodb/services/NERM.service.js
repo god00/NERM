@@ -1,7 +1,7 @@
 
 // Gettign the Newly created Mongoose Model we just created 
 var NERM = require('../models/NERM.model');
-var config = require('config.json');
+var config = require('../config.json');
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 

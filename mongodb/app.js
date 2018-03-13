@@ -11,7 +11,7 @@ var api = require('./routes/api.route')
 
 var bluebird = require('bluebird')
 
-var config = require('config.json');
+var config = require('./config.json');
 
 var app = express();
 
