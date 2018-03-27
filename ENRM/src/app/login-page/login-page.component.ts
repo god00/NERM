@@ -27,7 +27,6 @@ export class LoginPageComponent implements OnInit {
   rPassword: FormControl;
   rConfirmPassword: FormControl;
   NERMsList: NERM[];
-  loginCheckbox: boolean = false;
 
   //Subscription parameter
   getNERM: any;
@@ -37,7 +36,7 @@ export class LoginPageComponent implements OnInit {
   //Alert parameter
   private _success = new Subject<string>();
   alertMessage: string;
-  successLogin: boolean;
+  successLogin: boolean = false;
 
 
   constructor(
@@ -55,9 +54,8 @@ export class LoginPageComponent implements OnInit {
       this.alertMessage = message;
       console.log(message)
     });
-    debounceTime.call(this._success, 3000).subscribe(() => {
+    debounceTime.call(this._success, 3000000).subscribe(() => {
       this.alertMessage = null;
-      this.successLogin = null;
     });
   }
 
@@ -97,28 +95,29 @@ export class LoginPageComponent implements OnInit {
   }
 
   onLogin() {
-    console.log(this.loginCheckbox)
+    let loginCheckbox = <HTMLInputElement>document.getElementById("logincheckbox");
+
     if (this.loginForm.valid) {
       let user = new NERM()
       user.email = this.lEmail.value;
       user.password = this.lPassword.value;
 
-      this.loginNERM = this.authenicationService.loginNERM(user, this.loginCheckbox)
+      this.loginNERM = this.authenicationService.loginNERM(user, loginCheckbox.checked)
         .subscribe(res => {
           if (res === 'Succesfully Login')
             this.successLogin = true;
-          else
-            this.successLogin = false;
 
           this._success.next(`${new Date()} - ${res.message}.`);
           this.router.navigate(['']);
           console.log(res.message);
           this.loginNERM.unsubscribe();
+        }, err => {
+          this._success.next(` - Failed to connect database`);
         }
         )
     }
     else {
-      console.log('Please Input Email & Password')
+      this._success.next(` - Please Input Email & Password`);
     }
 
   }
