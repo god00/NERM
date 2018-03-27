@@ -4,11 +4,11 @@
     margin-bottom: 1rem;
 }
 
-.list{
+.scroll{
     overflow: scroll; 
-    max-height:20rem ; 
 }
 
 .corpus{
     display: flex;
+    max-height:20rem ; 
 }
