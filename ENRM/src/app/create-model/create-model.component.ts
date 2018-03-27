@@ -9,7 +9,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CreateModelComponent implements OnInit {
   user: Object;
   private sub: any;
-  corpus = [{ title: 'corpus1', id: 'corpus1',  text: "testttttttttttt1"},{ title: 'corpus2', id: 'corpus2',  text: "testt2222222222"}];
+  corpus = [{ title: 'corpus1', id: 'corpus1', text: "testttttttttttt1" }, { title: 'corpus2', id: 'corpus2', text: "testt2222222222" }];
+  showText = {};
+
   constructor(
     private router: Router,
     private route: ActivatedRoute
@@ -17,6 +19,11 @@ export class CreateModelComponent implements OnInit {
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
+  }
+
+  showCorpus(id: string) {
+    let show = this.corpus.filter(c => { return c.id == id })
+    this.showText = show[0];
   }
 
 }
