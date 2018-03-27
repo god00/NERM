@@ -56,6 +56,7 @@ export class LoginPageComponent implements OnInit {
     });
     debounceTime.call(this._success, 3000).subscribe(() => {
       this.alertMessage = null;
+      this.successLogin = null;
     });
   }
 
@@ -110,16 +111,20 @@ export class LoginPageComponent implements OnInit {
             this._success.next(`${new Date()} - ${res.message}.`);
             this.router.navigate(['']);
           }
-          else
+          else {
+            this.successLogin = false;
             this._success.next(` - ${res.message}.`);
+          }
 
           this.loginNERM.unsubscribe();
         }, err => {
+          this.successLogin = false;
           this._success.next(` - Failed to connect database.`);
         }
         )
     }
     else {
+      this.successLogin = false;
       this._success.next(` - Please Input Email & Password.`);
     }
 
