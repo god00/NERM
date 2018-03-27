@@ -56,8 +56,8 @@
             <select [(ngModel)]="selectedDict" class="custom-select">
               <option *ngFor="let d of dicts" [value]="d.title">{{d.title}}</option>
             </select>
-            <input type="file" [(ngModel)]="uploadDict">
-            <button type="submit" class="btn btn-primary" (click)=upload()>Upload Dictionary...</button>
+            
+            <button type="submit" class="btn btn-primary" (click)=upload()><input type="file" id="file">Upload Dictionary...</button>
             <label style="display:block">Corpus</label>
             <div class="corpus">
               <div class="list-group scroll list">
