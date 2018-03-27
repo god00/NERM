@@ -27,6 +27,7 @@ export class LoginPageComponent implements OnInit {
   rPassword: FormControl;
   rConfirmPassword: FormControl;
   NERMsList: NERM[];
+  loginCheckbox: boolean = false;
 
   //Subscription parameter
   getNERM: any;
@@ -96,12 +97,13 @@ export class LoginPageComponent implements OnInit {
   }
 
   onLogin() {
+    console.log(this.loginCheckbox)
     if (this.loginForm.valid) {
       let user = new NERM()
       user.email = this.lEmail.value;
       user.password = this.lPassword.value;
 
-      this.loginNERM = this.authenicationService.loginNERM(user)
+      this.loginNERM = this.authenicationService.loginNERM(user, this.loginCheckbox)
         .subscribe(res => {
           if (res === 'Succesfully Login')
             this.successLogin = true;
