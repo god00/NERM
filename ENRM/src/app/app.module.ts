@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -45,7 +45,8 @@ const routes: Routes = [
       innerStrokeColor: "#C7E596",
       animationDuration: 300,
     }),
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
   ],
   providers: [
     DatabaseService,
