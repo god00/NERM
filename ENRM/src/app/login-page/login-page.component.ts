@@ -4,12 +4,13 @@ import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { collectExternalReferences } from '@angular/compiler/src/output/output_ast';
 import { Response } from '@angular/http';
 
+import { debounceTime } from 'rxjs/operator/debounceTime';
+import { Subject } from 'rxjs';
+
 import { DatabaseService } from '../services/database.service';
 import { AuthenticationService } from '../services/authentication.service';
 
 import NERM from '../models/nerm.model';
-
-
 
 @Component({
   selector: 'app-login-page',
@@ -32,6 +33,10 @@ export class LoginPageComponent implements OnInit {
   loginNERM: any;
   createNERM: any;
 
+  //Alert parameter
+  private _success = new Subject<string>();
+  successMessage: string;
+
 
   constructor(
     private router: Router,
@@ -43,6 +48,12 @@ export class LoginPageComponent implements OnInit {
   ngOnInit() {
     this.createFormControls();
     this.createForm();
+
+    this._success.subscribe((message) => {
+      this.successMessage = message;
+      console.log(message)
+    });
+    debounceTime.call(this._success, 3000).subscribe(() => this.successMessage = null);
   }
 
   createFormControls() {
@@ -88,6 +99,7 @@ export class LoginPageComponent implements OnInit {
 
       this.loginNERM = this.authenicationService.loginNERM(user)
         .subscribe(res => {
+          this._success.next(`${new Date()} - ${res.message}.`);
           this.router.navigate(['']);
           console.log(res.message);
           this.loginNERM.unsubscribe();

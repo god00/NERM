@@ -5,6 +5,8 @@
   <title>Entity Name Recognizer Model</title>
 </head>
 
+<ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+
 <body class="d-flex justify-content-center align-items-center flex-row justify-content-around">
   <div class="jumbotron special-card" style="max-width:50%; padding-bottom:2rem">
     <div class="container">
