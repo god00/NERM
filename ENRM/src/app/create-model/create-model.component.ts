@@ -30,7 +30,7 @@ export class CreateModelComponent implements OnInit {
   }
 
   upload(){
-    var selectedFile = <HTMLInputElement>document.getElementById('input');
+    var selectedFile = <HTMLInputElement>document.getElementById('file');
     console.log(selectedFile)
   }
 }
