@@ -106,7 +106,6 @@ export class LoginPageComponent implements OnInit {
         .subscribe(res => {
           console.log(res)
           if (res && res.message === 'Succesfully Login') {
-            console.log(this.successLogin)
             this.successLogin = true;
             this._success.next(`${new Date()} - ${res.message}.`);
             this.router.navigate(['']);

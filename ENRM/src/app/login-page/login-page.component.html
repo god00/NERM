@@ -5,8 +5,8 @@
   <title>Entity Name Recognizer Model</title>
 </head>
 
-<ngb-alert *ngIf="alertMessage && successLogin" type="success" (close)="successMessage = null" style="z-index:9999;">{{ alertMessage }}</ngb-alert>
-<ngb-alert *ngIf="alertMessage && !successLogin" type="danger" (close)="successMessage = null" style="z-index:9999"><strong>Error</strong>{{ alertMessage }}</ngb-alert>
+<div *ngIf="alertMessage && successLogin" class="alert alert-success" (close)="successMessage = null" style="z-index:9999; margin:0">{{ alertMessage }}</div>
+<div *ngIf="alertMessage && !successLogin" class="alert alert-danger" (close)="successMessage = null" style="z-index:9999; margin:0"><strong>ERROR!</strong>{{ alertMessage }}</div>
 
 <body class="d-flex justify-content-center align-items-center flex-row justify-content-around">
 
