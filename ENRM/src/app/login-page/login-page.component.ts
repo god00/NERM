@@ -36,7 +36,6 @@ export class LoginPageComponent implements OnInit {
   //Alert parameter
   private _success = new Subject<string>();
   alertMessage: string;
-  successLogin: boolean;
 
 
   constructor(
@@ -55,7 +54,6 @@ export class LoginPageComponent implements OnInit {
     });
     debounceTime.call(this._success, 3000).subscribe(() => {
       this.alertMessage = null;
-      this.successLogin = null;
     });
   }
 
@@ -106,24 +104,19 @@ export class LoginPageComponent implements OnInit {
         .subscribe(res => {
           console.log(res)
           if (res && res.message === 'Succesfully Login') {
-            this.successLogin = true;
-            this._success.next(`${new Date()} - ${res.message}.`);
             this.router.navigate(['']);
           }
           else {
-            this.successLogin = false;
             this._success.next(` - ${res.message}.`);
           }
 
           this.loginNERM.unsubscribe();
         }, err => {
-          this.successLogin = false;
           this._success.next(` - Failed to connect database.`);
         }
         )
     }
     else {
-      this.successLogin = false;
       this._success.next(` - Please Input Email & Password.`);
     }
 

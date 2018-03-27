@@ -5,7 +5,7 @@
   <title>Entity Name Recognizer Model</title>
 </head>
 
-<div *ngIf="alertMessage && !successLogin" class="alert alert-danger" (close)="successMessage = null" style="z-index:9999; margin:0"><strong>ERROR!</strong>{{ alertMessage }}</div>
+<div *ngIf="alertMessage" class="alert alert-danger" style="z-index:9999; margin:0"><strong>ERROR!</strong>{{ alertMessage }}</div>
 
 <body class="d-flex justify-content-center align-items-center flex-row justify-content-around">
 
