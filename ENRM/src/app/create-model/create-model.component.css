@@ -11,7 +11,7 @@
 .corpus{
     display: flex;
     max-height:20rem ; 
-    margin-bottom: 2rem
+    margin-bottom: 1rem;
 }
 
 .list{
