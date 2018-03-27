@@ -30,6 +30,7 @@ export class CreateModelComponent implements OnInit {
   }
 
   upload(){
-    alert(this.uploadDict)
+    var selectedFile = document.getElementById('input').files[0];
+    console.log(selectedFile)
   }
 }
