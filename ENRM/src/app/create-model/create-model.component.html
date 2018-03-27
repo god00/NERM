@@ -45,14 +45,7 @@
   <i class="fa fa-user-circle" style="font-size:1.2rem; padding-right:0.25rem"></i>
   {{email}}
 </nav>
-<div class="panel panel-info">
-    <div class="panel-heading">
-      <h3 class="panel-title">corpus1</h3>
-    </div>
-    <div class="panel-body">
-      Panel content
-    </div>
-  </div>
+
 <body>
   <div class="d-flex flex-column align-items-center">
     <div class="jumbotron special-card d-flex flex-column">
@@ -78,14 +71,16 @@
                 <button type="button" class="list-group-item">corpus4.txt</button>
                 <button type="button" class="list-group-item">corpus5.txt</button>
               </div>
-              <div class="panel panel-info">
-                <div class="panel-heading">
-                  <h3 class="panel-title">corpus1</h3>
-                </div>
-                <div class="panel-body">
-                  Panel content
-                </div>
-              </div>
+              <ngb-panel title="corpus1">
+                  <ng-template ngbPanelContent>
+                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia
+                      aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+                      sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
+                      craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
+                      occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+                      labore sustainable VHS.
+                    </ng-template>
+              </ngb-panel>
             </div>
             Upload Corpus...
           </ng-template>
