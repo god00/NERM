@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./create-model.component.css']
 })
 export class CreateModelComponent implements OnInit {
-  email: string;
+  user: Object;
   private sub: any;
 
   constructor(
@@ -16,16 +16,7 @@ export class CreateModelComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      this.email = params['email'];
-      console.log(this.email)
-   });
-   
-   if(!this.email){
-    this.router.navigate(['login'])
-   }
-
-   console.log(this.email)
+    this.user = JSON.parse(localStorage.getItem('currentUser'));
   }
 
 }
