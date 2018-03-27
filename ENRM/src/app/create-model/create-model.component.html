@@ -73,7 +73,7 @@
                 <button type="button" class="list-group-item">corpus5.txt</button> -->
               </div>
               
-              <div class="card">
+              <div *ngIf="showText.title" class="card">
                   <div class="card-body">
                     <h5 class="card-title">{{showText.title}}</h5>
                     <p class="card-text scroll">{{showText.text}}</p>
