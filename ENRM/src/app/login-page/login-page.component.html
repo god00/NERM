@@ -5,9 +5,10 @@
   <title>Entity Name Recognizer Model</title>
 </head>
 
-<ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
-
 <body class="d-flex justify-content-center align-items-center flex-row justify-content-around">
+  <ngb-alert *ngIf="successMessage === 'Succesfully Login'" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+  <ngb-alert *ngIf="successMessage === 'Login Failed'" type="danger" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+
   <div class="jumbotron special-card" style="max-width:50%; padding-bottom:2rem">
     <div class="container">
       <h1 class="display-4">WELCOME TO ENRM</h1>
