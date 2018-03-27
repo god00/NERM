@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CreateModelComponent implements OnInit {
   user: Object;
   private sub: any;
-  corpus ;
+  corpus = [{ title: 'corpus1', id: 'corpus1',  text: "testttttttttttt1"},{ title: 'corpus2', id: 'corpus2',  text: "testt2222222222"}];
   constructor(
     private router: Router,
     private route: ActivatedRoute
