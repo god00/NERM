@@ -35,7 +35,8 @@ export class LoginPageComponent implements OnInit {
 
   //Alert parameter
   private _success = new Subject<string>();
-  successMessage: string;
+  alertMessage: string;
+  successLogin: boolean;
 
 
   constructor(
@@ -50,10 +51,13 @@ export class LoginPageComponent implements OnInit {
     this.createForm();
 
     this._success.subscribe((message) => {
-      this.successMessage = message;
+      this.alertMessage = message;
       console.log(message)
     });
-    debounceTime.call(this._success, 3000).subscribe(() => this.successMessage = null);
+    debounceTime.call(this._success, 3000).subscribe(() => {
+      this.alertMessage = null;
+      this.successLogin = null;
+    });
   }
 
   createFormControls() {
@@ -99,6 +103,11 @@ export class LoginPageComponent implements OnInit {
 
       this.loginNERM = this.authenicationService.loginNERM(user)
         .subscribe(res => {
+          if (res === 'Succesfully Login')
+            this.successLogin = true;
+          else
+            this.successLogin = false;
+
           this._success.next(`${new Date()} - ${res.message}.`);
           this.router.navigate(['']);
           console.log(res.message);

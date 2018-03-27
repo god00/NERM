@@ -7,8 +7,8 @@
 
 <body class="d-flex justify-content-center align-items-center flex-row justify-content-around">
 
-  <ngb-alert *ngIf="successMessage as 'Succesfully Login'" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
-  <ngb-alert *ngIf="successMessage as 'Login Failed'" type="danger" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+  <ngb-alert *ngIf="alertMessage && successLogin" type="success" (close)="successMessage = null">{{ alertMessage }}</ngb-alert>
+  <ngb-alert *ngIf="alertMessage && !successLogin" type="danger" (close)="successMessage = null">{{ alertMessage }}</ngb-alert>
 
   <div class="jumbotron special-card" style="max-width:50%; padding-bottom:2rem">
     <div class="container">
