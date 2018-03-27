@@ -52,7 +52,6 @@ export class LoginPageComponent implements OnInit {
 
     this._success.subscribe((message) => {
       this.alertMessage = message;
-      console.log(message)
     });
     debounceTime.call(this._success, 3000).subscribe(() => {
       this.alertMessage = null;
@@ -105,7 +104,8 @@ export class LoginPageComponent implements OnInit {
 
       this.loginNERM = this.authenicationService.loginNERM(user, loginCheckbox.checked)
         .subscribe(res => {
-          if (res === 'Succesfully Login') {
+          console.log(res)
+          if (res && res.message === 'Succesfully Login') {
             console.log(this.successLogin)
             this.successLogin = true;
             this._success.next(`${new Date()} - ${res.message}.`);
