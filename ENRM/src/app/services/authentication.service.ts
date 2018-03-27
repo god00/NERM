@@ -17,7 +17,7 @@ export class AuthenticationService {
         return this.http.post<any>(`${this.nermUrl}/login`, user)
             .map(res => {
                 // login successful if there's a jwt token in the response
-                if (res.data && res.data.token && rememberLogin) {
+                if (res.data && res.data.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(res.data));
                 }
