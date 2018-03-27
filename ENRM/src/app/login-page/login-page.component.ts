@@ -47,10 +47,13 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-    
+    if (this.user) {
+      this.router.navigate(['']);
+    }
+
     this.createFormControls();
     this.createForm();
-    
+
     this._success.subscribe((message) => {
       this.alertMessage = message;
     });
