@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
     this._success.subscribe((message) => {
       this.alertMessage = message;
     });
-    debounceTime.call(this._success, 3000).subscribe(() => {
+    debounceTime.call(this._success, 30000000).subscribe(() => {
       this.alertMessage = null;
       this.successLogin = null;
     });
