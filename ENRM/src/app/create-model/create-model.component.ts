@@ -11,6 +11,7 @@ export class CreateModelComponent implements OnInit {
   private sub: any;
   corpus = [{ title: 'corpus1', id: 'corpus1', text: "testttttttttttt1" }, { title: 'corpus2', id: 'corpus2', text: "testt2222222222" }];
   dicts = [{title:'dict1'} , {title:'dict2'}]
+  selectedDict ;
   showText = {};
 
   constructor(
