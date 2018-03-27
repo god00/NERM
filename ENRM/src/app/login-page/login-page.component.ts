@@ -54,7 +54,7 @@ export class LoginPageComponent implements OnInit {
       this.alertMessage = message;
       console.log(message)
     });
-    debounceTime.call(this._success, 3000000).subscribe(() => {
+    debounceTime.call(this._success, 3000).subscribe(() => {
       this.alertMessage = null;
     });
   }
