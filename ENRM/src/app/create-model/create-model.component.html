@@ -50,9 +50,18 @@
   <div class="d-flex flex-column align-items-center">
     <div class="jumbotron special-card d-flex flex-column">
         <ngb-tabset>
-            <ngb-tab title="Upload">
+            <ngb-tab title="Corpus/Dictionary">
               <ng-template ngbTabContent>
                 Upload Dictionary...
+                <div class="form-group">
+                    <label for="sel1">Select Dictionary:</label>
+                    <select class="form-control" id="sel1">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                    </select>
+                  </div>
                 Upload Corpus...
               </ng-template>
             </ngb-tab>
