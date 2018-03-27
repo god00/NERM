@@ -104,20 +104,22 @@ export class LoginPageComponent implements OnInit {
 
       this.loginNERM = this.authenicationService.loginNERM(user, loginCheckbox.checked)
         .subscribe(res => {
-          if (res === 'Succesfully Login')
+          if (res === 'Succesfully Login') {
             this.successLogin = true;
+            this._success.next(`${new Date()} - ${res.message}.`);
+            this.router.navigate(['']);
+          }
+          else
+            this._success.next(` - ${res.message}.`);
 
-          this._success.next(`${new Date()} - ${res.message}.`);
-          this.router.navigate(['']);
-          console.log(res.message);
           this.loginNERM.unsubscribe();
         }, err => {
-          this._success.next(` - Failed to connect database`);
+          this._success.next(` - Failed to connect database.`);
         }
         )
     }
     else {
-      this._success.next(` - Please Input Email & Password`);
+      this._success.next(` - Please Input Email & Password.`);
     }
 
   }
