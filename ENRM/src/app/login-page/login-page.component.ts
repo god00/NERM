@@ -18,7 +18,7 @@ import NERM from '../models/nerm.model';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent implements OnInit {
-
+  user: Object;
   loginForm: FormGroup;
   registerForm: FormGroup;
   lEmail: FormControl;
@@ -46,9 +46,11 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem('currentUser'));
+    
     this.createFormControls();
     this.createForm();
-
+    
     this._success.subscribe((message) => {
       this.alertMessage = message;
     });
