@@ -13,6 +13,7 @@ export class CreateModelComponent implements OnInit {
   dicts = [{title:'dict1'} , {title:'dict2'}]
   selectedDict ;
   showText = {};
+  uploadDict ; 
 
   constructor(
     private router: Router,
@@ -28,4 +29,7 @@ export class CreateModelComponent implements OnInit {
     this.showText = show[0];
   }
 
+  upload(){
+    alert(this.uploadDict)
+  }
 }
