@@ -3,3 +3,9 @@
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
+
+.list{
+    overflow: scroll; 
+    max-height:7rem ; 
+    width: 14rem ;
+}
