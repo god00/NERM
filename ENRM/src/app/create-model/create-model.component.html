@@ -52,36 +52,26 @@
       <ngb-tabset>
         <ngb-tab title="Preprocess">
           <ng-template ngbTabContent>
-            <div class="form-group">
-              <label for="sel1">Select Dictionary:</label>
-              <select class="form-control" id="sel1">
-                <option>1 (default)</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-              </select>
-            </div>
+            <label for="sel1">Select Dictionary:</label>
+            <select id="sel1">
+              <option *ngFor="let d in dicts" [value]="d.title">{{d.title}}</option>
+            </select>
             <button type="submit" class="btn btn-primary">Upload Dictionary...</button>
             <label style="display:block">Corpus</label>
             <div class="corpus">
               <div class="list-group scroll list">
                 <button type="button" class="list-group-item" *ngFor="let c of corpus" [attr.id]="c.id" (click)="showCorpus(c.id)">{{c.title}}</button>
-                <!-- <button type="button" class="list-group-item">corpus1.txt</button>
-                <button type="button" class="list-group-item">corpus2.txt</button>
-                <button type="button" class="list-group-item">corpus3.txt</button>
-                <button type="button" class="list-group-item">corpus4.txt</button>
-                <button type="button" class="list-group-item">corpus5.txt</button> -->
               </div>
-              
+
               <div *ngIf="showText.title" class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">{{showText.title}}</h5>
-                    <p class="card-text scroll">{{showText.text}}</p>
-                  </div>
+                <div class="card-body">
+                  <h5 class="card-title">{{showText.title}}</h5>
+                  <p class="card-text scroll">{{showText.text}}</p>
                 </div>
+              </div>
             </div>
             <button type="submit" class="btn btn-primary">Upload Corpus...</button>
-            
+
           </ng-template>
         </ngb-tab>
         <ngb-tab title="Classify">
