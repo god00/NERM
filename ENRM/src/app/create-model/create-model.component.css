@@ -6,6 +6,9 @@
 
 .list{
     overflow: scroll; 
-    max-height:7rem ; 
-    width: 14rem ;
+    max-height:20rem ; 
+}
+
+.corpus{
+    display: flex;
 }
