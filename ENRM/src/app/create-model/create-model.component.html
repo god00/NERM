@@ -65,19 +65,12 @@
             <label style="display:block">Corpus</label>
             <div class="corpus">
               <div class="list-group scroll list">
-                <button type="button" class="list-group-item">corpus1.txt</button>
+                <button type="button" class="list-group-item" *ngFor="let c of corpus" [attr.id]="c.id">{{c.title}}</button>
+                <!-- <button type="button" class="list-group-item">corpus1.txt</button>
                 <button type="button" class="list-group-item">corpus2.txt</button>
                 <button type="button" class="list-group-item">corpus3.txt</button>
                 <button type="button" class="list-group-item">corpus4.txt</button>
-                <button type="button" class="list-group-item">corpus5.txt</button>
-                <button type="button" class="list-group-item">corpus5.txt</button>
-                <button type="button" class="list-group-item">corpus5.txt</button>
-                <button type="button" class="list-group-item">corpus5.txt</button>
-                <button type="button" class="list-group-item">corpus5.txt</button>
-                <button type="button" class="list-group-item">corpus5.txt</button>
-                <button type="button" class="list-group-item">corpus5.txt</button>
-                <button type="button" class="list-group-item">corpus5.txt</button>
-                <button type="button" class="list-group-item">corpus5.txt</button>
+                <button type="button" class="list-group-item">corpus5.txt</button> -->
               </div>
               
               <div class="card">

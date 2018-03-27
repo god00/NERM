@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CreateModelComponent implements OnInit {
   user: Object;
   private sub: any;
-
+  corpus ;
   constructor(
     private router: Router,
     private route: ActivatedRoute
