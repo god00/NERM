@@ -53,7 +53,7 @@
         <ngb-tab title="Preprocess">
           <ng-template ngbTabContent>
             <label>Select Dictionary:</label>
-            <select [(ngModel)]="selectedDict">
+            <select [(ngModel)]="selectedDict" class="custom-select">
               <option *ngFor="let d of dicts" [value]="d.title">{{d.title}}</option>
             </select>
             <button type="submit" class="btn btn-primary">Upload Dictionary...</button>
