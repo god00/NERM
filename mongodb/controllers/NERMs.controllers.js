@@ -121,7 +121,7 @@ exports.loginNERM = async function (req, res, next) {
     var limit = req.query.limit ? req.query.limit : 99999999;
 
     try {
-        var nerms = await NERMService.getUsers({}, page, limit);
+        var nerms = await NERMService.getItemFromDB({}, page, limit, 'user');
         var NERMsList = nerms.docs;
         var userDB = await NERMsList.filter((nerms) =>
             nerms.email === user.email
