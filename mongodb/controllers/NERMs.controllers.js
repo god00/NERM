@@ -125,7 +125,7 @@ exports.loginNERM = async function (req, res, next) {
 
     try {
         var query = NERM.find({ email: nerm.email });
-        query.exec(async function (err, userDB) {
+        query.exec(function (err, userDB) {
             console.log(userDB)
             if (err)
                 return res.status(400).json({ status: 400., message: err.message });
