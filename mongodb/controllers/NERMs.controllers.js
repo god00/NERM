@@ -54,7 +54,7 @@ exports.createUser = async function (req, res, next) {
     try {
         // Calling the Service function with the new object from the Request Body
         var query = NERM.findOne({ email: user.email });
-        query.exec(function (err, user) {
+        query.exec(async function (err, user) {
             if (err)
                 return res.status(400).json({ status: 400., message: err.message });
             if (model) {
