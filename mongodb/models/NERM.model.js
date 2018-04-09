@@ -6,8 +6,8 @@ var NERMSchema = new mongoose.Schema({
     email: String,
     date: Date,
     modelname: String,
-    corpus: Object[],
-    dictionary: Object[],
+    corpus: Array,
+    dictionary: Array,
     // parameter and more...
 }, { collection: 'nerms' })
 
