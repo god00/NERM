@@ -122,7 +122,7 @@ export class LoginPageComponent implements OnInit {
         )
     }
     else {
-      this._success.next(` - Please Input Email & Password.`);
+      this._success.next(` - Please check Email & Password.`);
     }
 
   }
@@ -142,16 +142,17 @@ export class LoginPageComponent implements OnInit {
           this.createNERM.unsubscribe();
         }
         else if (res) {
-          console.log(res.message);
+          this._success.next(` - ${res.message}.`);
           this.createNERM.unsubscribe();
         }
         else {
-          console.log('error')
+          this._success.next(` - Unknown error.`);
+          this.createNERM.unsubscribe();
         }
       })
     }
     else {
-      console.log('Please Insert Form')
+      console.log('Please Check password & confirmpassword')
     }
   }
 

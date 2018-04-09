@@ -110,7 +110,6 @@ exports.loginNERM = async function (password, id, hash) {
             bcrypt.compare(password, hash).then(bool => {
                 if (bool) {
                     let token = jwt.sign({ sub: id }, config.secret)
-                    console.log(token)
                     resolve(token);
                 }
                 else {
@@ -142,7 +141,7 @@ exports.uploadsFile = async function (dir) {
     return storage;
 }
 
-exports.checkEmail = function (email, objsOfArr) {
+exports.checkEmail = async function (email, objsOfArr) {
 
     var exist = objsOfArr.filter((nerms) =>
         nerms.email === email
