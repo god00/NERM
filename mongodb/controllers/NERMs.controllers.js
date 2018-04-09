@@ -1,7 +1,7 @@
 // Accessing the Service that we just created
 
 var NERMService = require('../services/NERM.service')
-var NERMModel = require('../models/NERM.model')
+var NERMModel = require('../models/NERMUser.model')
 var config = require('../config.json');
 var multer = require('multer');
 var upload = multer();
@@ -82,13 +82,12 @@ exports.createModel = async function (req, res, next) {
     }
 
     try {
-        var query = NERMModel.findOne({ email: nerm.email });
+        var query = NERMModel.find({ email: nerm.email });
         query.exec(function (err, model) {
             if (err) return handleError(err);
             console.log(model);
         })
         var nerms = await NERMService.getItemFromDB(query, page, limit, 'model');
-        console.log(nerms)
         if (await checkDuplicateModelName(nerm.modelName, nerms)) {
             return res.status(202).json({ status: 202., duplicate: true, message: "This model name already exists" });
         }
