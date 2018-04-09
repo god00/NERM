@@ -83,7 +83,7 @@ exports.createModel = async function (req, res, next) {
     }
 
     try {
-        var query = NERMModel.find({ email: nerm.email, modelName: nerm.email });
+        var query = NERMModel.find({ email: nerm.email, modelName: nerm.modelName });
         query.exec(async function (err, model) {
             if (err)
                 return res.status(400).json({ status: 400., message: err.message });
@@ -120,12 +120,9 @@ exports.loginNERM = async function (req, res, next) {
         password: req.body.password,
     }
 
-    var page = req.query.page ? req.query.page : 1;
-    var limit = req.query.limit ? req.query.limit : 99999999;
-
     try {
-        var query = NERM.find({ email: nerm.email });
-        query.exec(function (err, userDB) {
+        var query = NERM.findOne({ email: user.email });
+        query.exec(async function (err, userDB) {
             console.log(userDB)
             if (err)
                 return res.status(400).json({ status: 400., message: err.message });
