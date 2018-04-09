@@ -2,7 +2,6 @@
 
 var NERMService = require('../services/NERM.service')
 var NERMModel = require('../models/NERM.model')
-var NERM = require('../models/NERMUser.model')
 var config = require('../config.json');
 var multer = require('multer');
 var upload = multer();
@@ -83,9 +82,13 @@ exports.createModel = async function (req, res, next) {
     }
 
     try {
-        var query = NERM.find({ email: nerm.email });
+        var query = NERMModel.find({ email: nerm.email }, function (err, model) {
+            if (err) return handleError(err);
+            // Prints "Space Ghost is a talk show host".
+            console.log(model);
+        });
 
-        console.log(query);
+        console.log(query)
         var nerms = await NERMService.getItemFromDB(query, page, limit, 'model');
         if (await checkDuplicateModelName(nerm.modelName, nerms)) {
             return res.status(202).json({ status: 202., duplicate: true, message: "This model name already exists" });
