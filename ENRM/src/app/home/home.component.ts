@@ -8,6 +8,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationService } from '../services/authentication.service';
 import { DatabaseService } from '../services/database.service';
 import NERM from '../models/nermUser.model';
+import NERMModel from '../models/nerm.model';
 
 @Component({
   selector: 'app-home',
@@ -55,21 +56,21 @@ export class HomeComponent implements OnInit {
   }
 
   createModal(name: string) {
-    let user = new NERM();
-    let model = {
-      name: this.modelName,
-      //parameter and more...
-    }
-    user.email = this.user['email'];
-    // this.updateNERM = this.databaseService.updateNERM(user).subscribe(res => {
-    //   if (res.duplicate) {
-    //     this.duplicateModelName = true;
-    //   }
-    //   else {
-    //     this.duplicateModelName = false;
-    //     this.router.navigate(['create']);
-    //   }
-    // });
+    let nerm = new NERMModel();
+
+    nerm.email = this.user['email'];
+    nerm.modelName = this.modelName;
+
+    this.updateNERM = this.databaseService.createModel(nerm).subscribe(res => {
+      if (res.duplicate) {
+        this.duplicateModelName = true;
+      }
+      else {
+        this.duplicateModelName = false;
+        this.router.navigate(['create']);
+        this.updateNERM.unsubscribe();
+      }
+    });
 
   }
 

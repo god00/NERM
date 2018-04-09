@@ -27,6 +27,12 @@ export class DatabaseService {
     return this.http.post(`${nermUrl}`, nerm);
   }
 
+  //Create model, takes a NERMModel Object
+  createModel(nerm: NERMModel): Observable<any> {
+    //returns the observable of http post request 
+    return this.http.post(`${nermUrl}/model`, nerm);
+  }
+
   //Read nerm, takes no arguments
   getUsers(): Observable<NERM[]> {
     return this.http.get(nermUrl)
@@ -35,10 +41,10 @@ export class DatabaseService {
         return res["data"].docs as NERM[];
       })
   }
-  //Update nerm, takes a NERM Object as parameter
+  //Update nerm, takes a NERMModel Object as parameter
   updateNERM(nerm: NERMModel): Observable<any> {
     //returns the observable of http put request 
-    return this.http.put(`${nermUrl}`, nerm);
+    return this.http.put(`${nermUrl}/model`, nerm);
   }
 
   deleteNERM(id: string): any {
