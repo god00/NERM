@@ -67,7 +67,7 @@ exports.createUser = async function (req, res, next) {
     } catch (e) {
 
         //Return an Error Response Message with Code and the Error Message.
-        return res.status(400).json({ status: 400, message: "User Creation was Unsuccesfull" })
+        return res.status(400).json({ status: 400, message: "Model Creation was Unsuccesfull" })
     }
 }
 
@@ -83,6 +83,8 @@ exports.createModel = async function (req, res, next) {
 
     try {
         var query = NERMModel.find({ email: nerm.email });
+
+        console.log(query);
         var nerms = await NERMService.getItemFromDB(query, page, limit, 'model');
         if (await checkDuplicateModelName(nerm.modelName, nerms)) {
             return res.status(202).json({ status: 202., duplicate: true, message: "This model name already exists" });

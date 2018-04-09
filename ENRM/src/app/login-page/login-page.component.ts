@@ -135,7 +135,7 @@ export class LoginPageComponent implements OnInit {
       newUser.password = this.rPassword.value;
       this.createNERM = this.databaseService.createUser(newUser).subscribe(res => {
         if (res.data) {
-          console.log(res.message)
+          this._success.next(` - ${res.message}.`);
           this.setValue().then(() => {
             this.onLogin();
           })

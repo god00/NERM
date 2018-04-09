@@ -55,7 +55,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  createModal(name: string) {
+  createModal() {
     let nerm = new NERMModel();
 
     nerm.email = this.user['email'];
