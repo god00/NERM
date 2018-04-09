@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var config = require('./config.json');
+
 // upload
 var multer = require('multer');
 var fs = require('fs');
@@ -16,9 +18,6 @@ var users = require('./routes/users.route');
 var api = require('./routes/api.route')
 
 var bluebird = require('bluebird')
-
-var config = require('./config.json');
-
 
 var app = express();
 
