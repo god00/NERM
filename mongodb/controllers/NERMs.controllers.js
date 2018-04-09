@@ -149,7 +149,7 @@ exports.loginNERM = async function (req, res, next) {
 
 exports.uploadNERM = async function (req, res, next) {
     userDIR = `${DIR}${req.body.email}`;
-    var upload = multer({dest: userDIR});
+    var upload = multer({ dest: userDIR });
     try {
         upload(req, res, function (err) {
             if (err) {
@@ -158,14 +158,14 @@ exports.uploadNERM = async function (req, res, next) {
 
             return res.status(205).json({ status: 205, message: "File is uploaded" })
         });
-        
+
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message })
     }
 
 }
 
-function checkDuplicateModelName(name, models) {
+async function checkDuplicateModelName(name, models) {
     var duplicate = await models.filter((model) =>
         model.name === name
     )
