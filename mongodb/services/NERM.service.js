@@ -165,20 +165,6 @@ exports.uploadsFile = async function (dir) {
     return storage;
 }
 
-exports.checkEmail = async function (email, objsOfArr) {
-
-    var exist = objsOfArr.filter((nerms) =>
-        nerms.email === email
-    )
-
-    if (exist.length === 0) {
-        return true;    // no duplicate
-    }
-    else {
-        return false;   // duplicate
-    }
-}
-
 function hashPassword(password) {
     try {
         return bcrypt.hash(password, 10).then(hash => {

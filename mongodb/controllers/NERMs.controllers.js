@@ -2,6 +2,7 @@
 
 var NERMService = require('../services/NERM.service')
 var NERMModel = require('../models/NERMUser.model')
+var NERM = require('../models/NERMUser.model')
 var config = require('../config.json');
 var multer = require('multer');
 var upload = multer();
@@ -52,22 +53,22 @@ exports.createUser = async function (req, res, next) {
 
     try {
         // Calling the Service function with the new object from the Request Body
-        var nerms = await NERMService.getItemFromDB({}, page, limit, 'user');
-        var NERMsList = nerms.docs;
-
-        if (await NERMService.checkEmail(req.body.email, NERMsList)) {
-            var createdNERM = await NERMService.createUser(user)
-            return res.status(201).json({ status: 201, data: true, message: "Succesfully Created User" })
-        }
-        else {
-            return res.status(201).json({ status: 201, data: false, message: "This user already exists" })
-        }
-
-
+        var query = NERM.findOne({ email: user.email });
+        query.exec(function (err, user) {
+            if (err)
+                return res.status(400).json({ status: 400., message: err.message });
+            if (model) {
+                return res.status(201).json({ status: 201, data: false, message: "This user already exists" })
+            }
+            else {
+                var createdNERM = await NERMService.createUser(user)
+                return res.status(201).json({ status: 201, data: true, message: "Succesfully Created User" })
+            }
+        })
     } catch (e) {
 
         //Return an Error Response Message with Code and the Error Message.
-        return res.status(400).json({ status: 400, message: "Model Creation was Unsuccesfull" })
+        return res.status(400).json({ status: 400, message: "Model Creation was Unsuccesfull" });
     }
 }
 
@@ -82,20 +83,18 @@ exports.createModel = async function (req, res, next) {
     }
 
     try {
-        var query = NERMModel.find({ email: nerm.email });
+        var query = NERMModel.find({ email: nerm.email, modelName: nerm.email });
         query.exec(function (err, model) {
-            if (err) return handleError(err);
-            console.log(model);
+            if (err)
+                return res.status(400).json({ status: 400., message: err.message });
+            if (model) {
+                return res.status(202).json({ status: 202., duplicate: true, message: "This model name already exists" });
+            }
+            else {
+                var nerm = await NERMService.createModel(nerm);
+                return res.status(202).json({ status: 202, message: "Succesfully Create Model" });
+            }
         })
-        var nerms = await NERMService.getItemFromDB(query, page, limit, 'model');
-        if (await checkDuplicateModelName(nerm.modelName, nerms)) {
-            return res.status(202).json({ status: 202., duplicate: true, message: "This model name already exists" });
-        }
-        else {
-            var updatedUser = await NERMService.createModel(nerm);
-            return res.status(202).json({ status: 202, message: "Succesfully Create Model" });
-
-        }
     } catch (e) {
         return res.status(400).json({ status: 400., message: e.message });
     }
@@ -125,26 +124,30 @@ exports.loginNERM = async function (req, res, next) {
     var limit = req.query.limit ? req.query.limit : 99999999;
 
     try {
-        var nerms = await NERMService.getItemFromDB({}, page, limit, 'user');
-        var NERMsList = nerms.docs;
-        var userDB = await NERMsList.filter((nerms) =>
-            nerms.email === user.email
-        )
-        // Calling the Service function with the new object from the Request Body
-        NERMService.loginNERM(user.password, userDB._id, userDB[0].password)
-            .then((token) => {
-                var user = {
-                    email: req.body.email,
-                    token
-                }
-                if (token !== undefined)
-                    return res.status(201).json({ status: 201, data: user, message: "Succesfully Login" })
-                else
-                    return res.status(201).json({ status: 201, data: user, message: "Wrong password. Try again" })
-            })
-            .catch((err) => {
-                return res.status(201).json({ status: 201, data: err, message: "Login Failed" })
-            });
+        var query = NERM.find({ email: nerm.email });
+        query.exec(function (err, userDB) {
+            if (err)
+                return res.status(400).json({ status: 400., message: err.message });
+            if (userDB) {
+                NERMService.loginNERM(user.password, userDB._id, userDB.password)
+                    .then((token) => {
+                        var usertmp = {
+                            email: user.email,
+                            token
+                        }
+                        if (token !== undefined)
+                            return res.status(201).json({ status: 201, data: usertmp, message: "Succesfully Login" })
+                        else
+                            return res.status(201).json({ status: 201, data: usertmp, message: "Wrong password. Try again" })
+                    })
+                    .catch((err) => {
+                        return res.status(201).json({ status: 201, data: err, message: "Login Failed" })
+                    });
+            }
+            else {
+                return res.status(202).json({ status: 201, message: "Please create user before login" });
+            }
+        })
 
     } catch (e) {
 
@@ -171,11 +174,5 @@ exports.uploadsFile = async function (req, res, next) {
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message })
     }
-
-}
-
-async function checkDuplicateModelName(name, arrOfObj) {
-    var arrOfModelName = arrOfObj.map(function (item) { return item.modelName });
-    return (name in arrOfModelName);
 
 }
