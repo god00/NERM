@@ -8,10 +8,10 @@ var bodyParser = require('body-parser');
 var config = require('./config.json');
 
 // upload
-var multer = require('multer');
-var fs = require('fs');
-var DIR = config.DIR;
-var upload = multer({dest: DIR});
+// var multer = require('multer');
+// var fs = require('fs');
+// var DIR = config.DIR;
+// var upload = multer({dest: DIR});
 
 var index = require('./routes/index.route');
 var users = require('./routes/users.route');
@@ -36,18 +36,18 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use(multer({
-  dest: DIR,
-  rename: function (fieldname, filename) {
-    return filename + Date.now();
-  },
-  onFileUploadStart: function (file) {
-    console.log(file.originalname + ' is starting ...');
-  },
-  onFileUploadComplete: function (file) {
-    console.log(file.fieldname + ' uploaded to  ' + file.path);
-  }
-}));
+// app.use(multer({
+//   dest: DIR,
+//   rename: function (fieldname, filename) {
+//     return filename + Date.now();
+//   },
+//   onFileUploadStart: function (file) {
+//     console.log(file.originalname + ' is starting ...');
+//   },
+//   onFileUploadComplete: function (file) {
+//     console.log(file.fieldname + ' uploaded to  ' + file.path);
+//   }
+// }));
 
 
 // view engine setup

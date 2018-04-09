@@ -4,7 +4,7 @@ var NERM = require('../models/NERM.model');
 var config = require('../config.json');
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
-
+var multer = require('multer');
 
 // Saving the context of this module inside the _the variable
 _this = this
@@ -128,6 +128,18 @@ exports.loginNERM = async function (password, id, hash) {
     catch (e) {
         throw Error("Error Occured while Login")
     }
+}
+
+exports.uploadFile = async function (dir) {
+    var storage = await multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, dir)
+        },
+        filename: function (req, file, cb) {
+            cb(null, file.fieldname + '-' + Date.now())
+        }
+    })
+    return storage;
 }
 
 exports.checkEmail = function (email, objsOfArr) {

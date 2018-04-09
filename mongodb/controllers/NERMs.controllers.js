@@ -3,8 +3,9 @@
 var NERMService = require('../services/NERM.service')
 var NERM = require('../models/NERM.model');
 var config = require('../config.json');
-
 var multer = require('multer');
+var upload = multer();
+
 var DIR = `.${config.DIR}`;
 
 
@@ -147,9 +148,10 @@ exports.loginNERM = async function (req, res, next) {
 
 }
 
-exports.uploadNERM = async function (req, res, next) {
-    userDIR = `${DIR}${req.body.email}`;
-    var upload = multer({ dest: userDIR });
+exports.uploadFile = async function (req, res, next) {
+    var userDIR = `${DIR}${req.body.email}`;
+    var storage = await NERMService.uploadFile(userDIR);
+    upload = await multer({ storage: storage });
     try {
         upload(req, res, function (err) {
             if (err) {
