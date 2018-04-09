@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FileUploadService } from '../services/fileupload.service';
 
 @Component({
   selector: 'app-create-model',
@@ -14,11 +15,15 @@ export class CreateModelComponent implements OnInit {
   selectedDict ;
   showText = {};
   uploadDict ; 
+  uploader;
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+    private fileUploadService:FileUploadService
+  ) { 
+    this.uploader = fileUploadService.uploader;
+  }
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('currentUser'));

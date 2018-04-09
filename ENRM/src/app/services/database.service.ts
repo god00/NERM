@@ -10,10 +10,10 @@ import { Observable } from 'rxjs/Rx';
 //RxJS operator for mapping the observable
 import 'rxjs/add/operator/map';
 
+const nermUrl = `${appConfig.apiUrl}/api/nerms`;
+
 @Injectable()
 export class DatabaseService {
-
-  nermUrl = `${appConfig.apiUrl}/api/nerms`;
 
   constructor(
     private http: HttpClient
@@ -23,27 +23,26 @@ export class DatabaseService {
   //Create nerm, takes a NERM Object
   createNERM(nerm: NERM): Observable<any> {
     //returns the observable of http post request 
-    return this.http.post(`${this.nermUrl}`, nerm);
+    return this.http.post(`${nermUrl}`, nerm);
   }
 
   //Read nerm, takes no arguments
   getNERMs(): Observable<NERM[]> {
-    return this.http.get(this.nermUrl)
+    return this.http.get(nermUrl)
       .map((res) => {
         //Maps the response object sent from the server
         return res["data"].docs as NERM[];
       })
   }
   //Update nerm, takes a NERM Object as parameter
-  editNERM(nerm: NERM) {
-    let editUrl = `${this.nermUrl}`
+  updateNERM(nerm: NERM): Observable<any> {
     //returns the observable of http put request 
-    return this.http.put(editUrl, nerm);
+    return this.http.put(`${nermUrl}`, nerm);
   }
 
   deleteNERM(id: string): any {
     //Delete the object by the id
-    let deleteUrl = `${this.nermUrl}/${id}`
+    let deleteUrl = `${nermUrl}/${id}`
     return this.http.delete(deleteUrl)
       .map(res => {
         return res;

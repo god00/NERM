@@ -9,15 +9,17 @@ var NERMController = require('../../controllers/NERMs.controllers');
 
 // Map each API to the Controller FUnctions
 
-router.get('/', NERMController.getNERM)
+router.get('/', NERMController.getUsers)
 
-router.post('/', NERMController.createNERM)
+router.post('/', NERMController.createUser)
 
-router.put('/', NERMController.updateNERM)
+router.put('/', NERMController.updateUser)
 
 router.delete('/:id',NERMController.removeNERM)
 
 router.post('/login',NERMController.loginNERM)
+
+router.post('/upload/',NERMController.uploadNERM)
 
 
 // Export the Router

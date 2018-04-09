@@ -3,6 +3,7 @@ class NERM {
     email: string;
     password: string;
     date: Date;
+    models: Object[] = [];
 
     constructor(
     ){

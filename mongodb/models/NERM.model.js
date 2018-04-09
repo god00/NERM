@@ -5,8 +5,9 @@ var mongoosePaginate = require('mongoose-paginate')
 var NERMSchema = new mongoose.Schema({
     email: String,
     password: String,
-    date: Date  
-})
+    date: Date,
+    models: Object,
+}, { collection: 'users' })
 
 NERMSchema.plugin(mongoosePaginate)
 const NERM = mongoose.model('NERM', NERMSchema)

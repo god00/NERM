@@ -10,7 +10,8 @@ var jwt = require('jsonwebtoken');
 _this = this
 
 // Async function to get the To do List
-exports.getNERMs = async function (query, page, limit) {
+exports.getUsers = async function (query, page, limit) {
+
 
     // Options setup for the mongoose paginate
 
@@ -22,27 +23,28 @@ exports.getNERMs = async function (query, page, limit) {
     // Try Catch the awaited promise to handle the error 
 
     try {
-        var nerms = await NERM.paginate(query, options)
+        var users = await NERM.paginate(query, options)
 
-        // Return the todod list that was retured by the mongoose promise
+        // Return the users list that was retured by the mongoose promise
 
-        return nerms;
+        return users;
 
     } catch (e) {
 
         // return a Error message describing the reason 
 
-        throw Error('Error while Paginating Todos')
+        throw Error('Error while Paginating Nerms')
     }
 }
 
-exports.createNERM = async function (nerm) {
-    var newPassword = await hashPassword(nerm.password)
+exports.createUser = async function (user) {
+    var newPassword = await hashPassword(user.password)
 
-    var newNERM = new NERM({
-        email: nerm.email,
+    var newUser = new NERM({
+        email: user.email,
         password: newPassword,
         date: new Date(),
+        models: {}
     })
 
     // Creating a new Mongoose Object by using the new keyword
@@ -51,8 +53,8 @@ exports.createNERM = async function (nerm) {
     try {
 
         // Saving the user 
-        var savedNERM = await newNERM.save()
-        return savedNERM;
+        var savedUser = await newUser.save()
+        return savedUser;
     } catch (e) {
 
         // return a Error message describing the reason     
@@ -60,8 +62,8 @@ exports.createNERM = async function (nerm) {
     }
 }
 
-exports.updateNERM = async function (nerm) {
-    var id = nerm.id
+exports.updateUser = async function (user) {
+    var id = user.id
 
     try {
         //Find the old Todo Object by the Id
@@ -71,16 +73,10 @@ exports.updateNERM = async function (nerm) {
         throw Error("Error occured while Finding the Todo")
     }
 
-    // If no old Todo Object exists return false
-    if (!oldNERM) {
-        return false;
-    }
-
-    console.log(oldNERM)
-
     //Edit the Todo Object
-    oldNERM.email = nerm.email
-    oldNERM.password = nerm.password
+    oldNERM.email = user.email
+    oldNERM.password = user.password
+    oldNERM.models = user.models
 
     console.log(oldNERM)
 
@@ -121,9 +117,9 @@ exports.loginNERM = async function (password, id, hash) {
                     reject();
                 }
             })
-            .catch(err => {
-                reject();
-            })
+                .catch(err => {
+                    reject();
+                })
 
         })
 
@@ -146,11 +142,6 @@ exports.checkEmail = function (email, objsOfArr) {
     else {
         return false;   // duplicate
     }
-}
-
-exports.authenticate = async function (id) {
-
-
 }
 
 function hashPassword(password) {

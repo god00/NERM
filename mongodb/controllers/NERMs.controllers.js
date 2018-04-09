@@ -1,6 +1,12 @@
 // Accessing the Service that we just created
 
 var NERMService = require('../services/NERM.service')
+var NERM = require('../models/NERM.model');
+var config = require('../config.json');
+
+var multer = require('multer');
+var DIR = `.${config.DIR}`;
+
 
 // Saving the context of this module inside the _the variable
 
@@ -9,7 +15,7 @@ _this = this
 
 // Async Controller function to get the To do List
 
-exports.getNERM = async function (req, res, next) {
+exports.getUsers = async function (req, res, next) {
 
     // Check the existence of the query parameters, If the exists doesn't exists assign a default value
 
@@ -17,8 +23,7 @@ exports.getNERM = async function (req, res, next) {
     var limit = req.query.limit ? req.query.limit : 99999999;
 
     try {
-
-        var nerms = await NERMService.getNERMs({}, page, limit)
+        var nerms = await NERMService.getUsers({}, page, limit)
 
         // Return the todos list with the appropriate HTTP Status Code and Message.
 
@@ -33,7 +38,7 @@ exports.getNERM = async function (req, res, next) {
     }
 }
 
-exports.createNERM = async function (req, res, next) {
+exports.createUser = async function (req, res, next) {
 
     // Req.Body contains the form submit values.
     var user = {
@@ -46,11 +51,11 @@ exports.createNERM = async function (req, res, next) {
 
     try {
         // Calling the Service function with the new object from the Request Body
-        var nerms = await NERMService.getNERMs({}, page, limit);
+        var nerms = await NERMService.getUsers({}, page, limit);
         var NERMsList = nerms.docs;
 
         if (await NERMService.checkEmail(req.body.email, NERMsList)) {
-            var createdNERM = await NERMService.createNERM(user)
+            var createdNERM = await NERMService.createUser(user)
             return res.status(201).json({ status: 201, data: true, message: "Succesfully Created User" })
         }
         else {
@@ -65,29 +70,26 @@ exports.createNERM = async function (req, res, next) {
     }
 }
 
-exports.updateNERM = async function (req, res, next) {
+exports.updateUser = async function (req, res, next) {
 
-    // Id is necessary for the update
-
-    if (!req.body._id) {
-        return res.status(400).json({ status: 400., message: "Id must be present" })
-    }
-
-    var id = req.body._id;
-
-    console.log(req.body)
-
-    var nerm = {
-        id,
-        email: req.body.email ? req.body.email : null,
-        password: req.body.password ? req.body.password : null,
-    }
+    var page = req.query.page ? req.query.page : 1
+    var limit = req.query.limit ? req.query.limit : 99999999;
+    var newModel = (req.body.models)[0];
 
     try {
-        var updatedNERM = await NERMService.updateNERM(nerm)
-        return res.status(200).json({ status: 200, data: updatedNERM, message: "Succesfully Updated NERM" })
+        var query = NERM.findOne({ email: user.email });
+        var user = await NERMService.getUsers(query, page, limit);
+        if (await checkDuplicateModelName(newModel.name, user.models)) {
+            return res.status(202).json({ status: 202., duplicate: true, message: "This model name already exists" });
+        }
+        else {
+            user.models.push(newModel);
+            var updatedUser = await NERMService.updateUser(user);
+            return res.status(202).json({ status: 202, message: "Succesfully Updated NERM" });
+
+        }
     } catch (e) {
-        return res.status(400).json({ status: 400., message: e.message })
+        return res.status(400).json({ status: 400., message: e.message });
     }
 }
 
@@ -115,7 +117,7 @@ exports.loginNERM = async function (req, res, next) {
     var limit = req.query.limit ? req.query.limit : 99999999;
 
     try {
-        var nerms = await NERMService.getNERMs({}, page, limit);
+        var nerms = await NERMService.getUsers({}, page, limit);
         var NERMsList = nerms.docs;
         var userDB = await NERMsList.filter((nerms) =>
             nerms.email === user.email
@@ -142,5 +144,34 @@ exports.loginNERM = async function (req, res, next) {
 
         return res.status(400).json({ status: 400, message: "Login was Unsuccesfull" })
     }
+
+}
+
+exports.uploadNERM = async function (req, res, next) {
+    userDIR = `${DIR}${req.body.email}`;
+    var upload = multer({dest: userDIR});
+    try {
+        upload(req, res, function (err) {
+            if (err) {
+                return res.status(205).json({ status: 205, message: err.toString() })
+            }
+
+            return res.status(205).json({ status: 205, message: "File is uploaded" })
+        });
+        
+    } catch (e) {
+        return res.status(400).json({ status: 400, message: e.message })
+    }
+
+}
+
+function checkDuplicateModelName(name, models) {
+    var duplicate = await models.filter((model) =>
+        model.name === name
+    )
+    if (duplicate)
+        return true;
+    else
+        return false;
 
 }

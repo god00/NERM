@@ -1,12 +1,29 @@
 <!doctype html>
 <html lang="en">
 
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Model Name</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <input type="text" placeholder="Please enter model name" [(ngModel)]="modelName">
+    <p [hidden]="!duplicateModelName" class="text-danger">* This model name already exists</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="c('Close click')">Cancel</button>
+    <a class="btn btn-primary btn-lg" href="#/upload" role="button" (click)="openModal(content)">Create</a>
+  </div>
+</ng-template>
+
 <head>
   <title>Entity Name Recognizer Model</title>
 </head>
 <div *ngIf="alertMessage && successLogin" class="alert alert-success" style="z-index:9999; margin:0; position:absolute; width:100%; opacity: .88;">{{ alertMessage }}</div>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  
+
   <div class="navbaricon">
     <a class="navbar-brand" href="#/">
       <img src="../../assets/images/model.jpg" class="img-logo">
@@ -79,7 +96,7 @@
         the creation of a cutting-edge computer program.</p>
       <hr class="my-4">
       <p class="lead">
-        <a class="btn btn-primary btn-lg" href="#/upload" role="button" (click)="createModal()">Get Started</a>
+        <button class="btn btn-primary btn-lg" (click)="openModal(content)">Get Started</button>
       </p>
     </div>
   </div>
