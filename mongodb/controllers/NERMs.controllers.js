@@ -82,13 +82,14 @@ exports.createModel = async function (req, res, next) {
     }
 
     try {
-        var query = NERMModel.findOne({ email: nerm.email }, 'email', function (err, model) {
-            if (err) return handleError(err);
-            console.log(model);
-        });
-
-        console.log(query)
+        // var query = NERMModel.findOne({ email: nerm.email }, 'email', function (err, model) {
+        //     if (err) return handleError(err);
+        //     console.log(model);
+        // });
+        var query = { email: nerm.email };
+        
         var nerms = await NERMService.getItemFromDB(query, page, limit, 'model');
+        console.log(nerms)
         if (await checkDuplicateModelName(nerm.modelName, nerms)) {
             return res.status(202).json({ status: 202., duplicate: true, message: "This model name already exists" });
         }
