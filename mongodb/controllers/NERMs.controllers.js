@@ -1,7 +1,7 @@
 // Accessing the Service that we just created
 
 var NERMService = require('../services/NERM.service')
-var NERM = require('../models/NERM.model');
+var NERMModel = require('../models/NERM.model')
 var config = require('../config.json');
 var multer = require('multer');
 var upload = multer();
@@ -24,7 +24,7 @@ exports.getUsers = async function (req, res, next) {
     var limit = req.query.limit ? req.query.limit : 99999999;
 
     try {
-        var nerms = await NERMService.getUsers({}, page, limit)
+        var nerms = await NERMService.getItemFromDB({}, page, limit, 'user')
 
         // Return the todos list with the appropriate HTTP Status Code and Message.
 
@@ -52,7 +52,7 @@ exports.createUser = async function (req, res, next) {
 
     try {
         // Calling the Service function with the new object from the Request Body
-        var nerms = await NERMService.getUsers({}, page, limit);
+        var nerms = await NERMService.getItemFromDB({}, page, limit, 'user');
         var NERMsList = nerms.docs;
 
         if (await NERMService.checkEmail(req.body.email, NERMsList)) {
@@ -71,22 +71,25 @@ exports.createUser = async function (req, res, next) {
     }
 }
 
-exports.updateUser = async function (req, res, next) {
+exports.createModel = async function (req, res, next) {
 
     var page = req.query.page ? req.query.page : 1
     var limit = req.query.limit ? req.query.limit : 99999999;
-    var newModel = (req.body.models)[0];
+
+    var nerm = {
+        email: req.body.email,
+        modelName: req.body.modelName,
+    }
 
     try {
-        var query = NERM.findOne({ email: user.email });
-        var user = await NERMService.getUsers(query, page, limit);
-        if (await checkDuplicateModelName(newModel.name, user.models)) {
+        var query = NERMModel.find({ email: nerm.email });
+        var nerms = await NERMService.getItemFromDB(query, page, limit, 'model');
+        if (await checkDuplicateModelName(nerm.modelName, nerms)) {
             return res.status(202).json({ status: 202., duplicate: true, message: "This model name already exists" });
         }
         else {
-            user.models.push(newModel);
-            var updatedUser = await NERMService.updateUser(user);
-            return res.status(202).json({ status: 202, message: "Succesfully Updated NERM" });
+            var updatedUser = await NERMService.createModel(nerm);
+            return res.status(202).json({ status: 202, message: "Succesfully Create Model" });
 
         }
     } catch (e) {
@@ -167,13 +170,8 @@ exports.uploadsFile = async function (req, res, next) {
 
 }
 
-async function checkDuplicateModelName(name, models) {
-    var duplicate = await models.filter((model) =>
-        model.name === name
-    )
-    if (duplicate)
-        return true;
-    else
-        return false;
+async function checkDuplicateModelName(name, arrOfObj) {
+    var arrOfModelName = arrOfObj.map(function (item) { return item.modelName });
+    return (name in arrOfModelName);
 
 }

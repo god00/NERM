@@ -13,7 +13,7 @@ router.get('/', NERMController.getUsers)
 
 router.post('/', NERMController.createUser)
 
-router.put('/', NERMController.updateUser)
+router.put('/', NERMController.createModel)
 
 router.delete('/:id',NERMController.removeNERM)
 

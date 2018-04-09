@@ -1,6 +1,7 @@
 
 // Gettign the Newly created Mongoose Model we just created 
-var NERM = require('../models/NERM.model');
+var NERM = require('../models/NERMUser.model');
+var NERMModel = require('../models/NERM.model')
 var config = require('../config.json');
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
@@ -10,7 +11,7 @@ var multer = require('multer');
 _this = this
 
 // Async function to get the To do List
-exports.getUsers = async function (query, page, limit) {
+exports.getItemFromDB = async function (query, page, limit, mode) {
 
 
     // Options setup for the mongoose paginate
@@ -23,7 +24,10 @@ exports.getUsers = async function (query, page, limit) {
     // Try Catch the awaited promise to handle the error 
 
     try {
-        var users = await NERM.paginate(query, options)
+        if (mode == "user")
+            var users = await NERM.paginate(query, options)
+        else
+            var nerms = await NERMModel.paginate(query, options)
 
         // Return the users list that was retured by the mongoose promise
 
@@ -44,7 +48,6 @@ exports.createUser = async function (user) {
         email: user.email,
         password: newPassword,
         date: new Date(),
-        models: {}
     })
 
     // Creating a new Mongoose Object by using the new keyword
@@ -58,11 +61,32 @@ exports.createUser = async function (user) {
     } catch (e) {
 
         // return a Error message describing the reason     
-        throw Error("Error while Creating Todo")
+        throw Error("Error while Creating User")
     }
 }
 
-exports.updateUser = async function (user) {
+exports.createModel = async function (nerm) {
+
+    var newModel = new NERMModel({
+        email: nerm.email,
+        modelName: nerm.modelName,
+        date: new Date(),
+        corpus: [],
+        dictionary: [],
+    })
+
+    try {
+        // Saving the model 
+        var savedModel = await newModel.save()
+        return savedModel;
+    } catch (e) {
+
+        // return a Error message describing the reason     
+        throw Error("Error while Creating Model")
+    }
+}
+
+exports.updateModel = async function (user) {
     var id = user.id
 
     try {
