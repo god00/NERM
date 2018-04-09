@@ -82,9 +82,12 @@ exports.createModel = async function (req, res, next) {
     }
 
     try {
-        var query = NERMModel.find({ email: nerm.email }).then((model) => {
-            console.log(model)
-        })
+        var query = NERMModel.find({ email: nerm.email }, 'email', function (err, model) {
+            if (err) return handleError(err);
+            // Prints "Space Ghost is a talk show host".
+            console.log('%s %s is a %s.', model.name.first, model.name.last,
+                model.occupation);
+        });
 
         console.log(query)
         var nerms = await NERMService.getItemFromDB(query, page, limit, 'model');
