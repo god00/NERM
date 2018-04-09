@@ -82,7 +82,7 @@ exports.createModel = async function (req, res, next) {
     }
 
     try {
-        var query = NERMModel.find({ email: nerm.email }, 'email', function (err, model) {
+        var query = NERMModel.findOne({ email: nerm.email }, 'email', function (err, model) {
             if (err) return handleError(err);
             console.log(model);
         });
