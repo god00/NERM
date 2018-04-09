@@ -9,6 +9,6 @@ var NERMSchema = new mongoose.Schema({
 }, { collection: 'users' })
 
 NERMSchema.plugin(mongoosePaginate)
-const NERM = mongoose.model('User', NERMSchema)
+const NERM = mongoose.model('NERM', NERMSchema)
 
 module.exports = NERM;
