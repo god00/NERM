@@ -148,9 +148,9 @@ exports.loginNERM = async function (req, res, next) {
 
 }
 
-exports.uploadFile = async function (req, res, next) {
+exports.uploadsFile = async function (req, res, next) {
     var userDIR = `${DIR}${req.body.email}`;
-    var storage = await NERMService.uploadFile(userDIR);
+    var storage = await NERMService.uploadsFile(userDIR);
     upload = await multer({ storage: storage });
     try {
         upload(req, res, function (err) {

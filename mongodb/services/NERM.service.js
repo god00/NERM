@@ -130,7 +130,7 @@ exports.loginNERM = async function (password, id, hash) {
     }
 }
 
-exports.uploadFile = async function (dir) {
+exports.uploadsFile = async function (dir) {
     var storage = await multer.diskStorage({
         destination: function (req, file, cb) {
             cb(null, dir)
