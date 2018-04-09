@@ -19,7 +19,7 @@ router.delete('/:id',NERMController.removeNERM)
 
 router.post('/login',NERMController.loginNERM)
 
-router.post('/uploads',NERMController.uploadsFile)
+// router.post('/uploads',NERMController.uploadsFile)
 
 
 // Export the Router
