@@ -2,6 +2,7 @@
 
 var NERMService = require('../services/NERM.service')
 var NERMModel = require('../models/NERM.model')
+var NERM = require('../models/NERMUser.model')
 var config = require('../config.json');
 var multer = require('multer');
 var upload = multer();
@@ -82,7 +83,7 @@ exports.createModel = async function (req, res, next) {
     }
 
     try {
-        var query = NERMModel.find({ email: nerm.email });
+        var query = NERM.find({ email: nerm.email });
 
         console.log(query);
         var nerms = await NERMService.getItemFromDB(query, page, limit, 'model');
