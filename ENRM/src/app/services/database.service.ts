@@ -1,4 +1,5 @@
-import NERM from '../models/nerm.model';
+import NERM from '../models/nermUser.model';
+import NERMModel from '../models/nerm.model';
 import { appConfig } from '../app.config';
 
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -21,13 +22,13 @@ export class DatabaseService {
   }
 
   //Create nerm, takes a NERM Object
-  createNERM(nerm: NERM): Observable<any> {
+  createUser(nerm: NERM): Observable<any> {
     //returns the observable of http post request 
     return this.http.post(`${nermUrl}`, nerm);
   }
 
   //Read nerm, takes no arguments
-  getNERMs(): Observable<NERM[]> {
+  getUsers(): Observable<NERM[]> {
     return this.http.get(nermUrl)
       .map((res) => {
         //Maps the response object sent from the server
@@ -35,7 +36,7 @@ export class DatabaseService {
       })
   }
   //Update nerm, takes a NERM Object as parameter
-  updateNERM(nerm: NERM): Observable<any> {
+  updateNERM(nerm: NERMModel): Observable<any> {
     //returns the observable of http put request 
     return this.http.put(`${nermUrl}`, nerm);
   }

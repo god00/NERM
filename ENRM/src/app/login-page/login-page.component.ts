@@ -10,7 +10,7 @@ import { Subject } from 'rxjs';
 import { DatabaseService } from '../services/database.service';
 import { AuthenticationService } from '../services/authentication.service';
 
-import NERM from '../models/nerm.model';
+import NERM from '../models/nermUser.model';
 
 @Component({
   selector: 'app-login-page',
@@ -133,7 +133,7 @@ export class LoginPageComponent implements OnInit {
       let newUser = new NERM()
       newUser.email = this.rEmail.value;
       newUser.password = this.rPassword.value;
-      this.createNERM = this.databaseService.createNERM(newUser).subscribe(res => {
+      this.createNERM = this.databaseService.createUser(newUser).subscribe(res => {
         if (res.data) {
           console.log(res.message)
           this.setValue().then(() => {

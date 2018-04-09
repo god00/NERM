@@ -1,16 +1,19 @@
-class NERM {
+class NERMModel {
     _id:string;
-    email: string;
-    password: string;
+    email: String;
     date: Date;
-    models: Object[] = [];
+    modelName: String;
+    corpus: Object[];
+    dictionary: Object[];
 
     constructor(
     ){
         this.email = ""
-        this.password = ""
+        this.modelName = ""
+        this.corpus = [];
+        this.dictionary = [];
         this.date = new Date()
     }
 }
 
-export default NERM;
+export default NERMModel;

@@ -1,4 +1,4 @@
-import NERM from '../models/nerm.model';
+import NERM from '../models/nermUser.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
