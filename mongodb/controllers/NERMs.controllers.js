@@ -2,7 +2,7 @@
 
 var NERMService = require('../services/NERM.service')
 var NERMModel = require('../models/NERMUser.model')
-var NERM = require('../models/NERMUser.model')
+var NERM = require('../models/NERM.model')
 var config = require('../config.json');
 var multer = require('multer');
 var upload = multer();
@@ -80,6 +80,9 @@ exports.createModel = async function (req, res, next) {
     var nerm = {
         email: req.body.email,
         modelName: req.body.modelName,
+        date: req.body.date,
+        dictionary: req.body.dictionary,
+        corpus: req.body.corpus
     }
 
     try {
