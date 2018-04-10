@@ -18,7 +18,7 @@ import NERMModel from '../models/nerm.model';
 })
 export class HomeComponent implements OnInit {
   updateNERM: any;
-  modelName: string;
+  modelName: string = '';
   duplicateModelName: boolean = false;
   user: Object;
 
