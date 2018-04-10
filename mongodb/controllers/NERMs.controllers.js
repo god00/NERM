@@ -94,7 +94,7 @@ exports.createModel = async function (req, res, next) {
                 return res.status(202).json({ status: 202., duplicate: true, message: "This model name already exists" });
             }
             else {
-                var nerm = await NERMService.createModel(nerm);
+                var nermTmp = await NERMService.createModel(nerm);
                 return res.status(202).json({ status: 202, message: "Succesfully Create Model" });
             }
         })
