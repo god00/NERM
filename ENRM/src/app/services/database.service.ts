@@ -29,6 +29,7 @@ export class DatabaseService {
 
   //Create model, takes a NERMModel Object
   createModel(nerm: NERMModel): Observable<any> {
+    console.log(nerm)
     //returns the observable of http post request 
     return this.http.post(`${nermUrl}/model`, nerm);
   }
