@@ -66,9 +66,8 @@ exports.createUser = async function (user) {
 }
 
 exports.createModel = async function (nerm) {
-
     var newModel = new NERMModel({
-        email: nerm.email || '',
+        email: nerm.email || "",
         modelName: nerm.modelName,
         date: new Date(),
         corpus: [],
