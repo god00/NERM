@@ -15,6 +15,9 @@ export class FileUploadService {
     public hasBaseDropZoneOver: boolean = false;
     public hasAnotherDropZoneOver: boolean = false;
 
+    constructor() {
+    }
+
     public fileOverBase(e: any): void {
         this.hasBaseDropZoneOver = e;
     }
