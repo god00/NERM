@@ -14,7 +14,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-light" (click)="c('Close click')">Cancel</button>
-    <a class="btn btn-primary btn-lg" href="#/upload" role="button" (click)="createModal()">Create</a>
+    <a class="btn btn-primary btn-lg" href="#/upload" role="button" (click)="createModal()" [disable]="modelName == ''">Create</a>
   </div>
 </ng-template>
 
