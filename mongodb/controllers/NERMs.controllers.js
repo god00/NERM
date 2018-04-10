@@ -1,8 +1,8 @@
 // Accessing the Service that we just created
 
 var NERMService = require('../services/NERM.service')
-var NERMModel = require('../models/NERMUser.model')
-var NERM = require('../models/NERM.model')
+var NERMModel = require('../models/NERM.model')
+var NERM = require('../models/NERMUser.model')
 var config = require('../config.json');
 var multer = require('multer');
 var upload = multer();
