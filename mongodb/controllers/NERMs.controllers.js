@@ -61,7 +61,7 @@ exports.createUser = async function (req, res, next) {
                 return res.status(201).json({ status: 201, data: false, message: "This user already exists" })
             }
             else {
-                var createdNERM = await NERMService.createUser(user)
+                var createdNERM = await NERMService.createUser(user[0])
                 return res.status(201).json({ status: 201, data: true, message: "Succesfully Created User" })
             }
         })
@@ -128,7 +128,7 @@ exports.loginNERM = async function (req, res, next) {
             if (err)
                 return res.status(400).json({ status: 400., message: err.message });
             else if (userDB) {
-                NERMService.loginNERM(user.password, userDB._id, userDB.password)
+                NERMService.loginNERM(user.password, userDB[0]._id, userDB[0].password)
                     .then((token) => {
                         var usertmp = {
                             email: user.email,
