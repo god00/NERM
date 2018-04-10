@@ -79,14 +79,14 @@ exports.createModel = async function (req, res, next) {
 
     var nerm = {
         email: req.body.email,
-        modelName: req.body.modelName,
+        ModelName: req.body.modelName,
         date: req.body.date,
         dictionary: req.body.dictionary,
         corpus: req.body.corpus
     }
 
     try {
-        var query = NERMModel.findOne({ email: nerm.email, modelName: nerm.modelName });
+        var query = NERMModel.findOne({ email: nerm.email, ModelName: nerm.modelName });
         query.exec(async function (err, model) {
             if (err)
                 return res.status(400).json({ status: 400., message: err.message });
