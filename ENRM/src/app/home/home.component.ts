@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   modelName: string = '';
   duplicateModelName: boolean = false;
   user: Object;
+  modal;
 
   //Modal parameter
   closeResult: string;
@@ -67,6 +68,7 @@ export class HomeComponent implements OnInit {
       }
       else {
         this.duplicateModelName = false;
+        this.modal.close();
         this.router.navigate(['create']);
         this.updateNERM.unsubscribe();
       }
@@ -75,7 +77,7 @@ export class HomeComponent implements OnInit {
   }
 
   openModal(content) {
-    this.modalService.open(content, <object>{ centered: true });
+    this.modal = this.modalService.open(content, <object>{ centered: true });
   }
 
   logout() {
