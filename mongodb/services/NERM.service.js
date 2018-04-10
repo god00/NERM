@@ -66,7 +66,6 @@ exports.createUser = async function (user) {
 }
 
 exports.createModel = async function (nerm) {
-    console.log(nerm)
     var newModel = new NERMModel({
         email: nerm.email,
         modelName: nerm.modelName,
@@ -76,7 +75,6 @@ exports.createModel = async function (nerm) {
     })
 
     try {
-        console.log(newModel)
         // Saving the model 
         var savedModel = await newModel.save()
         return savedModel;
