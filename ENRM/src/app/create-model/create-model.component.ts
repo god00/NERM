@@ -22,7 +22,7 @@ export class CreateModelComponent implements OnInit {
     private route: ActivatedRoute,
     private fileUploadService:FileUploadService
   ) { 
-    this.uploader = fileUploadService.uploader;
+    this.uploader = fileUploadService.getUploader();
   }
 
   ngOnInit() {
