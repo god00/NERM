@@ -13,8 +13,8 @@
     <p [hidden]="!duplicateModelName" class="text-danger">* This model name already exists</p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="c('Close click')">Cancel</button>
-    <a class="btn btn-primary btn-lg" href="#/upload" role="button" (click)="createModal()" [disable]="modelName == ''">Create</a>
+    <button type="button" class="btn btn-light btn-lg" (click)="c('Close click')">Cancel</button>
+    <button class="btn btn-primary btn-lg" (click)="createModal()" [disable]="modelName == ''">Create</button>
   </div>
 </ng-template>
 
