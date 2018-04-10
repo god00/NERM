@@ -57,7 +57,7 @@ exports.createUser = async function (req, res, next) {
         query.exec(async function (err, user) {
             if (err)
                 return res.status(400).json({ status: 400., message: err.message });
-            else if (model) {
+            else if (user[0]) {
                 return res.status(201).json({ status: 201, data: false, message: "This user already exists" })
             }
             else {
@@ -83,12 +83,11 @@ exports.createModel = async function (req, res, next) {
     }
 
     try {
-        var query = NERMModel.find({ email: nerm.email, modelName: nerm.modelName });
+        var query = NERMModel.findOne({ email: nerm.email, modelName: nerm.modelName });
         query.exec(async function (err, model) {
-            console.log(model);
             if (err)
                 return res.status(400).json({ status: 400., message: err.message });
-            else if (model) {
+            else if (model[0]) {
                 return res.status(202).json({ status: 202., duplicate: true, message: "This model name already exists" });
             }
             else {
@@ -124,10 +123,9 @@ exports.loginNERM = async function (req, res, next) {
     try {
         var query = NERM.findOne({ email: user.email });
         query.exec(async function (err, userDB) {
-            console.log(userDB)
             if (err)
                 return res.status(400).json({ status: 400., message: err.message });
-            else if (userDB) {
+            else if (userDB[0]) {
                 NERMService.loginNERM(user.password, userDB[0]._id, userDB[0].password)
                     .then((token) => {
                         var usertmp = {
