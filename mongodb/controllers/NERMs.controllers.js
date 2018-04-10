@@ -85,6 +85,7 @@ exports.createModel = async function (req, res, next) {
     try {
         var query = NERMModel.find({ email: nerm.email, modelName: nerm.modelName });
         query.exec(async function (err, model) {
+            console.log(model);
             if (err)
                 return res.status(400).json({ status: 400., message: err.message });
             else if (model) {
