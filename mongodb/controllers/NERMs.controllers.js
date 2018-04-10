@@ -54,14 +54,14 @@ exports.createUser = async function (req, res, next) {
     try {
         // Calling the Service function with the new object from the Request Body
         var query = NERM.findOne({ email: user.email });
-        query.exec(async function (err, user) {
+        query.exec(async function (err, userDB) {
             if (err)
                 return res.status(400).json({ status: 400., message: err.message });
-            else if (user.length != 0) {
+            else if (userDB) {
                 return res.status(201).json({ status: 201, data: false, message: "This user already exists" })
             }
             else {
-                var createdNERM = await NERMService.createUser(user[0])
+                var createdNERM = await NERMService.createUser(user)
                 return res.status(201).json({ status: 201, data: true, message: "Succesfully Created User" })
             }
         })
@@ -87,7 +87,7 @@ exports.createModel = async function (req, res, next) {
         query.exec(async function (err, model) {
             if (err)
                 return res.status(400).json({ status: 400., message: err.message });
-            else if (model.length != 0) {
+            else if (model) {
                 return res.status(202).json({ status: 202., duplicate: true, message: "This model name already exists" });
             }
             else {
@@ -125,7 +125,7 @@ exports.loginNERM = async function (req, res, next) {
         query.exec(async function (err, userDB) {
             if (err)
                 return res.status(400).json({ status: 400., message: err.message });
-            else if (userDB.length != 0) {
+            else if (userDB) {
                 NERMService.loginNERM(user.password, userDB[0]._id, userDB[0].password)
                     .then((token) => {
                         var usertmp = {
