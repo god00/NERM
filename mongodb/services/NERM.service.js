@@ -76,6 +76,7 @@ exports.createModel = async function (nerm) {
     })
 
     try {
+        console.log(newModel)
         // Saving the model 
         var savedModel = await newModel.save()
         return savedModel;
