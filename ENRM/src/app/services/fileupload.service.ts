@@ -18,10 +18,6 @@ export class FileUploadService {
     constructor() {
     }
 
-    public getUploader() {
-        return this.uploader;
-    }
-
     public fileOverBase(e: any): void {
         this.hasBaseDropZoneOver = e;
     }

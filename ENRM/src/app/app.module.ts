@@ -14,16 +14,19 @@ import { HomeComponent } from './home/home.component';
 import { CreateModelComponent } from './create-model/create-model.component';
 
 import { DatabaseService } from './services/database.service';
+import { FileUploadService } from './services/fileupload.service';
+import { AuthenticationService } from './services/authentication.service';
 
 import { AuthGuard } from './guard/auth.guard';
-import { AuthenticationService } from './services/authentication.service';
+
+
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginPageComponent },
-  { path: 'create', component: CreateModelComponent}
- ];
+  { path: 'create', component: CreateModelComponent }
+];
 
 @NgModule({
   declarations: [
@@ -34,7 +37,7 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes , {useHash:true}),
+    RouterModule.forRoot(routes, { useHash: true }),
     NgbModule.forRoot(),
     ReactiveFormsModule,
     NgCircleProgressModule.forRoot({
@@ -48,12 +51,13 @@ const routes: Routes = [
     }),
     HttpClientModule,
     FormsModule,
-    FileUploadModule, 
+    FileUploadModule,
   ],
   providers: [
     DatabaseService,
     AuthenticationService,
-    AuthGuard
+    AuthGuard,
+    FileUploadService
   ],
   bootstrap: [AppComponent]
 })
