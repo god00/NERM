@@ -172,8 +172,9 @@ exports.uploadsFile = async function (req, res, next) {
             if (err) {
                 return res.status(205).json({ status: 205, message: err.toString() })
             }
-
-            return res.status(205).json({ status: 205, message: "File is uploaded" })
+            res.status(205);
+            res.end('File is uploaded');
+            // return res.status(205).json({ status: 205, message: "File is uploaded" })
         });
 
     } catch (e) {
