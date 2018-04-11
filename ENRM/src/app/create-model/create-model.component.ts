@@ -51,7 +51,7 @@ export class CreateModelComponent implements OnInit {
       }
 
       this.fileUploadService.uploadNERM(this.formData).subscribe(res => {
-
+        console.log(res.message)
       })
 
     }
