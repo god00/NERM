@@ -3,7 +3,7 @@
 var NERM = require('../models/NERMUser.model');
 var NERMModel = require('../models/NERM.model')
 var config = require('../config.json');
-var bcrypt = require('bcrypt');
+// var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var multer = require('multer');
 
