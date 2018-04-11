@@ -28,6 +28,7 @@ export class CreateModelComponent implements OnInit {
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
+    this.formData.append("email", this.user['email'])
   }
 
   showCorpus(id: string) {
@@ -45,10 +46,11 @@ export class CreateModelComponent implements OnInit {
     let fileList: FileList = event.target.files;
     console.log(fileList)
     if (fileList.length > 0) {
-      for (let file in fileList) {
-        this.formData.append("uploads[]", file, file['name']);
+      for (let i = 0; i < fileList.length; i++) {
+        let file: File = fileList[0];
+        this.formData.append("uploads[]", file, file.name);
       }
-      this.formData.append("email", this.user['email'])
+      
       console.log(this.formData);
       // this.fileUploadService.uploadNERM(formData).subscribe(res => {
 

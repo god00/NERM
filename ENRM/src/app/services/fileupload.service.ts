@@ -19,6 +19,6 @@ export class FileUploadService {
         let headers = new HttpHeaders();
         headers.append('Content-Type', 'multipart/form-data');
         headers.append('Accept', 'application/json');
-        return this.http.post(`${nermUrl}`, formData, { headers: headers });
+        return this.http.post(`${nermUrl}`, formData);
     }
 }
