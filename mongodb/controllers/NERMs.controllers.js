@@ -159,7 +159,7 @@ exports.loginNERM = async function (req, res, next) {
 }
 
 exports.uploadsFile = async function (req, res, next) {
-    fs.readFile(req.files.email.path, function (err, data) {
+    fs.readFile(req.files.file.path, function (err, data) {
         console.log(data)
     });
     var userDIR = `${DIR}${req.email}`;
