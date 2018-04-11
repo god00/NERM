@@ -158,7 +158,7 @@ exports.configStorage = async function (req, dir) {
             cb(null, dir)
         },
         filename: function (req, file, cb) {
-            cb(null, file.originalname + '-' + Date.now())
+            cb(null, file.originalname)
         }
     })
     return { storage, req };
