@@ -158,8 +158,7 @@ exports.loginNERM = async function (req, res, next) {
 }
 
 exports.uploadsFile = async function (req, res, next) {
-    console.log(req.getAll('email'))
-    console.log(req.getAll('uploads'))
+    console.log(typeof req)
     var userDIR = `${DIR}${req.get('email')}`;
     var storage = await NERMService.configStorage(userDIR);
     try {
