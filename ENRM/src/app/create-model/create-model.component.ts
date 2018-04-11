@@ -27,11 +27,8 @@ export class CreateModelComponent implements OnInit {
     private modalService: NgbModal
   ) {
     this.uploader = this.fileUploadService.uploader;
-
-    this.uploader.onBeforeUploadItem = (fileItem: any) => {
-      this.uploader.options.additionalParameter = {
-        email: this.user['email']
-      };
+    this.uploader.onBuildItemForm = (item, form) => {
+      form.append("email", this.user['email']);
     };
   }
 
