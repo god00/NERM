@@ -160,7 +160,7 @@ exports.loginNERM = async function (req, res, next) {
 }
 
 exports.uploadsFile = async function (req, res, next) {
-    console.log(req)
+    console.log(req.body)
     var userDIR = `${DIR}${req.body.email}`;
     var storage = await NERMService.uploadsFile(userDIR);
     try {
