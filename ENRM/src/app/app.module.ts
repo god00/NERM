@@ -5,7 +5,6 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgCircleProgressModule } from 'ng-circle-progress';
-import { FileUploadModule } from 'ng2-file-upload';
 
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -51,7 +50,6 @@ const routes: Routes = [
     }),
     HttpClientModule,
     FormsModule,
-    FileUploadModule,
   ],
   providers: [
     DatabaseService,
