@@ -5,9 +5,10 @@ var NERMModel = require('../models/NERM.model')
 var NERM = require('../models/NERMUser.model')
 var config = require('../config.json');
 var multer = require('multer');
-var upload = multer();
 
 var DIR = `.${config.DIR}`;
+
+var upload = multer({dest:DIR});
 
 
 // Saving the context of this module inside the _the variable
@@ -159,12 +160,12 @@ exports.loginNERM = async function (req, res, next) {
 }
 
 exports.uploadsFile = async function (req, res, next) {
-    console.log(req)
-    var userDIR = `${DIR}${req.body.email}`;
-    var storage = await NERMService.uploadsFile(userDIR);
+    // console.log(req)
+    // var userDIR = `${DIR}${req.body.email}`;
+    // var storage = await NERMService.uploadsFile(userDIR);
     
     try {
-        upload = await multer({ storage: storage });
+        // upload = await multer({ storage: storage });
         upload(req, res, function (err) {
             if (err) {
                 return res.status(205).json({ status: 205, message: err.toString() })
