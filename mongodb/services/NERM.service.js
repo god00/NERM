@@ -6,6 +6,7 @@ var config = require('../config.json');
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var multer = require('multer');
+var fs = require('fs');
 
 // Saving the context of this module inside the _the variable
 _this = this
