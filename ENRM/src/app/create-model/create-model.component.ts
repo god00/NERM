@@ -17,7 +17,7 @@ export class CreateModelComponent implements OnInit {
   dicts = [{ title: 'dict1' }, { title: 'dict2' }]
   selectedDict;
   showText = {};
-  filesToUpload: Array<File> = [];
+  formData: FormData = new FormData();
 
   constructor(
     private router: Router,
@@ -42,15 +42,14 @@ export class CreateModelComponent implements OnInit {
 
 
   fileChange(event) {
-    let formData: FormData = new FormData();
     let fileList: FileList = event.target.files;
     console.log(fileList)
     if (fileList.length > 0) {
       for (let file in fileList) {
-        formData.append("uploads[]", file, file['name']);
+        this.formData.append("uploads[]", file, file['name']);
       }
-      formData.append("email", this.user['email'])
-      console.log(formData);
+      this.formData.append("email", this.user['email'])
+      console.log(this.formData);
       // this.fileUploadService.uploadNERM(formData).subscribe(res => {
 
       // })
