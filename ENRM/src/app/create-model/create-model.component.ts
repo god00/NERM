@@ -33,7 +33,7 @@ export class CreateModelComponent implements OnInit {
 
     this.uploader = this.fileUploadService.uploader;
     this.uploader.setOptions({
-      additionalParameter: { email: this.user['email'] }
+      additionalParameter: { email: 'eiei' }
     })
   }
 
