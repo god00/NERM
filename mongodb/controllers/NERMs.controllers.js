@@ -164,6 +164,7 @@ exports.uploadsFile = async function (req, res, next) {
     try {
         upload = await multer({ storage: storage }).any();
         upload(req, res, function (err) {
+            console.log(req.files)
             console.log('uploading')
             if (err) {
                 return res.status(205).json({ status: 205, message: err.toString() })
