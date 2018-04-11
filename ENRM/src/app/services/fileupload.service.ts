@@ -7,7 +7,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { appConfig } from '../app.config';
 
 // const URL = '/api/';
-const nermUrl = `${appConfig.apiUrl}/api/nerms`;
+const nermUrl = `${appConfig.apiUrl}/api/nerms/uploads`;
 
 @Injectable()
 export class FileUploadService {
