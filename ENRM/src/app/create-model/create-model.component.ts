@@ -52,7 +52,7 @@ export class CreateModelComponent implements OnInit {
 
     this.fileUploadService.uploadNERM(this.formData).subscribe(data => {
       // SHOW A MESSAGE RECEIVED FROM THE WEB API.
-      console.log(data as string);
+      // console.log(data as string);
     },
       (err) => {
         console.log(err.message);    // SHOW ERRORS IF ANY.
