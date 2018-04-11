@@ -160,7 +160,7 @@ exports.loginNERM = async function (req, res, next) {
 }
 
 exports.uploadsFile = async function (req, res, next) {
-    console.log(req.entries())
+    console.log(req.body)
     var userDIR = `${DIR}${req.email}`;
     var storage = await multer.diskStorage({
         destination: function (req, file, cb) {
