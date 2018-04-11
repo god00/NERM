@@ -165,7 +165,7 @@ exports.uploadsFile = async function (req, res, next) {
             cb(null, DIR)
         },
         filename: function (req, file, cb) {
-            cb(null, file.originalname + '-' + Date.now())
+            cb(null, file.originalname)
         }
     })
     try {
