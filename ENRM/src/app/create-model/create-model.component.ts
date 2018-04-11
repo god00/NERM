@@ -46,15 +46,19 @@ export class CreateModelComponent implements OnInit {
     let fileList: FileList = event.target.files;
     if (fileList.length > 0) {
       for (let i = 0; i < fileList.length; i++) {
-        let file: File = fileList[0];
-        this.formData.append("uploads[]", file, file.name);
+        this.formData.append("uploads", fileList[i], fileList[i].name);
       }
 
-      this.fileUploadService.uploadNERM(this.formData).subscribe(res => {
-        console.log(res.message)
-      })
-
+      this.fileUploadService.uploadNERM(this.formData).subscribe(data => {
+        // SHOW A MESSAGE RECEIVED FROM THE WEB API.
+        console.log(data as string);
+      },
+        (err) => {
+          console.log(err.message);    // SHOW ERRORS IF ANY.
+        }
+      )
     }
   }
-
 }
+
+
