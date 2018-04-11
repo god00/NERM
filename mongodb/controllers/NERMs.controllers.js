@@ -9,7 +9,7 @@ var fs = require('fs');
 
 var DIR = `.${config.DIR}`;
 
-var upload = multer({dest:DIR}).any();
+var upload = multer();
 
 
 // Saving the context of this module inside the _the variable
@@ -161,12 +161,12 @@ exports.loginNERM = async function (req, res, next) {
 }
 
 exports.uploadsFile = async function (req, res, next) {
-    // console.log(req)
-    // var userDIR = `${DIR}${req.body.email}`;
-    // var storage = await NERMService.uploadsFile(userDIR);
+    console.log(req)
+    var userDIR = `${DIR}${req.body.email}`;
+    var storage = await NERMService.uploadsFile(userDIR);
     console.log(req.file)
     try {
-        // upload = await multer({ storage: storage });
+        upload = await multer({ storage: storage }).any();
         upload(req, res, function (err) {
             console.log('uploading')
             if (err) {
