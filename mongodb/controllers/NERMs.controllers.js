@@ -5,9 +5,6 @@ var NERMModel = require('../models/NERM.model')
 var NERM = require('../models/NERMUser.model')
 var config = require('../config.json');
 var multer = require('multer');
-var express = require('express')
-
-var app = express();
 
 var DIR = `.${config.DIR}`;
 
@@ -161,11 +158,11 @@ exports.loginNERM = async function (req, res, next) {
 }
 
 exports.uploadsFile = async function (req, res, next) {
-    console.log(req)
-    var userDIR = `${DIR}${req.get('email')}`;
-    // var storage = await NERMService.configStorage(userDIR);
+    console.log(typeof req)
+    var userDIR = `${DIR}${req.email}`;
+    var storage = await NERMService.configStorage(userDIR);
     try {
-        upload = await multer({ dest: DIR });
+        upload = await multer({ storage: storage }).any();
         upload(req, res, function (err) {
             console.log('uploading')
             if (err) {
@@ -179,16 +176,3 @@ exports.uploadsFile = async function (req, res, next) {
     }
 
 }
-
-app.use(multer({
-    dest: DIR,
-    rename: function (fieldname, filename) {
-        return filename + '-' + Date.now();
-    },
-    onFileUploadStart: function (file) {
-        console.log(file.originalname + ' is starting ...');
-    },
-    onFileUploadComplete: function (file) {
-        console.log(file.fieldname + ' uploaded to  ' + file.path);
-    }
-}));
