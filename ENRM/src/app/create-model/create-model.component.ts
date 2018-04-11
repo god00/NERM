@@ -30,6 +30,7 @@ export class CreateModelComponent implements OnInit {
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.uploader = this.fileUploadService.uploader;
+    console.log(this.uploader)
   }
 
   showCorpus(id: string) {
