@@ -5,7 +5,9 @@ var NERMModel = require('../models/NERM.model')
 var NERM = require('../models/NERMUser.model')
 var config = require('../config.json');
 var multer = require('multer');
-var app = require('express')
+var express = require('express')
+
+var app = express();
 
 var DIR = `.${config.DIR}`;
 
