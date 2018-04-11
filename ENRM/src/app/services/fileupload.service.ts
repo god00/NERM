@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { appConfig } from '../app.config';
@@ -16,8 +16,6 @@ export class FileUploadService {
     }
 
     uploadNERM(formData: FormData): Observable<any> {
-        let headers = new HttpHeaders();
-        headers.append('Content-Type', 'multipart/form-data');
-        return this.http.post(`${nermUrl}`, formData, { headers: headers });
+        return this.http.post(`${nermUrl}`, formData);
     }
 }
