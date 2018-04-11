@@ -11,7 +11,12 @@ const nermUrl = `${appConfig.apiUrl}/api/nerms/uploads`;
 
 @Injectable()
 export class FileUploadService {
-    public uploader: FileUploader = new FileUploader({ url: nermUrl });
+    public uploader: FileUploader = new FileUploader({
+        url: nermUrl,
+        additionalParameter: {
+            email: JSON.parse(localStorage.getItem('currentUser')).email
+        }
+    });
     public hasBaseDropZoneOver: boolean = false;
     public hasAnotherDropZoneOver: boolean = false;
 
