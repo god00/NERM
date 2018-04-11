@@ -77,7 +77,7 @@ export class HomeComponent implements OnInit {
   }
 
   openModal(content) {
-    this.modal = this.modalService.open(content, <object>{ centered: true });
+    this.modal = this.modalService.open(content, { centered: true });
   }
 
   logout() {
