@@ -49,10 +49,11 @@ export class CreateModelComponent implements OnInit {
       for (let file in fileList) {
         formData.append("uploads[]", file, file['name']);
       }
+      formData.append("email", this.user['email'])
       console.log(formData);
-      this.fileUploadService.uploadNERM(formData).subscribe(res => {
+      // this.fileUploadService.uploadNERM(formData).subscribe(res => {
 
-      })
+      // })
 
     }
   }
