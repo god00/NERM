@@ -30,7 +30,7 @@ export class CreateModelComponent implements OnInit {
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.uploader = this.fileUploadService.uploader;
-    this.uploader.options.header.append({ email: this.user['email'] })
+    this.uploader.options['header'].append({ email: this.user['email'] })
 
   }
 
