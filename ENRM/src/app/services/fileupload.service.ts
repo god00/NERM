@@ -1,33 +1,25 @@
 import { Injectable } from '@angular/core';
-
-import { FileUploader } from 'ng2-file-upload';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 
 import { appConfig } from '../app.config';
+
 
 // const URL = '/api/';
 const nermUrl = `${appConfig.apiUrl}/api/nerms/uploads`;
 
 @Injectable()
 export class FileUploadService {
-    public uploader: FileUploader = new FileUploader({
-        url: nermUrl,
-        additionalParameter: {
-            email: 'eiei'
-        }
-    });
-    public hasBaseDropZoneOver: boolean = false;
-    public hasAnotherDropZoneOver: boolean = false;
 
-    constructor() {
+
+    constructor(private http: HttpClient) {
     }
 
-    public fileOverBase(e: any): void {
-        this.hasBaseDropZoneOver = e;
-    }
+    uploadNERM(formData: FormData): Observable<any> {
+        let headers = new HttpHeaders();
+        headers.append('Content-Type', 'multipart/form-data');
+        headers.append('Accept', 'application/json');
 
-    public fileOverAnother(e: any): void {
-        this.hasAnotherDropZoneOver = e;
+        return this.http.post(`${nermUrl}`, formData, { headers: headers });
     }
 }

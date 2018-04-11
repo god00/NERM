@@ -17,8 +17,7 @@ export class CreateModelComponent implements OnInit {
   dicts = [{ title: 'dict1' }, { title: 'dict2' }]
   selectedDict;
   showText = {};
-  uploadDict;
-  uploader;
+  filesToUpload: Array<File> = [];
 
   constructor(
     private router: Router,
@@ -29,8 +28,6 @@ export class CreateModelComponent implements OnInit {
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-    this.uploader = this.fileUploadService.uploader;
-    console.log(this.uploader)
   }
 
   showCorpus(id: string) {
@@ -40,6 +37,24 @@ export class CreateModelComponent implements OnInit {
 
   uploadModal(content, mode) {
     this.modalService.open(content, { centered: true, size: 'lg' });
+  }
+
+
+
+  fileChange(event) {
+    let formData: FormData = new FormData();
+    let fileList: FileList = event.target.files;
+    console.log(fileList)
+    if (fileList.length > 0) {
+      for (let file in fileList) {
+        formData.append("uploads[]", file, file['name']);
+      }
+      console.log(formData);
+      this.fileUploadService.uploadNERM(formData).subscribe(res => {
+
+      })
+
+    }
   }
 
 }
