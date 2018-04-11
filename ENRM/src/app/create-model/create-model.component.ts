@@ -26,14 +26,18 @@ export class CreateModelComponent implements OnInit {
     private fileUploadService: FileUploadService,
     private modalService: NgbModal
   ) {
+    this.uploader = this.fileUploadService.uploader;
+
+    this.uploader.onBeforeUploadItem = (fileItem: any) => {
+      this.uploader.options.additionalParameter = {
+        email: this.user['email']
+      };
+    };
   }
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-    this.uploader = this.fileUploadService.uploader;
-    this.uploader.onBuildItemForm = (fileItem: any, form: any) => {
-      form.append('email', this.user['email']); //note comma separating key and value
-     };
+
   }
 
   showCorpus(id: string) {
