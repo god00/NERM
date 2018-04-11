@@ -160,10 +160,12 @@ exports.loginNERM = async function (req, res, next) {
 exports.uploadsFile = async function (req, res, next) {
     // console.log(req)
     var userDIR = `${DIR}${req.email}`;
-    var storage = await NERMService.configStorage(req,userDIR);
+    var config = await NERMService.configStorage(req, userDIR);
+    console.log(config.res)
     try {
-        upload = await multer({ storage: storage }).any();
-        upload(req, res, function (err) {
+        console.log
+        upload = await multer({ storage: config.storage }).any();
+        upload(config.req, res, function (err) {
             console.log('uploading...')
             if (err) {
                 return res.status(205).json({ status: 205, message: err.toString() })

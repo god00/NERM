@@ -152,7 +152,7 @@ exports.loginNERM = async function (password, id, hash) {
     }
 }
 
-exports.configStorage = async function (req,dir) {
+exports.configStorage = async function (req, dir) {
     var storage = multer.diskStorage({
         destination: function (req, file, cb) {
             cb(null, dir)
@@ -161,7 +161,7 @@ exports.configStorage = async function (req,dir) {
             cb(null, file.originalname + '-' + Date.now())
         }
     })
-    return storage;
+    return { storage, req };
 }
 
 function hashPassword(password) {
