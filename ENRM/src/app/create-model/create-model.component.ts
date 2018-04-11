@@ -47,9 +47,7 @@ export class CreateModelComponent implements OnInit {
     for (let i = 0; i < fileList.length; i++) {
       this.formData.append("uploads", fileList[i], fileList[i].name);
     }
-    console.log(this.formData.getAll('email'))
-    console.log(this.formData.getAll('uploads'))
-
+    
     this.fileUploadService.uploadNERM(this.formData).subscribe(data => {
       // SHOW A MESSAGE RECEIVED FROM THE WEB API.
       // console.log(data as string);
