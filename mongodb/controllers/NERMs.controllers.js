@@ -5,10 +5,11 @@ var NERMModel = require('../models/NERM.model')
 var NERM = require('../models/NERMUser.model')
 var config = require('../config.json');
 var multer = require('multer');
-var fs = require('fs')
-
+const bodyParser = require('body-parser');
+var express = require('express')
+var app = express();
 var DIR = `.${config.DIR}`;
-
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // Saving the context of this module inside the _the variable
 
