@@ -182,14 +182,17 @@ exports.uploadsFile = async function (req, res, next) {
         await upload(req, res, async function (err) {
             console.log('uploading...')
             if (err) {
-                console.log('error')
+                console.log('error1')
                 return res.status(205).json({ status: 205, message: err.toString() })
             }
             var query = NERMModel.findOne({ email: req.body.email[0], ModelName: req.body.modelName[0] });
             query.exec(function (err, model) {
-                if (err)
+                if (err) {
+                    console.log('error2')
                     return res.status(400).json({ status: 400., message: err.message });
+                }
                 else if (model) {
+                    console.log('error3')
                     var mode = req.body.mode[0];
                     model[mode].push(`${path.dirname(process.cwd())}/storage/uploads/${req.body.email[0]}/${req.body.modelName[0]}/${req.files[0].originalname}`);
                     NERMService.updateModel(model, mode)
