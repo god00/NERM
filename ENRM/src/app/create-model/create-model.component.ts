@@ -5,6 +5,10 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 import { FileUploadService } from '../services/fileupload.service';
 import NERMModel from '../models/nerm.model';
+import { FileUploader } from 'ng2-file-upload';
+import { appConfig } from '../app.config';
+
+const nermUrl = `${appConfig.apiUrl}/api/nerms/uploads`;
 
 @Component({
   selector: 'app-create-model',
@@ -12,6 +16,7 @@ import NERMModel from '../models/nerm.model';
   styleUrls: ['./create-model.component.css']
 })
 export class CreateModelComponent implements OnInit {
+  uploader: FileUploader;
   user: Object;
   private sub: any;
   model: NERMModel;
@@ -22,7 +27,6 @@ export class CreateModelComponent implements OnInit {
   selectedDict;
   showText = {};
   // formData: FormData = new FormData();
-  uploader;
 
   constructor(
     private router: Router,
@@ -35,6 +39,7 @@ export class CreateModelComponent implements OnInit {
   }
 
   ngOnInit() {
+
     // if(!this.model){
     //   this.router.navigate(['']);
     // }
@@ -49,21 +54,22 @@ export class CreateModelComponent implements OnInit {
   }
 
   uploadModal(content, mode) {
-    this.uploader = this.fileUploadService.uploader;
+    this.uploader = new FileUploader({ url: nermUrl });
     this.uploader.onBuildItemForm = (fileItem, form) => {
       form.append('email', this.user['email']);
       form.append('modelName', this.model.modelName);
       form.append('mode', mode);
       return { fileItem, form }
     };
+    this.uploader.onErrorItem = (item, response, status, headers) => this.fileUploadService.onErrorItem(item, response, status, headers);
+    this.uploader.onSuccessItem = (item, response, status, headers) => this.fileUploadService.onSuccessItem(item, response, status, headers);
     this.modalService.open(content, { centered: true, size: 'lg' }).result.then((result) => {
-      this.fileUploadService.uploader = this.fileUploadService.uploaderTmp; // reset uploader
+      // reset uploader
       console.log(`Closed with: ${result}`);
     }, (reason) => {
-      this.fileUploadService.uploader = this.fileUploadService.uploaderTmp; // reset uploader
+      // reset uploader
       console.log(`Dismissed ${this.getDismissReason(reason)}`);
     });
-
   }
 
   private getDismissReason(reason: any): string {
