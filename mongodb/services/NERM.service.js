@@ -98,9 +98,11 @@ exports.updateModel = async function (nerm) {
     }
 
     //Edit the Todo Object
-    oldNERM.email = user.email
-    oldNERM.password = user.password
-    oldNERM.models = user.models
+    oldNERM.email = nerm.email
+    oldNERM.ModelName = nerm.ModelName
+    oldNERM.date = nerm.date
+    oldNERM.corpus = nerm.corpus
+    oldNERM.dictionary = nerm.dictionary
 
     console.log(oldNERM)
 

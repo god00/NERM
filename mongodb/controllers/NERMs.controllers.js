@@ -201,7 +201,6 @@ exports.uploadsFile = async function (req, res, next) {
                     NERMService.updateModel(model, mode)
                 }
             })
-            res.end('File is uploaded');
             return res.status(205).json({ status: 205, message: "File is uploaded" })
         });
 
