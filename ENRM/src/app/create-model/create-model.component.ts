@@ -43,7 +43,9 @@ export class CreateModelComponent implements OnInit {
     public databaseService: DatabaseService
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
+    console.log('hello')
     this.model.modelName = JSON.parse(localStorage.getItem('currentModel')) || '';
+    console.log('after')
   }
 
   ngOnInit() {
