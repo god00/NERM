@@ -191,18 +191,16 @@ exports.uploadsFile = async function (req, res, next) {
             query.exec(function (err, model) {
                 console.log(model)
                 if (err) {
-                    console.log('err1')
                     return res.status(400).json({ status: 400., message: err.message });
                 }
                 else if (model) {
-                    console.log(req.files)
                     var mode = req.body.mode;
-                    model[mode].push(`${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.files[0].originalname}`);
+                    if (!(`${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.files[0].originalname}` in model[mode]))
+                        model[mode].push(`${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.files[0].originalname}`);
                     NERMService.updateModel(model, mode);
                     return res.status(205).json({ status: 205, message: "File is uploaded" });
                 }
                 else {
-                    console.log('err2')
                     return res.status(400).json({ status: 400, message: "Please create model before upload" });
                 }
             })
@@ -214,7 +212,7 @@ exports.uploadsFile = async function (req, res, next) {
 }
 
 exports.getModel = async function (req, res, next) {
-    try {  
+    try {
         var query = NERMModel.findOne({ email: req.param('email'), ModelName: req.param('modelName') });
         query.exec(function (err, model) {
             if (err) {
