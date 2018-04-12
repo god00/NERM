@@ -28,6 +28,7 @@ export class CreateModelComponent implements OnInit {
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
+    console.log(this.user['email'])
     this.formData.append("email", this.user['email'])
   }
 
@@ -53,6 +54,7 @@ export class CreateModelComponent implements OnInit {
       .subscribe(data => {
         // SHOW A MESSAGE RECEIVED FROM THE WEB API.
         console.log(data as string);
+        this.formData = new FormData();
 
       },
         (err) => {
