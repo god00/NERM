@@ -166,7 +166,7 @@ exports.uploadsFile = async function (req, res, next) {
             }
             // console.log(req)
             console.log(req.files)
-            var path = `${DIR}${req.body.email[0]}/${req.body.modelName[0]}/`
+            var path = DIR + req.body.email[0] + '/' + req.body.modelName[0] + '/' ; 
 
             checkDirectory(path);
         });
