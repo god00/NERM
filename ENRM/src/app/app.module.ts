@@ -14,7 +14,6 @@ import { HomeComponent } from './home/home.component';
 import { CreateModelComponent } from './create-model/create-model.component';
 
 import { DatabaseService } from './services/database.service';
-import { FileUploadService } from './services/fileupload.service';
 import { AuthenticationService } from './services/authentication.service';
 
 import { AuthGuard } from './guard/auth.guard';
@@ -57,7 +56,6 @@ const routes: Routes = [
     DatabaseService,
     AuthenticationService,
     AuthGuard,
-    FileUploadService
   ],
   bootstrap: [AppComponent]
 })

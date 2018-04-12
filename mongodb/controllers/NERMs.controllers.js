@@ -141,11 +141,11 @@ exports.loginNERM = async function (req, res, next) {
                             return res.status(201).json({ status: 201, data: usertmp, message: "Wrong password. Try again" })
                     })
                     .catch((err) => {
-                        return res.status(201).json({ status: 201, data: err, message: "Login Failed" })
+                        return res.status(400).json({ status: 400, data: err, message: "Login Failed" })
                     });
             }
             else {
-                return res.status(202).json({ status: 201, message: "Please create user before login" });
+                return res.status(400).json({ status: 400, message: "Please create user before login" });
             }
         })
 
@@ -153,7 +153,7 @@ exports.loginNERM = async function (req, res, next) {
 
         //Return an Error Response Message with Code and the Error Message.
 
-        return res.status(400).json({ status: 400, message: "Login was Unsuccesfull" })
+        return res.status(400).json({ status: 400, message: "Login as unsuccesfull" })
     }
 
 }
@@ -184,29 +184,48 @@ exports.uploadsFile = async function (req, res, next) {
             await checkDirectory(DIR + req.body.email[0] + '/' + req.body.modelName[0]);
             console.log('uploading...')
             if (err) {
-                console.log(err.toString())
                 return res.status(400).json({ status: 400, message: err.toString() })
             }
             var query = NERMModel.findOne({ email: req.body.email[0], ModelName: req.body.modelName[0] });
-            query.exec(function (err, model) {
+            await query.exec(function (err, model) {
                 if (err) {
-                    console.log('error2')
                     return res.status(400).json({ status: 400., message: err.message });
                 }
                 else if (model) {
-                    console.log('error3')
                     var mode = req.body.mode[0];
                     model[mode].push(`${path.dirname(process.cwd())}/storage/uploads/${req.body.email[0]}/${req.body.modelName[0]}/${req.files[0].originalname}`);
-                    NERMService.updateModel(model, mode)
+                    NERMService.updateModel(model, mode);
+                    return res.status(205).json({ status: 205, message: "File is uploaded" });
+                }
+                else {
+                    return res.status(400).json({ status: 400, message: "Please create model before upload" });
                 }
             })
-            return res.status(205).json({ status: 205, message: "File is uploaded" })
         });
-
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message })
     }
 
+}
+
+exports.getModel = async function (req, res, next) {
+
+    try {
+        var query = NERMModel.findOne({ email: req.body.email, ModelName: req.body.modelName });
+        query.exec(function (err, model) {
+            if (err) {
+                return res.status(400).json({ status: 400., message: err.message });
+            }
+            else if (model) {
+                return res.status(200).json({ status: 200, data: model, message: "Succesfully nermsdb Recieved" });
+            }
+            else {
+                return res.status(400).json({ status: 400, message: "Please create model first" });
+            }
+        })
+    } catch (e) {
+        return res.status(400).json({ status: 400, message: e.message });
+    }
 }
 
 function checkDirectory(directory) {

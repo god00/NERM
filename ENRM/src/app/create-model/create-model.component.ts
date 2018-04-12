@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, FormControl } from '@angular/forms';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-
-import { FileUploadService } from '../services/fileupload.service';
-import NERMModel from '../models/nerm.model';
 import { FileUploader } from 'ng2-file-upload';
+
+import NERMModel from '../models/nerm.model';
+import { DatabaseService } from '../services/database.service';
+
 import { appConfig } from '../app.config';
 
 const nermUrl = `${appConfig.apiUrl}/api/nerms/uploads`;
@@ -19,10 +21,13 @@ export class CreateModelComponent implements OnInit {
   public uploader: FileUploader = new FileUploader({ url: nermUrl });
   user: Object;
   private sub: any;
+  modelForm: FormGroup
   model: NERMModel;
-
-  corpus = [{ title: 'corpus1', id: 'corpus1', text: "testttttttttttt1" }, { title: 'corpus2', id: 'corpus2', text: "testt2222222222" }];
-  dicts = [{ title: 'dict1' }, { title: 'dict2' }]
+  email: FormControl;
+  date: FormControl;
+  modelName: FormControl;
+  corpus: FormControl;
+  dictionary: FormControl;
 
   selectedDict;
   showText = {};
@@ -31,25 +36,51 @@ export class CreateModelComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private fileUploadService: FileUploadService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    public databaseService: DatabaseService
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-    this.model = JSON.parse(localStorage.getItem('currentModel'));
+    this.model.modelName = JSON.parse(localStorage.getItem('currentModelName'));
+    this.model.email = this.user['email'];
   }
 
   ngOnInit() {
 
-    // if(!this.model){
-    //   this.router.navigate(['']);
-    // }
+  }
 
-    // this.formData.append("email", this.user['email'])
+  createFormControl() {
+    this.email = new FormControl(this.model.email);
+    this.date = new FormControl('');
+    this.modelName = new FormControl(this.model.modelName);
+    this.corpus = new FormControl([]);
+    this.dictionary = new FormControl([]);
+  }
 
+  createForm() {
+    this.modelForm = new FormGroup({
+      email: this.email,
+      date: this.date,
+      modelName: this.modelName,
+      corpus: this.corpus,
+      dictionary: this.dictionary,
+    });
+  }
+
+  getModel() {
+    this.databaseService.getModel(this.user['email'], <string>this.model.modelName).subscribe((data) => {
+      if (data) {
+        this.model = data;
+        console.log(data)
+      }
+      else {
+        this.router.navigate(['']);
+      }
+
+    })
   }
 
   showCorpus(id: string) {
-    let show = this.corpus.filter(c => { return c.id == id })
+    let show = this.corpus.value.filter(c => { return c.id == id })
     this.showText = show[0];
   }
 
@@ -80,6 +111,20 @@ export class CreateModelComponent implements OnInit {
       return 'by clicking on a backdrop';
     } else {
       return `with: ${reason}`;
+    }
+  }
+
+  public onMouseDown(event: MouseEvent, item) {
+    event.preventDefault();
+    event.target['selected'] = !event.target['selected'];
+    if (event.target['selected']) {
+      this.modelForm.controls.dictionary.value.items.push(item.id);
+    } else {
+      let index: number = -1;
+      index = this.modelForm.controls.dictionary.value.items.indexOf(item.id);
+      if (index > -1) {
+        this.modelForm.controls.dictionary.value.items.splice(index);
+      }
     }
   }
 

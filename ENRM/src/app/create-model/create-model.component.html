@@ -63,7 +63,7 @@
     <div>
       <div>
         Queue progress:
-          <p><ngb-progressbar [showValue]="true" type="info" [value]="uploader.progress" [striped]="true" [animated]="true"><i></i></ngb-progressbar></p>
+        <p><ngb-progressbar type="info" [value]="uploader.progress" [striped]="true" [animated]="true"><i></i></ngb-progressbar></p>
       </div>
       <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
         <span class="fa fa-upload" aria-hidden="true"></span> Upload all
@@ -88,6 +88,8 @@
 <head>
   <title>Entity Name Recognizer Model</title>
 </head>
+
+<!-- navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#/">
     <img src="../../assets/images/model.jpg" class="img-logo">
@@ -129,6 +131,7 @@
   <i class="fa fa-user-circle" style="font-size:1.2rem; padding-right:0.25rem"></i>
   {{user.email}}
 </nav>
+<!--  -->
 
 <body>
   <div class="d-flex flex-column align-items-center">
@@ -137,11 +140,13 @@
         <ngb-tab title="Preprocess">
           <ng-template ngbTabContent>
             <label>Select Dictionary:</label>
-            <select [(ngModel)]="selectedDict" class="custom-select">
-              <option *ngFor="let d of dicts" [value]="d.title">{{d.title}}</option>
-            </select>
+            <div class="form-group">
+              <select multiple="multiple" class="form-control" id="items" formControlName="selectedDict">
+                <option (mousedown)="onMouseDown($event, item)" (mousemove)="$event.preventDefault()" *ngFor="let item of dicts" [value]="item.id">{{item.name}}</option>
+              </select>
+            </div>
             <button type="submit" class="btn btn-primary" (click)="uploadModal(content,'dictionary')">Upload Dictionary...</button>
-            <label style="display:block">Corpus</label>
+            <label style="display:block">Corpus:</label>
             <div class="corpus">
               <div class="list-group scroll list">
                 <button type="button" class="list-group-item" *ngFor="let c of corpus" [attr.id]="c.id" (click)="showCorpus(c.id)">{{c.title}}</button>

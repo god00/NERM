@@ -57,6 +57,18 @@ export class DatabaseService {
       })
   }
 
+  getModel(email: string, modelName: string): Observable<NERMModel> {
+    return this.http.get(`${nermUrl}/model`, {
+      params: {
+        email: email,
+        modelName: modelName
+      }
+    }).map((res) => {
+      //Maps the response object sent from the server
+      return res["data"].docs as NERMModel;
+    })
+  }
+
   //Default Error handling method.
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only

@@ -68,7 +68,7 @@ export class HomeComponent implements OnInit {
       }
       else {
         this.duplicateModelName = false;
-        localStorage.setItem('currentModel', JSON.stringify(nerm));
+        localStorage.setItem('currentModelName', JSON.stringify(nerm.modelName));
         this.modal.close();
         this.router.navigate(['create']);
         this.updateNERM.unsubscribe();
