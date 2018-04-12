@@ -140,9 +140,9 @@
         <ngb-tab title="Preprocess">
           <ng-template ngbTabContent>
             <label>Select Dictionary:</label>
-            <div class="form-group">
-              <select multiple="multiple" class="form-control" id="items" formControlName="selectedDict">
-                <option (mousedown)="onMouseDown($event, item)" (mousemove)="$event.preventDefault()" *ngFor="let item of model.dictionary" [value]="item.id">{{item.name}}</option>
+            <div [formGroup]="modelForm">
+              <select multiple="multiple" class="form-control" id="items" formControlName="dictionary">
+                <option (mousedown)="onMouseDown($event, item)" (mousemove)="$event.preventDefault()" *ngFor="let item of model.dictionary" [value]="item.id">{{item?.name}}</option>
               </select>
             </div>
             <button type="submit" class="btn btn-primary" (click)="uploadModal(content,'dictionary')">Upload Dictionary...</button>
