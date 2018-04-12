@@ -42,6 +42,7 @@ export class CreateModelComponent implements OnInit {
     private modalService: NgbModal,
     public databaseService: DatabaseService
   ) {
+    console.log(localStorage.getItem('currentUser'))
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     console.log(localStorage.getItem('currentModel'))
     
