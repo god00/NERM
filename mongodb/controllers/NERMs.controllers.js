@@ -5,7 +5,7 @@ var NERMModel = require('../models/NERM.model')
 var NERM = require('../models/NERMUser.model')
 var config = require('../config.json');
 var multer = require('multer');
-
+var fs = require('fs');
 
 var DIR = `.${config.DIR}`;
 
@@ -158,22 +158,21 @@ exports.loginNERM = async function (req, res, next) {
 }
 
 exports.uploadsFile = async function (req, res, next) {
-    var test = await multer({}).any();
+    var getparam = await multer({}).any();
     var userDIR;
-    await test(req, res, function (err) {
+    await getparam(req, res, function (err) {
         if (err) {
             return res.status(205).json({ status: 205, message: err.toString() })
         }
         // console.log(req)
-        console.log(req.files)
-        console.log(req.body.email)
-        console.log(req.body.modelName)
+        userDIR = `${DIR}/${req.body.email[0]}/${req.body.modelName[0]}/`
+        
     });
     // console.log(req)
     
     var storage = await multer.diskStorage({
         destination: function (req, file, cb) {
-            cb(null, DIR)
+            cb(null, userDIR)
         },
         filename: function (req, file, cb) {
             cb(null, file.originalname)

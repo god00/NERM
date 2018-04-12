@@ -34,6 +34,11 @@ export class CreateModelComponent implements OnInit {
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.model = JSON.parse(localStorage.getItem('currentModel'));
+    
+    // if(!this.model){
+    //   this.router.navigate(['']);
+    // }
+
     // this.formData.append("email", this.user['email'])
 
     this.uploader = this.fileUploadService.uploader;
