@@ -29,12 +29,12 @@ export class CreateModelComponent implements OnInit {
     private route: ActivatedRoute,
     private fileUploadService: FileUploadService,
     private modalService: NgbModal
-  ) { }
-
-  ngOnInit() {
+  ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.model = JSON.parse(localStorage.getItem('currentModel'));
-    
+  }
+
+  ngOnInit() {
     // if(!this.model){
     //   this.router.navigate(['']);
     // }
