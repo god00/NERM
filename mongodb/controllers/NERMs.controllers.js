@@ -166,23 +166,10 @@ exports.uploadsFile = async function (req, res, next) {
                 return res.status(205).json({ status: 205, message: err.toString() })
             }
             // console.log(req)
+            
             var dir = path.join(DIR, req.body.email[0], req.body.modelName[0])
-            fs.mkdirParent = function (dir, mode, callback) {
-                //Call the standard fs.mkdir
-                fs.mkdir(dir, mode, function (error) {
-                    //When it fail in this way, do the custom steps
-                    if (error && error.errno === 34) {
-                        //Create all the parents recursively
-                        fs.mkdirParent(path.dirname(dir), mode, callback);
-                        //And then the directory
-                        fs.mkdirParent(dir, mode, callback);
-                    }
-                    //Manually run the callback since we used our own callback to do all these
-                    callback && callback(error);
-                });
-            };
-
-            checkDirectory(dir);
+            console.log(path.dirname(dir))
+            checkDirectory(DIR + 'req.body.email[0]');
         });
 
         var storage = multer.diskStorage({
