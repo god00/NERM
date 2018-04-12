@@ -1,3 +1,5 @@
+import { resolve } from 'path';
+
 // Accessing the Service that we just created
 
 var NERMService = require('../services/NERM.service')
@@ -180,32 +182,42 @@ exports.uploadsFile = async function (req, res, next) {
         })
         var upload = await multer({ storage: storage }).any();
         upload(req, res, async function (err) {
-            await checkDirectory(DIR + req.body.email);
-            await checkDirectory(DIR + req.body.email + '/' + req.body.modelName);
-            console.log('uploading...')
-            if (err) {
-                console.log(err.toString())
-                return res.status(400).json({ status: 400, message: err.toString() })
-            }
-            var query = NERMModel.findOne({ email: req.body.email, ModelName: req.body.modelName });
-            query.exec(function (err, model) {
-                console.log(model)
-                if (err) {
-                    return res.status(400).json({ status: 400., message: err.message });
-                }
-                else if (model) {
-                    var mode = req.body.mode;
-                    var p = `${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.files[0].originalname}`
-                    if (model[mode].indexOf(p) == -1) //check if for no duplication file in db
-                        model[mode].push(`${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.files[0].originalname}`);
-                    NERMService.updateModel(model, mode);
-                    console.log(model[mode])
-                    return res.status(205).json({ status: 205, message: "File is uploaded" });
-                }
-                else {
-                    return res.status(400).json({ status: 400, message: "Please create model before upload" });
-                }
-            })
+            checkDirectory(DIR + req.body.email)
+                .then(() => {
+                    checkDirectory(DIR + req.body.email + '/' + req.body.modelName)
+                        .then(() => {
+                            console.log('uploading...')
+                            if (err) {
+                                console.log(err.toString())
+                                return res.status(400).json({ status: 400, message: err.toString() })
+                            }
+                            var query = NERMModel.findOne({ email: req.body.email, ModelName: req.body.modelName });
+                            query.exec(function (err, model) {
+                                console.log(model)
+                                if (err) {
+                                    return res.status(400).json({ status: 400., message: err.message });
+                                }
+                                else if (model) {
+                                    var mode = req.body.mode;
+                                    var p = `${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.files[0].originalname}`
+                                    if (model[mode].indexOf(p) == -1) //check if for no duplication file in db
+                                        model[mode].push(`${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.files[0].originalname}`);
+                                    NERMService.updateModel(model, mode);
+                                    console.log(model[mode])
+                                    return res.status(205).json({ status: 205, message: "File is uploaded" });
+                                }
+                                else {
+                                    return res.status(400).json({ status: 400, message: "Please create model before upload" });
+                                }
+                            })
+                        })
+                        .catch((e) => {
+                            return res.status(400).json({ status: 400, message: e.message })
+                        });
+                })
+                .catch((e) => {
+                    return res.status(400).json({ status: 400, message: e.message })
+                });
         });
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message })
@@ -233,7 +245,11 @@ exports.getModel = async function (req, res, next) {
 }
 
 function checkDirectory(directory) {
-    if (!fs.existsSync(directory)) {
-        fs.mkdirSync(directory);
-    }
+    return new Promise((resolve, reject) => {
+        if (!fs.existsSync(directory)) {
+            fs.mkdirSync(directory);
+            resolve();
+        }
+        reject();
+    })
 }
