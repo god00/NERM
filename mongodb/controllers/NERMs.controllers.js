@@ -197,7 +197,7 @@ exports.uploadsFile = async function (req, res, next) {
                     var mode = req.body.mode;
                     var p = `${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.files[0].originalname}`
                     console.log(p)
-                    console.log(model[mode])
+                    console.log(model[mode][0] === p)
                     console.log(!(p in model[mode]))
                     if (!(`${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.files[0].originalname}` in model[mode]))
                         model[mode].push(`${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.files[0].originalname}`);
