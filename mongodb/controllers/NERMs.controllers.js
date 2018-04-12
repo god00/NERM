@@ -179,7 +179,7 @@ exports.uploadsFile = async function (req, res, next) {
             }
         })
         var upload = await multer({ storage: storage }).any();
-        await upload(req, res, async function (err) {
+        upload(req, res, async function (err) {
             await checkDirectory(DIR + req.body.email[0]);
             await checkDirectory(DIR + req.body.email[0] + '/' + req.body.modelName[0]);
             console.log('uploading...')
@@ -216,7 +216,6 @@ exports.getModel = async function (req, res, next) {
                 return res.status(400).json({ status: 400., message: err.message });
             }
             else if (model) {
-                console.log(model)
                 return res.status(200).json({ status: 200, data: model, message: "Succesfully nermsdb Recieved" });
             }
             else {
