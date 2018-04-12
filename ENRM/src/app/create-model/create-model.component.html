@@ -62,9 +62,9 @@
 
     <div>
       <div>
-        Queue progress: {{uploader.progress}}
+        Queue progress:
         <div class="progress" >
-          <p><ngb-progressbar type="info" [value]="uploader.progress" [striped]="true" [animated]="true"><i>{{uploader.progress}} %</i></ngb-progressbar></p>
+          <p><ngb-progressbar [showValue]="true" type="info" [value]="uploader.progress" [striped]="true" [animated]="true"><i></i></ngb-progressbar></p>
           <div class="progress-bar" role="progressbar" [ngStyle]=""></div>
         </div>
       </div>
