@@ -190,6 +190,7 @@ exports.uploadsFile = async function (req, res, next) {
             var query = NERMModel.findOne({ email: req.body.email[0], ModelName: req.body.modelName[0] });
             await query.exec(function (err, model) {
                 if (err) {
+                    console.log('err1')
                     return res.status(400).json({ status: 400., message: err.message });
                 }
                 else if (model) {
@@ -199,6 +200,7 @@ exports.uploadsFile = async function (req, res, next) {
                     return res.status(205).json({ status: 205, message: "File is uploaded" });
                 }
                 else {
+                    console.log('err2')
                     return res.status(400).json({ status: 400, message: "Please create model before upload" });
                 }
             })
