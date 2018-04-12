@@ -8,7 +8,7 @@ var multer = require('multer');
 var fs = require('fs');
 var path = require('path')
 
-var DIR = `.${config.DIR}`;
+var DIR = `${config.DIR}`;
 
 // Saving the context of this module inside the _the variable
 
@@ -167,7 +167,7 @@ exports.uploadsFile = async function (req, res, next) {
             }
             // console.log(req)
             var dir = path.join(DIR, req.body.email[0], req.body.modelName[0])
-            console.log(dir)
+            console.log(path.dirname(dir))
             checkDirectory(dir);
         });
 
