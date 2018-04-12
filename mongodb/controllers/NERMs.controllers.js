@@ -158,27 +158,27 @@ exports.loginNERM = async function (req, res, next) {
 }
 
 exports.uploadsFile = async function (req, res, next) {
-    var getparam = multer({}).any();
-    var userDIR ;
-    await getparam(req, res, function (err) {
-        if (err) {
-            return res.status(205).json({ status: 205, message: err.toString() })
-        }
-        // console.log(req)
-        userDIR = `${DIR}${req.body.email[0]}/${req.body.modelName[0]}/`
-
-    });
-    console.log(typeof userDIR)
-
-    var storage = await multer.diskStorage({
-        destination: function (req, file, cb) {
-            cb(null, userDIR)
-        },
-        filename: function (req, file, cb) {
-            cb(null, file.originalname)
-        }
-    })
     try {
+        var getparam = multer({}).any();
+        var userDIR;
+        await getparam(req, res, function (err) {
+            if (err) {
+                return res.status(205).json({ status: 205, message: err.toString() })
+            }
+            // console.log(req)
+            userDIR = `${DIR}${req.body.email[0]}/${req.body.modelName[0]}/`
+
+        });
+        console.log(typeof userDIR)
+
+        var storage = await multer.diskStorage({
+            destination: function (req, file, cb) {
+                cb(null, userDIR)
+            },
+            filename: function (req, file, cb) {
+                cb(null, file.originalname)
+            }
+        })
 
         var upload = multer({ storage: storage }).any();
         upload(req, res, function (err) {
