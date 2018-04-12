@@ -23,7 +23,7 @@ export class CreateModelComponent implements OnInit {
   user: Object;
   private sub: any;
   modelForm: FormGroup
-  model: NERMModel;
+  model: NERMModel = new NERMModel();
   email: FormControl;
   date: FormControl;
   modelName: FormControl;
