@@ -40,12 +40,11 @@ export class CreateModelComponent implements OnInit {
     public databaseService: DatabaseService
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-    this.model.modelName = JSON.parse(localStorage.getItem('currentModelName'));
-    this.model.email = this.user['email'];
+    this.model.modelName = JSON.parse(localStorage.getItem('currentModelName')) || '';
   }
 
   ngOnInit() {
-
+    this.getModel();
   }
 
   createFormControl() {
