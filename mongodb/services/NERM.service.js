@@ -86,31 +86,8 @@ exports.createModel = async function (nerm) {
 }
 
 exports.updateModel = async function (nerm) {
-    console.log(nerm)
-    var id = nerm.id
-
     try {
-        //Find the old Todo Object by the Id
-
-        var oldNERM = await NERMModel.findById(id);
-    } catch (e) {
-        throw Error("Error occured while Finding the Todo")
-    }
-    console.log(oldNERM)
-    //Edit the Todo Object
-    oldNERM.email = nerm.email
-    oldNERM.ModelName = nerm.ModelName
-    oldNERM.date = nerm.date
-    if (nerm.corpus.length != 0)
-        oldNERM.corpus = oldNERM.corpus.push(nerm.corpus[0])
-    if (nerm.dictionary.length != 0)
-        oldNERM.dictionary = oldNERM.dictionary.push(nerm.dictionary[0])
-
-
-    console.log(oldNERM.dictionary)
-
-    try {
-        var savedNERM = await oldNERM.save()
+        var savedNERM = await nerm.save()
         return savedNERM;
     } catch (e) {
         throw Error("And Error occured while updating the Todo");
