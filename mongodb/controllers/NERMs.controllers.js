@@ -166,8 +166,8 @@ exports.uploadsFile = async function (req, res, next) {
                 return res.status(205).json({ status: 205, message: err.toString() })
             }
             // console.log(req)
-            email = req.body.email[0];
-            ModelName = req.body.modelName[0];
+            email = (req.body.email)[0];
+            ModelName = (req.body.modelName)[0];
             console.log(email)
             console.log(ModelName)
             checkDirectory(`${DIR}${email}/${ModelName}/`, function (error) {
