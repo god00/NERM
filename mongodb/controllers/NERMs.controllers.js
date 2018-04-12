@@ -171,7 +171,8 @@ exports.uploadsFile = async function (req, res, next) {
                     console.log("oh no!!!", error);
                 } else {
                     //Carry on, all good, directory exists / created.
-                })
+                }
+            })
         });
         console.log(typeof userDIR)
 
