@@ -166,14 +166,14 @@ exports.uploadsFile = async function (req, res, next) {
                 return res.status(205).json({ status: 205, message: err.toString() })
             }
             // console.log(req)
-            userDIR = `${DIR}${req.body.email[0]}/${req.body.modelName[0]}/`
+
 
         });
         console.log(typeof userDIR)
 
-        var storage = await multer.diskStorage({
+        var storage = multer.diskStorage({
             destination: function (req, file, cb) {
-                cb(null, userDIR)
+                cb(null, `${DIR}${req.body.email[0]}/${req.body.modelName[0]}/`)
             },
             filename: function (req, file, cb) {
                 cb(null, file.originalname)
