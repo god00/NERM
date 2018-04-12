@@ -101,10 +101,13 @@ exports.updateModel = async function (nerm) {
     oldNERM.email = nerm.email
     oldNERM.ModelName = nerm.ModelName
     oldNERM.date = nerm.date
-    oldNERM.corpus = oldNERM.corpus.push(nerm.corpus[0])
-    oldNERM.dictionary = oldNERM.dictionary.push(nerm.dictionary[0])
+    if (nerm.corpus.length != 0)
+        oldNERM.corpus = oldNERM.corpus.push(nerm.corpus[0])
+    if (nerm.dictionary.length != 0)
+        oldNERM.dictionary = oldNERM.dictionary.push(nerm.dictionary[0])
 
-    console.log(oldNERM)
+
+    console.log(oldNERM.dictionary)
 
     try {
         var savedNERM = await oldNERM.save()
