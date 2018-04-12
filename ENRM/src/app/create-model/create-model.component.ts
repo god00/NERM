@@ -56,31 +56,24 @@ export class CreateModelComponent implements OnInit {
       form.append('mode', mode);
       return { fileItem, form }
     };
-    this.modalService.open(content, { centered: true, size: 'lg' });
+    this.modalService.open(content, { centered: true, size: 'lg' }).result.then((result) => {
+      console.log(`Closed with: ${result}`);
+    }, (reason) => {
+      console.log(`Dismissed ${this.getDismissReason(reason)}`);
+    });
+
   }
 
-
-
-  // fileChange(event) {
-  //   let fileList: FileList = event.target.files;
-  //   for (let i = 0; i < fileList.length; i++) {
-  //     this.formData.append("uploads", fileList[i], fileList[i].name);
-  //   }
-
-  //   this.fileUploadService.uploadNERM(this.formData)
-  //     .map(res => res.json())
-  //     .subscribe(data => {
-  //       // SHOW A MESSAGE RECEIVED FROM THE WEB API.
-  //       console.log(data as string);
-  //       this.formData = new FormData();
-
-  //     },
-  //       (err) => {
-  //         console.log(err.message);    // SHOW ERRORS IF ANY.
-  //       }
-  //     )
-
-  // }
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+  
 }
 
 
