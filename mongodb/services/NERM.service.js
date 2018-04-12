@@ -96,7 +96,7 @@ exports.updateModel = async function (nerm) {
     } catch (e) {
         throw Error("Error occured while Finding the Todo")
     }
-
+    console.log(oldNERM)
     //Edit the Todo Object
     oldNERM.email = nerm.email
     oldNERM.ModelName = nerm.ModelName
