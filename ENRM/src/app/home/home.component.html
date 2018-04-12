@@ -10,8 +10,9 @@
     </button>
   </div>
   <div class="modal-body">
-    <input type="text" placeholder="Please enter model name" [(ngModel)]="modelName">
+    <input type="text" placeholder="Please enter model name (except '/')" [(ngModel)]="modelName">
     <p [hidden]="!duplicateModelName" class="text-danger">* This model name already exists</p>
+    <p [hidden]="/([^/])$/.test(this.modelName)" class="text-danger">* Don't input '/' in model name</p>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-light btn-lg" (click)="c('Close click')">Cancel</button>
