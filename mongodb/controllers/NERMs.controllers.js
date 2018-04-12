@@ -166,10 +166,9 @@ exports.uploadsFile = async function (req, res, next) {
                 return res.status(205).json({ status: 205, message: err.toString() })
             }
             // console.log(req)
-            
-            var dir = path.join(DIR, req.body.email[0], req.body.modelName[0])
-            console.log(path.dirname(dir))
+
             checkDirectory(DIR + req.body.email[0]);
+            checkDirectory(DIR + req.body.email[0] + '/' + req.body.modelName[0]);
         });
 
         var storage = multer.diskStorage({
