@@ -78,8 +78,6 @@ export class CreateModelComponent implements OnInit {
         this.model.corpus = data.corpus;
         this.model.date = data.date;
         this.model.dictionary = data.dictionary;
-        this.model.email = data.email;
-        this.model.modelName = data.modelName;
       }
       else {
         console.log('no data')
