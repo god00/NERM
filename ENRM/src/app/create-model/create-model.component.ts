@@ -94,7 +94,6 @@ export class CreateModelComponent implements OnInit {
   uploadModal(content, mode) {
     this.uploader = new FileUploader({ url: nermUrl });
     this.uploader.onBuildItemForm = (fileItem, form) => {
-      console.log(this.model.modelName)
       form.append('email', this.user['email']);
       form.append('modelName', this.model.modelName);
       form.append('mode', mode);
