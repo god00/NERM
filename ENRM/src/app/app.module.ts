@@ -2,13 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Routes, RouterModule } from "@angular/router";
+import { AppComponent } from './app.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { FileUploadModule } from 'ng2-file-upload';
 
-import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
-import { Routes, RouterModule } from "@angular/router";
 import { HomeComponent } from './home/home.component';
 import { CreateModelComponent } from './create-model/create-model.component';
 
@@ -50,6 +51,7 @@ const routes: Routes = [
     }),
     HttpClientModule,
     FormsModule,
+    FileUploadModule
   ],
   providers: [
     DatabaseService,

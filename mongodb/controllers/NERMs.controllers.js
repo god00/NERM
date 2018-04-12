@@ -167,6 +167,7 @@ exports.uploadsFile = async function (req, res, next) {
         // console.log(req)
         console.log(req.files)
         console.log(req.body.email)
+        console.log(req.body.modelName)
     });
     // console.log(req)
     

@@ -10,7 +10,77 @@
     </button>
   </div>
   <div class="modal-body">
-    <input id="cin" name="cin" type="file" (change)="fileChange($event)" placeholder="Upload a file..." multiple/><br/>
+
+    <p>Upload Queue length: {{ uploader?.queue?.length }}</p>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th width="50%">Name</th>
+          <th>Size</th>
+          <th>Progress</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of uploader.queue">
+          <td>
+            <strong>{{ item?.file?.name }}</strong>
+          </td>
+          <td *ngIf="uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+          <td *ngIf="uploader.isHTML5">
+            <div class="progress" style="margin-bottom: 0;">
+              <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+            </div>
+          </td>
+          <td class="text-center">
+            <span *ngIf="item.isSuccess">
+              <i class="fa fa-check" aria-hidden="true"></i>
+            </span>
+            <span *ngIf="item.isCancel">
+              <i class="fa fa-ban" aria-hidden="true"></i>
+            </span>
+            <span *ngIf="item.isError">
+              <i class="fa fa-exclamation" aria-hidden="true"></i>
+            </span>
+          </td>
+          <td nowrap>
+            <button type="button" class="btn btn-success btn-xs" (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+              <span class="fa fa-upload" aria-hidden="true"></span> Upload
+            </button>
+            <button type="button" class="btn btn-warning btn-xs" (click)="item.cancel()" [disabled]="!item.isUploading">
+              <span class="fa fa-ban" aria-hidden="true"></span> Cancel
+            </button>
+            <button type="button" class="btn btn-danger btn-xs" (click)="item.remove()">
+              <span class="fa fa-trash-o" aria-hidden="true"></span> Remove
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div>
+      <div>
+        Queue progress:
+        <div class="progress" style="">
+          <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+        <span class="fa fa-upload" aria-hidden="true"></span> Upload all
+      </button>
+      <button type="button" class="btn btn-warning btn-s" (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+        <span class="fa fa-ban" aria-hidden="true"></span> Cancel all
+      </button>
+      <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+        <span class="fa fa-trash-o" aria-hidden="true"></span> Remove all
+      </button>
+    </div>
+
+    <input type="file" ng2FileSelect [uploader]="uploader" multiple />
+    <br/>
+    <!-- <input id="cin" name="cin" type="file" (change)="fileChange($event)" placeholder="Upload a file..." multiple/><br/> -->
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-light" (click)="c('Close click')">Close</button>
