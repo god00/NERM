@@ -160,16 +160,15 @@ exports.loginNERM = async function (req, res, next) {
 
 exports.uploadsFile = async function (req, res, next) {
     try {
-        var test = await multer({}).any();
-        await test(req, res, function (err) {
-            if (err) {
-                return res.status(400).json({ status: 400, message: err.toString() })
-            }
-            console.log(req.body.email[0])
-            console.log(req.body.modelName[0])
-            checkDirectory(DIR + req.body.email[0]);
-            checkDirectory(DIR + req.body.email[0] + '/' + req.body.modelName[0]);
-        });
+        // var test = await multer({}).any();
+        // await test(req, res, function (err) {
+        //     if (err) {
+        //         return res.status(400).json({ status: 400, message: err.toString() })
+        //     }
+
+        //     checkDirectory(DIR + req.body.email[0]);
+        //     checkDirectory(DIR + req.body.email[0] + '/' + req.body.modelName[0]);
+        // });
 
         var storage = await multer.diskStorage({
             destination: function (req, file, cb) {
@@ -181,6 +180,8 @@ exports.uploadsFile = async function (req, res, next) {
         })
         var upload = await multer({ storage: storage }).any();
         upload(req, res, async function (err) {
+            await checkDirectory(DIR + req.body.email[0]);
+            await checkDirectory(DIR + req.body.email[0] + '/' + req.body.modelName[0]);
             console.log('uploading...')
             if (err) {
                 return res.status(400).json({ status: 400, message: err.toString() })
