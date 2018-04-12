@@ -180,6 +180,7 @@ exports.uploadsFile = async function (req, res, next) {
         })
         var upload = await multer({ storage: storage }).any();
         await upload(req, res, async function (err) {
+            var err = await err;
             console.log('uploading...')
             if (err) {
                 console.log(err.toString())
