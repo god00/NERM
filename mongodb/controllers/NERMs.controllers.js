@@ -166,8 +166,7 @@ exports.uploadsFile = async function (req, res, next) {
                 return res.status(205).json({ status: 205, message: err.toString() })
             }
             // console.log(req)
-
-
+            await checkDirectory(`${DIR}${req.body.email[0]}/${req.body.modelName[0]}/`)
         });
         console.log(typeof userDIR)
 
@@ -196,7 +195,7 @@ exports.uploadsFile = async function (req, res, next) {
 
 }
 
-function checkDirectory(directory, callback) {
+async function checkDirectory(directory, callback) {
     fs.stat(directory, function (err, stats) {
         //Check if error defined and the error code is "not exists"
         if (err && err.errno === 34) {
