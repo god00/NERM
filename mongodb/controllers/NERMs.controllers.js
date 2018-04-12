@@ -216,6 +216,7 @@ exports.getModel = async function (req, res, next) {
                 return res.status(400).json({ status: 400., message: err.message });
             }
             else if (model) {
+                console.log(model)
                 return res.status(200).json({ status: 200, data: model, message: "Succesfully nermsdb Recieved" });
             }
             else {
