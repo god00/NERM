@@ -167,16 +167,7 @@ exports.uploadsFile = async function (req, res, next) {
             // console.log(req)
             email = req.body.email;
             ModelName = req.body.modelName;
-            console.log(email)
-            console.log(ModelName)
-            console.log(req.files)
-            checkDirectory(`${DIR}${email}/${ModelName}/`, function (error) {
-                if (error) {
-                    console.log("oh no!!!", error);
-                } else {
-                    //Carry on, all good, directory exists / created.
-                }
-            })
+            checkDirectory(`${DIR}${email[0]}/${ModelName[0]}/`);
         });
 
         var storage = multer.diskStorage({
@@ -204,15 +195,8 @@ exports.uploadsFile = async function (req, res, next) {
 
 }
 
-function checkDirectory(directory, callback) {
-    fs.stat(directory, function (err, stats) {
-        //Check if error defined and the error code is "not exists"
-        if (err && err.errno === 34) {
-            //Create the directory, call the callback.
-            fs.mkdir(directory, callback);
-        } else {
-            //just in case there was a different error:
-            callback(err)
-        }
-    });
+function checkDirectory(directory) {
+    if (!fs.existsSync(directory)) {
+        fs.mkdirSync(directory);
+    }
 }
