@@ -167,7 +167,8 @@ exports.uploadsFile = async function (req, res, next) {
             // console.log(req)
             email = req.body.email;
             ModelName = req.body.modelName;
-            checkDirectory(`${DIR}${email[0]}/${ModelName[0]}/`);
+            path = `${DIR}${email[0]}/${ModelName[0]}/`
+            checkDirectory(path);
         });
 
         var storage = multer.diskStorage({
