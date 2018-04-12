@@ -74,8 +74,12 @@ export class CreateModelComponent implements OnInit {
     this.getModelSubscribe = this.databaseService.getModel(this.user['email'], <string>this.model.modelName).subscribe((data) => {
       console.log(data)
       if (data) {
-        this.model = data;
-        console.log(this.model)
+        this.model._id = data._id;
+        this.model.corpus = data.corpus;
+        this.model.date = data.date;
+        this.model.dictionary = data.dictionary;
+        this.model.email = data.email;
+        this.model.modelName = data.modelName;
       }
       else {
         console.log('no data')
