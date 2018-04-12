@@ -158,7 +158,7 @@ exports.loginNERM = async function (req, res, next) {
 }
 
 exports.uploadsFile = async function (req, res, next) {
-    var getparam = await multer({}).any();
+    var getparam = multer({}).any();
     var userDIR ;
     await getparam(req, res, function (err) {
         if (err) {
@@ -180,7 +180,7 @@ exports.uploadsFile = async function (req, res, next) {
     })
     try {
 
-        var upload = await multer({ storage: storage }).any();
+        var upload = multer({ storage: storage }).any();
         upload(req, res, function (err) {
             console.log('uploading...')
             if (err) {
