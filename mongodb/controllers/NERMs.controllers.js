@@ -196,7 +196,7 @@ exports.uploadsFile = async function (req, res, next) {
                         arr.push(`${path.dirname(process.cwd())}/storage/uploads/${req.body.email[0]}/${req.body.modelName[0]}/${file.originalname}`);
                     }
                     var mode = req.body.mode[0];
-                    model[mode] = arr;
+                    model[`${mode}`] = arr;
                     console.log(model['dictionary'])
                     NERMService.updateModel(model, mode)
                 }

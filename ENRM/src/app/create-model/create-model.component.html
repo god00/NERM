@@ -142,7 +142,7 @@
             <select [(ngModel)]="selectedDict" class="custom-select">
               <option *ngFor="let d of dicts" [value]="d.title">{{d.title}}</option>
             </select>
-            <button type="submit" class="btn btn-primary" (click)="uploadModal(content,'dict')">Upload Dictionary...</button>
+            <button type="submit" class="btn btn-primary" (click)="uploadModal(content,'dictionary')">Upload Dictionary...</button>
             <label style="display:block">Corpus</label>
             <div class="corpus">
               <div class="list-group scroll list">
