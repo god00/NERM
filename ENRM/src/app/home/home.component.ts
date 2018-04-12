@@ -67,7 +67,7 @@ export class HomeComponent implements OnInit {
       if (res.duplicate) {
         this.duplicateModelName = true;
       }
-      else if(/([^/])/.test(this.modelName)){
+      else if(/^[^/ ]*$/.test(this.modelName)){
         this.duplicateModelName = false;
         localStorage.setItem('currentModel', JSON.stringify(nerm));
         this.modal.close();
