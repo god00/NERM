@@ -165,11 +165,11 @@ exports.uploadsFile = async function (req, res, next) {
             return res.status(205).json({ status: 205, message: err.toString() })
         }
         // console.log(req)
-        userDIR = `${DIR}/${req.body.email[0]}/${req.body.modelName[0]}/`
-        
+        userDIR = await `${DIR}/${req.body.email[0]}/${req.body.modelName[0]}/`
+
     });
     // console.log(req)
-    
+
     var storage = await multer.diskStorage({
         destination: function (req, file, cb) {
             cb(null, userDIR)
@@ -194,4 +194,17 @@ exports.uploadsFile = async function (req, res, next) {
         return res.status(400).json({ status: 400, message: e.message })
     }
 
+}
+
+function checkDirectory(directory, callback) {
+    fs.stat(directory, function (err, stats) {
+        //Check if error defined and the error code is "not exists"
+        if (err && err.errno === 34) {
+            //Create the directory, call the callback.
+            fs.mkdir(directory, callback);
+        } else {
+            //just in case there was a different error:
+            callback(err)
+        }
+    });
 }
