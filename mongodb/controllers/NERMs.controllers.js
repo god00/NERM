@@ -178,7 +178,6 @@ exports.uploadsFile = async function (req, res, next) {
                 cb(null, file.originalname)
             }
         })
-        console.log(path.dirname(process.cwd()))
         var upload = await multer({ storage: storage }).any();
         upload(req, res, async function (err) {
             console.log('uploading...')
@@ -186,24 +185,24 @@ exports.uploadsFile = async function (req, res, next) {
                 return res.status(205).json({ status: 205, message: err.toString() })
             }
 
-            // var query = NERMModel.findOne({ email: req.body.email[0], ModelName: req.body.modelName[0] });
-            // query.exec(async function (err, model) {
-            //     if (err)
-            //         return res.status(400).json({ status: 400., message: err.message });
-            //     else if (model) {
-            //         var arr = [];
-            //         for (let file in res.files) {
-            //             arr.push(`${DIR}${req.body.email[0]}/${req.body.modelName[0]}/${file.originalname}`);
-            //         }
-
-            //         model.corpus =
-            //             NERMService.updateModel()
-            //     }
-            //     else {
-            //         var nermTmp = await NERMService.createModel(nerm);
-            //         return res.status(202).json({ status: 202, message: "Succesfully Create Model" });
-            //     }
-            // })
+            var query = NERMModel.findOne({ email: req.body.email[0], ModelName: req.body.modelName[0] });
+            query.exec(async function (err, model) {
+                if (err)
+                    return res.status(400).json({ status: 400., message: err.message });
+                else if (model) {
+                    var arr = [];
+                    for (let file in res.files) {
+                        arr.push(`${path.dirname(process.cwd())}/storage/uploads/${req.body.email[0]}/${req.body.modelName[0]}/${file.originalname}`);
+                    }
+                    var mode = req.body.mode[0];
+                    model[mode] = arr;
+                    NERMService.updateModel(model)
+                }
+                else {
+                    var nermTmp = await NERMService.createModel(nerm);
+                    return res.status(202).json({ status: 202, message: "Succesfully Create Model" });
+                }
+            })
             return res.status(205).json({ status: 205, message: "File is uploaded" })
         });
 

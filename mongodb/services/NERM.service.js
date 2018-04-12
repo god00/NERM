@@ -86,6 +86,7 @@ exports.createModel = async function (nerm) {
 }
 
 exports.updateModel = async function (nerm) {
+    console.log(nerm)
     var id = nerm.id
 
     try {
