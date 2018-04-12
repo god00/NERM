@@ -178,7 +178,7 @@ exports.uploadsFile = async function (req, res, next) {
                 cb(null, file.originalname)
             }
         })
-        console.log(process.cwd())
+        console.log(path.dirname(process.cwd()))
         var upload = await multer({ storage: storage }).any();
         upload(req, res, async function (err) {
             console.log('uploading...')
