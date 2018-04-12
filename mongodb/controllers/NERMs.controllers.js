@@ -180,8 +180,6 @@ exports.uploadsFile = async function (req, res, next) {
         })
         var upload = await multer({ storage: storage }).any();
         upload(req, res, async function (err) {
-            await checkDirectory(DIR + req.body.email[0]);
-            await checkDirectory(DIR + req.body.email[0] + '/' + req.body.modelName[0]);
             console.log('uploading...')
             if (err) {
                 return res.status(400).json({ status: 400, message: err.toString() })
