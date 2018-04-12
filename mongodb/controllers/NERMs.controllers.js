@@ -171,7 +171,7 @@ exports.uploadsFile = async function (req, res, next) {
             checkDirectory(DIR + req.body.email[0] + '/' + req.body.modelName[0]);
         });
 
-        var storage = multer.diskStorage({
+        var storage = await multer.diskStorage({
             destination: function (req, file, cb) {
                 cb(null, `${DIR}${req.body.email[0]}/${req.body.modelName[0]}/`)
             },
@@ -180,7 +180,7 @@ exports.uploadsFile = async function (req, res, next) {
             }
         })
 
-        var upload = multer({ storage: storage }).any();
+        var upload = await multer({ storage: storage }).any();
         upload(req, res, function (err) {
             console.log('uploading...')
             if (err) {
