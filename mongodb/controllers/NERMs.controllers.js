@@ -163,7 +163,7 @@ exports.uploadsFile = async function (req, res, next) {
         var test = await multer({}).any();
         await test(req, res, function (err) {
             if (err) {
-                return res.status(205).json({ status: 205, message: err.toString() })
+                return res.status(400).json({ status: 400, message: err.toString() })
             }
 
             checkDirectory(DIR + req.body.email[0]);
@@ -183,7 +183,7 @@ exports.uploadsFile = async function (req, res, next) {
             console.log('uploading...')
             if (err) {
                 console.log(err.toString())
-                return res.status(205).json({ status: 205, message: err.toString() })
+                return res.status(400).json({ status: 400, message: err.toString() })
             }
             var query = NERMModel.findOne({ email: req.body.email[0], ModelName: req.body.modelName[0] });
             query.exec(function (err, model) {
