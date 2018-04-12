@@ -180,7 +180,7 @@ exports.uploadsFile = async function (req, res, next) {
                 cb(null, file.originalname)
             }
         })
-        var upload = await multer({ storage: storage }).any();
+        var upload = multer({ storage: storage }).any();
         upload(req, res, async function (err) {
             checkDirectory(DIR + req.body.email)
                 .then(() => {
