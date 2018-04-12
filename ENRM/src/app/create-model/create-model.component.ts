@@ -41,11 +41,6 @@ export class CreateModelComponent implements OnInit {
 
     // this.formData.append("email", this.user['email'])
 
-    this.uploader.onBuildItemForm = (fileItem, form) => {
-      form.append('email', this.user['email']);
-      form.append('modelName', this.model.modelName);
-      return { fileItem, form }
-    };
   }
 
   showCorpus(id: string) {
@@ -56,6 +51,8 @@ export class CreateModelComponent implements OnInit {
   uploadModal(content, mode) {
     this.uploader = this.fileUploadService.uploader;
     this.uploader.onBuildItemForm = (fileItem, form) => {
+      form.append('email', this.user['email']);
+      form.append('modelName', this.model.modelName);
       form.append('mode', mode);
       return { fileItem, form }
     };
