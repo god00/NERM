@@ -158,8 +158,8 @@ exports.loginNERM = async function (req, res, next) {
 }
 
 exports.uploadsFile = async function (req, res, next) {
-    var upload = await multer({}).any();
-    await upload(req, res, function (err) {
+    var test = await multer({}).any();
+    await test(req, res, function (err) {
         if (err) {
             return res.status(205).json({ status: 205, message: err.toString() })
         }
