@@ -195,6 +195,7 @@ exports.uploadsFile = async function (req, res, next) {
                     return res.status(400).json({ status: 400., message: err.message });
                 }
                 else if (model) {
+                    console.log(req.files)
                     var mode = req.body.mode[0];
                     model[mode].push(`${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.files[0].originalname}`);
                     NERMService.updateModel(model, mode);
