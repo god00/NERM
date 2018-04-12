@@ -163,11 +163,11 @@ exports.uploadsFile = async function (req, res, next) {
         if (err) {
             return res.status(205).json({ status: 205, message: err.toString() })
         }
-        console.log(req)
+        // console.log(req)
         console.log(req.files)
         
     });
-    console.log(req)
+    // console.log(req)
     var userDIR = `${DIR}${req.email}`;
     var storage = await multer.diskStorage({
         destination: function (req, file, cb) {
