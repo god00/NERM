@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   updateNERM: any;
   modelName: string = '';
   duplicateModelName: boolean = false;
+  checkExclues: boolean = false;
   user: Object;
   modal;
 
@@ -74,7 +75,7 @@ export class HomeComponent implements OnInit {
         this.updateNERM.unsubscribe();
       }
       else{
-        
+        this.checkExclues = true;
       }
     });
 
