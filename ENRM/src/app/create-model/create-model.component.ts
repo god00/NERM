@@ -75,7 +75,7 @@ export class CreateModelComponent implements OnInit {
       console.log(data)
       if (data) {
         this.model = data;
-        console.log(data)
+        console.log(this.model)
       }
       else {
         console.log('no data')
@@ -92,6 +92,7 @@ export class CreateModelComponent implements OnInit {
   uploadModal(content, mode) {
     this.uploader = new FileUploader({ url: nermUrl });
     this.uploader.onBuildItemForm = (fileItem, form) => {
+      console.log(this.model.modelName)
       form.append('email', this.user['email']);
       form.append('modelName', this.model.modelName);
       form.append('mode', mode);
