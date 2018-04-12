@@ -159,16 +159,16 @@ exports.loginNERM = async function (req, res, next) {
 
 exports.uploadsFile = async function (req, res, next) {
     var getparam = await multer({}).any();
-    var userDIR;
+    var userDIR ;
     await getparam(req, res, function (err) {
         if (err) {
             return res.status(205).json({ status: 205, message: err.toString() })
         }
         // console.log(req)
-        userDIR = await `${DIR}/${req.body.email[0]}/${req.body.modelName[0]}/`
+        userDIR = `${DIR}${req.body.email[0]}/${req.body.modelName[0]}/`
 
     });
-    // console.log(req)
+    console.log(typeof userDIR)
 
     var storage = await multer.diskStorage({
         destination: function (req, file, cb) {
