@@ -61,8 +61,9 @@ export class CreateModelComponent implements OnInit {
       form.append('mode', mode);
       return { fileItem, form }
     };
-    this.uploader.onErrorItem = (item, response, status, headers) => this.fileUploadService.onErrorItem(item, response, status, headers);
-    this.uploader.onSuccessItem = (item, response, status, headers) => this.fileUploadService.onSuccessItem(item, response, status, headers);
+    this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
+      console.log("uploaded:", item, status);
+  };
     this.modalService.open(content, { centered: true, size: 'lg' }).result.then((result) => {
       // reset uploader
       console.log(`Closed with: ${result}`);
