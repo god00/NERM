@@ -12,6 +12,7 @@ const nermUrl = `${appConfig.apiUrl}/api/nerms/uploads`;
 @Injectable()
 export class FileUploadService {
     public uploader:FileUploader = new FileUploader({url: nermUrl});
+    public uploaderTmp:FileUploader = new FileUploader({url: nermUrl});
 
     constructor(private http: HttpClient) {
     }

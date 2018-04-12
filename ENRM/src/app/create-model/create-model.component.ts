@@ -57,10 +57,10 @@ export class CreateModelComponent implements OnInit {
       return { fileItem, form }
     };
     this.modalService.open(content, { centered: true, size: 'lg' }).result.then((result) => {
-      this.uploader = this.fileUploadService.uploader;
+      this.fileUploadService.uploader = this.fileUploadService.uploaderTmp;
       console.log(`Closed with: ${result}`);
     }, (reason) => {
-      this.uploader = this.fileUploadService.uploader;
+      this.fileUploadService.uploader = this.fileUploadService.uploaderTmp;
       console.log(`Dismissed ${this.getDismissReason(reason)}`);
     });
 
