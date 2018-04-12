@@ -200,11 +200,8 @@ exports.uploadsFile = async function (req, res, next) {
                     console.log(model[mode])
                     NERMService.updateModel(model, mode)
                 }
-                else {
-                    var nermTmp = NERMService.createModel(nerm);
-                    return res.status(202).json({ status: 202, message: "Succesfully Create Model" });
-                }
             })
+            res.end('File is uploaded');
             return res.status(205).json({ status: 205, message: "File is uploaded" })
         });
 
