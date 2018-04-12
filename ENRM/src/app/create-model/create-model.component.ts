@@ -16,7 +16,7 @@ const nermUrl = `${appConfig.apiUrl}/api/nerms/uploads`;
   styleUrls: ['./create-model.component.css']
 })
 export class CreateModelComponent implements OnInit {
-  uploader: FileUploader;
+  public uploader: FileUploader = new FileUploader({ url: nermUrl });
   user: Object;
   private sub: any;
   model: NERMModel;
@@ -61,9 +61,9 @@ export class CreateModelComponent implements OnInit {
       form.append('mode', mode);
       return { fileItem, form }
     };
-    this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
+    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       console.log("uploaded:", item, status);
-  };
+    };
     this.modalService.open(content, { centered: true, size: 'lg' }).result.then((result) => {
       // reset uploader
       console.log(`Closed with: ${result}`);
