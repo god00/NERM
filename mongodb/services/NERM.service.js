@@ -152,18 +152,6 @@ exports.loginNERM = async function (password, id, hash) {
     }
 }
 
-exports.configStorage = async function (req, dir) {
-    var storage = multer.diskStorage({
-        destination: function (req, file, cb) {
-            cb(null, dir)
-        },
-        filename: function (req, file, cb) {
-            cb(null, file.originalname)
-        }
-    })
-    return { storage, req };
-}
-
 function hashPassword(password) {
     try {
         return bcrypt.hash(password, 10).then(hash => {
