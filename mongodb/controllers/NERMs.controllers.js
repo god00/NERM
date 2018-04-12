@@ -165,7 +165,8 @@ exports.uploadsFile = async function (req, res, next) {
         }
         // console.log(req)
         console.log(req.files)
-        
+        console.log(req.body)
+        console.log(req.email)
     });
     // console.log(req)
     var userDIR = `${DIR}${req.email}`;
