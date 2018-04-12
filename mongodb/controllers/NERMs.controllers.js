@@ -195,7 +195,7 @@ exports.uploadsFile = async function (req, res, next) {
                 }
                 else if (model) {
                     var mode = req.body.mode;
-                    var p = path.dirname(process.cwd(),'/storage/uploads/',req.body.email,req.body.modelName,req.files[0].originalname);
+                    var p = `${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.files[0].originalname}`
                     console.log(p)
                     console.log(model[mode])
                     console.log(!(p in model[mode]))
