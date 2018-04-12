@@ -165,6 +165,7 @@ exports.uploadsFile = async function (req, res, next) {
                 return res.status(205).json({ status: 205, message: err.toString() })
             }
             // console.log(req)
+            console.log(req.files)
             email = req.body.email;
             ModelName = req.body.modelName;
             console.log(email)
