@@ -74,6 +74,7 @@ export class CreateModelComponent implements OnInit {
     this.getModelSubscribe = this.databaseService.getModel(this.user['email'], <string>this.model.modelName).subscribe((data) => {
       console.log(data)
       if (data) {
+        console.log(data)
         this.model._id = data._id;
         this.model.corpus = data.corpus;
         this.model.date = data.date;
@@ -100,7 +101,7 @@ export class CreateModelComponent implements OnInit {
       return { fileItem, form }
     };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-      console.log("uploaded:", item, status);
+      // console.log("uploaded:", item, status);
     };
     this.modalService.open(content, { centered: true, size: 'lg' }).result.then((result) => {
       // reset uploader
