@@ -43,6 +43,7 @@ export class CreateModelComponent implements OnInit {
     public databaseService: DatabaseService
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
+    console.log(this.model)
     this.model['modelName'] = JSON.parse(localStorage.getItem('currentModel')).modelName;
     console.log('after')
   }
