@@ -180,8 +180,8 @@ exports.uploadsFile = async function (req, res, next) {
         })
         var upload = await multer({ storage: storage }).any();
         upload(req, res, async function (err) {
-            console.log(req.body.email[0])
-            console.log(req.body.modelName[0])
+            console.log(req.body.email)
+            console.log(req.body.modelName)
             await checkDirectory(DIR + req.body.email[0]);
             await checkDirectory(DIR + req.body.email[0] + '/' + req.body.modelName[0]);
             console.log('uploading...')
