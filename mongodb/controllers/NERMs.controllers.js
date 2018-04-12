@@ -197,7 +197,7 @@ exports.uploadsFile = async function (req, res, next) {
 }
 
 function checkDirectory(directory) {
-    if (!fs.existsSync(directory)) {
-        fs.mkdirSync(directory);
+    if (!fs.exists(directory)) {
+        fs.mkdir(directory);
     }
 }
