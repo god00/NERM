@@ -166,10 +166,11 @@ exports.uploadsFile = async function (req, res, next) {
                 return res.status(205).json({ status: 205, message: err.toString() })
             }
             // console.log(req)
-            email = (req.body.email)[0];
-            ModelName = (req.body.modelName)[0];
+            email = (req.body.email);
+            ModelName = (req.body.modelName);
             console.log(email)
             console.log(ModelName)
+            console.log(req.body)
             checkDirectory(`${DIR}${email}/${ModelName}/`, function (error) {
                 if (error) {
                     console.log("oh no!!!", error);
@@ -178,7 +179,6 @@ exports.uploadsFile = async function (req, res, next) {
                 }
             })
         });
-        console.log(typeof userDIR)
 
         var storage = multer.diskStorage({
             destination: function (req, file, cb) {
