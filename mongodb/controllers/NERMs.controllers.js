@@ -197,6 +197,7 @@ exports.uploadsFile = async function (req, res, next) {
                     var mode = req.body.mode[0];
                     model[mode] = arr;
                     console.log(mode)
+                    console.log(arr)
                     console.log(model[mode])
                     NERMService.updateModel(model, mode)
                 }
