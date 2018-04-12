@@ -187,7 +187,7 @@ exports.uploadsFile = async function (req, res, next) {
                 console.log(err.toString())
                 return res.status(400).json({ status: 400, message: err.toString() })
             }
-            var query = NERMModel.findOne({ email: req.body.email[0], ModelName: req.body.modelName[0] });
+            var query = NERMModel.findOne({ email: req.body.email, ModelName: req.body.modelName });
             query.exec(function (err, model) {
                 console.log(model)
                 if (err) {
