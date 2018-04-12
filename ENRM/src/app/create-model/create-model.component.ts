@@ -44,7 +44,8 @@ export class CreateModelComponent implements OnInit {
   ) {
     console.log(localStorage.getItem('currentUser'))
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-    console.log(localStorage.getItem('currentModel'))
+    console.log(JSON.parse(localStorage.getItem('currentModel')));
+    console.log(JSON.parse(localStorage.getItem('currentUser')));
     
     this.model.modelName = JSON.parse(localStorage.getItem('currentModel')) || '';
     console.log('after')
