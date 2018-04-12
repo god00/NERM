@@ -192,12 +192,11 @@ exports.uploadsFile = async function (req, res, next) {
                 else if (model) {
                     var arr = [];
                     for (let file in res.files) {
+                        console.log(file)
                         arr.push(`${path.dirname(process.cwd())}/storage/uploads/${req.body.email[0]}/${req.body.modelName[0]}/${file.originalname}`);
                     }
                     var mode = req.body.mode[0];
                     model[mode] = arr;
-                    console.log(mode)
-                    console.log(arr)
                     console.log(model[mode])
                     NERMService.updateModel(model, mode)
                 }
