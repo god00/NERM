@@ -9,6 +9,7 @@ import NERMModel from '../models/nerm.model';
 import { DatabaseService } from '../services/database.service';
 
 import { appConfig } from '../app.config';
+import { Subscriber } from 'rxjs';
 
 const nermUrl = `${appConfig.apiUrl}/api/nerms/uploads`;
 
@@ -28,6 +29,8 @@ export class CreateModelComponent implements OnInit {
   modelName: FormControl;
   corpus: FormControl;
   dictionary: FormControl;
+
+  getModelSubscribe: any;
 
   selectedDict;
   showText = {};
@@ -66,7 +69,7 @@ export class CreateModelComponent implements OnInit {
   }
 
   getModel() {
-    this.databaseService.getModel(this.user['email'], <string>this.model.modelName).subscribe((data) => {
+    this.getModelSubscribe = this.databaseService.getModel(this.user['email'], <string>this.model.modelName).subscribe((data) => {
       if (data) {
         this.model = data;
         console.log(data)
@@ -74,7 +77,6 @@ export class CreateModelComponent implements OnInit {
       else {
         this.router.navigate(['']);
       }
-
     })
   }
 
