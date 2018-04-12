@@ -5,7 +5,7 @@ var NERMModel = require('../models/NERM.model')
 var NERM = require('../models/NERMUser.model')
 var config = require('../config.json');
 var multer = require('multer');
-var fs = require('fs');
+
 
 var DIR = `.${config.DIR}`;
 
@@ -158,33 +158,30 @@ exports.loginNERM = async function (req, res, next) {
 }
 
 exports.uploadsFile = async function (req, res, next) {
+    var test = await multer({}).any();
+    var userDIR;
+    await test(req, res, function (err) {
+        if (err) {
+            return res.status(205).json({ status: 205, message: err.toString() })
+        }
+        // console.log(req)
+        console.log(req.files)
+        console.log(req.body.email[0])
+        console.log(req.body.modelName)
+    });
+    // console.log(req)
+    
+    var storage = await multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, DIR)
+        },
+        filename: function (req, file, cb) {
+            cb(null, file.originalname)
+        }
+    })
     try {
-        var getparam = multer({}).any();
-        await getparam(req, res, function (err) {
-            if (err) {
-                return res.status(205).json({ status: 205, message: err.toString() })
-            }
-            // console.log(req)
-            console.log(req.files)
-            email = req.body.email;
-            ModelName = req.body.modelName;
-            console.log(email)
-            console.log(ModelName)
-            // var path = `${DIR}${email[0]}/${ModelName[0]}/`
 
-            // checkDirectory(path);
-        });
-
-        var storage = multer.diskStorage({
-            destination: function (req, file, cb) {
-                cb(null, `${DIR}${req.body.email[0]}/${req.body.modelName[0]}/`)
-            },
-            filename: function (req, file, cb) {
-                cb(null, file.originalname)
-            }
-        })
-
-        var upload = multer({ storage: storage }).any();
+        var upload = await multer({ storage: storage }).any();
         upload(req, res, function (err) {
             console.log('uploading...')
             if (err) {
@@ -198,10 +195,4 @@ exports.uploadsFile = async function (req, res, next) {
         return res.status(400).json({ status: 400, message: e.message })
     }
 
-}
-
-function checkDirectory(directory) {
-    if (!fs.existsSync(directory)) {
-        fs.mkdirSync(directory);
-    }
 }
