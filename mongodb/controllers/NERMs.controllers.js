@@ -6,6 +6,7 @@ var NERM = require('../models/NERMUser.model')
 var config = require('../config.json');
 var multer = require('multer');
 var fs = require('fs');
+var path = require('path')
 
 var DIR = `.${config.DIR}`;
 
@@ -165,10 +166,9 @@ exports.uploadsFile = async function (req, res, next) {
                 return res.status(205).json({ status: 205, message: err.toString() })
             }
             // console.log(req)
-            console.log(req.files)
-            var path = DIR + req.body.email[0] + '/' + req.body.modelName[0] + '/' ; 
-
-            checkDirectory(path);
+            var dir = path.join(DIR, req.body.email[0], req.body.modelName[0])
+            console.log(dir)
+            checkDirectory(dir);
         });
 
         var storage = multer.diskStorage({
@@ -197,7 +197,7 @@ exports.uploadsFile = async function (req, res, next) {
 }
 
 function checkDirectory(directory) {
-    if (!fs.exists(directory)) {
-        fs.mkdir(directory);
+    if (!fs.existsSync(directory)) {
+        fs.mkdirSync(directory);
     }
 }
