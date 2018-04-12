@@ -1,5 +1,3 @@
-import { resolve } from 'path';
-
 // Accessing the Service that we just created
 
 var NERMService = require('../services/NERM.service')
