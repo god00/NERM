@@ -85,13 +85,13 @@ exports.createModel = async function (nerm) {
     }
 }
 
-exports.updateModel = async function (user) {
-    var id = user.id
+exports.updateModel = async function (nerm) {
+    var id = nerm.id
 
     try {
         //Find the old Todo Object by the Id
 
-        var oldNERM = await NERM.findById(id);
+        var oldNERM = await NERMModel.findById(id);
     } catch (e) {
         throw Error("Error occured while Finding the Todo")
     }
