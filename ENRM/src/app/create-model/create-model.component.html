@@ -142,20 +142,20 @@
             <label>Select Dictionary:</label>
             <div class="form-group">
               <select multiple="multiple" class="form-control" id="items" formControlName="selectedDict">
-                <option (mousedown)="onMouseDown($event, item)" (mousemove)="$event.preventDefault()" *ngFor="let item of dicts" [value]="item.id">{{item.name}}</option>
+                <option (mousedown)="onMouseDown($event, item)" (mousemove)="$event.preventDefault()" *ngFor="let item of model.dictionary" [value]="item.id">{{item.name}}</option>
               </select>
             </div>
             <button type="submit" class="btn btn-primary" (click)="uploadModal(content,'dictionary')">Upload Dictionary...</button>
             <label style="display:block">Corpus:</label>
             <div class="corpus">
               <div class="list-group scroll list">
-                <button type="button" class="list-group-item" *ngFor="let c of corpus" [attr.id]="c.id" (click)="showCorpus(c.id)">{{c.title}}</button>
+                <button type="button" class="list-group-item" *ngFor="let c of model.corpus" [attr.id]="c.id" (click)="showCorpus(c.id)">{{c?.title}}</button>
               </div>
 
               <div *ngIf="showText.title" class="card">
                 <div class="card-body">
-                  <h5 class="card-title">{{showText.title}}</h5>
-                  <p class="card-text scroll">{{showText.text}}</p>
+                  <h5 class="card-title">{{showText?.title}}</h5>
+                  <p class="card-text scroll">{{showText?.text}}</p>
                 </div>
               </div>
             </div>

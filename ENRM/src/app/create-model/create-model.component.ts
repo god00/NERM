@@ -47,6 +47,8 @@ export class CreateModelComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.createFormControl();
+    this.createForm();
     this.getModel();
   }
 
