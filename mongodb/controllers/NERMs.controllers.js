@@ -258,7 +258,7 @@ async function readFiles(model) {
                     // console.log('received data: ' + data);
                     let dataObj = {
                         data: data,
-                        filename: getFileName(filePath)
+                        filename: await getFileName(filePath)
                     }
                     await files.push(dataObj)
                 } else {
