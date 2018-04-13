@@ -249,10 +249,10 @@ async function checkDirectory(directory) {
     })
 }
 
-async function readFiles(model) {
+async function readFiles(arrOfPaths) {
     return new Promise((resolve, reject) => {
         let files = [];
-        for (const filePath of arrfilePath) {
+        for (const filePath of arrOfPaths) {
             fs.readFile(filePath, { encoding: 'utf-8' }, async function (err, data) {
                 if (!err) {
                     // console.log('received data: ' + data);
