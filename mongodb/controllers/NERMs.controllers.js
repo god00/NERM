@@ -259,6 +259,7 @@ function readFiles(arrfilePath) {
                     data: data,
                     filename: getFileName(filePath)
                 }
+                console.log(dataObj)
                 files.push(dataObj)
             } else {
                 file.push('ERROR : cannot read this' + filePath)
@@ -271,7 +272,6 @@ function readFiles(arrfilePath) {
 }
 
 function getFileName(fullpath) {
-    console.log(typeof fullpath)
     let fileName = fullpath.split('/')
     return fileName[fileName.length - 1];
 }
