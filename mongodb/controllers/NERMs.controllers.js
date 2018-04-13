@@ -252,25 +252,37 @@ async function checkDirectory(directory) {
 async function readFiles(paths) {
     return new Promise((resolve, reject) => {
         let files = [];
-        for (const filePath of paths) {
-            fs.readFile(filePath, { encoding: 'utf-8' }, async function (err, data) {
-                if (!err) {
-                    // console.log('received data: ' + data);
-                    let dataObj = {
-                        data: data,
-                        filename: await getFileName(filePath)
-                    }
-                    await files.push(dataObj)
-                } else {
-                    file.push('ERROR : cannot read this' + filePath)
-                    console.log(err);
-                }
-            });
+        let promise = [];
+        for (let filePath of paths) {
+            promise.push(readFs(filePath, files));
         }
-        console.log(files)
-        resolve(files);
+        Promise.all(promise).then(() => {
+            resolve();
+        })
     })
 }
+
+async function readFs(filePath, files) {
+    return new Promise((resolve, reject) => {
+        fs.readFile(filePath, { encoding: 'utf-8' }, async function (err, data) {
+            if (!err) {
+                // console.log('received data: ' + data);
+                let dataObj = {
+                    data: data,
+                    filename: await getFileName(filePath)
+                }
+                await files.push(dataObj)
+                resolve()
+            } else {
+                file.push('ERROR : cannot read this' + filePath)
+                console.log(err);
+            }
+        });
+    }
+    )
+}
+
+
 
 function getFileName(fullpath) {
     let fileName = fullpath.split('/')
