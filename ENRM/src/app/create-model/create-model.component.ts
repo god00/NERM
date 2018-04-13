@@ -55,9 +55,6 @@ export class CreateModelComponent implements OnInit {
         this.model.corpus = data.corpus;
         this.model.date = data.date;
         this.model.dictionary = data.dictionary;
-        this.model.dictionary.forEach(item => {
-          this.items.push(item['fileName'])
-        });
       }
       else {
         console.log('no data')
