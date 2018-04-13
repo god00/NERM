@@ -224,10 +224,10 @@ exports.getModel = async function (req, res, next) {
             }
             else if (model) {
                 if (model.dictionary.length != 0) {
-                    model.dictionary = readFiles(model.dictionary);
+                    model.dictionary = changePathToObj(model.dictionary);
                 }
                 if (model.corpus.length != 0) {
-                    model.corpus = readFiles(model.corpus);
+                    model.corpus = changePathToObj(model.corpus);
                 }
                 return res.status(200).json({ status: 200, data: model, message: "Succesfully nermsdb Recieved" });
             }
@@ -249,20 +249,20 @@ async function checkDirectory(directory) {
     })
 }
 
-async function readFiles(paths) {
-    return new Promise((resolve, reject) => {
-        let files = [];
-        let promise = [];
-        for (let filePath of paths) {
-            promise.push(readFs(filePath, files));
-        }
-        Promise.all(promise).then(() => {
-            resolve();
-        })
+async function changePathToObj(paths) {
+    let files = [];
+    let promise = [];
+    for (let filePath of paths) {
+        promise.push(readFs(filePath, files));
+    }
+    Promise.all(promise).then(() => {
+        console.log(files)
+        return files
     })
+
 }
 
-async function readFs(filePath, files) {
+async function readFile(filePath, files) {
     return new Promise((resolve, reject) => {
         fs.readFile(filePath, { encoding: 'utf-8' }, async function (err, data) {
             if (!err) {
