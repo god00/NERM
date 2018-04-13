@@ -10,7 +10,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <input type="text" placeholder="Please enter model name (except '/')" [(ngModel)]="modelName" onchange="checkInput()">
+    <input type="text" placeholder="Please enter model name (except '/')" [(ngModel)]="modelName" (change)="checkInput()">
     <p [hidden]="!duplicateModelName" class="text-danger">* This model name already exists</p>
     <p [hidden]="!checkExclues" class="text-danger">* Don't input '/' in model name</p>
   </div>
