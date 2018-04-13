@@ -224,13 +224,14 @@ exports.getModel = async function (req, res, next) {
             }
             else if (model) {
                 if (model.dictionary.length != 0) {
-                    console.log(getDataFromPaths(model.dictionary))
-                    model.dictionary = await getDataFromPaths(model.dictionary);
-                    console.log(model.dictionary)
-                    
+                    await getDataFromPaths(model.dictionary).then(item => {
+                        model.dictionary = item
+                    })
                 }
                 if (model.corpus.length != 0) {
-                    model.corpus = await getDataFromPaths(model.corpus);
+                    await getDataFromPaths(model.corpus).then(item => {
+                        model.corpus = item
+                    })
                 }
                 return res.status(200).json({ status: 200, data: model, message: "Succesfully nermsdb Recieved" });
             }
@@ -253,16 +254,16 @@ async function checkDirectory(directory) {
 }
 
 async function getDataFromPaths(paths) {
-    let files = [];
-    let promise = [];
-    console.log(paths[0])
-    for (let filePath of paths) {
-        promise.push(readFile(filePath, files));
-    }
-    await Promise.all(promise).then(() => {
-        return files
+    return new Promise((resolve, reject) => {
+        let files = [];
+        let promise = [];
+        for (let filePath of paths) {
+            promise.push(readFile(filePath, files));
+        }
+        await Promise.all(promise).then(() => {
+            resolve(files)
+        })
     })
-
 }
 
 async function readFile(filePath, files) {
