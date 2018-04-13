@@ -271,6 +271,7 @@ function readFiles(arrfilePath) {
 }
 
 function getFileName(fullpath) {
+    console.log(typeof fullpath)
     let fileName = fullpath.toString().spilt('/')
     return fileName[fileName.length - 1];
 }
