@@ -172,8 +172,6 @@ exports.uploadsFile = async function (req, res, next) {
 
         var storage = await multer.diskStorage({
             destination: function (req, file, cb) {
-                console.log(req.body.email)
-                console.log(req.body.modelName)
                 cb(null, `${DIR}${req.body.email}/${req.body.modelName}/`)
             },
             filename: function (req, file, cb) {
@@ -229,6 +227,12 @@ exports.getModel = async function (req, res, next) {
                 return res.status(400).json({ status: 400., message: err.message });
             }
             else if (model) {
+                if (model.dictionary.length != 0) {
+                    model.dictionary = await readFiles(model.dictionary);
+                }
+                if (model.corpus.length != 0) {
+                    model.corpus = await readFiles(model.corpus);
+                }
                 return res.status(200).json({ status: 200, data: model, message: "Succesfully nermsdb Recieved" });
             }
             else {
@@ -247,4 +251,20 @@ async function checkDirectory(directory) {
         }
         resolve();
     })
+}
+
+function readFiles(arrfilePath) {
+    let files = [];
+    for (let filePath of arrfilePath) {
+        fs.readFile(filePath, { encoding: 'utf-8' }, function (err, data) {
+            if (!err) {
+                console.log('received data: ' + data);
+                files.push(data)
+            } else {
+                file.push('cannot read ' + filePath)
+                console.log(err);
+            }
+        });
+    }
+    return files;
 }
