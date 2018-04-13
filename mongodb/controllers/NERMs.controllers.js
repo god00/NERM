@@ -225,6 +225,7 @@ exports.getModel = async function (req, res, next) {
             else if (model) {
                 if (model.dictionary.length != 0) {
                     model.dictionary = await readFiles(model.dictionary);
+                    console.log(model.dictionary)
                 }
                 if (model.corpus.length != 0) {
                     model.corpus = await readFiles(model.corpus);
@@ -259,9 +260,7 @@ function readFiles(arrfilePath) {
                     data: data,
                     filename: getFileName(filePath)
                 }
-                console.log(dataObj)
                 files.push(dataObj)
-                console.log(files)
             } else {
                 file.push('ERROR : cannot read this' + filePath)
                 console.log(err);
