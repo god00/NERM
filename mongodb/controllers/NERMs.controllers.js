@@ -222,16 +222,16 @@ exports.uploadsFile = async function (req, res, next) {
 exports.getModel = async function (req, res, next) {
     try {
         var query = NERMModel.findOne({ email: req.param('email'), ModelName: req.param('modelName') });
-        query.exec(function (err, model) {
+        query.exec(async function (err, model) {
             if (err) {
                 return res.status(400).json({ status: 400., message: err.message });
             }
             else if (model) {
                 if (model.dictionary.length != 0) {
-                    model.dictionary = readFiles(model.dictionary);
+                    model.dictionary = await readFiles(model.dictionary);
                 }
                 if (model.corpus.length != 0) {
-                    model.corpus = readFiles(model.corpus);
+                    model.corpus = await readFiles(model.corpus);
                 }
                 return res.status(200).json({ status: 200, data: model, message: "Succesfully nermsdb Recieved" });
             }
