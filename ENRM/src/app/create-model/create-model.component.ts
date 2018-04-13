@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FileUploader } from 'ng2-file-upload';
@@ -22,13 +21,7 @@ export class CreateModelComponent implements OnInit {
   public uploader: FileUploader = new FileUploader({ url: nermUrl });
   user: Object;
   private sub: any;
-  modelForm: FormGroup
   model: NERMModel = new NERMModel();
-  email: FormControl;
-  date: FormControl;
-  modelName: FormControl;
-  corpus: FormControl;
-  dictionary: FormControl;
   hasError: boolean = false;
 
   getModelSubscribe: any;
@@ -48,28 +41,9 @@ export class CreateModelComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.createFormControl();
-    this.createForm();
     this.getModel();
   }
 
-  createFormControl() {
-    this.email = new FormControl(this.model.email);
-    this.date = new FormControl('');
-    this.modelName = new FormControl(this.model.modelName);
-    this.corpus = new FormControl([]);
-    this.dictionary = new FormControl([]);
-  }
-
-  createForm() {
-    this.modelForm = new FormGroup({
-      email: this.email,
-      date: this.date,
-      modelName: this.modelName,
-      corpus: this.corpus,
-      dictionary: this.dictionary,
-    });
-  }
 
   getModel() {
     this.getModelSubscribe = this.databaseService.getModel(this.user['email'], <string>this.model.modelName).subscribe((data) => {
@@ -89,7 +63,7 @@ export class CreateModelComponent implements OnInit {
   }
 
   showCorpus(id: string) {
-    let show = this.corpus.value.filter(c => { return c.id == id })
+    let show = this.model.corpus.filter(c => { return c['id'] == id })
     this.showText = show[0];
   }
 
@@ -128,20 +102,6 @@ export class CreateModelComponent implements OnInit {
       return 'by clicking on a backdrop';
     } else {
       return `with: ${reason}`;
-    }
-  }
-
-  public onMouseDown(event: MouseEvent, item) {
-    event.preventDefault();
-    event.target['selected'] = !event.target['selected'];
-    if (event.target['selected']) {
-      this.modelForm.controls.dictionary.value.items.push(item.id);
-    } else {
-      let index: number = -1;
-      index = this.modelForm.controls.dictionary.value.items.indexOf(item.id);
-      if (index > -1) {
-        this.modelForm.controls.dictionary.value.items.splice(index);
-      }
     }
   }
 

@@ -141,17 +141,21 @@
       <ngb-tabset>
         <ngb-tab title="Preprocess">
           <ng-template ngbTabContent>
-            <label>Select Dictionary:</label>
-            <div [formGroup]="modelForm">
-              <select multiple="multiple" class="form-control" id="items" formControlName="dictionary">
-                <option (mousedown)="onMouseDown($event, item)" (mousemove)="$event.preventDefault()" *ngFor="let item of model.dictionary" [value]="item.id">{{item?.modelName}}</option>
-              </select>
+            <div style="width: 300px; margin-bottom: 20px;">
+              <h3>Select Dictionary:</h3>
+              <ng-select  [multiple]="true"
+                          [items]="items"
+                          [disabled]="disabled"
+                          (data)="refreshValue($event)"
+                          (selected)="selected($event)"
+                          (removed)="removed($event)"
+                          placeholder="No dict selected"></ng-select>
             </div>
             <button type="submit" class="btn btn-primary" (click)="uploadModal(content,'dictionary')">Upload Dictionary...</button>
             <label style="display:block">Corpus:</label>
             <div class="corpus">
               <div class="list-group scroll list">
-                <button type="button" class="list-group-item" *ngFor="let c of model.corpus" [attr.id]="c.id" (click)="showCorpus(c.id)">{{c?.title}}</button>
+                <button type="button" class="list-group-item" *ngFor="let c of model.corpus" [attr.id]="c.id" (click)="showCorpus(c.id)">{{c?.data}}</button>
               </div>
 
               <div *ngIf="showText.title" class="card">
