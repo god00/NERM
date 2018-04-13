@@ -224,10 +224,10 @@ exports.getModel = async function (req, res, next) {
             }
             else if (model) {
                 if (model.dictionary.length != 0) {
-                    model.dictionary = await changePathToObj(model.dictionary);
+                    model.dictionary = changePathToObj(model.dictionary);
                 }
                 if (model.corpus.length != 0) {
-                    model.corpus = await changePathToObj(model.corpus);
+                    model.corpus = changePathToObj(model.corpus);
                 }
                 return res.status(200).json({ status: 200, data: model, message: "Succesfully nermsdb Recieved" });
             }
@@ -255,7 +255,7 @@ async function changePathToObj(paths) {
     for (let filePath of paths) {
         promise.push(readFile(filePath, files));
     }
-    Promise.all(promise).then(() => {
+    await Promise.all(promise).then(() => {
         console.log(files)
         return files
     })
