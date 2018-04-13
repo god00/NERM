@@ -64,7 +64,7 @@
       <div>
         Queue progress:
         <p *ngIf="uploader.progress < 100 ;else elseblock"><ngb-progressbar type="info" [value]="uploader.progress" [striped]="true" [animated]="true"><i></i></ngb-progressbar></p>
-        <ng-template #elseblock><p *ngIf="hasError ;else elseblock2"><ngb-progressbar type="success" [value]="uploader.progress" [striped]="true">Completed!</ngb-progressbar></p></ng-template>
+        <ng-template #elseblock><p *ngIf="uploader.progress == 100 && !hasError ;else elseblock2"><ngb-progressbar type="success" [value]="uploader.progress" [striped]="true">Completed!</ngb-progressbar></p></ng-template>
         <ng-template #elseblock2><p><ngb-progressbar type="danger" [value]="uploader.progress" [striped]="true">Try again</ngb-progressbar></p></ng-template>
       </div>
       <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
