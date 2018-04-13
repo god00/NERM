@@ -261,6 +261,7 @@ function readFiles(arrfilePath) {
                 }
                 console.log(dataObj)
                 files.push(dataObj)
+                console.log(files)
             } else {
                 file.push('ERROR : cannot read this' + filePath)
                 console.log(err);
