@@ -273,7 +273,7 @@ async function readFile(filePath, files) {
                 // console.log('received data: ' + data);
                 let dataObj = {
                     data: data,
-                    filename: await getFileName(filePath)
+                    fileName: await getFileName(filePath)
                 }
                 await files.push(dataObj)
                 resolve()
