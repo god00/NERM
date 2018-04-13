@@ -225,6 +225,7 @@ exports.getModel = async function (req, res, next) {
             else if (model) {
                 if (model.dictionary.length != 0) {
                     model.dictionary = await getDataFromPaths(model.dictionary);
+                    console.log(getDataFromPaths(model.dictionary))
                 }
                 if (model.corpus.length != 0) {
                     model.corpus = await getDataFromPaths(model.corpus);
@@ -256,7 +257,6 @@ async function getDataFromPaths(paths) {
         promise.push(readFile(filePath, files));
     }
     await Promise.all(promise).then(() => {
-        console.log(files)
         return files
     })
 
