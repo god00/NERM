@@ -260,7 +260,7 @@ async function getDataFromPaths(paths) {
         for (let filePath of paths) {
             promise.push(readFile(filePath, files));
         }
-        await Promise.all(promise).then(() => {
+        Promise.all(promise).then(() => {
             resolve(files)
         })
     })
