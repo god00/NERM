@@ -253,10 +253,10 @@ async function checkDirectory(directory) {
     })
 }
 
-function readFiles(arrfilePath) {
+async function readFiles(arrfilePath) {
     let files = [];
     for (let filePath of arrfilePath) {
-        fs.readFile(filePath, { encoding: 'utf-8' }, function (err, data) {
+        await fs.readFile(filePath, { encoding: 'utf-8' }, function (err, data) {
             if (!err) {
                 console.log('received data: ' + data);
                 files.push(data)
