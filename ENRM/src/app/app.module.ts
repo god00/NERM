@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { FileUploadModule } from 'ng2-file-upload';
+import { SelectModule } from 'ng2-select';
 
 import { LoginPageComponent } from './login-page/login-page.component';
 import { HomeComponent } from './home/home.component';
@@ -50,7 +51,8 @@ const routes: Routes = [
     }),
     HttpClientModule,
     FormsModule,
-    FileUploadModule
+    FileUploadModule,
+    SelectModule
   ],
   providers: [
     DatabaseService,
