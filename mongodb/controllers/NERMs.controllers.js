@@ -253,7 +253,7 @@ async function changePathToObj(paths) {
     let files = [];
     let promise = [];
     for (let filePath of paths) {
-        promise.push(readFs(filePath, files));
+        promise.push(readFile(filePath, files));
     }
     Promise.all(promise).then(() => {
         console.log(files)
