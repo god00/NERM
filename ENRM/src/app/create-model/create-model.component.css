@@ -6,6 +6,7 @@
 
 .scroll{
     overflow-y: auto; 
+    width: 100%
 }
 
 .corpus{
