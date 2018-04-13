@@ -225,7 +225,6 @@ exports.getModel = async function (req, res, next) {
             else if (model) {
                 if (model.dictionary.length != 0) {
                     model.dictionary = await readFiles(model.dictionary);
-                    console.log(model.dictionary)
                 }
                 if (model.corpus.length != 0) {
                     model.corpus = await readFiles(model.corpus);
@@ -250,25 +249,26 @@ async function checkDirectory(directory) {
     })
 }
 
-function readFiles(arrfilePath) {
-    let files = [];
-    for (let filePath of arrfilePath) {
-        fs.readFile(filePath, { encoding: 'utf-8' }, function (err, data) {
-            if (!err) {
-                console.log('received data: ' + data);
-                let dataObj = {
-                    data: data,
-                    filename: getFileName(filePath)
+async function readFiles(arrfilePath) {
+    return new Promise((resolve, reject) => {
+        let files = [];
+        for (let filePath of arrfilePath) {
+            await fs.readFile(filePath, { encoding: 'utf-8' }, function (err, data) {
+                if (!err) {
+                    console.log('received data: ' + data);
+                    let dataObj = {
+                        data: data,
+                        filename: getFileName(filePath)
+                    }
+                    files.push(dataObj)
+                } else {
+                    file.push('ERROR : cannot read this' + filePath)
+                    console.log(err);
                 }
-                files.push(dataObj)
-            } else {
-                file.push('ERROR : cannot read this' + filePath)
-                console.log(err);
-            }
-        });
-    }
-    console.log(files)
-    return files;
+            });
+        }
+        resolve(files);
+    })
 }
 
 function getFileName(fullpath) {
