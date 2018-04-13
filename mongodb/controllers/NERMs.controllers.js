@@ -172,7 +172,7 @@ exports.uploadsFile = async function (req, res, next) {
 
         var storage = await multer.diskStorage({
             destination: function (req, file, cb) {
-                cb(null, `${DIR}${req.body.email[0]}/${req.body.modelName[0]}/`)
+                cb(null, `${DIR}${req.body.email}/${req.body.modelName}/`)
             },
             filename: function (req, file, cb) {
                 cb(null, file.originalname)
