@@ -64,8 +64,9 @@ export class CreateModelComponent implements OnInit {
 
   showCorpus(id: string) {
     let show = this.model.corpus.filter(c => { return c['id'] == id })
+    console.log(show)
     this.showText = show[0];
-    console.log(this.showText)
+    
   }
 
   uploadModal(content, mode) {
