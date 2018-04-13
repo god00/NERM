@@ -249,10 +249,10 @@ async function checkDirectory(directory) {
     })
 }
 
-async function readFiles(arrOfPaths) {
+async function readFiles(paths) {
     return new Promise((resolve, reject) => {
         let files = [];
-        for (const filePath of arrOfPaths) {
+        for (const filePath of paths) {
             fs.readFile(filePath, { encoding: 'utf-8' }, async function (err, data) {
                 if (!err) {
                     // console.log('received data: ' + data);
@@ -267,6 +267,7 @@ async function readFiles(arrOfPaths) {
                 }
             });
         }
+        console.log(files)
         resolve(files);
     })
 }
