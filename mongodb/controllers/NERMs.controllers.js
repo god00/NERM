@@ -225,7 +225,7 @@ exports.getModel = async function (req, res, next) {
             else if (model) {
                 if (model.dictionary.length != 0) {
                     model.dictionary = await getDataFromPaths(model.dictionary);
-                    console.log(getDataFromPaths(model.dictionary))
+                    console.log(getDataFromPaths(model.dictionary).then())
                 }
                 if (model.corpus.length != 0) {
                     model.corpus = await getDataFromPaths(model.corpus);
