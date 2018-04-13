@@ -249,11 +249,11 @@ async function checkDirectory(directory) {
     })
 }
 
-async function readFiles(arrfilePath) {
+async function readFiles(model) {
     return new Promise((resolve, reject) => {
         let files = [];
         for (let filePath of arrfilePath) {
-            fs.readFile(filePath, { encoding: 'utf-8' }, function (err, data) {
+            await fs.readFile(filePath, { encoding: 'utf-8' }, function (err, data) {
                 if (!err) {
                     console.log('received data: ' + data);
                     let dataObj = {
