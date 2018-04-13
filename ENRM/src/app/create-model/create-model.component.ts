@@ -108,6 +108,7 @@ export class CreateModelComponent implements OnInit {
     };
     this.uploader.onErrorItem = (item: any, response: any, status: any, headers: any) => {
       console.log("fail:", item, status);
+      console.log(this.hasError)
       this.hasError = true;
       this.getModel();
     };
