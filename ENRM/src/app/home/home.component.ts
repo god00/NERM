@@ -91,6 +91,7 @@ export class HomeComponent implements OnInit {
   }
 
   checkInput() {
+    console.log('ckeckInput')
     if (!(/^[^/ ]*$/.test(this.modelName))) {
       this.checkExclues = false;
     }
