@@ -276,6 +276,7 @@ async function readFs(filePath, files) {
             } else {
                 file.push('ERROR : cannot read this' + filePath)
                 console.log(err);
+                resolve()
             }
         });
     }
