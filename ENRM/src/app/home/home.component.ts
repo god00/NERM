@@ -20,9 +20,10 @@ export class HomeComponent implements OnInit {
   updateNERM: any;
   modelName: string = '';
   duplicateModelName: boolean = false;
-  checkExclues: boolean = false;
+  nameExcluse: string ;
   user: Object;
   modal;
+
 
   //Modal parameter
   closeResult: string;
@@ -75,7 +76,7 @@ export class HomeComponent implements OnInit {
         this.updateNERM.unsubscribe();
       }
       else {
-        this.checkExclues = true;
+        this.nameExcluse = this.modelName.toString();
       }
     });
 
@@ -88,13 +89,6 @@ export class HomeComponent implements OnInit {
   logout() {
     this.authenicationService.logout();
     this.router.navigate(['login']);
-  }
-
-  checkInput() {
-    console.log('ckeckInput')
-    if (!(/^[^/ ]*$/.test(this.modelName))) {
-      this.checkExclues = false;
-    }
   }
 
 }
