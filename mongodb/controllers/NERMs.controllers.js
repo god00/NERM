@@ -266,6 +266,7 @@ async function readFiles(arrfilePath) {
             }
         });
     }
+    console.log(files)
     return files;
 }
 
