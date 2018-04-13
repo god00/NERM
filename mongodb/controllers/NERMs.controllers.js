@@ -257,7 +257,7 @@ async function readFiles(arrfilePath) {
                 console.log('received data: ' + data);
                 let dataObj = {
                     data: data,
-                    filename: await getFileName(filePath)
+                    filename: getFileName(filePath)
                 }
                 files.push(dataObj)
             } else {
