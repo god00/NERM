@@ -63,7 +63,7 @@ export class CreateModelComponent implements OnInit {
   }
 
   showCorpus(index: number) {
-    this.showText = this.model.corpus[index]['data'];
+    this.showText = this.model.corpus[index];
 
   }
 
