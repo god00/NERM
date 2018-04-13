@@ -253,6 +253,7 @@ async function checkDirectory(directory) {
 async function getDataFromPaths(paths) {
     let files = [];
     let promise = [];
+    console.log(typeof paths)
     for (let filePath of paths) {
         promise.push(readFile(filePath, files));
     }
