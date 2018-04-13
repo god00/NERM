@@ -253,7 +253,7 @@ async function readFiles(arrfilePath) {
     return new Promise((resolve, reject) => {
         let files = [];
         for (let filePath of arrfilePath) {
-            await fs.readFile(filePath, { encoding: 'utf-8' }, function (err, data) {
+            fs.readFile(filePath, { encoding: 'utf-8' }, function (err, data) {
                 if (!err) {
                     console.log('received data: ' + data);
                     let dataObj = {
