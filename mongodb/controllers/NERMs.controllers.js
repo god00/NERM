@@ -249,10 +249,10 @@ async function checkDirectory(directory) {
     })
 }
 
-async function readFiles(arrfilePath) {
+function readFiles(arrfilePath) {
     let files = [];
     for (let filePath of arrfilePath) {
-        await fs.readFile(filePath, { encoding: 'utf-8' }, function (err, data) {
+        fs.readFile(filePath, { encoding: 'utf-8' }, function (err, data) {
             if (!err) {
                 console.log('received data: ' + data);
                 let dataObj = {
@@ -271,6 +271,6 @@ async function readFiles(arrfilePath) {
 }
 
 function getFileName(fullpath) {
-    let fileName = fullpath.spilt('/')
+    let fileName = fullpath.toString().spilt('/')
     return fileName[fileName.length - 1];
 }
