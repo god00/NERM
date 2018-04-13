@@ -104,7 +104,6 @@ export class CreateModelComponent implements OnInit {
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       // console.log("uploaded:", item, status);
       this.hasError = item.isError;
-      console.log(this.hasError)
       if (this.getModelSubscribe)
         this.getModelSubscribe.unsubscribe();
       this.getModel();
@@ -112,10 +111,6 @@ export class CreateModelComponent implements OnInit {
     this.uploader.onErrorItem = (item: any, response: any, status: any, headers: any) => {
       // console.log("fail:", item, status);
       this.hasError = item.isError;
-      console.log(this.hasError)
-      if (this.getModelSubscribe)
-        this.getModelSubscribe.unsubscribe();
-      this.getModel();
     };
     this.modalService.open(content, { centered: true, size: 'lg' }).result.then((result) => {
       // reset uploader
