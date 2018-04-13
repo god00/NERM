@@ -253,14 +253,14 @@ async function readFiles(model) {
     return new Promise((resolve, reject) => {
         let files = [];
         for (let filePath of arrfilePath) {
-            await fs.readFile(filePath, { encoding: 'utf-8' }, function (err, data) {
+            await fs.readFile(filePath, { encoding: 'utf-8' }, async function (err, data) {
                 if (!err) {
-                    console.log('received data: ' + data);
+                    // console.log('received data: ' + data);
                     let dataObj = {
                         data: data,
                         filename: getFileName(filePath)
                     }
-                    files.push(dataObj)
+                    await files.push(dataObj)
                 } else {
                     file.push('ERROR : cannot read this' + filePath)
                     console.log(err);
