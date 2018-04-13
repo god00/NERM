@@ -224,10 +224,10 @@ exports.getModel = async function (req, res, next) {
             }
             else if (model) {
                 if (model.dictionary.length != 0) {
-                    model.dictionary = await getDataFromPath(model.dictionary);
+                    model.dictionary = await getDataFromPaths(model.dictionary);
                 }
                 if (model.corpus.length != 0) {
-                    model.corpus = await getDataFromPath(model.corpus);
+                    model.corpus = await getDataFromPaths(model.corpus);
                 }
                 return res.status(200).json({ status: 200, data: model, message: "Succesfully nermsdb Recieved" });
             }
@@ -249,7 +249,7 @@ async function checkDirectory(directory) {
     })
 }
 
-async function getDataFromPath(paths) {
+async function getDataFromPaths(paths) {
     let files = [];
     let promise = [];
     for (let filePath of paths) {
