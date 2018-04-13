@@ -228,10 +228,10 @@ exports.getModel = async function (req, res, next) {
             }
             else if (model) {
                 if (model.dictionary.length != 0) {
-                    model.dictionary = await readFiles(model.dictionary);
+                    model.dictionary = readFiles(model.dictionary);
                 }
                 if (model.corpus.length != 0) {
-                    model.corpus = await readFiles(model.corpus);
+                    model.corpus = readFiles(model.corpus);
                 }
                 return res.status(200).json({ status: 200, data: model, message: "Succesfully nermsdb Recieved" });
             }
