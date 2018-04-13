@@ -209,13 +209,7 @@ exports.uploadsFile = async function (req, res, next) {
                                 }
                             })
                         })
-                        .catch((e) => {
-                            return res.status(400).json({ status: 400, message: e.message })
-                        });
                 })
-                .catch((e) => {
-                    return res.status(400).json({ status: 400, message: e.message })
-                });
         });
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message })
@@ -242,12 +236,11 @@ exports.getModel = async function (req, res, next) {
     }
 }
 
-function checkDirectory(directory) {
+async function checkDirectory(directory) {
     return new Promise((resolve, reject) => {
         if (!fs.existsSync(directory)) {
             fs.mkdirSync(directory);
-            resolve();
         }
-        reject();
+        resolve();
     })
 }
