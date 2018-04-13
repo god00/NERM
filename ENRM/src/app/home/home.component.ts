@@ -67,14 +67,14 @@ export class HomeComponent implements OnInit {
       if (res.duplicate) {
         this.duplicateModelName = true;
       }
-      else if(/^[^/ ]*$/.test(this.modelName)){
+      else if (/^[^/ ]*$/.test(this.modelName)) {
         this.duplicateModelName = false;
         localStorage.setItem('currentModel', JSON.stringify(nerm));
         this.modal.close();
         this.router.navigate(['create']);
         this.updateNERM.unsubscribe();
       }
-      else{
+      else {
         this.checkExclues = true;
       }
     });
@@ -88,6 +88,12 @@ export class HomeComponent implements OnInit {
   logout() {
     this.authenicationService.logout();
     this.router.navigate(['login']);
+  }
+
+  checkInput() {
+    if (!(/^[^/ ]*$/.test(this.modelName))) {
+      this.checkExclues = false;
+    }
   }
 
 }
