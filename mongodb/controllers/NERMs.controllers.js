@@ -185,15 +185,12 @@ exports.uploadsFile = async function (req, res, next) {
                     checkDirectory(DIR + req.body.email + '/' + req.body.modelName)
                         .then(() => {
                             console.log('uploading...')
-                            console.log(req.body.email)
-                            console.log(req.body.modelName)
                             if (err) {
                                 console.log(err.toString())
                                 return res.status(400).json({ status: 400, message: err.toString() })
                             }
                             var query = NERMModel.findOne({ email: req.body.email, ModelName: req.body.modelName });
                             query.exec(function (err, model) {
-                                console.log(model)
                                 if (err) {
                                     return res.status(400).json({ status: 400., message: err.message });
                                 }
@@ -203,7 +200,6 @@ exports.uploadsFile = async function (req, res, next) {
                                     if (model[mode].indexOf(p) == -1) //check if for no duplication file in db
                                         model[mode].push(`${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.files[0].originalname}`);
                                     NERMService.updateModel(model, mode);
-                                    console.log(model[mode])
                                     return res.status(205).json({ status: 205, message: "File is uploaded" });
                                 }
                                 else {
@@ -259,12 +255,21 @@ async function readFiles(arrfilePath) {
         await fs.readFile(filePath, { encoding: 'utf-8' }, function (err, data) {
             if (!err) {
                 console.log('received data: ' + data);
-                files.push(data)
+                let dataObj = {
+                    data: data,
+                    filename: await getFileName(filePath)
+                }
+                files.push(dataObj)
             } else {
-                file.push('cannot read ' + filePath)
+                file.push('ERROR : cannot read this' + filePath)
                 console.log(err);
             }
         });
     }
     return files;
+}
+
+function getFileName(fullpath) {
+    let fileName = fullpath.spilt('/')
+    return fileName[fileName.length - 1];
 }
