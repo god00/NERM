@@ -144,7 +144,7 @@
             <label>Select Dictionary:</label>
             <div [formGroup]="modelForm">
               <select multiple="multiple" class="form-control" id="items" formControlName="dictionary">
-                <option (mousedown)="onMouseDown($event, item)" (mousemove)="$event.preventDefault()" *ngFor="let item of model.dictionary" [value]="item.id">{{item?.name}}</option>
+                <option (mousedown)="onMouseDown($event, item)" (mousemove)="$event.preventDefault()" *ngFor="let item of model.dictionary" [value]="item.id">{{item?.modelName}}</option>
               </select>
             </div>
             <button type="submit" class="btn btn-primary" (click)="uploadModal(content,'dictionary')">Upload Dictionary...</button>
@@ -169,7 +169,7 @@
           <ng-template ngbTabContent>
             <label for="sel1">Select Classifier:</label>
             <select class="form-control" id="sel1">
-              <option>Random Tree (default)</option>
+              <option>CRF++ (default)</option>
               <option>2</option>
               <option>3</option>
               <option>4</option>
