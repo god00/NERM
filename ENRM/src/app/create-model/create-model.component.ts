@@ -64,7 +64,7 @@ export class CreateModelComponent implements OnInit {
 
   showCorpus(id: string) {
     let show = this.model.corpus.filter(c => {
-      console.log(c)
+      console.log(c['id'] == id)
       return c['id'] == id
     })
     console.log(show)
