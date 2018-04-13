@@ -6,7 +6,6 @@
 
 .scroll{
     overflow-y: auto; 
-    width: 100%
 }
 
 .corpus{
@@ -17,4 +16,8 @@
 
 .list{
     display: list-item;
+}
+
+.list-group-item{
+    width: 100%
 }
