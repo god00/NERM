@@ -110,6 +110,7 @@ export class CreateModelComponent implements OnInit {
       console.log("fail:", item, status);
       console.log(this.hasError)
       this.hasError = true;
+      console.log(this.hasError)
       this.getModel();
     };
     this.modalService.open(content, { centered: true, size: 'lg' }).result.then((result) => {
