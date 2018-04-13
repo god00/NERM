@@ -103,14 +103,16 @@ export class CreateModelComponent implements OnInit {
     };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       // console.log("uploaded:", item, status);
-      this.hasError = false;
+      this.hasError = item.isError;
+      console.log(this.hasError)
       if (this.getModelSubscribe)
         this.getModelSubscribe.unsubscribe();
       this.getModel();
     };
     this.uploader.onErrorItem = (item: any, response: any, status: any, headers: any) => {
       // console.log("fail:", item, status);
-      this.hasError = true;
+      this.hasError = item.isError;
+      console.log(this.hasError)
       if (this.getModelSubscribe)
         this.getModelSubscribe.unsubscribe();
       this.getModel();
