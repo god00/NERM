@@ -65,3 +65,8 @@
     flex-direction: column;
     margin: auto;
 }
+
+.small{
+    font-size: 1rem;
+    word-wrap: break-word;
+}
