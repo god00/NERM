@@ -30,13 +30,7 @@ exports.getItems = async function (req, res, next) {
                     return res.status(400).json({ status: 400, message: err.message });
                 }
                 else if (items) {
-                    var models = await items.map((model) => {
-                        model.modelName = model.ModelName;
-                        delete model.ModelName;
-                        console.log(model)
-                        return model;
-                    })
-                    return res.status(200).json({ status: 200, data: models, message: "Succesfully nermsdb Recieved" });
+                    return res.status(200).json({ status: 200, data: items, message: "Succesfully nermsdb Recieved" });
                 }
                 else {
                     return res.status(200).json({ status: 200, message: "No model in database" });
@@ -250,8 +244,6 @@ exports.getModel = async function (req, res, next) {
                         model.corpus = item
                     })
                 }
-                model.modelName = await model.ModelName;
-                await delete model.ModelName
                 return res.status(200).json({ status: 200, data: model, message: "Succesfully nermsdb Recieved" });
             }
             else {

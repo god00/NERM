@@ -109,7 +109,7 @@
         <i class="fa fa-file-code-o" aria-hidden="true"></i>
         <p class="lead p-text">Your Model</p>
         <div id="list-example" class="list-group list">
-          <a *ngFor="let model of modelsByUser" class="list-group-item list-group-item-action" href="#/list-Model-1">
+          <a *ngFor="let model of modelsByUser" class="list-group-item list-group-item-action" href="#/{{model.ModelName}}">
             <small>{{model.ModelName}}</small>
           </a>
         </div>
