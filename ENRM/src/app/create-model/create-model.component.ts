@@ -60,6 +60,7 @@ export class CreateModelComponent implements OnInit {
       this.model.selectedDict = this.selectedItems.value;
       this.databaseService.updateNERM(this.model).subscribe((res) => {
         if (res) {
+          console.log(res.data)
           console.log(res.message)
         }
       });
