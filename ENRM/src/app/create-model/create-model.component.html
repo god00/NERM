@@ -143,7 +143,7 @@
           <ng-template ngbTabContent>
             <!-- select field -->
             <label style="display:block">Select Dictionary:</label>
-            <div>
+            <div class="multiselect">
               <angular2-multiselect 
                 [data]="dropdownList" 
                 [(ngModel)]="selectedItems" 
@@ -151,8 +151,7 @@
                 (onSelect)="onItemSelect($event)" 
                 (onDeSelect)="OnItemDeSelect($event)"
                 (onSelectAll)="onSelectAll($event)"
-                (onDeSelectAll)="onDeSelectAll($event)"
-                class="multiselect">
+                (onDeSelectAll)="onDeSelectAll($event)">
               </angular2-multiselect>
             </div>
             <button type="submit" class="btn btn-primary" (click)="uploadModal(content,'dictionary')">Upload Dictionary...</button>
