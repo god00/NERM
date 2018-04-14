@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FileUploader, FileItem } from 'ng2-file-upload';
@@ -26,10 +27,11 @@ export class CreateModelComponent implements OnInit {
 
   //Multiselect Dropdown Parameters
   dropdownList = [];
-  selectedItems = [];
+  selectedItems: FormControl;
   dropdownSettings = {};
 
   getModelSubscribe: any;
+  selectedSubscribe: any;
 
   showText = {};
 
@@ -45,6 +47,7 @@ export class CreateModelComponent implements OnInit {
 
   ngOnInit() {
     this.getModel();
+    this.createSelectedForm();
     this.dropdownSettings = {
       singleSelection: false,
       text: "Select Dictionary",
@@ -52,6 +55,13 @@ export class CreateModelComponent implements OnInit {
       unSelectAllText: 'Unselect All',
       enableSearchFilter: true,
     };
+    this.selectedSubscribe = this.selectedItems.valueChanges.subscribe((selected) => {
+      console.log(selected);
+    });
+  }
+
+  createSelectedForm() {
+    this.selectedItems = new FormControl([]);
   }
 
   getModel() {
@@ -81,7 +91,6 @@ export class CreateModelComponent implements OnInit {
 
   showCorpus(index: number) {
     this.showText = this.model.corpus[index];
-
   }
 
   uploadModal(content, mode) {
@@ -101,14 +110,14 @@ export class CreateModelComponent implements OnInit {
       if (this.getModelSubscribe)
         this.getModelSubscribe.unsubscribe();
       this.getModel().then(() => {
-        var dupSelected = this.selectedItems.filter(function (el) {
+        var dupSelected = this.selectedItems.value.filter(function (el) {
           return el.fileName === item.file.name;
         });
         if (dupSelected.length == 0) {
-          this.dropdownList.map((dict) => {
+          this.selectedItems.patchValue(this.dropdownList.map((dict, index) => {
             if (dict['fileName'] == item.file.name)
-              this.selectedItems.push(dict)
-          });
+              return dict
+          }));
         }
       });
 
