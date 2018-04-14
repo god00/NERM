@@ -256,7 +256,8 @@ exports.updateModel = async function (req, res, next) {
             else if (model) {
                 console.log('selectDict', req.body.selectedDict)
                 console.log('dictionary', model.dictionary)
-                addPathsFromFileNames(req.body.selectedDict, model.dictionary)
+                let selectedDict = await req.body.selectedDict.map(item => { return item.fileName })
+                addPathsFromFileNames(selectedDict, model.dictionary)
                     .then((filePaths) => {
                         console.log(filePaths)
                         model['selectedDict'] = filePaths;
