@@ -81,6 +81,12 @@ export class CreateModelComponent implements OnInit {
           this.model.corpus = data.corpus;
           this.model.date = data.date;
           this.model.dictionary = data.dictionary;
+          let selectedTmp = data.selectedDict.map((dict, index) => {
+            dict['id'] = index;
+            dict['itemName'] = dict['fileName'];
+            return dict;
+          });
+          this.selectedItems.patchValue(selectedTmp);
           this.dropdownList = data.dictionary.map((dict, index) => {
             dict['id'] = index;
             dict['itemName'] = dict['fileName'];
@@ -120,12 +126,12 @@ export class CreateModelComponent implements OnInit {
           return el.fileName === item.file.name;
         });
         if (dupSelected.length == 0) {
-          let selectTmp = this.selectedItems.value;
+          let selectedTmp = this.selectedItems.value;
           this.dropdownList.map((dict, index) => {
             if (dict['fileName'] == item.file.name)
-              selectTmp.push(dict)
+              selectedTmp.push(dict)
           })
-          this.selectedItems.patchValue(selectTmp);
+          this.selectedItems.patchValue(selectedTmp);
         }
       });
 

@@ -234,22 +234,8 @@ exports.getModel = async function (req, res, next) {
                 return res.status(400).json({ status: 400, message: err.message });
             }
             else if (model) {
-                if (model.dictionary.length != 0) {
-                    await getDataFromPaths(model.dictionary).then(item => {
-                        model.dictionary = item
-                    })
-                }
-                if (model.corpus.length != 0) {
-                    await getDataFromPaths(model.corpus).then(item => {
-                        model.corpus = item
-                    })
-                }
-                if (model.selectedDict.length != 0) {
-                    await getDataFromPaths(model.selectedDict).then(item => {
-                        model.selectedDict = item
-                    })
-                }
-                return res.status(200).json({ status: 200, data: model, message: "Succesfully nermsdb Recieved" });
+
+                return res.status(200).json({ status: 200, data: beforeSendToFront(model), message: "Succesfully nermsdb Recieved" });
             }
             else {
                 return res.status(200).json({ status: 200, message: "Please create model first" });
@@ -275,7 +261,7 @@ exports.updateModel = async function (req, res, next) {
                     return path;
                 });
                 NERMService.updateModel(model);
-                return res.status(200).json({ status: 200, data: model, message: `${decodeURI(req.body.modelName)} Updated` });
+                return res.status(200).json({ status: 200, data: beforeSendToFront(model), message: `${decodeURI(req.body.modelName)} Updated` });
             }
             else {
                 return res.status(200).json({ status: 200, message: "Please create model first" });
@@ -340,6 +326,25 @@ async function readFile(filePath, files) {
         });
     }
     )
+}
+
+async function beforeSendToFront(model) {
+    if (model.dictionary.length != 0) {
+        await getDataFromPaths(model.dictionary).then(item => {
+            model.dictionary = item
+        })
+    }
+    if (model.corpus.length != 0) {
+        await getDataFromPaths(model.corpus).then(item => {
+            model.corpus = item
+        })
+    }
+    if (model.selectedDict.length != 0) {
+        await getDataFromPaths(model.selectedDict).then(item => {
+            model.selectedDict = item
+        })
+    }
+    return model;
 }
 
 
