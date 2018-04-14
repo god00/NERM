@@ -53,7 +53,6 @@ export class HomeComponent implements OnInit {
     this.getModelSubscribe = this.databaseService.getModels(this.user['email']).subscribe((data) => {
       if (data) {
         this.modelsByUser = data;
-        console.log(data)
       }
       else {
 
