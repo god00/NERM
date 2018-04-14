@@ -19,7 +19,6 @@ const nermUrl = `${appConfig.apiUrl}/api/nerms/uploads`;
 export class CreateModelComponent implements OnInit {
   public uploader: FileUploader = new FileUploader({ url: nermUrl });
   user: Object;
-  private sub: any;
   model: NERMModel = new NERMModel();
   hasError: boolean = false;
 
@@ -30,10 +29,7 @@ export class CreateModelComponent implements OnInit {
 
   getModelSubscribe: any;
 
-  selectedDict;
   showText = {};
-  public items: Array<string> = [];
-  // formData: FormData = new FormData();
 
   constructor(
     private router: Router,
@@ -46,9 +42,6 @@ export class CreateModelComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!JSON.parse(localStorage.getItem('currentModel'))) {
-      this.router.navigate(['']);
-    }
     this.getModel();
     this.dropdownSettings = {
       singleSelection: false,
@@ -58,7 +51,6 @@ export class CreateModelComponent implements OnInit {
       enableSearchFilter: true,
     };
   }
-
 
   getModel() {
     this.getModelSubscribe = this.databaseService.getModel(this.user['email'], <string>this.model.modelName).subscribe((data) => {
@@ -76,7 +68,7 @@ export class CreateModelComponent implements OnInit {
       }
       else {
         console.log('no data')
-        // this.router.navigate(['']);
+        this.router.navigate(['']);
       }
     })
   }
