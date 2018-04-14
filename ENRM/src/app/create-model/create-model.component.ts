@@ -151,18 +151,16 @@ export class CreateModelComponent implements OnInit {
   }
 
   onItemSelect(item: any) {
-    console.log(item);
-    console.log(this.selectedItems);
+    console.log(this.selectedItems.value);
   }
   OnItemDeSelect(item: any) {
-    console.log(item);
-    console.log(this.selectedItems);
+    console.log(this.selectedItems.value);
   }
   onSelectAll(items: any) {
-    console.log(this.selectedItems);
+    console.log(this.selectedItems.value);
   }
   onDeSelectAll(items: any) {
-    console.log(this.selectedItems);
+    console.log(this.selectedItems.value);
   }
 
   logout() {
