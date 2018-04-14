@@ -254,16 +254,13 @@ exports.updateModel = async function (req, res, next) {
                 return res.status(400).json({ status: 400, message: err.message });
             }
             else if (model) {
-                model['selectedDict'] = await req.body.selectedDict.map((item) => {
-                    console.log(item)
-                    let path = addPathFromFileName(item.fileName, model.dictionary);
-                    console.log(path)
-                    return path;
-                });
-                console.log('model',model.selectedDict)
-                await NERMService.updateModel(model);
-                let data = await beforeSendToFront(model)
-                return res.status(200).json({ status: 200, data: data, message: `${decodeURI(req.body.modelName)} Updated` });
+                addPathFromFileName(req.body.selectedDict, model.dictionary)
+                    .then((filePaths) => {
+                        model['selectedDict'] = filePaths;
+                        NERMService.updateModel(model);
+                        let data = beforeSendToFront(model);
+                        return res.status(200).json({ status: 200, data: data, message: `${decodeURI(req.body.modelName)} Updated` });
+                    })
             }
             else {
                 return res.status(200).json({ status: 200, message: "Please create model first" });
@@ -275,16 +272,21 @@ exports.updateModel = async function (req, res, next) {
     }
 }
 
-async function addPathFromFileName(fileName, paths) {
-    let selectedDictPaths = "";
-    await paths.map((path) => {
-        let filename = path.split('/');
-        filename = filename[filename.length - 1]
-        if (filename == fileName) {
-            selectedDictPaths = path;
-        }
+async function addPathFromFileName(fileNames, paths) {
+    return new Promise((resolve, reject) => {
+        let filePaths = fileNames.map((fileName) => {
+            let selectedDictPaths = "";
+            paths.map((path) => {
+                let filename = path.split('/');
+                filename = filename[filename.length - 1]
+                if (filename == fileName) {
+                    selectedDictPaths = path;
+                }
+            })
+            return selectedDictPaths
+        })
+        resolve(filePaths);
     })
-    return selectedDictPaths
 }
 
 async function checkDirectory(directory) {
