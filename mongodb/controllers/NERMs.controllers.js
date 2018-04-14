@@ -133,14 +133,13 @@ exports.removeNERM = async function (req, res, next) {
 
 exports.loginNERM = async function (req, res, next) {
     try {
-        var query = await NERM.findOne({ email: req.body.email }, async function (err, userDB) {
+        await NERM.findOne({ email: req.body.email }, async function (err, userDB) {
             if (err) {
                 console.log('1')
                 return res.status(400).json({ status: 400., message: err.message });
             }
             else if (userDB) {
-                console.log(userDB)
-                NERMService.loginNERM(req.body.password, userDB[0]._id, userDB[0].password)
+                NERMService.loginNERM(req.body.password, userDB._id, userDB.password)
                     .then((token) => {
                         var usertmp = {
                             email: req.body.email,
