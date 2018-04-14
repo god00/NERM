@@ -32,6 +32,7 @@ export class CreateModelComponent implements OnInit {
 
   getModelSubscribe: any;
   selectedSubscribe: any;
+  updateModelSubscribe: any;
 
   showText = {};
 
@@ -59,10 +60,10 @@ export class CreateModelComponent implements OnInit {
     };
     this.selectedSubscribe = this.selectedItems.valueChanges.subscribe((selected) => {
       this.model.selectedDict = this.selectedItems.value;
-      this.databaseService.updateNERM(this.model).subscribe((res) => {
+      this.updateModelSubscribe = this.databaseService.updateNERM(this.model).subscribe((res) => {
         if (res) {
-          console.log(res.data)
           console.log(res.message)
+          console.log(res.data)
         }
       });
     });
@@ -76,7 +77,6 @@ export class CreateModelComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.getModelSubscribe = this.databaseService.getModel(this.user['email'], <string>this.model.modelName).subscribe((data) => {
         if (data) {
-          console.log(data)
           this.model._id = data._id;
           this.model.modelName = data['ModelName'];
           this.model.corpus = data.corpus;
