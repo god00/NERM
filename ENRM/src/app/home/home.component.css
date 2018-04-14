@@ -68,4 +68,6 @@ small{
 
 html {
     max-width: 100%;
+    width: auto;
+    height: auto;
 }
