@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { CreateModelComponent } from '../create-model/create-model.component';
+
 import { debounceTime } from 'rxjs/operator/debounceTime';
 import { Subject } from 'rxjs';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
@@ -9,6 +11,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { DatabaseService } from '../services/database.service';
 import NERM from '../models/nermUser.model';
 import NERMModel from '../models/nerm.model';
+
 
 @Component({
   selector: 'app-home',
@@ -72,7 +75,8 @@ export class HomeComponent implements OnInit {
         this.duplicateModelName = false;
         localStorage.setItem('currentModel', JSON.stringify(nerm));
         this.modal.close();
-        this.router.navigate(['create']);
+        this.router.config.unshift({ path: this.modelName, component: CreateModelComponent })
+        this.router.navigate([this.modelName]);
         this.updateNERM.unsubscribe();
       }
       else {
