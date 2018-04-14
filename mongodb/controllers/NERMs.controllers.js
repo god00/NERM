@@ -139,6 +139,7 @@ exports.loginNERM = async function (req, res, next) {
                 return res.status(400).json({ status: 400., message: err.message });
             }
             else if (userDB) {
+                console.log(userDB)
                 NERMService.loginNERM(req.body.password, userDB[0]._id, userDB[0].password)
                     .then((token) => {
                         var usertmp = {
