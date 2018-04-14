@@ -260,11 +260,11 @@ exports.updateModel = async function (req, res, next) {
                         model['selectedDict'] = filePaths;
                         console.log(model.selectedDict)
                         NERMService.updateModel(model);
-                        return res.status(200).json({ status: 200, data: beforeSendToFront(model), message: `${decodeURI(req.body.modelName)} Updated` });
+                        return res.status(201).json({ status: 201, data: beforeSendToFront(model), message: `${decodeURI(req.body.modelName)} Updated` });
                     })
             }
             else {
-                return res.status(200).json({ status: 200, message: "Please create model first" });
+                return res.status(204).json({ status: 204, message: "Please create model first" });
             }
         })
 
