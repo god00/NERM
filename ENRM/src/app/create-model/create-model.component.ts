@@ -58,7 +58,11 @@ export class CreateModelComponent implements OnInit {
     };
     this.selectedSubscribe = this.selectedItems.valueChanges.subscribe((selected) => {
       this.model.selectedDict = this.selectedItems.value;
-      this.databaseService.updateNERM(this.model);
+      this.databaseService.updateNERM(this.model).subscribe((res) => {
+        if (res) {
+          console.log(res.message)
+        }
+      });
     });
   }
 

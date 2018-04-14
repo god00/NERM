@@ -244,6 +244,11 @@ exports.getModel = async function (req, res, next) {
                         model.corpus = item
                     })
                 }
+                if (model.selectedDict.length != 0) {
+                    await getDataFromPaths(model.selectedDict).then(item => {
+                        model.selectedDict = item
+                    })
+                }
                 return res.status(200).json({ status: 200, data: model, message: "Succesfully nermsdb Recieved" });
             }
             else {
