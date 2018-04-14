@@ -261,7 +261,7 @@ exports.updateModel = async function (req, res, next) {
                     return path;
                 });
                 NERMService.updateModel(model);
-                let data = await beforeSendToFront(model)
+                let data = beforeSendToFront(model)
                 return res.status(200).json({ status: 200, data: data, message: `${decodeURI(req.body.modelName)} Updated` });
             }
             else {
