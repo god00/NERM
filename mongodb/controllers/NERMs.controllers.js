@@ -254,12 +254,13 @@ exports.updateModel = async function (req, res, next) {
                 return res.status(400).json({ status: 400, message: err.message });
             }
             else if (model) {
-                console.log(req.body.selectedDict)
                 model['selectedDict'] = await req.body.selectedDict.map((item) => {
+                    console.log(item)
                     let path = addPathFromFileName(item.fileName, model.dictionary);
+                    console.log(path)
                     return path;
                 });
-                console.log('model',model.selectedDict)
+                console.log('model',model.se)
                 await NERMService.updateModel(model);
                 let data = await beforeSendToFront(model)
                 return res.status(200).json({ status: 200, data: data, message: `${decodeURI(req.body.modelName)} Updated` });
