@@ -117,7 +117,7 @@ export class LoginPageComponent implements OnInit {
 
           this.loginNERM.unsubscribe();
         }, err => {
-          this._success.next(` - ${err.message}.`);
+          this._success.next(` - Failed to connect database.`);
         }
         )
     }
