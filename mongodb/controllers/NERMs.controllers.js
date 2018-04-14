@@ -33,9 +33,9 @@ exports.getItems = async function (req, res, next) {
                     var models = await items.map((model) => {
                         model.modelName = model.ModelName;
                         delete model.ModelName;
+                        console.log(model)
                         return model;
                     })
-                    console.log(models);
                     return res.status(200).json({ status: 200, data: models, message: "Succesfully nermsdb Recieved" });
                 }
                 else {
