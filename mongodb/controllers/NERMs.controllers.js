@@ -134,8 +134,8 @@ exports.removeNERM = async function (req, res, next) {
 exports.loginNERM = async function (req, res, next) {
     try {
         var query = await NERM.findOne({ email: req.body.email });
+        console.log(query)
         query.exec(async function (err, userDB) {
-            console.log('exec')
             if (err) {
                 console.log('1')
                 return res.status(400).json({ status: 400., message: err.message });
