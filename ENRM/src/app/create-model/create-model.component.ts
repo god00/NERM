@@ -95,12 +95,12 @@ export class CreateModelComponent implements OnInit {
       this.getModel();
     };
     this.uploader.onErrorItem = (item: any, response: any, status: any, headers: any) => {
-      // count++;
-      // // console.log("fail:", item, status);
-      // if (count == 0) {
-      //   this.uploader.uploadItem(item);
-      //   count = 0;
-      // }
+      count++;
+      // console.log("fail:", item, status);
+      if (count == 0) {
+        this.uploader.uploadItem(item);
+        count = 0;
+      }
       this.hasError = item.isError;
     };
     this.modalService.open(content, { centered: true, size: 'lg' }).result.then((result) => {
