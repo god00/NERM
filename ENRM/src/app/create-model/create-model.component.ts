@@ -115,6 +115,7 @@ export class CreateModelComponent implements OnInit {
           return el.fileName === item.file.name;
         });
         if (dupSelected.length == 0) {
+          console.log('if')
           this.selectedItems.patchValue(this.dropdownList.map((dict, index) => {
             if (dict['fileName'] == item.file.name)
               return dict
