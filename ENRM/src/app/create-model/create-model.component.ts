@@ -66,12 +66,14 @@ export class CreateModelComponent implements OnInit {
             dict['itemName'] = dict['fileName'];
             return dict;
           });
+          resolve();
         }
         else {
           console.log('no data')
           this.router.navigate(['']);
+          resolve();
         }
-        resolve();
+        
       })
     })
 
