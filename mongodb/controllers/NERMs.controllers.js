@@ -227,6 +227,7 @@ exports.uploadsFile = async function (req, res, next) {
 }
 
 exports.getModel = async function (req, res, next) {
+    console.log(encodeURI(req.param('modelName')))
     try {
         var query = NERMModel.findOne({ email: req.param('email'), ModelName: encodeURI(req.param('modelName')) });
         query.exec(async function (err, model) {
