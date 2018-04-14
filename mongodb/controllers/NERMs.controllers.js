@@ -234,7 +234,8 @@ exports.getModel = async function (req, res, next) {
                 return res.status(400).json({ status: 400, message: err.message });
             }
             else if (model) {
-                return res.status(200).json({ status: 200, data: beforeSendToFront(model), message: "Succesfully nermsdb Recieved" });
+                let data = await beforeSendToFront(model)
+                return res.status(200).json({ status: 200, data: data, message: "Succesfully nermsdb Recieved" });
             }
             else {
                 return res.status(200).json({ status: 200, message: "Please create model first" });
