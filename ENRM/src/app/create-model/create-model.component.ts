@@ -80,7 +80,7 @@ export class CreateModelComponent implements OnInit {
 
   uploadModal(content, mode) {
     this.uploader = new FileUploader({ url: nermUrl });
-    var data = new Blob([''], { type: 'text/plain' });
+    var data = new Blob(['I am drummy'], { type: 'text/plain' });
     let arrayOfBlob = new Array<Blob>();
     arrayOfBlob.push(data);
     let drummy = new File(arrayOfBlob, 'drummy.txt');
