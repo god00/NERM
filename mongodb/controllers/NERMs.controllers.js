@@ -172,7 +172,7 @@ exports.uploadsFile = async function (req, res, next) {
 
         var storage = await multer.diskStorage({
             destination: function (req, file, cb) {
-                cb(null, `${DIR}${req.body.email}/${req.body.modelName}/`)
+                cb(null, `${DIR}${req.body.email}/${req.body.modelName}/${req.body.mode}`)
             },
             filename: function (req, file, cb) {
                 cb(null, file.originalname)
@@ -184,28 +184,33 @@ exports.uploadsFile = async function (req, res, next) {
                 .then(() => {
                     checkDirectory(DIR + req.body.email + '/' + req.body.modelName)
                         .then(() => {
-                            console.log('uploading...')
-                            if (err) {
-                                console.log(err.toString())
-                                return res.status(400).json({ status: 400, message: err.toString() })
-                            }
-                            var query = NERMModel.findOne({ email: req.body.email, ModelName: req.body.modelName });
-                            query.exec(function (err, model) {
-                                if (err) {
-                                    return res.status(400).json({ status: 400., message: err.message });
-                                }
-                                else if (model) {
-                                    var mode = req.body.mode;
-                                    var p = `${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.files[0].originalname}`
-                                    if (model[mode].indexOf(p) == -1) //check if for no duplication file in db
-                                        model[mode].push(`${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.files[0].originalname}`);
-                                    NERMService.updateModel(model, mode);
-                                    return res.status(205).json({ status: 205, message: "File is uploaded" });
-                                }
-                                else {
-                                    return res.status(400).json({ status: 400, message: "Please create model before upload" });
-                                }
-                            })
+                            checkDirectory(DIR + req.body.email + '/' + req.body.modelName + '/' + req.body.mode)
+                                .then(() => {
+                                    console.log('uploading...')
+                                    if (err) {
+                                        console.log(err.toString())
+                                        return res.status(400).json({ status: 400, message: err.toString() })
+                                    }
+                                    var query = NERMModel.findOne({ email: req.body.email, ModelName: req.body.modelName });
+                                    query.exec(function (err, model) {
+                                        if (err) {
+                                            return res.status(400).json({ status: 400., message: err.message });
+                                        }
+                                        else if (model) {
+                                            var mode = req.body.mode;
+                                            var p = `${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.body.mode}/${req.files[0].originalname}`
+                                            if (model[mode].indexOf(p) == -1) //check if for no duplication file in db
+                                                model[mode].push(`${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.files[0].originalname}`);
+                                            NERMService.updateModel(model);
+                                            return res.status(205).json({ status: 205, message: "File is uploaded" });
+                                        }
+                                        else {
+                                            return res.status(400).json({ status: 400, message: "Please create model before upload" });
+                                        }
+                                    })
+
+                                })
+
                         })
                 })
         });
