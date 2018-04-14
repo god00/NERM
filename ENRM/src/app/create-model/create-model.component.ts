@@ -99,10 +99,15 @@ export class CreateModelComponent implements OnInit {
       if (this.getModelSubscribe)
         this.getModelSubscribe.unsubscribe();
       this.getModel().then(() => {
-        this.dropdownList.map((dict) => {
-          if (dict['fileName'] == item.file.name)
-            this.selectedItems.push(dict)
+        var dupSelected = this.selectedItems.filter(function (el) {
+          return el.fileName === item.file.name;
         });
+        if (dupSelected.length == 0) {
+          this.dropdownList.map((dict) => {
+            if (dict['fileName'] == item.file.name)
+              this.selectedItems.push(dict)
+          });
+        }
       });
 
     };
