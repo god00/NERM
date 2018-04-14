@@ -105,8 +105,6 @@ export class CreateModelComponent implements OnInit {
     };
     this.uploader.onSuccessItem = (item: any, response: any, status: any, headers: any) => {
       count = 0;
-      console.log("success:", item, status);
-      console.log(item.file.name)
       this.hasError = item.isError;
       if (this.getModelSubscribe)
         this.getModelSubscribe.unsubscribe();
@@ -120,7 +118,6 @@ export class CreateModelComponent implements OnInit {
             if (dict['fileName'] == item.file.name)
               selectTmp.push(dict)
           })
-          console.log(selectTmp)
           this.selectedItems.patchValue(selectTmp);
         }
       });
