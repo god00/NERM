@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { FileUploader } from 'ng2-file-upload';
+import { FileUploader, FileItem } from 'ng2-file-upload';
 
 import NERMModel from '../models/nerm.model';
 import { DatabaseService } from '../services/database.service';
@@ -80,6 +80,8 @@ export class CreateModelComponent implements OnInit {
 
   uploadModal(content, mode) {
     this.uploader = new FileUploader({ url: nermUrl });
+    var dummy :FileItem
+    this.uploader.uploadItem(dummy);
     this.uploader.onBuildItemForm = (fileItem, form) => {
       form.append('email', this.user['email']);
       form.append('modelName', this.model.modelName);
