@@ -135,7 +135,6 @@ exports.loginNERM = async function (req, res, next) {
     try {
         await NERM.findOne({ email: req.body.email }, async function (err, userDB) {
             if (err) {
-                console.log('1')
                 return res.status(400).json({ status: 400., message: err.message });
             }
             else if (userDB) {
@@ -151,18 +150,15 @@ exports.loginNERM = async function (req, res, next) {
                             return res.status(201).json({ status: 201, data: usertmp, message: "Wrong password. Try again" })
                     })
                     .catch((err) => {
-                        console.log('2')
                         return res.status(400).json({ status: 400, data: err, message: "Login Failed" })
                     });
             }
             else {
-                console.log('3')
                 return res.status(400).json({ status: 400, message: "Please create user before login" });
             }
         });
 
     } catch (e) {
-        console.log('4')
         //Return an Error Response Message with Code and the Error Message.
 
         return res.status(400).json({ status: 400, message: "Login as unsuccesfull" })

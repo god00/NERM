@@ -107,7 +107,6 @@ export class LoginPageComponent implements OnInit {
 
       this.loginNERM = this.authenicationService.loginNERM(user, loginCheckbox.checked)
         .subscribe(res => {
-          console.log(res)
           if (res && res.message === 'Succesfully Login') {
             this.router.navigate(['']);
           }

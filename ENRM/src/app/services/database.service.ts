@@ -52,7 +52,6 @@ export class DatabaseService {
         collections: 'nerms'
       }
     }).map((res) => {
-      console.log(res)
       //Maps the response object sent from the server
       return res["data"] as NERMModel[];
     })

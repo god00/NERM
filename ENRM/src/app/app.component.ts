@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { DatabaseService } from './services/database.service';
+
 import { CreateModelComponent } from './create-model/create-model.component';
 
 @Component({
@@ -11,21 +13,30 @@ import { CreateModelComponent } from './create-model/create-model.component';
 export class AppComponent implements OnInit, OnDestroy {
   user: Object;
 
-  constructor(public router: Router) {
+  getModelSubscribe: any;
+
+  constructor(
+    public router: Router,
+    public databaseService: DatabaseService
+  ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
   }
 
   ngOnInit() {
-    // this.addPathModel();
+    this.getModelSubscribe = this.databaseService.getModels(this.user['email']).subscribe((modelsByUser) => {
+      if (modelsByUser) {
+        this.addPathModel(modelsByUser);
+      }
+    })
   }
 
   ngOnDestroy() {
-
+    this.getModelSubscribe.unsubscribe();
   }
 
-  addPathModel() {
-
-    this.router.config.unshift({ path: '', component: CreateModelComponent })
+  addPathModel(modelsByUser: any) {
+    for (let model of modelsByUser)
+      this.router.config.unshift({ path: <string>model.modelName, component: CreateModelComponent })
   }
 
 }
