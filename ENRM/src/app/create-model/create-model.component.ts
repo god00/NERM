@@ -61,6 +61,8 @@ export class CreateModelComponent implements OnInit {
     this.selectedSubscribe = this.selectedItems.valueChanges.subscribe((selected) => {
       this.model.selectedDict = this.selectedItems.value;
       console.log(this.model)
+      if (this.updateModelSubscribe)
+        this.updateModelSubscribe.unsubscribe();
       this.updateModelSubscribe = this.databaseService.updateNERM(this.model).subscribe((res) => {
         if (res) {
           console.log(res.message)
