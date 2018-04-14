@@ -250,18 +250,18 @@ exports.updateModel = async function (req, res, next) {
     try {
         console.log(req.body.email)
         var query = NERMModel.findOne({ email: req.body.email, ModelName: decodeURI(req.body.modelName) });
-        query.exec(function (err, model) {
+        query.exec(async function (err, model) {
             console.log(model)
             if (err) {
                 return res.status(400).json({ status: 400, message: err.message });
             }
             else if (model) {
-                model['selectedDict'] = req.body.selectedDict.map((item) => {
+                model['selectedDict'] = await req.body.selectedDict.map((item) => {
                     let path = addPathFromFileName(item.fileName, model.dictionary);
                     return path;
                 });
-                NERMService.updateModel(model);
-                let data = beforeSendToFront(model)
+                await NERMService.updateModel(model);
+                let data = await beforeSendToFront(model)
                 return res.status(200).json({ status: 200, data: data, message: `${decodeURI(req.body.modelName)} Updated` });
             }
             else {
