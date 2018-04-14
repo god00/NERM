@@ -247,7 +247,7 @@ exports.getModel = async function (req, res, next) {
                     })
                 }
                 model.modelName = await model.ModelName;
-                delete model.modelName
+                await delete model.modelName
                 return res.status(200).json({ status: 200, data: model, message: "Succesfully nermsdb Recieved" });
             }
             else {
