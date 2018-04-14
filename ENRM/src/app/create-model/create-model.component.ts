@@ -65,8 +65,6 @@ export class CreateModelComponent implements OnInit {
       this.updateModelSubscribe = this.databaseService.updateNERM(this.model).subscribe((res) => {
         if (res) {
           console.log(res.message)
-          console.log(res.data.selectedDict)
-          this.getModel();
         }
       });
     });
