@@ -107,11 +107,13 @@
     <div class="jumbotron special-card d-flex justify-content-around btm-padding flex-column">
       <h1 class="display-3">Your Model</h1>
       <div class="list card">
-        <div style="display:block; width: 5rem;" *ngFor="let model of modelsByUser">
-          <a class="model-items" href="#/{{model.ModelName}}">
-            <i class="fa fa-file" aria-hidden="true"></i>
-            <small>{{model.ModelName}}</small>
-          </a>
+        <div class="card-body">
+          <div style="display:block; width: 5rem;" *ngFor="let model of modelsByUser">
+            <a class="model-items" href="#/{{model.ModelName}}">
+              <i class="fa fa-file" aria-hidden="true"></i>
+              <small>{{model.ModelName}}</small>
+            </a>
+          </div>
         </div>
         <!-- <i class="fa fa-file-code-o" aria-hidden="true"></i>
         <p class="lead p-text">Your Model</p>
