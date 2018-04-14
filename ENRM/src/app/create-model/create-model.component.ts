@@ -87,8 +87,7 @@ export class CreateModelComponent implements OnInit {
       form.append('mode', mode);
       return { fileItem, form }
     };
-    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-      // console.log("uploaded:", item, status);
+    this.uploader.onSuccessItem = (item: any, response: any, status: any, headers: any) => {
       count = 0;
       this.hasError = item.isError;
       if (this.getModelSubscribe)
