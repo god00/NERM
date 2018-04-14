@@ -66,6 +66,7 @@ export class CreateModelComponent implements OnInit {
         if (res) {
           console.log(res.message)
           console.log(res.data.selectedDict)
+          this.getModel();
         }
       });
     });
