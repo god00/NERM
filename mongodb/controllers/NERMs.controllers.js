@@ -184,40 +184,24 @@ exports.uploadsFile = async function (req, res, next) {
         //     checkDirectory(DIR + req.body.email[0]);
         //     checkDirectory(DIR + req.body.email[0] + '/' + req.body.modelName[0]);
         // });
-        if (req.body.mode == "dictionary") {
-            var storage = await multer.diskStorage({
-                destination: function (req, file, cb) {
-                    cb(null, `${DIR}${req.body.email}/${req.body.mode}`)
-                },
-                filename: function (req, file, cb) {
-                    cb(null, file.originalname)
-                }
-            })
-        }
-        else{
-            var storage = await multer.diskStorage({
-                destination: function (req, file, cb) {
-                    cb(null, `${DIR}${req.body.email}/${req.body.modelName}/${req.body.mode}`)
-                },
-                filename: function (req, file, cb) {
-                    cb(null, file.originalname)
-                }
-            })
-        }
+
+        var storage = await multer.diskStorage({
+            destination: function (req, file, cb) {
+                cb(null, `${DIR}${req.body.email}/${req.body.modelName}/${req.body.mode}`)
+            },
+            filename: function (req, file, cb) {
+                cb(null, file.originalname)
+            }
+        })
         var upload = multer({ storage: storage }).any();
         upload(req, res, async function (err) {
             checkDirectory(DIR + req.body.email)
                 .then(() => {
-                    if (req.body.mode == "dictionary") {
-                        checkDirectory(DIR + req.body.email + '/' + req.body.mode).then(() => {
-                            console.log('uploading dictionary...')
-                        })
-                    }
                     checkDirectory(DIR + req.body.email + '/' + req.body.modelName)
                         .then(() => {
                             checkDirectory(DIR + req.body.email + '/' + req.body.modelName + '/' + req.body.mode)
                                 .then(() => {
-                                    console.log('uploading corpus...')
+                                    console.log('uploading...')
                                     if (err) {
                                         console.log(err.toString())
                                         return res.status(400).json({ status: 400, message: err.toString() })
