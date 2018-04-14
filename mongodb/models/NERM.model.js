@@ -8,6 +8,7 @@ var NERMSchema = new mongoose.Schema({
     ModelName: String,
     corpus: Array,                          // Save path of corpus to arr
     dictionary: Array,                      // Save path of dictionary to arr
+    selectedDict : Array,
     // parameter and more...
 }, { collection: 'nerms' })
 
