@@ -256,7 +256,6 @@ exports.updateModel = async function (req, res, next) {
             else if (model) {
                 addPathFromFileName(req.body.selectedDict, model.dictionary)
                     .then((filePaths) => {
-                        console.log(filePaths)
                         model['selectedDict'] = filePaths;
                         NERMService.updateModel(model);
                         return res.status(200).json({ status: 200, data: beforeSendToFront(model), message: `${decodeURI(req.body.modelName)} Updated` });
@@ -281,6 +280,7 @@ async function addPathFromFileName(fileNames, paths) {
                 filename = filename[filename.length - 1]
                 if (filename == fileName) {
                     selectedDictPaths = path;
+                    console.log(path)
                 }
             })
             console.log(selectedDictPaths)
