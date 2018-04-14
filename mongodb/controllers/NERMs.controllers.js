@@ -286,6 +286,7 @@ async function addPathFromFileName(fileNames, paths) {
             console.log(selectedDictPaths)
             return selectedDictPaths
         })
+        console.log('resolve')
         resolve(filePaths);
     })
 }
