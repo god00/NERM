@@ -25,10 +25,12 @@ exports.getItemFromDB = async function (query, page, limit, collections) {
 
     try {
         if (collections == "users") {
-            return NERM.paginate(query, options)
+            var users = await NERM.paginate(query, options);
+            return users;
         }
         else if (collections == "nerms") {
-            return NERMModel.paginate(query, options)
+            var nerms = await NERMModel.paginate(query, options);
+            return nerms;
         }
 
         // Return the users list that was retured by the mongoose promise
@@ -37,7 +39,7 @@ exports.getItemFromDB = async function (query, page, limit, collections) {
 
         // return a Error message describing the reason 
 
-        throw Error('Error while Paginating Nerms')
+        throw Error('Error while Paginating Nerms');
     }
 }
 
