@@ -250,11 +250,12 @@ exports.updateModel = async function (req, res, next) {
     try {
         var query = NERMModel.findOne({ email: req.body.email, ModelName: decodeURI(req.body.modelName) });
         query.exec(async function (err, model) {
-            console.log(model)
             if (err) {
                 return res.status(400).json({ status: 400, message: err.message });
             }
             else if (model) {
+                console.log('selectDict', req.body.selectedDict)
+                console.log('dictionary', model.dictionary)
                 addPathsFromFileNames(req.body.selectedDict, model.dictionary)
                     .then((filePaths) => {
                         console.log(filePaths)
@@ -295,6 +296,7 @@ async function matchFileNameFromPaths(fileName, paths, filePaths) {
             filename = filename[filename.length - 1]
             if (filename == fileName) {
                 filePaths.push(path);
+                console.log('filePaths', filePaths)
                 resolve();
             }
         })
