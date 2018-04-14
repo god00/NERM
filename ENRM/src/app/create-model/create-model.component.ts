@@ -1,4 +1,4 @@
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
@@ -17,7 +17,6 @@ const nermUrl = `${appConfig.apiUrl}/api/nerms/uploads`;
   styleUrls: ['./create-model.component.css']
 })
 
-@Injectable()
 export class CreateModelComponent implements OnInit {
   public uploader: FileUploader = new FileUploader({ url: nermUrl });
   user: Object;

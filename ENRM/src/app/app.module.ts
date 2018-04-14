@@ -57,8 +57,10 @@ const routes: Routes = [
     DatabaseService,
     AuthenticationService,
     AuthGuard,
-    CreateModelComponent
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents :[
+    CreateModelComponent
+  ]
 })
 export class AppModule { }
