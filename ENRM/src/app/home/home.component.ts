@@ -85,7 +85,7 @@ export class HomeComponent implements OnInit {
       else if (/^[^/]*$/.test(this.newModelName)) {
         this.duplicateModelName = false;
         this.modal.close();
-
+        this.addPathModel()
         this.router.navigate([this.newModelName]);
         this.updateNERM.unsubscribe();
       }
