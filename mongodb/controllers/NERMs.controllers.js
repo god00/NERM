@@ -24,7 +24,8 @@ exports.getItems = async function (req, res, next) {
 
     try {
         if (req.param('collections') == 'nerms') {
-            var query = await NERMModel.find({ email: user.email }, async function (err, items) {
+            var query = await NERMModel.find({ email: user.email });
+            query.exec(async function (err, items) {
                 console.log('exec')
                 if (err) {
                     return res.status(400).json({ status: 400, message: err.message });
@@ -32,22 +33,10 @@ exports.getItems = async function (req, res, next) {
                 else if (items) {
                     return res.status(200).json({ status: 200, data: items, message: "Succesfully nermsdb Recieved" });
                 }
-                else {
+                else{
                     return res.status(200).json({ status: 200, message: "No model in database" });
                 }
-            });
-            // query.exec(async function (err, items) {
-            //     console.log('exec')
-            //     if (err) {
-            //         return res.status(400).json({ status: 400, message: err.message });
-            //     }
-            //     else if (items) {
-            //         return res.status(200).json({ status: 200, data: items, message: "Succesfully nermsdb Recieved" });
-            //     }
-            //     else {
-            //         return res.status(200).json({ status: 200, message: "No model in database" });
-            //     }
-            // })
+            })
         }
         else {
             var items = await NERMService.getItemFromDB({}, page, limit, req.param('collections'));
@@ -58,7 +47,7 @@ exports.getItems = async function (req, res, next) {
 
 
     } catch (e) {
-
+        console.log('catch')
         //Return an Error Response Message with Code and the Error Message.
 
         return res.status(400).json({ status: 400, message: e.message });
