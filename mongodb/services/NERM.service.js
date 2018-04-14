@@ -11,7 +11,7 @@ var multer = require('multer');
 _this = this
 
 // Async function to get the To do List
-exports.getItemFromDB = async function (query, page, limit, mode) {
+exports.getItemFromDB = async function (query, page, limit, collections) {
 
 
     // Options setup for the mongoose paginate
@@ -24,9 +24,9 @@ exports.getItemFromDB = async function (query, page, limit, mode) {
     // Try Catch the awaited promise to handle the error 
 
     try {
-        if (mode == "users")
+        if (collections == "users")
             return await NERM.paginate(query, options)
-        else
+        else if (collections == "nerms")
             return await NERMModel.paginate(query, options)
 
         // Return the users list that was retured by the mongoose promise
