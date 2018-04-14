@@ -133,9 +133,7 @@ exports.removeNERM = async function (req, res, next) {
 
 exports.loginNERM = async function (req, res, next) {
     try {
-        var query = await NERM.findOne({ email: req.body.email });
-        console.log(query)
-        query.exec(async function (err, userDB) {
+        var query = await NERM.findOne({ email: req.body.email }, async function (err, userDB) {
             if (err) {
                 console.log('1')
                 return res.status(400).json({ status: 400., message: err.message });
@@ -161,7 +159,7 @@ exports.loginNERM = async function (req, res, next) {
                 console.log('3')
                 return res.status(400).json({ status: 400, message: "Please create user before login" });
             }
-        })
+        });
 
     } catch (e) {
         console.log('4')
