@@ -280,8 +280,8 @@ async function addPathsFromFileNames(fileNames, paths) {
         for (let fileName of fileNames) {
             promise.push(matchFileNameFromPaths(fileName, paths, filePaths));
         }
-        console.log('resolve')
         Promise.all(promise).then(() => {
+            console.log('promise all')
             resolve(filePaths)
         })
     })
