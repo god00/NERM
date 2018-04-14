@@ -67,5 +67,6 @@ small{
 }
 
 html {
+    max-width: 100%;
     position: fixed;
 }
