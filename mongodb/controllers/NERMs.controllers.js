@@ -30,13 +30,15 @@ exports.getItems = async function (req, res, next) {
             var query = NERM.find({ email: user.email });
             var items = await NERMService.getItemFromDB(query, page, limit, collections);
             console.log(items)
+            return res.status(200).json({ status: 200, data: items, message: "Succesfully nermsdb Recieved" });
         }
         else {
             var items = await NERMService.getItemFromDB({}, page, limit, collections);
+            return res.status(200).json({ status: 200, data: items, message: "Succesfully nermsdb Recieved" });
         }
         // Return the todos list with the appropriate HTTP Status Code and Message.
 
-        return res.status(200).json({ status: 200, data: items, message: "Succesfully nermsdb Recieved" });
+        
 
     } catch (e) {
 
