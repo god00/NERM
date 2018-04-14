@@ -106,7 +106,7 @@
   <div class="d-flex flex-column align-items-center">
     <div class="jumbotron special-card d-flex justify-content-around btm-padding">
       <div class="list">
-        <a class="item" *ngFor="let model of modelsByUser" href="#/{{model.ModelName}}">
+        <a class="model-items" *ngFor="let model of modelsByUser" href="#/{{model.ModelName}}">
           <i class="fa fa-file" aria-hidden="true"></i>
           <small>{{model.ModelName}}</small>
         </a>
