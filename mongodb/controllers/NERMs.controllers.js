@@ -200,7 +200,7 @@ exports.uploadsFile = async function (req, res, next) {
                                             var mode = req.body.mode;
                                             var p = `${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.body.mode}/${req.files[0].originalname}`
                                             if (model[mode].indexOf(p) == -1) //check if for no duplication file in db
-                                                model[mode].push(`${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.files[0].originalname}`);
+                                                model[mode].push(`${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.body.mode}/${req.files[0].originalname}`);
                                             NERMService.updateModel(model);
                                             return res.status(205).json({ status: 205, message: "File is uploaded" });
                                         }
