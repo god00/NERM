@@ -17,6 +17,8 @@ router.post('/model', NERMController.createModel)
 
 router.get('/model', NERMController.getModel)
 
+router.put('/model', NERMController.updateModel)
+
 router.delete('/:id',NERMController.removeNERM)
 
 router.post('/login',NERMController.loginNERM)

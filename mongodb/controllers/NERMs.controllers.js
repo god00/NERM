@@ -255,6 +255,43 @@ exports.getModel = async function (req, res, next) {
     }
 }
 
+exports.updateModel = async function (req, res, next) {
+    try {
+        var query = NERMModel.findOne({ email: req.body.email, ModelName: decodeURI(req.body.modelName) });
+        query.exec(function (err, model) {
+            if (err) {
+                return res.status(400).json({ status: 400, message: err.message });
+            }
+            else if (model) {
+                model['selectedDict'] = req.body.selectedDict.map((item) => {
+                    let path = addPathFromFileName(item.fileName, model.dictionary);
+                    return path;
+                });
+                NERMService.updateModel(model);
+                return res.status(200).json({ status: 200, data: model, message: `${decodeURI(req.body.modelName)} Updated` });
+            }
+            else {
+                return res.status(200).json({ status: 200, message: "Please create model first" });
+            }
+        })
+
+    } catch (e) {
+        return res.status(400).json({ status: 400, message: e.message });
+    }
+}
+
+async function addPathFromFileName(fileName, paths) {
+    let selectedDictPaths = "";
+    await paths.map((path) => {
+        let filename = path.split('/');
+        filename = filename[filename.length - 1]
+        if (filename == fileName) {
+            selectedDictPaths = path;
+        }
+    })
+    return selectedDictPaths
+}
+
 async function checkDirectory(directory) {
     return new Promise((resolve, reject) => {
         if (!fs.existsSync(directory)) {

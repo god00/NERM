@@ -5,6 +5,7 @@ class NERMModel {
     modelName: String;
     corpus: Object[];
     dictionary: Object[];
+    selectedDict: Object[]
 
     constructor(
     ){
@@ -12,6 +13,7 @@ class NERMModel {
         this.modelName = ""
         this.corpus = [];
         this.dictionary = [];
+        this.selectedDict = [];
         this.date = new Date()
     }
 }

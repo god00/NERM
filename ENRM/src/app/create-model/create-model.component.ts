@@ -57,7 +57,8 @@ export class CreateModelComponent implements OnInit {
       enableSearchFilter: true,
     };
     this.selectedSubscribe = this.selectedItems.valueChanges.subscribe((selected) => {
-      console.log(selected);
+      this.model.selectedDict = this.selectedItems.value;
+      this.databaseService.updateNERM(this.model);
     });
   }
 
