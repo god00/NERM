@@ -89,6 +89,7 @@ export class CreateModelComponent implements OnInit {
     };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       // console.log("uploaded:", item, status);
+      count = 0;
       this.hasError = item.isError;
       if (this.getModelSubscribe)
         this.getModelSubscribe.unsubscribe();
@@ -98,9 +99,8 @@ export class CreateModelComponent implements OnInit {
       // console.log("fail:", item, status);
       if (count == 0) {
         this.uploader.uploadItem(item);
-        count = 0;
+        count++;
       }
-      count++;
       this.hasError = item.isError;
     };
     this.modalService.open(content, { centered: true, size: 'lg' }).result.then((result) => {
