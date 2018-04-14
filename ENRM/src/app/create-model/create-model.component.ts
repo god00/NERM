@@ -66,14 +66,12 @@ export class CreateModelComponent implements OnInit {
             dict['itemName'] = dict['fileName'];
             return dict;
           });
-          resolve();
         }
         else {
           console.log('no data')
           this.router.navigate(['']);
-          resolve();
         }
-        
+        resolve();
       })
     })
 
@@ -101,9 +99,9 @@ export class CreateModelComponent implements OnInit {
       if (this.getModelSubscribe)
         this.getModelSubscribe.unsubscribe();
       this.getModel().then(() => {
-        this.selectedItems = this.dropdownList.map((dict) => {
+        this.dropdownList.map((dict) => {
           if (dict['fileName'] == item.file.name)
-            return dict;
+            this.selectedItems.push(dict)
         });
       });
 
