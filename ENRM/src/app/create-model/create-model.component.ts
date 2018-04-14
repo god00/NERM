@@ -59,13 +59,12 @@ export class CreateModelComponent implements OnInit {
       this.getModelSubscribe = this.databaseService.getModel(this.user['email'], <string>this.model.modelName).subscribe((data) => {
         console.log(data)
         if (data) {
-          
-          this.model._id = data._id;
+          this.model._id = data['_id'];
           this.model.modelName = data['ModelName'];
-          this.model.corpus = data.corpus;
-          this.model.date = data.date;
-          this.model.dictionary = data.dictionary;
-          this.dropdownList = data.dictionary.map((dict, index) => {
+          this.model.corpus = data['corpus'];
+          this.model.date = data['date'];
+          this.model.dictionary = data['dictionary'];
+          this.dropdownList = data['dictionary'].map((dict, index) => {
             dict['id'] = index;
             dict['itemName'] = dict['fileName'];
             return dict;
