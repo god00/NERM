@@ -14,6 +14,7 @@
   }
 
 .list{
+    display: flex;
     text-align: center;
     overflow: scroll; 
     max-height:20rem ; 
