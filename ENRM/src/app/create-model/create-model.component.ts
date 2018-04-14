@@ -53,24 +53,28 @@ export class CreateModelComponent implements OnInit {
   }
 
   getModel() {
-    this.getModelSubscribe = this.databaseService.getModel(this.user['email'], <string>this.model.modelName).subscribe((data) => {
-      if (data) {
-        console.log(data)
-        this.model._id = data._id;
-        this.model.corpus = data.corpus;
-        this.model.date = data.date;
-        this.model.dictionary = data.dictionary;
-        this.dropdownList = data.dictionary.map((dict, index) => {
-          dict['id'] = index;
-          dict['itemName'] = dict['fileName'];
-          return dict;
-        });
-      }
-      else {
-        console.log('no data')
-        this.router.navigate(['']);
-      }
+    return new Promise((resolve, reject) => {
+      this.getModelSubscribe = this.databaseService.getModel(this.user['email'], <string>this.model.modelName).subscribe((data) => {
+        if (data) {
+          console.log(data)
+          this.model._id = data._id;
+          this.model.corpus = data.corpus;
+          this.model.date = data.date;
+          this.model.dictionary = data.dictionary;
+          this.dropdownList = data.dictionary.map((dict, index) => {
+            dict['id'] = index;
+            dict['itemName'] = dict['fileName'];
+            return dict;
+          });
+        }
+        else {
+          console.log('no data')
+          this.router.navigate(['']);
+        }
+        resolve();
+      })
     })
+
   }
 
   showCorpus(index: number) {
@@ -90,11 +94,17 @@ export class CreateModelComponent implements OnInit {
     this.uploader.onSuccessItem = (item: any, response: any, status: any, headers: any) => {
       count = 0;
       console.log("success:", item, status);
-      console.log(item.fileName)
+      console.log(item.file.name)
       this.hasError = item.isError;
       if (this.getModelSubscribe)
         this.getModelSubscribe.unsubscribe();
-      this.getModel();
+      this.getModel().then(() => {
+        this.selectedItems = this.dropdownList.map((dict) => {
+          if (dict['fileName'] == item.file.name)
+            return dict;
+        });
+      });
+
     };
     this.uploader.onErrorItem = (item: any, response: any, status: any, headers: any) => {
       // console.log("fail:", item, status);
