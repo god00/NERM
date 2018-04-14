@@ -33,7 +33,7 @@ exports.getItems = async function (req, res, next) {
                 else if (items) {
                     return res.status(200).json({ status: 200, data: items, message: "Succesfully nermsdb Recieved" });
                 }
-                else{
+                else {
                     return res.status(200).json({ status: 200, message: "No model in database" });
                 }
             })
@@ -184,24 +184,40 @@ exports.uploadsFile = async function (req, res, next) {
         //     checkDirectory(DIR + req.body.email[0]);
         //     checkDirectory(DIR + req.body.email[0] + '/' + req.body.modelName[0]);
         // });
-
-        var storage = await multer.diskStorage({
-            destination: function (req, file, cb) {
-                cb(null, `${DIR}${req.body.email}/${req.body.modelName}/${req.body.mode}`)
-            },
-            filename: function (req, file, cb) {
-                cb(null, file.originalname)
-            }
-        })
+        if (req.body.mode == "dictionary") {
+            var storage = await multer.diskStorage({
+                destination: function (req, file, cb) {
+                    cb(null, `${DIR}${req.body.email}/${req.body.mode}`)
+                },
+                filename: function (req, file, cb) {
+                    cb(null, file.originalname)
+                }
+            })
+        }
+        else{
+            var storage = await multer.diskStorage({
+                destination: function (req, file, cb) {
+                    cb(null, `${DIR}${req.body.email}/${req.body.modelName}/${req.body.mode}`)
+                },
+                filename: function (req, file, cb) {
+                    cb(null, file.originalname)
+                }
+            })
+        }
         var upload = multer({ storage: storage }).any();
         upload(req, res, async function (err) {
             checkDirectory(DIR + req.body.email)
                 .then(() => {
+                    if (req.body.mode == "dictionary") {
+                        checkDirectory(DIR + req.body.email + '/' + req.body.mode).then(() => {
+                            console.log('uploading dictionary...')
+                        })
+                    }
                     checkDirectory(DIR + req.body.email + '/' + req.body.modelName)
                         .then(() => {
                             checkDirectory(DIR + req.body.email + '/' + req.body.modelName + '/' + req.body.mode)
                                 .then(() => {
-                                    console.log('uploading...')
+                                    console.log('uploading corpus...')
                                     if (err) {
                                         console.log(err.toString())
                                         return res.status(400).json({ status: 400, message: err.toString() })

@@ -63,7 +63,7 @@ export class CreateModelComponent implements OnInit {
         this.dropdownList = data.dictionary.map((dict, index) => {
           dict['id'] = index;
           dict['itemName'] = dict['fileName'];
-          return dict
+          return dict;
         });
       }
       else {
@@ -89,6 +89,8 @@ export class CreateModelComponent implements OnInit {
     };
     this.uploader.onSuccessItem = (item: any, response: any, status: any, headers: any) => {
       count = 0;
+      console.log("success:", item, status);
+      console.log(item.fileName)
       this.hasError = item.isError;
       if (this.getModelSubscribe)
         this.getModelSubscribe.unsubscribe();
