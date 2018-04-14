@@ -43,6 +43,7 @@ export class CreateModelComponent implements OnInit {
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.model.modelName = this.router.url.slice(1, this.router.url.length);
+    this.model.email = this.user['email']
   }
 
   ngOnInit() {
