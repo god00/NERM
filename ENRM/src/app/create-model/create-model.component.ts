@@ -44,7 +44,7 @@ export class CreateModelComponent implements OnInit {
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.model.modelName = decodeURI(this.router.url.slice(1, this.router.url.length));
-    
+
     this.model.email = this.user['email']
   }
 
@@ -77,7 +77,7 @@ export class CreateModelComponent implements OnInit {
 
   getModel() {
     return new Promise((resolve, reject) => {
-      this.getModelSubscribe = this.databaseService.getModel(this.user['email'], <string>this.model.modelName).subscribe((data) => {
+      this.getModelSubscribe = this.databaseService.getModel(this.user['email'], encodeURI(<string>this.model.modelName)).subscribe((data) => {
         if (data) {
           this.model._id = data._id;
           this.model.modelName = data['ModelName'];
