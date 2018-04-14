@@ -98,7 +98,7 @@ export class HomeComponent implements OnInit {
 
   addPathModel() {
 
-    this.router.config.unshift({ path: this.modelName, component: CreateModelComponent })
+    this.router.config.unshift({ path: this.newModelName, component: CreateModelComponent })
   }
 
   openModal(content) {
