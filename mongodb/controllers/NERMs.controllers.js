@@ -247,7 +247,7 @@ exports.getModel = async function (req, res, next) {
                 return res.status(200).json({ status: 200, data: model, message: "Succesfully nermsdb Recieved" });
             }
             else {
-                return res.status(400).json({ status: 400, message: "Please create model first" });
+                return res.status(200).json({ status: 200, message: "Please create model first" });
             }
         })
     } catch (e) {
