@@ -24,6 +24,11 @@ export class CreateModelComponent implements OnInit {
   model: NERMModel = new NERMModel();
   hasError: boolean = false;
 
+  //Multiselect Dropdown Parameters
+  dropdownList = [];
+  selectedItems = [];
+  dropdownSettings = {};
+
   getModelSubscribe: any;
 
   selectedDict;
@@ -43,6 +48,13 @@ export class CreateModelComponent implements OnInit {
 
   ngOnInit() {
     this.getModel();
+    this.dropdownSettings = {
+      singleSelection: false,
+      text: "Select Dictionary",
+      selectAllText: 'Select All',
+      unSelectAllText: 'Unselect All',
+      enableSearchFilter: true,
+    };
   }
 
 
@@ -55,6 +67,7 @@ export class CreateModelComponent implements OnInit {
         this.model.corpus = data.corpus;
         this.model.date = data.date;
         this.model.dictionary = data.dictionary;
+        this.dropdownList = data.dictionary;
       }
       else {
         console.log('no data')
@@ -104,6 +117,21 @@ export class CreateModelComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  onItemSelect(item: any) {
+    console.log(item);
+    console.log(this.selectedItems);
+  }
+  OnItemDeSelect(item: any) {
+    console.log(item);
+    console.log(this.selectedItems);
+  }
+  onSelectAll(items: any) {
+    console.log(items);
+  }
+  onDeSelectAll(items: any) {
+    console.log(items);
   }
 
 }
