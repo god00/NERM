@@ -272,8 +272,8 @@ exports.updateModel = async function (req, res, next) {
 }
 
 async function addPathFromFileName(fileNames, paths) {
-    return new Promise((resolve, reject) => {
-        let filePaths = fileNames.map((fileName) => {
+    return new Promise(async (resolve, reject) => {
+        let filePaths = await fileNames.map((fileName) => {
             let selectedDictPaths = "";
             paths.map((path) => {
                 let filename = path.split('/');
