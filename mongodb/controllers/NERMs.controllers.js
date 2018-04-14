@@ -18,16 +18,14 @@ _this = this
 // Async Controller function to get the To do List
 
 exports.getItems = async function (req, res, next) {
-    var collections = req.param('collections');
-
     // Check the existence of the query parameters, If the exists doesn't exists assign a default value
 
     var page = req.query.page ? req.query.page : 1
     var limit = req.query.limit ? req.query.limit : 99999999;
 
     try {
-        if (collections == 'nerms') {
-            var query = NERM.find({ email: user.email });
+        if (req.param('collections') == 'nerms') {
+            var query = NERMModel.find({ email: user.email });
             query.exec(async (err, data) => {
                 var items = data;
                 console.log(items)
@@ -35,11 +33,11 @@ exports.getItems = async function (req, res, next) {
             })
         }
         else {
-            var items = await NERMService.getItemFromDB({}, page, limit, collections);
+            var items = await NERMService.getItemFromDB({}, page, limit, req.param('collections'));
             return res.status(200).json({ status: 200, data: items, message: "Succesfully nermsdb Recieved" });
         }
         // Return the todos list with the appropriate HTTP Status Code and Message.
-        
+
 
 
     } catch (e) {
