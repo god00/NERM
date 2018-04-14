@@ -16,7 +16,7 @@
 .list{
     text-align: center;
     overflow: scroll; 
-    max-height:7rem ; 
+    max-height:20rem ; 
     font-size: 3rem ;
 
 }
@@ -57,4 +57,9 @@
 
 .fa-sign-out{
     padding-left: 0.3rem;
+}
+
+.item{
+    display: flex;
+    flex-direction: column;
 }
