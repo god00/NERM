@@ -46,7 +46,7 @@ export class CreateModelComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.model.modelName) {
+    if (!JSON.parse(localStorage.getItem('currentModel'))) {
       this.router.navigate(['']);
     }
     this.getModel();
