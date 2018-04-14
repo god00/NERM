@@ -133,6 +133,7 @@ exports.removeNERM = async function (req, res, next) {
 
 exports.loginNERM = async function (req, res, next) {
     try {
+        console.log(req.body.email)
         var query = await NERM.findOne({ email: req.body.email });
         query.exec(async function (err, userDB) {
             if (err) {
