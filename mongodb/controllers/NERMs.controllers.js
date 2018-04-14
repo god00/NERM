@@ -260,10 +260,9 @@ exports.updateModel = async function (req, res, next) {
                         model['selectedDict'] = filePaths;
                         NERMService.updateModel(model);
                         beforeSendToFront(model).then(data => {
-                            console.log("data   :",data)
+                            if (data)
+                                return res.status(201).json({ status: 201, data: data, message: `${decodeURI(req.body.modelName)} Updated` });
                         })
-
-                        return res.status(201).json({ status: 201, data: data, message: `${decodeURI(req.body.modelName)} Updated` });
                     })
             }
             else {
@@ -284,7 +283,6 @@ async function addPathsFromFileNames(fileNames, paths) {
             promise.push(matchFileNameFromPaths(fileName, paths, filePaths));
         }
         Promise.all(promise).then(() => {
-            console.log('promise all')
             resolve(filePaths)
         })
     })
@@ -297,7 +295,6 @@ async function matchFileNameFromPaths(fileName, paths, filePaths) {
             filename = filename[filename.length - 1]
             if (filename == fileName) {
                 filePaths.push(path);
-                console.log('filePaths', filePaths)
                 resolve();
             }
         })
