@@ -25,7 +25,6 @@ exports.getItems = async function (req, res, next) {
     try {
         if (req.param('collections') == 'nerms') {
             var query = NERMModel.find({ email: user.email });
-            console.log(query)
             query.exec(async function (err, items) {
                 console.log('exec')
                 if (err) {
@@ -34,7 +33,7 @@ exports.getItems = async function (req, res, next) {
                 else if (items) {
                     return res.status(200).json({ status: 200, data: items, message: "Succesfully nermsdb Recieved" });
                 }
-                else {
+                else{
                     return res.status(200).json({ status: 200, message: "No model in database" });
                 }
             })

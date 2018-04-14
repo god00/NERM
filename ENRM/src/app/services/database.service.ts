@@ -45,9 +45,10 @@ export class DatabaseService {
     })
   }
 
-  getModels(): Observable<NERMModel[]> {
+  getModels(email: string): Observable<NERMModel[]> {
     return this.http.get(`${nermUrl}/`, {
       params: {
+        email: email,
         collections: 'nerms'
       }
     }).map((res) => {

@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-    this.getModelSubscribe = this.databaseService.getModels().subscribe((data) => {
+    this.getModelSubscribe = this.databaseService.getModels(this.user['email']).subscribe((data) => {
       if (data) {
         this.modelsByUser = data;
         console.log(data)
