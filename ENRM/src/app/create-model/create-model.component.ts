@@ -79,14 +79,8 @@ export class CreateModelComponent implements OnInit {
   }
 
   uploadModal(content, mode) {
+    let count = 0;
     this.uploader = new FileUploader({ url: nermUrl });
-    var data = new Blob(['I am drummy'], { type: 'text/plain' });
-    let arrayOfBlob = new Array<Blob>();
-    arrayOfBlob.push(data);
-    let drummy = new File(arrayOfBlob, 'drummy.txt');
-    var drummyFile: FileItem = new FileItem(this.uploader, drummy, { url: nermUrl })
-    console.log(drummyFile)
-    this.uploader.uploadItem(drummyFile);
     this.uploader.onBuildItemForm = (fileItem, form) => {
       form.append('email', this.user['email']);
       form.append('modelName', this.model.modelName);
@@ -101,7 +95,12 @@ export class CreateModelComponent implements OnInit {
       this.getModel();
     };
     this.uploader.onErrorItem = (item: any, response: any, status: any, headers: any) => {
+      count++;
       // console.log("fail:", item, status);
+      if (count == 0) {
+        this.uploader.uploadItem(item);
+        count = 0;
+      }
       this.hasError = item.isError;
     };
     this.modalService.open(content, { centered: true, size: 'lg' }).result.then((result) => {
