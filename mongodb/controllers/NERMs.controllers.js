@@ -256,7 +256,9 @@ exports.updateModel = async function (req, res, next) {
             else if (model) {
                 addPathFromFileName(req.body.selectedDict, model.dictionary)
                     .then((filePaths) => {
+                        console.log(filePaths)
                         model['selectedDict'] = filePaths;
+                        console.log(model.selectedDict)
                         NERMService.updateModel(model);
                         return res.status(200).json({ status: 200, data: beforeSendToFront(model), message: `${decodeURI(req.body.modelName)} Updated` });
                     })
@@ -271,24 +273,31 @@ exports.updateModel = async function (req, res, next) {
     }
 }
 
-async function addPathFromFileName(fileNames, paths) {
-    return new Promise(async (resolve, reject) => {
-        let filePaths = await fileNames.map((fileName) => {
-            let selectedDictPaths = "";
-            paths.map((path) => {
-                let filename = path.split('/');
-                filename = filename[filename.length - 1]
-                if (filename == fileName) {
-                    selectedDictPaths = path;
-                    console.log(path)
-                }
-            })
-            console.log(selectedDictPaths)
-            return selectedDictPaths
-        })
+async function addPathsFromFileNames(fileNames, paths) {
+    return new Promise((resolve, reject) => {
+        let promise = [];
+        let filePaths = [];
+        for (let fileName of fileNames) {
+            promise.push(matchFileNameFromPaths(fileName, paths, filePaths));
+        }
         console.log('resolve')
-        resolve(filePaths);
+        Promise.all(promise).then(() => {
+            resolve(filePaths)
+        })
     })
+}
+
+async function matchFileNameFromPaths(fileName, paths, filePaths) {
+    return new Promise((resolve, reject) => {
+        paths.forEach(path => {
+            let filename = path.split('/');
+            filename = filename[filename.length - 1]
+            if (filename == fileName) {
+                filePaths.push(path);
+                resolve();
+            }
+        })
+    });
 }
 
 async function checkDirectory(directory) {
