@@ -132,22 +132,16 @@ exports.removeNERM = async function (req, res, next) {
 }
 
 exports.loginNERM = async function (req, res, next) {
-
-    var user = {
-        email: req.body.email,
-        password: req.body.password,
-    }
-
     try {
-        var query = await NERM.findOne({ email: user.email });
+        var query = await NERM.findOne({ email: req.body.email });
         query.exec(async function (err, userDB) {
             if (err)
                 return res.status(400).json({ status: 400., message: err.message });
             else if (userDB) {
-                NERMService.loginNERM(user.password, userDB[0]._id, userDB[0].password)
+                NERMService.loginNERM(req.body.password, userDB[0]._id, userDB[0].password)
                     .then((token) => {
                         var usertmp = {
-                            email: user.email,
+                            email: req.body.email,
                             token
                         }
                         if (token !== undefined)
