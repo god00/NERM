@@ -35,12 +35,27 @@ export class DatabaseService {
 
   //Read nerm, takes no arguments
   getUsers(): Observable<NERM[]> {
-    return this.http.get(nermUrl)
-      .map((res) => {
-        //Maps the response object sent from the server
-        return res["data"].docs as NERM[];
-      })
+    return this.http.get(nermUrl, {
+      params: {
+        collections: 'users'
+      }
+    }).map((res) => {
+      //Maps the response object sent from the server
+      return res["data"] as NERM[];
+    })
   }
+
+  getModels(): Observable<NERMModel[]> {
+    return this.http.get(nermUrl, {
+      params: {
+        collections: 'nerms'
+      }
+    }).map((res) => {
+      //Maps the response object sent from the server
+      return res["data"] as NERMModel[];
+    })
+  }
+
   //Update nerm, takes a NERMModel Object as parameter
   updateNERM(nerm: NERMModel): Observable<any> {
     //returns the observable of http put request 

@@ -9,7 +9,7 @@ var NERMController = require('../../controllers/NERMs.controllers');
 
 // Map each API to the Controller FUnctions
 
-router.get('/', NERMController.getUsers)
+router.get('/', NERMController.getItems)
 
 router.post('/', NERMController.createUser)
 

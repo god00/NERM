@@ -17,7 +17,8 @@ _this = this
 
 // Async Controller function to get the To do List
 
-exports.getUsers = async function (req, res, next) {
+exports.getItems = async function (req, res, next) {
+    var collections = req.body.collections;
 
     // Check the existence of the query parameters, If the exists doesn't exists assign a default value
 
@@ -25,11 +26,11 @@ exports.getUsers = async function (req, res, next) {
     var limit = req.query.limit ? req.query.limit : 99999999;
 
     try {
-        var nerms = await NERMService.getItemFromDB({}, page, limit, 'user')
+        var items = await NERMService.getItemFromDB({}, page, limit, collections)
 
         // Return the todos list with the appropriate HTTP Status Code and Message.
 
-        return res.status(200).json({ status: 200, data: nerms, message: "Succesfully nermsdb Recieved" });
+        return res.status(200).json({ status: 200, data: items, message: "Succesfully nermsdb Recieved" });
 
     } catch (e) {
 

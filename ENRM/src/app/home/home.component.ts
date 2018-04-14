@@ -21,14 +21,17 @@ import NERMModel from '../models/nerm.model';
 })
 export class HomeComponent implements OnInit {
   updateNERM: any;
-  modelName: string = '';
+  newModelName: string = '';
   duplicateModelName: boolean = false;
-  nameExcluse: string ;
+  nameExcluse: string;
   user: Object;
-  modal;
+  modelsByUser: NERMModel[];
 
+
+  getModelSubscribe: any;
 
   //Modal parameter
+  modal;
   closeResult: string;
 
   //Alert parameter
@@ -47,7 +50,15 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
+    this.getModelSubscribe = this.databaseService.getModels().subscribe((data) => {
+      if (data) {
+        this.modelsByUser = data;
+        console.log(data)
+      }
+      else {
 
+      }
+    })
     this._success.subscribe((message) => {
       this.alertMessage = message;
     });
@@ -65,25 +76,29 @@ export class HomeComponent implements OnInit {
     let nerm = new NERMModel();
 
     nerm.email = this.user['email'];
-    nerm.modelName = this.modelName;
+    nerm.modelName = this.newModelName;
 
     this.updateNERM = this.databaseService.createModel(nerm).subscribe(res => {
       if (res.duplicate) {
         this.duplicateModelName = true;
       }
-      else if (/^[^/]*$/.test(this.modelName)) {
+      else if (/^[^/]*$/.test(this.newModelName)) {
         this.duplicateModelName = false;
-        localStorage.setItem('currentModel', JSON.stringify(nerm));
         this.modal.close();
-        this.router.config.unshift({ path: this.modelName, component: CreateModelComponent })
-        this.router.navigate([this.modelName]);
+
+        this.router.navigate([this.newModelName]);
         this.updateNERM.unsubscribe();
       }
       else {
-        this.nameExcluse = this.modelName.toString();
+        this.nameExcluse = this.newModelName.toString();
       }
     });
 
+  }
+
+  addPathModel() {
+
+    this.router.config.unshift({ path: this.modelName, component: CreateModelComponent })
   }
 
   openModal(content) {
