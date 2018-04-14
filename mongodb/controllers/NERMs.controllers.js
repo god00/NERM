@@ -35,28 +35,28 @@ exports.getItems = async function (req, res, next) {
                         delete model.ModelName;
                         return model;
                     })
-                    return res.status(200).json({ status: 200, data: models, message: "Succesfully nermsdb Recieved"
-                });
+                    console.log(models);
+                    return res.status(200).json({ status: 200, data: models, message: "Succesfully nermsdb Recieved" });
+                }
+                else {
+                    return res.status(200).json({ status: 200, message: "No model in database" });
+                }
+            })
         }
         else {
-            return res.status(200).json({ status: 200, message: "No model in database" });
+            var items = await NERMService.getItemFromDB({}, page, limit, req.param('collections'));
+            return res.status(200).json({ status: 200, data: items, message: "Succesfully nermsdb Recieved" });
         }
-    })
-}
-        else {
-    var items = await NERMService.getItemFromDB({}, page, limit, req.param('collections'));
-    return res.status(200).json({ status: 200, data: items, message: "Succesfully nermsdb Recieved" });
-}
         // Return the todos list with the appropriate HTTP Status Code and Message.
 
 
 
     } catch (e) {
-    //Return an Error Response Message with Code and the Error Message.
+        //Return an Error Response Message with Code and the Error Message.
 
-    return res.status(400).json({ status: 400, message: e.message });
+        return res.status(400).json({ status: 400, message: e.message });
 
-}
+    }
 }
 
 exports.createUser = async function (req, res, next) {
