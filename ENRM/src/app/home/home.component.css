@@ -19,7 +19,7 @@
     overflow: scroll; 
     max-height:20rem ; 
     font-size: 3rem ;
-
+    flex-flow: row wrap;
 }
 
 .list-group-item{
