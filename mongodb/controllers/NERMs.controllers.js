@@ -262,7 +262,8 @@ exports.getModel = async function (req, res, next) {
 
 exports.updateModel = async function (req, res, next) {
     try {
-        var query = NERMModel.findOne({ email: req.body.email, ModelName: decodeURI(req.body.modelName) });
+        console.log(req.body.modelName)
+        var query = NERMModel.findOne({ email: req.body.email, ModelName: req.body.modelName });
         query.exec(function (err, model) {
             if (err) {
                 return res.status(400).json({ status: 400, message: err.message });
