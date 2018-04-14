@@ -24,8 +24,8 @@ exports.getItems = async function (req, res, next) {
 
     try {
         if (req.param('collections') == 'nerms') {
-            var query = NERMModel.find({ email: user.email });
-            query.exec(async (err, items) => {
+            var query = await NERMModel.find({ email: user.email });
+            query.exec(async function (err, items) {
                 if (err) {
                     return res.status(400).json({ status: 400., message: err.message });
                 }
