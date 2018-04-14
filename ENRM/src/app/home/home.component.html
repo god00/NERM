@@ -106,13 +106,17 @@
   <div class="d-flex flex-column align-items-center">
     <div class="jumbotron special-card d-flex justify-content-around btm-padding">
       <div style="text-align: center;">
-        <i class="fa fa-file-code-o" aria-hidden="true"></i>
+        <a *ngFor="let model of modelsByUser" href="#/{{model.ModelName}}">
+          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+          <small>{{model.ModelName}}</small>
+        </a>
+        <!-- <i class="fa fa-file-code-o" aria-hidden="true"></i>
         <p class="lead p-text">Your Model</p>
         <div id="list-example" class="list-group list">
           <a *ngFor="let model of modelsByUser" class="list-group-item list-group-item-action" href="#/{{model.ModelName}}">
             <small>{{model.ModelName}}</small>
           </a>
-        </div>
+        </div> -->
       </div>
 
 
