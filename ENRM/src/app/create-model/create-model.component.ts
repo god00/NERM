@@ -8,7 +8,6 @@ import NERMModel from '../models/nerm.model';
 import { DatabaseService } from '../services/database.service';
 
 import { appConfig } from '../app.config';
-import { Subscriber } from 'rxjs';
 
 const nermUrl = `${appConfig.apiUrl}/api/nerms/uploads`;
 
@@ -47,6 +46,9 @@ export class CreateModelComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.model.modelName) {
+      this.router.navigate(['']);
+    }
     this.getModel();
     this.dropdownSettings = {
       singleSelection: false,
@@ -67,7 +69,11 @@ export class CreateModelComponent implements OnInit {
         this.model.corpus = data.corpus;
         this.model.date = data.date;
         this.model.dictionary = data.dictionary;
-        this.dropdownList = data.dictionary;
+        this.dropdownList = data.dictionary.map((dict,index) => {
+          dict['id'] = index;
+          dict['itemName'] = dict['filename'];
+          return dict
+        });
       }
       else {
         console.log('no data')

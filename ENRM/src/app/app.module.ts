@@ -41,7 +41,7 @@ const routes: Routes = [
     NgbModule.forRoot(),
     ReactiveFormsModule,
     NgCircleProgressModule.forRoot({
-      // set defaults here
+      // set defaults for ngcircle-progress here
       radius: 100,
       outerStrokeWidth: 16,
       innerStrokeWidth: 8,
