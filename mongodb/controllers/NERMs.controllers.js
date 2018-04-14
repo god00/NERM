@@ -152,7 +152,7 @@ exports.loginNERM = async function (req, res, next) {
                     });
             }
             else {
-                return res.status(400).json({ status: 400, message: "Please create user before login" });
+                return res.status(201).json({ status: 201, message: "Please create user before login" });
             }
         });
 
@@ -211,7 +211,7 @@ exports.uploadsFile = async function (req, res, next) {
                                             return res.status(205).json({ status: 205, message: "File is uploaded" });
                                         }
                                         else {
-                                            return res.status(400).json({ status: 400, message: "Please create model before upload" });
+                                            return res.status(205).json({ status: 205, message: "Please create model before upload" });
                                         }
                                     })
 
