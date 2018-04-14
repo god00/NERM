@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FileUploader, FileItem } from 'ng2-file-upload';
@@ -34,12 +34,12 @@ export class CreateModelComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private modalService: NgbModal,
     public databaseService: DatabaseService
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.model.modelName = JSON.parse(localStorage.getItem('currentModel')).modelName;
+    console.log(this.router.url)
   }
 
   ngOnInit() {
