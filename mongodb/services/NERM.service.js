@@ -26,9 +26,9 @@ exports.getItemFromDB = async function (query, page, limit, collections) {
     try {
         var
         if (collections == "users")
-            return await NERM.paginate(query, options)
+            return NERM.paginate(query, options)
         else if (collections == "nerms")
-            return await NERMModel.paginate(query, options)
+            return NERMModel.paginate(query, options)
 
         // Return the users list that was retured by the mongoose promise
 
