@@ -85,6 +85,7 @@ export class HomeComponent implements OnInit {
       else if (/^[^/]*$/.test(this.newModelName)) {
         this.duplicateModelName = false;
         this.modal.close();
+        this.addPathModel()
         this.router.navigate([this.newModelName]);
         this.updateNERM.unsubscribe();
       }
@@ -93,6 +94,11 @@ export class HomeComponent implements OnInit {
       }
     });
 
+  }
+
+  addPathModel() {
+
+    this.router.config.unshift({ path: this.newModelName, component: CreateModelComponent })
   }
 
   openModal(content) {
