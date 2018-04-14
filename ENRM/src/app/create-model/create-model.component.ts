@@ -70,7 +70,7 @@ export class CreateModelComponent implements OnInit {
           });
         }
         else {
-          console.log('no data')
+          console.log('No model')
           this.router.navigate(['']);
         }
         resolve();
