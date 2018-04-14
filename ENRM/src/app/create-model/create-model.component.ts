@@ -71,7 +71,7 @@ export class CreateModelComponent implements OnInit {
         this.model.dictionary = data.dictionary;
         this.dropdownList = data.dictionary.map((dict,index) => {
           dict['id'] = index;
-          dict['itemName'] = dict['filename'];
+          dict['itemName'] = dict['fileName'];
           return dict
         });
       }
