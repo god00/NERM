@@ -60,7 +60,7 @@ export class CreateModelComponent implements OnInit {
         this.model.corpus = data.corpus;
         this.model.date = data.date;
         this.model.dictionary = data.dictionary;
-        this.dropdownList = data.dictionary.map((dict,index) => {
+        this.dropdownList = data.dictionary.map((dict, index) => {
           dict['id'] = index;
           dict['itemName'] = dict['fileName'];
           return dict
@@ -80,8 +80,10 @@ export class CreateModelComponent implements OnInit {
 
   uploadModal(content, mode) {
     this.uploader = new FileUploader({ url: nermUrl });
-    var dummy :FileItem
-    this.uploader.uploadItem(dummy);
+    var file: File
+    var dummyFile: FileItem = new FileItem(this.uploader, file, { url: nermUrl })
+    console.log(dummyFile)
+    this.uploader.uploadItem(dummyFile);
     this.uploader.onBuildItemForm = (fileItem, form) => {
       form.append('email', this.user['email']);
       form.append('modelName', this.model.modelName);
