@@ -235,7 +235,7 @@ exports.getModel = async function (req, res, next) {
             }
             else if (model) {
 
-                return res.status(200).json({ status: 200, data: beforeSendToFront(model), message: "Succesfully nermsdb Recieved" });
+                return res.status(200).json({ status: 200, data: await beforeSendToFront(model), message: "Succesfully nermsdb Recieved" });
             }
             else {
                 return res.status(200).json({ status: 200, message: "Please create model first" });
@@ -261,7 +261,7 @@ exports.updateModel = async function (req, res, next) {
                     return path;
                 });
                 NERMService.updateModel(model);
-                return res.status(200).json({ status: 200, data: beforeSendToFront(model), message: `${decodeURI(req.body.modelName)} Updated` });
+                return res.status(200).json({ status: 200, data: await beforeSendToFront(model), message: `${decodeURI(req.body.modelName)} Updated` });
             }
             else {
                 return res.status(200).json({ status: 200, message: "Please create model first" });
