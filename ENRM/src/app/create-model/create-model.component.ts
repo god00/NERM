@@ -8,6 +8,7 @@ import NERMModel from '../models/nerm.model';
 import { DatabaseService } from '../services/database.service';
 
 import { appConfig } from '../app.config';
+import { AuthenticationService } from '../services/authentication.service';
 
 const nermUrl = `${appConfig.apiUrl}/api/nerms/uploads`;
 
@@ -35,7 +36,8 @@ export class CreateModelComponent implements OnInit {
   constructor(
     private router: Router,
     private modalService: NgbModal,
-    public databaseService: DatabaseService
+    public databaseService: DatabaseService,
+    public authenicationService: AuthenticationService,
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.model.modelName = this.router.url.slice(1, this.router.url.length);
@@ -151,6 +153,11 @@ export class CreateModelComponent implements OnInit {
   }
   onDeSelectAll(items: any) {
     console.log(items);
+  }
+
+  logout() {
+    this.authenicationService.logout();
+    this.router.navigate(['login']);
   }
 
 }
