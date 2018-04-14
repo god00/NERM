@@ -164,7 +164,7 @@
             <div class="multiselect form-control">
               <angular2-multiselect 
                 [data]="dropdownList" 
-                [(ngModel)]="selectedItems" 
+                [(ngModel)]="selectedItems.controls.value" 
                 [settings]="dropdownSettings" 
                 (onSelect)="onItemSelect($event)" 
                 (onDeSelect)="OnItemDeSelect($event)"
