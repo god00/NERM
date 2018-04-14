@@ -24,11 +24,14 @@ exports.getItemFromDB = async function (query, page, limit, collections) {
     // Try Catch the awaited promise to handle the error 
 
     try {
-        if (collections == "users")
-            return await NERM.paginate(query, options)
-        else if (collections == "nerms")
-            return await NERMModel.paginate(query, options)
-
+        if (collections == "users") {
+            var users = await NERM.paginate(query, options);
+            return users;
+        }
+        else if (collections == "nerms") {
+            var nerms = await NERMModel.paginate(query, options);
+            return nerms;
+        }
         // Return the users list that was retured by the mongoose promise
 
 

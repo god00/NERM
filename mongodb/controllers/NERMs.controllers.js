@@ -26,8 +26,14 @@ exports.getItems = async function (req, res, next) {
     var limit = req.query.limit ? req.query.limit : 99999999;
 
     try {
-        var items = await NERMService.getItemFromDB({}, page, limit, collections)
-
+        if (collections == 'nerms') {
+            var query = NERM.find({ email: user.email });
+            var items = await NERMService.getItemFromDB(query, page, limit, collections);
+            console.log(items)
+        }
+        else {
+            var items = await NERMService.getItemFromDB({}, page, limit, collections);
+        }
         // Return the todos list with the appropriate HTTP Status Code and Message.
 
         return res.status(200).json({ status: 200, data: items, message: "Succesfully nermsdb Recieved" });
