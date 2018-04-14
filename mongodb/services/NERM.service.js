@@ -109,9 +109,7 @@ exports.deleteNERM = async function (id) {
 }
 
 exports.loginNERM = async function (password, id, hash) {
-
     try {
-
         return new Promise((resolve, reject) => {
             bcrypt.compare(password, hash).then(bool => {
                 if (bool) {
@@ -127,8 +125,6 @@ exports.loginNERM = async function (password, id, hash) {
                 })
 
         })
-
-
     }
     catch (e) {
         throw Error("Error Occured while Login")
