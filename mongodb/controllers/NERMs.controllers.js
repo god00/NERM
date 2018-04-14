@@ -254,7 +254,7 @@ exports.updateModel = async function (req, res, next) {
                 return res.status(400).json({ status: 400, message: err.message });
             }
             else if (model) {
-                addPathFromFileName(req.body.selectedDict, model.dictionary)
+                addPathsFromFileNames(req.body.selectedDict, model.dictionary)
                     .then((filePaths) => {
                         console.log(filePaths)
                         model['selectedDict'] = filePaths;
