@@ -260,7 +260,7 @@ exports.updateModel = async function (req, res, next) {
                         model['selectedDict'] = filePaths;
                         NERMService.updateModel(model);
                         beforeSendToFront(model).then(data => {
-                            console.log(data)
+                            console.log("data   :",data)
                         })
 
                         return res.status(201).json({ status: 201, data: data, message: `${decodeURI(req.body.modelName)} Updated` });
