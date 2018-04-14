@@ -62,7 +62,6 @@ export class CreateModelComponent implements OnInit {
 
   getModel() {
     this.getModelSubscribe = this.databaseService.getModel(this.user['email'], <string>this.model.modelName).subscribe((data) => {
-      console.log(data)
       if (data) {
         console.log(data)
         this.model._id = data._id;

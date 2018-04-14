@@ -142,6 +142,7 @@
         <ngb-tab title="Preprocess">
           <ng-template ngbTabContent>
             <!-- select field -->
+            <label style="display:block">Select Dictionary:</label>
             <angular2-multiselect 
               [data]="dropdownList" 
               [(ngModel)]="selectedItems" 
@@ -149,9 +150,12 @@
               (onSelect)="onItemSelect($event)" 
               (onDeSelect)="OnItemDeSelect($event)"
               (onSelectAll)="onSelectAll($event)"
-              (onDeSelectAll)="onDeSelectAll($event)">
+              (onDeSelectAll)="onDeSelectAll($event)"
+              class="multiselect">
             </angular2-multiselect>
             <button type="submit" class="btn btn-primary" (click)="uploadModal(content,'dictionary')">Upload Dictionary...</button>
+            <!--  -->
+            <!-- Corpus field -->
             <label style="display:block">Corpus:</label>
             <div class="corpus">
               <div class="list-group scroll list">
@@ -166,7 +170,7 @@
               </div>
             </div>
             <button type="submit" class="btn btn-primary" (click)="uploadModal(content,'corpus')">Upload Corpus...</button>
-
+            <!--  -->
           </ng-template>
         </ngb-tab>
         <ngb-tab title="Classify">
