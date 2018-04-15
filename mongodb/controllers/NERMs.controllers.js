@@ -358,6 +358,7 @@ async function deleteFile(directory) {
         if (fs.existsSync(directory)) {
             fs.unlinkSync(directory, (err) => {
                 if (err) {
+                    console.log("ERROR: ",err)
                     reject(err)
                 }
                 console.log(directory + ' was deleted');
