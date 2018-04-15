@@ -361,7 +361,6 @@ async function deleteFile(directory) {
     return new Promise((resolve, reject) => {
         console.log('in function deleteFile')
         fs.unlink(directory, (err) => {
-            console.log(err)
             if (err) {
                 reject(err)
             }
