@@ -183,9 +183,10 @@ export class CreateModelComponent implements OnInit {
         else {
           console.log('ERROR: please try again!');
         }
+        this.confirmModal.close();
       })
     }
-    this.confirmModal.close();
+
   }
 
   // onItemSelect(item: any) {
