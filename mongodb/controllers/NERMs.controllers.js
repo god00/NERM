@@ -395,7 +395,7 @@ async function readFile(filePath, files) {
                 await files.push(dataObj)
                 resolve()
             } else {
-                files.push('ERROR : cannot read this' + filePath)
+                // files.push('ERROR : cannot read this' + filePath)
                 console.log(err);
                 resolve()
             }

@@ -177,12 +177,12 @@ export class CreateModelComponent implements OnInit {
       this.databaseService.deleteCorpus(this.model._id, this.deleteCorpusName).subscribe((res) => {
         if (res) {
           this.model.corpus = res.corpus;
-          this.confirmModal.close();
           console.log(res.message);
         }
         else {
           console.log('ERROR: please try again!');
         }
+        this.confirmModal.close();
       })
     }
   }
