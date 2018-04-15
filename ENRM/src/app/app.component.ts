@@ -20,12 +20,13 @@ export class AppComponent implements OnInit, OnDestroy {
     public databaseService: DatabaseService
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-    if (this.user)
+    if (this.user) {
       this.getModelSubscribe = this.databaseService.getModels(this.user['email']).subscribe((modelsByUser) => {
         if (modelsByUser) {
           this.addPathModel(modelsByUser);
         }
       })
+    }
   }
 
   ngOnInit() {
