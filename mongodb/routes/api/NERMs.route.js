@@ -21,6 +21,8 @@ router.put('/model', NERMController.updateModel)
 
 router.delete('/:id',NERMController.removeNERM)
 
+router.delete('/corpus/:id',NERMController.removeCorpus)
+
 router.post('/login',NERMController.loginNERM)
 
 router.post('/uploads',NERMController.uploadsFile)

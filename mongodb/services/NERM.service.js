@@ -72,6 +72,7 @@ exports.createModel = async function (nerm) {
         date: new Date(),
         corpus: [],
         dictionary: [],
+        selectedDict: [],
     })
 
     try {
@@ -96,7 +97,7 @@ exports.updateModel = async function (nerm) {
 
 exports.deleteNERM = async function (id) {
 
-    // Delete the Todo
+    // Delete the user
     try {
         var deleted = await NERM.remove({ _id: id })
         if (deleted.result.n === 0) {

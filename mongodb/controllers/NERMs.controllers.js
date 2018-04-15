@@ -256,8 +256,8 @@ exports.updateModel = async function (req, res, next) {
             else if (model) {
                 let selectedDict = await req.body.selectedDict.map(item => { return item.fileName })
                 addPathsFromFileNames(selectedDict, model.dictionary)
-                    .then((filePaths) => {
-                        model['selectedDict'] = filePaths;
+                    .then((pathsList) => {
+                        model['selectedDict'] = pathsList;
                         NERMService.updateModel(model);
                         beforeSendToFront(model).then(data => {
                             if (data)
@@ -275,26 +275,61 @@ exports.updateModel = async function (req, res, next) {
     }
 }
 
+exports.removeCorpus = async function (req, res, next) {
+
+    var id = req.params.id;
+    var filename = req.param('fileName')
+    console.log(req.params.id, ' : ', req.param('id'))
+
+    try {
+        var query = NERMModel.findOne({ _id: id });
+        query.exec(async function (err, model) {
+            if (err) {
+                return res.status(400).json({ status: 400, message: err.message });
+            }
+            else if (model) {
+                var list = []
+                matchFileNameFromPathsToArr(filename, model.corpus, list)
+                    .then(() => {
+                        await model.corpus.map((corpusPath, index) => {
+                            if (list.length != 0 && corpusPath == list[0]) {
+                                model.corpus.splice(index, 1)
+                            }
+                        })
+                        await NERMService.updateModel(model)
+                        return res.status(200).json({ status: 200, message: `${filename} deleted from database` });
+                    })
+            }
+            else {
+                return res.status(204).json({ status: 204, message: "Please create model first" });
+            }
+        })
+    } catch (e) {
+        return res.status(400).json({ status: 400, message: e.message })
+    }
+
+}
+
 async function addPathsFromFileNames(fileNames, paths) {
     return new Promise((resolve, reject) => {
         let promise = [];
-        let filePaths = [];
+        let pathsList = [];
         for (let fileName of fileNames) {
-            promise.push(matchFileNameFromPaths(fileName, paths, filePaths));
+            promise.push(matchFileNameFromPathsToArr(fileName, paths, pathsList));
         }
         Promise.all(promise).then(() => {
-            resolve(filePaths)
+            resolve(pathsList)
         })
     })
 }
 
-async function matchFileNameFromPaths(fileName, paths, filePaths) {
+async function matchFileNameFromPathsToArr(fileName, paths, pathsList) {
     return new Promise((resolve, reject) => {
         paths.forEach(path => {
             let filename = path.split('/');
             filename = filename[filename.length - 1]
             if (filename == fileName) {
-                filePaths.push(path);
+                pathsList.push(path);
                 resolve();
             }
         })

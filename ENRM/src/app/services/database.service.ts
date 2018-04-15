@@ -72,6 +72,15 @@ export class DatabaseService {
       })
   }
 
+  deleteCorpus(id: string, fileName: string): any {
+    //Delete the object by the id
+    let deleteUrl = `${nermUrl}/corpus/${id}`
+    return this.http.delete(deleteUrl, { params: { fileName } })
+      .map(res => {
+        return res;
+      })
+  }
+
   getModel(email: string, modelName: string): Observable<NERMModel> {
     return this.http.get(`${nermUrl}/model`, {
       params: {

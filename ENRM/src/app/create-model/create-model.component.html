@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en">
 
-<!-- Modal -->
-<ng-template #content let-c="close" let-d="dismiss">
+<!-- Upload Modal -->
+<ng-template #upload let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">Upload Dictionary</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -86,6 +86,26 @@
   </div>
 </ng-template>
 <!--  -->
+
+<!-- Delete Modal -->
+<ng-template #delete let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Delete {{deleteCorpusName}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Do you want to delete this corpus ?&hellip;</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="c('Close click')">No</button>
+    <button type="button" class="btn btn-danger" (click)="deleteCorpus()">Delete</button>
+  </div>
+</ng-template>
+<!--  -->
+
+
 
 <head>
   <title>Entity Name Recognizer Model</title>
@@ -174,13 +194,13 @@
                 > -->
               </angular2-multiselect>
             </div>
-            <button type="submit" class="btn btn-primary" (click)="uploadModal(content,'dictionary')">Upload Dictionary...</button>
+            <button type="submit" class="btn btn-primary" (click)="uploadModal(upload,'dictionary')">Upload Dictionary...</button>
             <!--  -->
             <!-- Corpus field -->
             <label style="display:block">Corpus:</label>
             <div class="corpus">
               <div class="list-group scroll list">
-                <button type="button" class="list-group-item" *ngFor="let c of model.corpus; let i = index" (click)="showCorpus(i)">{{c?.fileName}}<span class="fa fa-trash-o" aria-hidden="true" (click)="deleteCorpus(i)"></span></button>
+                <button type="button" class="list-group-item" *ngFor="let c of model.corpus; let i = index" (click)="showCorpus(i)">{{c?.fileName}}<span class="fa fa-trash-o" aria-hidden="true" (click)="openConfirmModal(delete,i)"></span></button>
               </div>
 
               <div *ngIf="showText.fileName" class="card">
@@ -190,7 +210,7 @@
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn btn-primary" (click)="uploadModal(content,'corpus')">Upload Corpus...</button>
+            <button type="submit" class="btn btn-primary" (click)="uploadModal(upload,'corpus')">Upload Corpus...</button>
             <!--  -->
           </ng-template>
         </ngb-tab>

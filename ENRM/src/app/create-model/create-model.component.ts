@@ -24,6 +24,7 @@ export class CreateModelComponent implements OnInit {
   user: Object;
   model: NERMModel = new NERMModel();
   hasError: boolean = false;
+  deleteCorpusName: string = '';
 
   //Multiselect Dropdown Parameters
   dropdownList = [];
@@ -147,13 +148,7 @@ export class CreateModelComponent implements OnInit {
       }
       this.hasError = item.isError;
     };
-    this.modalService.open(content, { centered: true, size: 'lg' }).result.then((result) => {
-      // reset uploader
-      console.log(`Closed with: ${result}`);
-    }, (reason) => {
-      // reset uploader
-      console.log(`Dismissed ${this.getDismissReason(reason)}`);
-    });
+    this.modalService.open(content, { centered: true, size: 'lg' });
   }
 
   private getDismissReason(reason: any): string {
@@ -163,6 +158,28 @@ export class CreateModelComponent implements OnInit {
       return 'by clicking on a backdrop';
     } else {
       return `with: ${reason}`;
+    }
+  }
+
+  openConfirmModal(content, index) {
+    this.deleteCorpusName = this.model.corpus[index]['fileName'];
+    this.modalService.open(content, { centered: true, size: 'sm' }).result.then((result) => {
+      this.deleteCorpusName = '';
+    }, (reason) => {
+      this.deleteCorpusName = '';
+    });
+  }
+
+  deleteCorpus() {
+    if (this.deleteCorpusName != '') {
+      this.databaseService.deleteCorpus(this.model._id, this.deleteCorpusName).subscribe((res) => {
+        if (res) {
+          console.log(res.message);
+        }
+        else {
+          console.log('ERROR: please try again!');
+        }
+      })
     }
   }
 
@@ -179,7 +196,7 @@ export class CreateModelComponent implements OnInit {
   //   console.log(this.selectedItems.value);
   // }
 
-  logout() {
+  public logout() {
     this.authenicationService.logout();
     this.router.navigate(['login']);
   }
