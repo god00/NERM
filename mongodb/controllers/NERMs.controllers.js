@@ -279,7 +279,6 @@ exports.removeCorpus = async function (req, res, next) {
 
     var id = req.params.id;
     var filename = req.param('fileName')
-    console.log(req.params.id, ' : ', req.param('id'))
 
     try {
         var query = NERMModel.findOne({ _id: id });
