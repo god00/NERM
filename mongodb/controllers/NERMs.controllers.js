@@ -299,9 +299,11 @@ exports.removeCorpus = async function (req, res, next) {
                                 }
                             })
                             deleteFile(list[0]).then(() => {
+                                console.log('then')
                                 NERMService.updateModel(model)
                                 return res.status(200).json({ status: 200, corpus: model.corpus, message: `${filename} was deleted from database & storage` });
                             }).catch((err) => {
+                                console.log('catch')
                                 return res.status(204).json({ status: 204, corpus: model.corpus, message: `ERROR: While delete ${filename}` });
                             })
                         }
@@ -357,7 +359,9 @@ async function checkDirectory(directory) {
 
 async function deleteFile(directory) {
     return new Promise((resolve, reject) => {
+        console.log('in function deleteFile')
         fs.unlinkSync(directory, (err) => {
+            console.log(err)
             if (err) {
                 reject(err)
             }
@@ -365,7 +369,6 @@ async function deleteFile(directory) {
                 console.log(directory + ' was deleted');
                 resolve()
             }
-
         });
 
     })
