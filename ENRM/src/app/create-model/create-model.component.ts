@@ -37,6 +37,8 @@ export class CreateModelComponent implements OnInit {
 
   showText = {};
 
+  confirmModal: any;
+
   constructor(
     private router: Router,
     private modalService: NgbModal,
@@ -163,7 +165,7 @@ export class CreateModelComponent implements OnInit {
 
   openConfirmModal(content, index) {
     this.deleteCorpusName = this.model.corpus[index]['fileName'];
-    this.modalService.open(content, { centered: true, size: 'sm' }).result.then((result) => {
+    this.confirmModal = this.modalService.open(content, { centered: true, size: 'sm' }).result.then((result) => {
       this.deleteCorpusName = '';
     }, (reason) => {
       this.deleteCorpusName = '';
@@ -174,6 +176,8 @@ export class CreateModelComponent implements OnInit {
     if (this.deleteCorpusName != '') {
       this.databaseService.deleteCorpus(this.model._id, this.deleteCorpusName).subscribe((res) => {
         if (res) {
+          this.model.corpus = res.corpus;
+          this.confirmModal.close();
           console.log(res.message);
         }
         else {

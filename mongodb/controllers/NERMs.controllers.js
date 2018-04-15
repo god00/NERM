@@ -291,13 +291,22 @@ exports.removeCorpus = async function (req, res, next) {
                 var list = []
                 matchFileNameFromPathsToArr(filename, model.corpus, list)
                     .then(async () => {
-                        await model.corpus.map((corpusPath, index) => {
-                            if (list.length != 0 && corpusPath == list[0]) {
-                                model.corpus.splice(index, 1)
-                            }
-                        })
-                        await NERMService.updateModel(model)
-                        return res.status(200).json({ status: 200, message: `${filename} deleted from database` });
+                        if (list.length != 0) {
+                            await model.corpus.map((corpusPath, index) => {
+                                if (corpusPath == list[0]) {
+                                    model.corpus.splice(index, 1)
+                                }
+                            })
+                            deleteFile(list[0]).then(() => {
+                                NERMService.updateModel(model)
+                                return res.status(200).json({ status: 200, corpus: model.corpus, message: `${filename} was deleted from database & storage` });
+                            }).catch((err) => {
+                                return res.status(204).json({ status: 204, corpus: model.corpus, message: `ERROR: While delete ${filename}` });
+                            })
+                        }
+                        else{
+                            return res.status(204).json({ status: 204, corpus: model.corpus, message: `ERROR: Cannot found ${filename}` });
+                        }
                     })
             }
             else {
@@ -342,6 +351,23 @@ async function checkDirectory(directory) {
             fs.mkdirSync(directory);
         }
         resolve();
+    })
+}
+
+async function deleteFile(directory) {
+    return new Promise((resolve, reject) => {
+        if (fs.existsSync(directory)) {
+            fs.unlinkSync(directory, (err) => {
+                if (err) {
+                    reject(err)
+                }
+                console.log(directory + ' was deleted');
+                resolve()
+            });
+        }
+        else {
+            reject();
+        }
     })
 }
 
