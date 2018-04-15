@@ -12,7 +12,7 @@
   <div class="modal-body">
     <input type="text" placeholder="Please enter model name (except '/')" [(ngModel)]="newModelName">
     <p [hidden]="!duplicateModelName" class="text-danger">* This model name already exists</p>
-    <p [hidden]="nameExcluse !== newModelName" class="text-danger">* Don't input '/' in model name</p>
+    <p [hidden]="nameExcluse !== newModelName" class="text-danger">* Must not input '/' in model name</p>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-light btn-lg" (click)="c('Close click')">Cancel</button>

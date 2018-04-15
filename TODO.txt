@@ -1,2 +1,1 @@
-- delete corpus in db and storage
 - design UI for template CRF++

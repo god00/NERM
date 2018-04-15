@@ -174,7 +174,6 @@ export class CreateModelComponent implements OnInit {
     if (this.deleteCorpusName != '') {
       this.databaseService.deleteCorpus(this.model._id, this.deleteCorpusName).subscribe((res) => {
         if (res) {
-          console.log(res.corpus)
           this.model.corpus = res.corpus;
           this.showText = {};
           console.log(res.message);
