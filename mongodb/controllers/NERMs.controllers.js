@@ -289,9 +289,9 @@ exports.removeCorpus = async function (req, res, next) {
             else if (model) {
                 var list = []
                 matchFileNameFromPathsToArr(filename, model.corpus, list)
-                    .then(async () => {
+                    .then(() => {
                         if (list.length != 0) {
-                            await model.corpus.map((corpusPath, index) => {
+                            model.corpus.map((corpusPath, index) => {
                                 if (corpusPath == list[0]) {
                                     model.corpus.splice(index, 1)
                                 }
@@ -359,8 +359,11 @@ async function deleteFile(directory) {
             if (err) {
                 reject(err)
             }
-            console.log(directory + ' was deleted');
-            resolve()
+            else {
+                console.log(directory + ' was deleted');
+                resolve()
+            }
+
         });
 
     })
@@ -392,7 +395,7 @@ async function readFile(filePath, files) {
                 resolve()
             } else {
                 // files.push('ERROR : cannot read this' + filePath)
-                console.log(err);
+                // console.log(err);
                 resolve()
             }
         });
