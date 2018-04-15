@@ -306,7 +306,7 @@ exports.removeCorpus = async function (req, res, next) {
                                 return res.status(204).json({ status: 204, corpus: model.corpus, message: `ERROR: While delete ${filename}` });
                             })
                         }
-                        else{
+                        else {
                             console.log('else')
                             return res.status(204).json({ status: 204, corpus: model.corpus, message: `ERROR: Cannot found ${filename}` });
                         }
@@ -359,18 +359,14 @@ async function checkDirectory(directory) {
 
 async function deleteFile(directory) {
     return new Promise((resolve, reject) => {
-        if (fs.existsSync(directory)) {
-            fs.unlinkSync(directory, (err) => {
-                if (err) {
-                    reject(err)
-                }
-                console.log(directory + ' was deleted');
-                resolve()
-            });
-        }
-        else {
-            reject();
-        }
+        fs.unlinkSync(directory, (err) => {
+            if (err) {
+                reject(err)
+            }
+            console.log(directory + ' was deleted');
+            resolve()
+        });
+
     })
 }
 
