@@ -298,8 +298,8 @@ exports.removeCorpus = async function (req, res, next) {
                             })
                             deleteFile(list[0]).then(() => {
                                 NERMService.updateModel(model)
-                                beforeSendToFront(model).then(data => {
-                                    if (data)
+                                beforeSendToFront(model).then(model => {
+                                    if (model)
                                         return res.status(200).json({ status: 200, corpus: model.corpus, message: `${filename} was deleted from database & storage` });
                                 })
                             }).catch((err) => {
