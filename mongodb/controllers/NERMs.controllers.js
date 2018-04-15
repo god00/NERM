@@ -290,7 +290,7 @@ exports.removeCorpus = async function (req, res, next) {
             else if (model) {
                 var list = []
                 matchFileNameFromPathsToArr(filename, model.corpus, list)
-                    .then(() => {
+                    .then(async () => {
                         await model.corpus.map((corpusPath, index) => {
                             if (list.length != 0 && corpusPath == list[0]) {
                                 model.corpus.splice(index, 1)
