@@ -290,7 +290,6 @@ exports.removeCorpus = async function (req, res, next) {
                 var list = []
                 matchFileNameFromPathsToArr(filename, model.corpus, list)
                     .then(async () => {
-                        console.log('then')
                         if (list.length != 0) {
                             await model.corpus.map((corpusPath, index) => {
                                 if (corpusPath == list[0]) {
@@ -298,16 +297,13 @@ exports.removeCorpus = async function (req, res, next) {
                                 }
                             })
                             deleteFile(list[0]).then(() => {
-                                console.log('then2')
                                 NERMService.updateModel(model)
                                 return res.status(200).json({ status: 200, corpus: model.corpus, message: `${filename} was deleted from database & storage` });
                             }).catch((err) => {
-                                console.log('catch')
                                 return res.status(204).json({ status: 204, corpus: model.corpus, message: `ERROR: While delete ${filename}` });
                             })
                         }
                         else {
-                            console.log('else')
                             return res.status(204).json({ status: 204, corpus: model.corpus, message: `ERROR: Cannot found ${filename}` });
                         }
                     })
