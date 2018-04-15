@@ -290,10 +290,12 @@ exports.removeCorpus = async function (req, res, next) {
                 var list = []
                 matchFileNameFromPathsToArr(filename, model.corpus, list)
                     .then(() => {
+                        console.log('list.length :', list.length)
                         if (list.length != 0) {
                             model.corpus.map((corpusPath, index) => {
                                 if (corpusPath == list[0]) {
-                                    model.corpus.splice(index, 1)
+                                    model.corpus.splice(index, 1);
+                                    console.log(model)
                                 }
                             })
                             deleteFile(list[0]).then(() => {
