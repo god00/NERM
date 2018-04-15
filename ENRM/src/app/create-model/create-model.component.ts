@@ -51,7 +51,6 @@ export class CreateModelComponent implements OnInit {
   ngOnInit() {
     this.getModel();
     this.createSelectedForm();
-    console.log(this.selectedItems)
     this.dropdownSettings = {
       singleSelection: false,
       text: "Select Dictionary",

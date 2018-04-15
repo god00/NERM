@@ -1,2 +1,2 @@
-แก้ไข multiselect
-เชื่อมข้อมูล ทุกอย่างกับ db เหลือcreate นิดหน่อย กับทั้งหน้า home กับ 
+- delete corpus in db and storage
+- design UI for template CRF++
