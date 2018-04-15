@@ -360,7 +360,7 @@ async function checkDirectory(directory) {
 async function deleteFile(directory) {
     return new Promise((resolve, reject) => {
         console.log('in function deleteFile')
-        fs.unlinkSync(directory, (err) => {
+        fs.unlink(directory, (err) => {
             console.log(err)
             if (err) {
                 reject(err)
