@@ -37,7 +37,7 @@ export class CreateModelComponent implements OnInit {
 
   showText = {};
 
-  confirmModal: any;
+  confirmModal;
 
   constructor(
     private router: Router,
@@ -183,7 +183,7 @@ export class CreateModelComponent implements OnInit {
           console.log('ERROR: please try again!');
         }
       })
-      this.confirmModal.close();
+      this.confirmModal.
     }
   }
 
