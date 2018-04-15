@@ -77,21 +77,22 @@ export class HomeComponent implements OnInit {
     nerm.email = this.user['email'];
     nerm.modelName = this.newModelName;
 
-    this.updateNERM = this.databaseService.createModel(nerm).subscribe(res => {
-      if (res.duplicate) {
-        this.duplicateModelName = true;
-      }
-      else if (/^[^/]*$/.test(this.newModelName)) {
-        this.duplicateModelName = false;
-        this.modal.close();
-        this.router.navigate([this.newModelName]);
-        this.updateNERM.unsubscribe();
-      }
-      else {
-        this.nameExcluse = this.newModelName.toString();
-      }
-    });
-
+    if (/^[^/]*$/.test(this.newModelName)) {
+      this.updateNERM = this.databaseService.createModel(nerm).subscribe(res => {
+        if (res.duplicate) {
+          this.duplicateModelName = true;
+        }
+        else {
+          this.duplicateModelName = false;
+          this.modal.close();
+          this.router.navigate([this.newModelName]);
+          this.updateNERM.unsubscribe();
+        }
+      });
+    }
+    else {
+      this.nameExcluse = this.newModelName.toString();
+    }
   }
 
   openModal(content) {
