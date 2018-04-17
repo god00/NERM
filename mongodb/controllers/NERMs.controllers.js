@@ -218,7 +218,6 @@ exports.uploadsFile = async function (req, res, next) {
                                                 model[mode].push(p);
                                                 if (mode == 'corpus') {
                                                     options.args.push(p);
-                                                    console.log(options)
                                                     PythonShell.run('/extract_feature/extract_features.py', options, function (err, results) {
                                                         console.log('if')
                                                         if (err) {
