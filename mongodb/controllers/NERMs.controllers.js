@@ -218,18 +218,23 @@ exports.uploadsFile = async function (req, res, next) {
                                                 model[mode].push(p);
                                                 if (mode == 'corpus') {
                                                     options.args.push(p);
-                                                    PythonShell.run('/extract_feature/extract_features.py', options, function (err, results) {
-                                                        console.log('if')
-                                                        if (err) {
-                                                            throw err;
-                                                            console.log(err)
-                                                            deleteFile(p);
-                                                            return res.status(204).json({ status: 204, message: "ERROR: Please check your corpus" });
-                                                        }
-                                                        // results is an array consisting of messages collected during execution
-                                                        console.log('results: %j', results);
-                                                        options.args = [];
-                                                    });
+                                                    try {
+                                                        PythonShell.run('/extract_feature/extract_features.py', options, function (err, results) {
+                                                            console.log('if')
+                                                            if (err) {
+                                                                throw err;
+                                                                console.log(err)
+                                                                
+                                                                
+                                                            }
+                                                            // results is an array consisting of messages collected during execution
+                                                            console.log('results: %j', results);
+                                                            options.args = [];
+                                                        });
+                                                    } catch{
+                                                        deleteFile(p);
+                                                        return res.status(204).json({ status: 204, message: "ERROR: Please check your corpus" });
+                                                    }
                                                 }
                                             }
                                             NERMService.updateModel(model);
