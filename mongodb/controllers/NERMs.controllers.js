@@ -220,9 +220,9 @@ exports.uploadsFile = async function (req, res, next) {
                                                     options.args.push(p)
                                                     PythonShell.run('/extract_feature/extract_features.py', options, function (err, results) {
                                                         if (err) {
-                                                            throw err;
                                                             console.log(err)
                                                             deleteFile(p);
+                                                            throw err;
                                                             return res.status(205).json({ status: 205, message: "ERROR: Please check your corpus" });
                                                         }
                                                         // results is an array consisting of messages collected during execution
