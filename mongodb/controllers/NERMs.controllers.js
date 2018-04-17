@@ -445,20 +445,18 @@ async function beforeSendToFront(model) {
 }
 
 async function runPython(filePath) {
-    const py = spawn('python', [extractScriptPath, filePath]);
-    ls.stdout.on('data', (data) => {
-        console.log(`stdout: ${data}`);
-        return data
-    });
+    return new Promise((resolve, reject) => {
+        const py = spawn('python', [extractScriptPath, filePath]);
+        py.stdout.on('data', (data) => {
+            console.log(`stdout: ${data}`);
+            resolve(data)
+        });
 
-    ls.stderr.on('data', (data) => {
-        console.log(`stderr: ${data}`);
-        return data
-    });
-
-    ls.on('close', (code) => {
-        console.log(`child process exited with code ${code}`);
-    });
+        py.stderr.on('data', (data) => {
+            console.log(`stderr: ${data}`);
+            reject(data)
+        });
+    })
 }
 
 
