@@ -207,7 +207,7 @@ exports.uploadsFile = async function (req, res, next) {
                                         return res.status(400).json({ status: 400, message: err.toString() })
                                     }
                                     var query = NERMModel.findOne({ email: req.body.email, ModelName: req.body.modelName });
-                                    query.exec(function (err, model) {
+                                    query.exec(async function (err, model) {
                                         if (err) {
                                             return res.status(400).json({ status: 400., message: err.message });
                                         }
@@ -219,7 +219,7 @@ exports.uploadsFile = async function (req, res, next) {
                                                 if (mode == 'corpus') {
                                                     options.args.push(p);
                                                     console.log(options)
-                                                    PythonShell.run('/extract_feature/extract_features.py', options, function (err, results) {
+                                                    await PythonShell.run('/extract_feature/extract_features.py', options, function (err, results) {
                                                         if (err) {
                                                             console.log(err)
                                                             deleteFile(p);
@@ -229,15 +229,11 @@ exports.uploadsFile = async function (req, res, next) {
                                                         // results is an array consisting of messages collected during execution
                                                         console.log('results: %j', results);
                                                         options.args = [];
-                                                        NERMService.updateModel(model);
-                                                        return res.status(201).json({ status: 201, message: "File is uploaded" });
                                                     });
                                                 }
-                                                else {
-                                                    NERMService.updateModel(model);
-                                                    return res.status(201).json({ status: 201, message: "File is uploaded" });
-                                                }
                                             }
+                                            NERMService.updateModel(model);
+                                            return res.status(201).json({ status: 201, message: "File is uploaded" });
                                         }
                                         else {
                                             return res.status(204).json({ status: 204, message: "Please create model before upload" });
