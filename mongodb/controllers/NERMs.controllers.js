@@ -210,9 +210,8 @@ exports.uploadsFile = async function (req, res, next) {
                                             var p = `${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.body.mode}/${req.files[0].originalname}`
                                             if (mode == 'corpus') {
                                                 var data = await runPython(p)
-                                                console.log("test data : ", data)
+                                                console.log("test data : ", data.toString('utf8'))
                                             }
-
                                             if (model[mode].indexOf(p) == -1) {    //check if for no duplication path file in db
                                                 model[mode].push(p);
                                                 // if (mode == 'corpus') {
@@ -461,6 +460,8 @@ async function runPython(filePath) {
 
     await py.on('exit', (code) => {
         console.log(`child process exited with code ${code}`);
+        var buffer = Buffer.concat(buffers);
+        console.log(buffer)
         py.kill()
         return (buffers);
     });
