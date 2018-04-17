@@ -199,14 +199,14 @@
             <!-- Corpus field -->
             <label style="display:block">Corpus:</label>
             <div class="corpus">
-              <div class="list-group scroll list">
+              <div class="list-group scroll list width20">
                 <button type="button" class="list-group-item" *ngFor="let c of model.corpus; let i = index" (click)="showCorpus(i)">
                   {{c?.fileName}}
                   <span class="fa fa-trash-o trash-icon" aria-hidden="true" (click)="openConfirmModal(delete,i)"></span>
                 </button>
               </div>
 
-              <div *ngIf="showText.fileName" class="card">
+              <div *ngIf="showText.fileName" class="card width80">
                 <div class="card-body">
                   <h6 class="card-title" style="font-size:1.5vw">{{showText?.fileName}}</h6>
                   <p class="card-text scroll" style="font-size:1.2vw">{{showText?.data}}</p>

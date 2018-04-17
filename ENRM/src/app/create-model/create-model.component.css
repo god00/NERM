@@ -5,7 +5,7 @@
 }
 
 .scroll{
-    overflow-y: scroll; 
+    overflow-y: auto; 
 }
 
 .corpus{
@@ -30,4 +30,12 @@
 
 .trash-icon{
     margin-left: 0.8vw;
+}
+
+.width20{
+    width: 20%
+}
+
+.width80{
+    width: 80%
 }
