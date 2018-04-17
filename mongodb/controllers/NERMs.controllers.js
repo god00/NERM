@@ -7,8 +7,17 @@ var config = require('../config.json');
 var multer = require('multer');
 var fs = require('fs');
 var path = require('path')
+var PythonShell = require('python-shell');
 
 var DIR = `${config.DIR}`;
+
+var options = {
+    mode: 'text',
+    pythonPath: config.pythonPath,
+    pythonOptions: ['-u'], // get print results in real-time
+    scriptPath: config.extractScriptPath,
+    args: []
+};
 
 // Saving the context of this module inside the _the variable
 
@@ -205,8 +214,17 @@ exports.uploadsFile = async function (req, res, next) {
                                         else if (model) {
                                             var mode = req.body.mode;
                                             var p = `${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.body.mode}/${req.files[0].originalname}`
-                                            if (model[mode].indexOf(p) == -1) //check if for no duplication file in db
-                                                model[mode].push(`${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.body.mode}/${req.files[0].originalname}`);
+                                            if (model[mode].indexOf(p) == -1) {    //check if for no duplication path file in db
+                                                model[mode].push(p);
+                                                if (mode == 'corpus') {
+                                                    options.args.push(p)
+                                                    PythonShell.run(p, options, function (err, results) {
+                                                        if (err) throw err;
+                                                        // results is an array consisting of messages collected during execution
+                                                        console.log('results: %j', results);
+                                                    });
+                                                }
+                                            }
                                             NERMService.updateModel(model);
                                             return res.status(205).json({ status: 205, message: "File is uploaded" });
                                         }

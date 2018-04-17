@@ -1,1 +1,4 @@
+- generate template for CRF++           //ไม่เคลียร์
+- run python when upload corpus and save summary to db 
+
 - design UI for template CRF++

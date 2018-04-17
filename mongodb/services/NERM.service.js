@@ -73,6 +73,7 @@ exports.createModel = async function (nerm) {
         corpus: [],
         dictionary: [],
         selectedDict: [],
+        extractFeature: [],
     })
 
     try {
