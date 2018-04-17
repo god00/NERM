@@ -1,5 +1,5 @@
 .logo {
-    padding-top: 1rem;
+    padding-top: 1vw;
     width: 100px;
     height: 115px;
 }
@@ -9,7 +9,7 @@
 }
 
 .login-checkbox {
-    margin: 0.4rem;
+    margin: 0.4vw;
 }
 
 .navbar{
@@ -19,7 +19,7 @@
 .ENRM-logo{
     width: 30px;
     height: 34px;
-    margin-right: 0.75rem;
+    margin-right: 0.75vw;
 }
 
 .modal-dialog {
