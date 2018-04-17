@@ -224,14 +224,12 @@ exports.uploadsFile = async function (req, res, next) {
                                                             if (err) {
                                                                 throw err;
                                                                 console.log(err)
-                                                                
-                                                                
                                                             }
                                                             // results is an array consisting of messages collected during execution
                                                             console.log('results: %j', results);
                                                             options.args = [];
                                                         });
-                                                    } catch{
+                                                    } catch (e){
                                                         deleteFile(p);
                                                         return res.status(204).json({ status: 204, message: "ERROR: Please check your corpus" });
                                                     }
