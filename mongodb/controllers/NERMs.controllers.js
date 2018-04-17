@@ -449,24 +449,22 @@ async function beforeSendToFront(model) {
 
 async function runPython(filePath) {
     let buffers = []
-    return new Promise((resolve, reject) => {
-        const py = spawn('python', [extractScriptPath, filePath]);
-        py.stdout.on('data', (data) => {
-            console.log(`stdout: ${data}`);
-            buffers.push(data)
-        });
+    const py = spawn('python', [extractScriptPath, filePath]);
+    py.stdout.on('data', (data) => {
+        console.log(`stdout: ${data}`);
+        buffers.push(data)
+    });
 
-        py.stderr.on('data', (data) => {
-            console.log(`stderr: ${data}`);
-            reject(data)
-        });
+    py.stderr.on('data', (data) => {
+        console.log(`stderr: ${data}`);
+        return (data)
+    });
 
-        py.on('exit', (code) => {
-            console.log(`child process exited with code ${code}`);
-            var buffer = Buffer.concat(buffers);
-            resolve(buffer);
-        });
-    })
+    py.on('exit', (code) => {
+        console.log(`child process exited with code ${code}`);
+        var buffer = Buffer.concat(buffers);
+        return (buffer);
+    });
 }
 
 
