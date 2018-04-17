@@ -229,11 +229,15 @@ exports.uploadsFile = async function (req, res, next) {
                                                         // results is an array consisting of messages collected during execution
                                                         console.log('results: %j', results);
                                                         options.args = [];
+                                                        NERMService.updateModel(model);
+                                                        return res.status(201).json({ status: 201, message: "File is uploaded" });
                                                     });
                                                 }
+                                                else {
+                                                    NERMService.updateModel(model);
+                                                    return res.status(201).json({ status: 201, message: "File is uploaded" });
+                                                }
                                             }
-                                            NERMService.updateModel(model);
-                                            return res.status(201).json({ status: 201, message: "File is uploaded" });
                                         }
                                         else {
                                             return res.status(204).json({ status: 204, message: "Please create model before upload" });
