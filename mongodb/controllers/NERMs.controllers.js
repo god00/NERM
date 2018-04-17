@@ -208,25 +208,12 @@ exports.uploadsFile = async function (req, res, next) {
                                         else if (model) {
                                             var mode = req.body.mode;
                                             var p = `${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.body.mode}/${req.files[0].originalname}`
-                                            if (mode == 'corpus') {
-                                                var data = runPython(p)
-                                                console.log("test data : ", data.toString('utf8'))
-                                            }
+                                            // if (mode == 'corpus') {
+                                            //     var data = runPython(p)
+                                            //     console.log("test data : ", data.toString('utf8'))
+                                            // }
                                             if (model[mode].indexOf(p) == -1) {    //check if for no duplication path file in db
                                                 model[mode].push(p);
-                                                // if (mode == 'corpus') {
-                                                //     options.args.push(p);
-                                                //     PythonShell.run('/extract_feature/extract_features.py', options, function (err, results) {
-                                                //         console.log('if')
-                                                //         if (err) {
-                                                //             console.log(err)
-                                                //             return res.status(204).json({ status: 204, message: "ERROR: Please check your corpus" });
-                                                //         }
-                                                //         // results is an array consisting of messages collected during execution
-                                                //         console.log('results: %j', results);
-                                                //         options.args = [];
-                                                //     });
-                                                // }
                                             }
                                             NERMService.updateModel(model);
                                             return res.status(201).json({ status: 201, message: "File is uploaded" });
