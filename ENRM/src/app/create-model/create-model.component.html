@@ -200,7 +200,7 @@
             <label style="display:block">Corpus:</label>
             <div class="corpus">
               <div class="list-group scroll list width20">
-                <button type="button" class="list-group-item" *ngFor="let c of model.corpus; let i = index" (click)="showCorpus(i)">
+                <button type="button" class="list-group-item corpus-file" *ngFor="let c of model.corpus; let i = index" (click)="showCorpus(i)">
                   <h6 style="word-wrap: break-word;">{{c?.fileName}}</h6>
                   <span class="fa fa-trash-o trash-icon" aria-hidden="true" (click)="openConfirmModal(delete,i)"></span>
                 </button>

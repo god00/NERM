@@ -33,9 +33,15 @@
 }
 
 .width20{
+    display: block;
     width: 20%
 }
 
 .width80{
     width: 80%
+}
+
+.corpus-file{
+    display: flex;
+    justify-content: space-between;
 }
