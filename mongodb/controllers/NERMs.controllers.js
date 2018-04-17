@@ -211,7 +211,12 @@ exports.uploadsFile = async function (req, res, next) {
                                             if (model[mode].indexOf(p) == -1) {    //check if for no duplication path file in db
                                                 model[mode].push(p);
                                                 if (mode == 'corpus') {
-                                                    runPython(p).then((data) => { console.log(data) })
+                                                    runPython(p)
+                                                        .then((data) => {
+                                                            console.log(data)
+                                                            NERMService.updateModel(model);
+                                                            return res.status(201).json({ status: 201, message: "File is uploaded" });
+                                                        })
                                                 }
                                                 // if (mode == 'corpus') {
                                                 //     options.args.push(p);
@@ -227,8 +232,7 @@ exports.uploadsFile = async function (req, res, next) {
                                                 //     });
                                                 // }
                                             }
-                                            NERMService.updateModel(model);
-                                            return res.status(201).json({ status: 201, message: "File is uploaded" });
+
                                         }
                                         else {
                                             return res.status(204).json({ status: 204, message: "Please create model before upload" });
