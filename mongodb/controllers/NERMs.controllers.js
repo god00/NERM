@@ -217,7 +217,8 @@ exports.uploadsFile = async function (req, res, next) {
                                             if (model[mode].indexOf(p) == -1) {    //check if for no duplication path file in db
                                                 model[mode].push(p);
                                                 if (mode == 'corpus') {
-                                                    options.args.push(p)
+                                                    options.args.push(p);
+                                                    console.log(options)
                                                     PythonShell.run('/extract_feature/extract_features.py', options, function (err, results) {
                                                         if (err) {
                                                             console.log(err)
@@ -235,7 +236,7 @@ exports.uploadsFile = async function (req, res, next) {
                                             return res.status(201).json({ status: 201, message: "File is uploaded" });
                                         }
                                         else {
-                                            return res.status(205).json({ status: 205, message: "Please create model before upload" });
+                                            return res.status(204).json({ status: 204, message: "Please create model before upload" });
                                         }
                                     })
 
