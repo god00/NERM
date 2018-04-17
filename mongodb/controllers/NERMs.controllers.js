@@ -464,7 +464,7 @@ async function runPython(filePath) {
         py.on('end', function () {
             var buffer = Buffer.concat(buffers);
             resolve(buffer);
-        }
+        });
     })
 }
 
