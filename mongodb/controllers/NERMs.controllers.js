@@ -455,10 +455,10 @@ async function runPython(filePath) {
         buffers.push(data)
     });
 
-    await py.stderr.on('data', (data) => {
-        console.log(`stderr: ${data}`);
-        return (data)
-    });
+    // await py.stderr.on('data', (data) => {
+    //     console.log(`stderr: ${data}`);
+    //     return (data)
+    // });
 
     await py.on('exit', (code) => {
         console.log(`child process exited with code ${code}`);
