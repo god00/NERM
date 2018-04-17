@@ -213,7 +213,7 @@ exports.uploadsFile = async function (req, res, next) {
                                                 if (mode == 'corpus') {
                                                     await runPython(p)
                                                         .then((data) => {
-                                                            console.log("test data : ",data)
+                                                            console.log("test data : ", data)
                                                         })
                                                 }
                                                 // if (mode == 'corpus') {
@@ -448,17 +448,23 @@ async function beforeSendToFront(model) {
 }
 
 async function runPython(filePath) {
+    let buffers = []
     return new Promise((resolve, reject) => {
         const py = spawn('python', [extractScriptPath, filePath]);
         py.stdout.on('data', (data) => {
             console.log(`stdout: ${data}`);
-            resolve(data)
+            buffers.push(data)
         });
 
         py.stderr.on('data', (data) => {
             console.log(`stderr: ${data}`);
             reject(data)
         });
+
+        py.on('end', function () {
+            var buffer = Buffer.concat(buffers);
+            resolve(buffer);
+        }
     })
 }
 
