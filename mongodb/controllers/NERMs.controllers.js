@@ -461,7 +461,7 @@ async function runPython(filePath) {
             reject(data)
         });
 
-        py.on('end', function () {
+        py.on('close', (code) => {
             var buffer = Buffer.concat(buffers);
             resolve(buffer);
         });
