@@ -207,7 +207,7 @@ exports.uploadsFile = async function (req, res, next) {
                                         return res.status(400).json({ status: 400, message: err.toString() })
                                     }
                                     var query = NERMModel.findOne({ email: req.body.email, ModelName: req.body.modelName });
-                                    query.exec(async function (err, model) {
+                                    query.exec(function (err, model) {
                                         if (err) {
                                             return res.status(400).json({ status: 400., message: err.message });
                                         }
@@ -219,7 +219,7 @@ exports.uploadsFile = async function (req, res, next) {
                                                 if (mode == 'corpus') {
                                                     options.args.push(p);
                                                     console.log(options)
-                                                    await PythonShell.run('/extract_feature/extract_features.py', options, function (err, results) {
+                                                    PythonShell.run('/extract_feature/extract_features.py', options, function (err, results) {
                                                         if (err) {
                                                             console.log(err)
                                                             deleteFile(p);
