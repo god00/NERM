@@ -462,6 +462,7 @@ async function runPython(filePath) {
     await py.on('exit', (code) => {
         console.log(`child process exited with code ${code}`);
         var buffer = Buffer.concat(buffers);
+        py.kill()
         console.log(buffer)
         return (buffer);
     });
