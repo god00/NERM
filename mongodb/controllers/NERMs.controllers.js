@@ -213,7 +213,7 @@ exports.uploadsFile = async function (req, res, next) {
                                                 if (mode == 'corpus') {
                                                     await runPython(p)
                                                         .then((data) => {
-                                                            console.log(data)
+                                                            console.log("test data : ",data)
                                                         })
                                                 }
                                                 // if (mode == 'corpus') {
