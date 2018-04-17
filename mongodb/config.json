@@ -2,6 +2,5 @@
     "apiUrl": "http://158.108.34.72:4200",
     "secret": "THIS IS SECRET",
     "DIR": "../storage/uploads/",
-    "pythonPath":"/home/tin/anaconda3/bin/python3.6",
-    "extractScriptPath": "/home/tin/scripts"
+    "extractScriptPath": "~/scripts/extract_feature/extract_features.py"
 }

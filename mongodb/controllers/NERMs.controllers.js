@@ -11,14 +11,7 @@ var path = require('path')
 const { spawn } = require('child_process');
 
 var DIR = `${config.DIR}`;
-
-var options = {
-    mode: 'text',
-    pythonPath: config.pythonPath,
-    pythonOptions: ['-u'], // get print results in real-time
-    scriptPath: config.extractScriptPath,
-    args: []
-};
+var extractScriptPath = config.extractScriptPath;
 
 // Saving the context of this module inside the _the variable
 
@@ -217,6 +210,9 @@ exports.uploadsFile = async function (req, res, next) {
                                             var p = `${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.body.mode}/${req.files[0].originalname}`
                                             if (model[mode].indexOf(p) == -1) {    //check if for no duplication path file in db
                                                 model[mode].push(p);
+                                                if (mode == 'corpus') {
+                                                    runPython(p).then((data) => { console.log(data) })
+                                                }
                                                 // if (mode == 'corpus') {
                                                 //     options.args.push(p);
                                                 //     PythonShell.run('/extract_feature/extract_features.py', options, function (err, results) {
@@ -446,6 +442,23 @@ async function beforeSendToFront(model) {
         })
     }
     return model;
+}
+
+async function runPython(filePath) {
+    const py = spawn('python', [extractScriptPath, filePath]);
+    ls.stdout.on('data', (data) => {
+        console.log(`stdout: ${data}`);
+        return data
+    });
+
+    ls.stderr.on('data', (data) => {
+        console.log(`stderr: ${data}`);
+        return data
+    });
+
+    ls.on('close', (code) => {
+        console.log(`child process exited with code ${code}`);
+    });
 }
 
 
