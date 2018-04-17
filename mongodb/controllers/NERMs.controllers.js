@@ -213,6 +213,7 @@ exports.uploadsFile = async function (req, res, next) {
                                         }
                                         else if (model) {
                                             var mode = req.body.mode;
+                                            console.log(mode)
                                             var p = `${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.body.mode}/${req.files[0].originalname}`
                                             if (model[mode].indexOf(p) == -1) {    //check if for no duplication path file in db
                                                 model[mode].push(p);
@@ -220,6 +221,7 @@ exports.uploadsFile = async function (req, res, next) {
                                                     options.args.push(p);
                                                     console.log(options)
                                                     PythonShell.run('/extract_feature/extract_features.py', options, function (err, results) {
+                                                        console.log('if')
                                                         if (err) {
                                                             console.log(err)
                                                             deleteFile(p);
