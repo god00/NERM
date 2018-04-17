@@ -223,7 +223,7 @@ exports.uploadsFile = async function (req, res, next) {
                                                             console.log(err)
                                                             deleteFile(p);
                                                             throw err;
-                                                            return res.status(205).json({ status: 205, message: "ERROR: Please check your corpus" });
+                                                            return res.status(204).json({ status: 204, message: "ERROR: Please check your corpus" });
                                                         }
                                                         // results is an array consisting of messages collected during execution
                                                         console.log('results: %j', results);
@@ -232,7 +232,7 @@ exports.uploadsFile = async function (req, res, next) {
                                                 }
                                             }
                                             NERMService.updateModel(model);
-                                            return res.status(205).json({ status: 205, message: "File is uploaded" });
+                                            return res.status(201).json({ status: 201, message: "File is uploaded" });
                                         }
                                         else {
                                             return res.status(205).json({ status: 205, message: "Please create model before upload" });

@@ -51,7 +51,6 @@ export class CreateModelComponent implements OnInit {
 
   ngOnInit() {
     this.getModel();
-    console.log(this.model)
     this.createSelectedForm();
     this.dropdownSettings = {
       singleSelection: false,
