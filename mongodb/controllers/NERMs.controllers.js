@@ -208,14 +208,13 @@ exports.uploadsFile = async function (req, res, next) {
                                         else if (model) {
                                             var mode = req.body.mode;
                                             var p = `${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.body.mode}/${req.files[0].originalname}`
+                                            if (mode == 'corpus') {
+                                                var data = await runPython(p)
+                                                console.log("test data : ", data)
+                                            }
+
                                             if (model[mode].indexOf(p) == -1) {    //check if for no duplication path file in db
                                                 model[mode].push(p);
-                                                if (mode == 'corpus') {
-                                                    await runPython(p)
-                                                        .then((data) => {
-                                                            console.log("test data : ", data)
-                                                        })
-                                                }
                                                 // if (mode == 'corpus') {
                                                 //     options.args.push(p);
                                                 //     PythonShell.run('/extract_feature/extract_features.py', options, function (err, results) {
@@ -451,7 +450,7 @@ async function runPython(filePath) {
     let buffers = []
     const py = spawn('python', [extractScriptPath, filePath]);
     await py.stdout.on('data', (data) => {
-        console.log(`stdout: ${data}`);
+        // console.log(`stdout: ${data}`);
         buffers.push(data)
     });
 
@@ -463,6 +462,7 @@ async function runPython(filePath) {
     await py.on('exit', (code) => {
         console.log(`child process exited with code ${code}`);
         var buffer = Buffer.concat(buffers);
+        console.log(buffer)
         return (buffer);
     });
 }
