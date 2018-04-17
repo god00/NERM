@@ -217,7 +217,7 @@ exports.uploadsFile = async function (req, res, next) {
                                             if (model[mode].indexOf(p) == -1) {    //check if for no duplication path file in db
                                                 model[mode].push(p);
                                                 if (mode == 'corpus') {
-                                                    options.args.push(p)
+                                                    options.args.push("test | ja ")
                                                     PythonShell.run('/extract_feature/extract_features.py', options, function (err, results) {
                                                         if (err) {
                                                             throw err;
