@@ -218,6 +218,10 @@ exports.uploadsFile = async function (req, res, next) {
                                                             return res.status(201).json({ status: 201, message: "File is uploaded" });
                                                         })
                                                 }
+                                                else {
+                                                    NERMService.updateModel(model);
+                                                    return res.status(201).json({ status: 201, message: "File is uploaded" });
+                                                }
                                                 // if (mode == 'corpus') {
                                                 //     options.args.push(p);
                                                 //     PythonShell.run('/extract_feature/extract_features.py', options, function (err, results) {
@@ -232,6 +236,11 @@ exports.uploadsFile = async function (req, res, next) {
                                                 //     });
                                                 // }
                                             }
+                                            else {
+                                                NERMService.updateModel(model);
+                                                return res.status(201).json({ status: 201, message: "File is uploaded" });
+                                            }
+
 
                                         }
                                         else {
