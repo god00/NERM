@@ -217,7 +217,7 @@ exports.uploadsFile = async function (req, res, next) {
                                             if (model[mode].indexOf(p) == -1) {    //check if for no duplication path file in db
                                                 model[mode].push(p);
                                                 if (mode == 'corpus') {
-                                                    options.args.push("test | ja ")
+                                                    options.args.push(p)
                                                     PythonShell.run('/extract_feature/extract_features.py', options, function (err, results) {
                                                         if (err) {
                                                             throw err;
@@ -227,6 +227,7 @@ exports.uploadsFile = async function (req, res, next) {
                                                         }
                                                         // results is an array consisting of messages collected during execution
                                                         console.log('results: %j', results);
+                                                        options.args = [];
                                                     });
                                                 }
                                             }
