@@ -201,7 +201,7 @@ exports.uploadsFile = async function (req, res, next) {
                                         return res.status(400).json({ status: 400, message: err.toString() })
                                     }
                                     var query = NERMModel.findOne({ email: req.body.email, ModelName: req.body.modelName });
-                                    query.exec(function (err, model) {
+                                    query.exec(async function (err, model) {
                                         if (err) {
                                             return res.status(400).json({ status: 400., message: err.message });
                                         }
@@ -211,16 +211,10 @@ exports.uploadsFile = async function (req, res, next) {
                                             if (model[mode].indexOf(p) == -1) {    //check if for no duplication path file in db
                                                 model[mode].push(p);
                                                 if (mode == 'corpus') {
-                                                    runPython(p)
+                                                    await runPython(p)
                                                         .then((data) => {
                                                             console.log(data)
-                                                            NERMService.updateModel(model);
-                                                            return res.status(201).json({ status: 201, message: "File is uploaded" });
                                                         })
-                                                }
-                                                else {
-                                                    NERMService.updateModel(model);
-                                                    return res.status(201).json({ status: 201, message: "File is uploaded" });
                                                 }
                                                 // if (mode == 'corpus') {
                                                 //     options.args.push(p);
@@ -236,12 +230,8 @@ exports.uploadsFile = async function (req, res, next) {
                                                 //     });
                                                 // }
                                             }
-                                            else {
-                                                NERMService.updateModel(model);
-                                                return res.status(201).json({ status: 201, message: "File is uploaded" });
-                                            }
-
-
+                                            NERMService.updateModel(model);
+                                            return res.status(201).json({ status: 201, message: "File is uploaded" });
                                         }
                                         else {
                                             return res.status(204).json({ status: 204, message: "Please create model before upload" });
