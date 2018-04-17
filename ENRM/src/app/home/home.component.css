@@ -1,40 +1,40 @@
 .jumbotron {
     width: 85%;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
 }
 
 #verticalline {
     border-left: 1px solid gray;
-    height: 10rem;
+    height: 10vw;
   }
 
 .list{
     display: flex;
     text-align: center;
     overflow-y: scroll;
-    max-height:20rem ;
-    font-size: 3rem ;
+    max-height:20vw ;
+    font-size: 3vw ;
     flex-flow: row wrap;
 }
 
 .list-group-item{
-    padding: .25rem .75rem;
+    padding: .25vw .75vw;
 }
 
 .p-text{
     margin:0;
-    font-size: 1rem;
+    font-size: 1vw;
     display: inline-flex;
 }
 
 .btm-dict{
-    font-size:0.75rem;
+    font-size:0.75vw;
 }
 
 .table{
     margin-bottom: 0;
-    font-size: 0.75rem;
+    font-size: 0.75vw;
 }
 
 .navbar{
@@ -53,7 +53,7 @@
 }
 
 .fa-sign-out{
-    padding-left: 0.3rem;
+    padding-left: 0.3vw;
 }
 
 .model-items{
@@ -62,7 +62,7 @@
 }
 
 small{
-    font-size: 1rem;
+    font-size: 1vw;
     word-wrap: break-word;
 }
 

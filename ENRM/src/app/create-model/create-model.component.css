@@ -1,7 +1,7 @@
 .jumbotron {
     width: 85%;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
 }
 
 .scroll{
@@ -10,8 +10,8 @@
 
 .corpus{
     display: flex;
-    max-height:20rem ; 
-    margin-bottom: 1rem;
+    max-height:20vw ; 
+    margin-bottom: 1vw;
 }
 
 .list{
