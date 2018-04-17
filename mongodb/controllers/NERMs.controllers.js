@@ -446,11 +446,10 @@ async function beforeSendToFront(model) {
 }
 
 async function runPython(filePath) {
-    let buffers = []
     const py = spawn('python', [extractScriptPath, filePath]);
     await py.stdout.on('data', (data) => {
         // console.log(`stdout: ${data}`);
-        buffers.push(data)
+        return data
     });
 
     // await py.stderr.on('data', (data) => {
@@ -460,9 +459,7 @@ async function runPython(filePath) {
 
     await py.on('exit', (code) => {
         console.log(`child process exited with code ${code}`);
-        var buffer = Buffer.concat(buffers);
         py.kill()
-        return (buffers);
     });
 }
 
