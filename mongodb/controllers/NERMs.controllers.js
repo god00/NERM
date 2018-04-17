@@ -218,7 +218,7 @@ exports.uploadsFile = async function (req, res, next) {
                                                 model[mode].push(p);
                                                 if (mode == 'corpus') {
                                                     options.args.push(p)
-                                                    PythonShell.run(p, options, function (err, results) {
+                                                    PythonShell.run('/extract_feature/extract_features.py', options, function (err, results) {
                                                         if (err) throw err;
                                                         // results is an array consisting of messages collected during execution
                                                         console.log('results: %j', results);

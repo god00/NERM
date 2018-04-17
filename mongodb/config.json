@@ -3,5 +3,5 @@
     "secret": "THIS IS SECRET",
     "DIR": "../storage/uploads/",
     "pythonPath":"/home/tin/anaconda3/bin/python",
-    "extractScriptPath": "/home/tin/scripts/extract_feature/extract_features.py"
+    "extractScriptPath": "/home/tin/scripts"
 }
