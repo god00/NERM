@@ -247,6 +247,9 @@ exports.uploadsFile = async function (req, res, next) {
                                                 if (project[mode].indexOf(p) == -1) {    //check if for no duplication path file in db
                                                     project[mode].push(p);
                                                 }
+                                                if (project['selectedDict'].indexOf(p) == -1) {    //check if for no duplication path file in db
+                                                    project['selectedDict'].push(p);
+                                                }
                                                 NERMService.updateNERM(project);
                                                 return res.status(201).json({ status: 201, message: "File is uploaded" });
                                             }
@@ -309,7 +312,7 @@ exports.updateProject = async function (req, res, next) {
                             .then(async (pathsList) => {
                                 project['selectedDict'] = pathsList;
                                 await NERMService.updateNERM(project);
-                                await beforeSendToFront(project)
+                                await beforeSendToFront(project);
                                 await beforeSendToFront(dictObj);
                                 return res.status(201).json({ status: 201, data: { project, dictionary: dictObj.dictionary }, message: `${decodeURI(req.body.projectName)} Updated` });
                             })
