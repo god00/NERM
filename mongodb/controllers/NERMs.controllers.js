@@ -284,7 +284,7 @@ exports.getProject = async function (req, res, next) {
                 return res.status(400).json({ status: 400, message: err });
             }
             else if (project) {
-                let data = project
+                let data = project;
                 await getDictByUser(data.email)
                     .then(async (dictionary) => {
                         console.log(dictionary)
@@ -314,14 +314,23 @@ exports.updateProject = async function (req, res, next) {
             }
             else if (project) {
                 let selectedDict = await req.body.selectedDict.map(item => { return item.fileName })
-                addPathsFromFileNames(selectedDict, project.dictionary)
-                    .then((pathsList) => {
-                        project['selectedDict'] = pathsList;
-                        NERMService.updateProject(project);
-                        beforeSendToFront(project).then(data => {
-                            if (data)
-                                return res.status(201).json({ status: 201, data: data, message: `${decodeURI(req.body.projectName)} Updated` });
-                        })
+                await getDictByUser(data.email)
+                    .then(async (dictionary) => {
+                        console.log(dictionary)
+                        project['dictionary'] = dictionary;
+                        await beforeSendToFront(data);
+                        addPathsFromFileNames(selectedDict, project.dictionary)
+                            .then((pathsList) => {
+                                project['selectedDict'] = pathsList;
+                                NERMService.updateProject(project);
+                                beforeSendToFront(project).then(data => {
+                                    if (data)
+                                        return res.status(201).json({ status: 201, data: data, message: `${decodeURI(req.body.projectName)} Updated` });
+                                })
+                            })
+                    })
+                    .catch(err => {
+                        return res.status(200).json({ status: 200, message: "Cannot found dictionary. Please create new project" });
                     })
             }
             else {
