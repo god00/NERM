@@ -81,11 +81,11 @@ export class DatabaseService {
       })
   }
 
-  getProject(email: string, modelName: string): Observable<Object> {
+  getProject(email: string, projectName: string): Observable<Object> {
     return this.http.get(`${nermUrl}/project`, {
       params: {
         email: email,
-        modelName: modelName
+        projectName: projectName
       }
     }).map((res) => {
       //Maps the response object sent from the server
