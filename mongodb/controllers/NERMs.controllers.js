@@ -314,7 +314,7 @@ exports.updateProject = async function (req, res, next) {
             }
             else if (project) {
                 let selectedDict = await req.body.selectedDict.map(item => { return item.fileName })
-                await getDictByUser(data.email)
+                await getDictByUser(req.body.email)
                     .then(async (dictionary) => {
                         console.log(dictionary)
                         project['dictionary'] = dictionary;
