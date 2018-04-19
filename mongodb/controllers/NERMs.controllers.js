@@ -211,21 +211,19 @@ exports.uploadsFile = async function (req, res, next) {
                                     console.log(err.toString())
                                     return res.status(400).json({ status: 400, message: err.toString() })
                                 }
-                                var query = NERMDict.findOne({ email: req.body.email });
-                                query.exec(async function (err, dictionary) {
-                                    if (err) {
-                                        return res.status(400).json({ status: 400., message: err });
-                                    }
-                                    if (dictionary) {
+                                getDictByUser(req.body.email)
+                                    .then((dictObj) => {
                                         var mode = req.body.mode;
                                         var p = `${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.mode}/${req.files[0].originalname}`
-                                        if (dictionary[mode].indexOf(p) == -1) {    //check if for no duplication path file in db
-                                            dictionary[mode].push(p);
+                                        if (dictObj[mode].indexOf(p) == -1) {    //check if for no duplication path file in db
+                                            dictObj[mode].push(p);
                                         }
-                                        NERMService.updateDict(dictionary);
+                                        NERMService.updateDict(dictObj);
                                         return res.status(201).json({ status: 201, message: "File is uploaded" });
-                                    }
-                                })
+                                    })
+                                    .catch(err => {
+                                        return res.status(400).json({ status: 400., message: err });
+                                    })
                             })
                     }
                     else {
