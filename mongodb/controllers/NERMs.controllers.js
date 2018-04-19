@@ -214,7 +214,7 @@ exports.uploadsFile = async function (req, res, next) {
                                             dictObj[mode].push(p);
                                         }
                                         console.log(dictObj)
-                                        NERMService.updateDict(dictObj);
+                                        NERMService.updateNERM(dictObj);
                                         return res.status(201).json({ status: 201, message: "File is uploaded" });
                                     })
                                     .catch(err => {
@@ -247,7 +247,7 @@ exports.uploadsFile = async function (req, res, next) {
                                                 if (project[mode].indexOf(p) == -1) {    //check if for no duplication path file in db
                                                     project[mode].push(p);
                                                 }
-                                                NERMService.updateProject(project);
+                                                NERMService.updateNERM(project);
                                                 return res.status(201).json({ status: 201, message: "File is uploaded" });
                                             }
                                             else {
@@ -308,7 +308,7 @@ exports.updateProject = async function (req, res, next) {
                         addPathsFromFileNames(selectedDict, dictObj)
                             .then(async (pathsList) => {
                                 project['selectedDict'] = pathsList;
-                                await NERMService.updateProject(project);
+                                await NERMService.updateNERM(project);
                                 await beforeSendToFront(project)
                                 await beforeSendToFront(dictObj);
                                 return res.status(201).json({ status: 201, data: { project, dictionary: dictObj.dictionary }, message: `${decodeURI(req.body.projectName)} Updated` });
@@ -350,7 +350,7 @@ exports.removeCorpus = async function (req, res, next) {
                                 }
                             })
                             deleteFile(list[0]).then(() => {
-                                NERMService.updateProject(project)
+                                NERMService.updateNERM(project)
                                 beforeSendToFront(project).then(project => {
                                     if (project)
                                         return res.status(200).json({ status: 200, corpus: project.corpus, message: `${filename} was deleted from database & storage` });

@@ -93,21 +93,12 @@ exports.createProject = async function (nerm) {
     }
 }
 
-exports.updateProject = async function (nerm) {
+exports.updateNERM = async function (nerm) {
     try {
         var savedNERM = await nerm.save()
         return savedNERM;
     } catch (e) {
-        throw Error("And Error occured while updating the Todo");
-    }
-}
-
-exports.updateDict = async function (dictionary) {
-    try {
-        var savedDict = await nerm.save()
-        return savedDict;
-    } catch (e) {
-        throw Error("And Error occured while updating the Todo");
+        throw Error("And Error occured while updating the Project");
     }
 }
 
