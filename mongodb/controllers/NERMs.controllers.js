@@ -305,7 +305,7 @@ exports.updateProject = async function (req, res, next) {
                 let selectedDict = await req.body.selectedDict.map(item => { return item.fileName })
                 getDictByUser(project.email)
                     .then(async (dictObj) => {
-                        addPathsFromFileNames(selectedDict, dictObj)
+                        addPathsFromFileNames(selectedDict, dictObj.dictionary)
                             .then(async (pathsList) => {
                                 project['selectedDict'] = pathsList;
                                 await NERMService.updateNERM(project);

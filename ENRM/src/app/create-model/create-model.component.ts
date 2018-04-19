@@ -125,6 +125,7 @@ export class CreateModelComponent implements OnInit {
       if (this.getProjectSubscribe)
         this.getProjectSubscribe.unsubscribe();
       this.getModel().then(() => {
+        console.log(this.selectedItems)
         var dupSelected = this.selectedItems.value.filter(function (el) {
           return el.fileName === item.file.name;
         });
