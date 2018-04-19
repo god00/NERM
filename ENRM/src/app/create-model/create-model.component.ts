@@ -31,9 +31,9 @@ export class CreateModelComponent implements OnInit {
   selectedItems: FormControl;
   dropdownSettings = {};
 
-  getModelSubscribe: any;
+  getProjectSubscribe: any;
   selectedSubscribe: any;
-  updateModelSubscribe: any;
+  updateProjectSubscribe: any;
 
   showText = {};
 
@@ -60,10 +60,10 @@ export class CreateModelComponent implements OnInit {
       enableSearchFilter: true,
     };
     this.selectedSubscribe = this.selectedItems.valueChanges.subscribe((selected) => {
-      if (this.updateModelSubscribe)
-        this.updateModelSubscribe.unsubscribe();
+      if (this.updateProjectSubscribe)
+        this.updateProjectSubscribe.unsubscribe();
       this.project.selectedDict = this.selectedItems.value;
-      this.updateModelSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
+      this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
         if (res) {
           console.log(res.message)
         }
@@ -77,8 +77,9 @@ export class CreateModelComponent implements OnInit {
 
   getModel() {
     return new Promise((resolve, reject) => {
-      this.getModelSubscribe = this.databaseService.getProject(this.user['email'], encodeURI(<string>this.project.projectName)).subscribe((data) => {
+      this.getProjectSubscribe = this.databaseService.getProject(this.user['email'], encodeURI(<string>this.project.projectName)).subscribe((data) => {
         if (data) {
+          console.log(data)
           this.project._id = data['project']._id;
           this.project.projectName = data['project']['projectName'];
           this.project.corpus = data['project'].corpus;
@@ -122,8 +123,8 @@ export class CreateModelComponent implements OnInit {
     this.uploader.onSuccessItem = (item: any, response: any, status: any, headers: any) => {
       count = 0;
       this.hasError = item.isError;
-      if (this.getModelSubscribe)
-        this.getModelSubscribe.unsubscribe();
+      if (this.getProjectSubscribe)
+        this.getProjectSubscribe.unsubscribe();
       this.getModel().then(() => {
         var dupSelected = this.selectedItems.value.filter(function (el) {
           return el.fileName === item.file.name;
