@@ -51,6 +51,11 @@ exports.createUser = async function (user) {
         date: new Date(),
     })
 
+    var newDict = new NERMDict({
+        email: user.email,
+        dictionary: [],
+    })
+
     // Creating a new Mongoose Object by using the new keyword
 
 
@@ -82,15 +87,8 @@ exports.createProject = async function (nerm) {
         extractFeature: [],
     })
 
-    var newDict = new NERMDict({
-        email: nerm.email,
-        dictionary: [],
-    })
-
     try {
         // Saving the savedProject 
-
-
         var savedProject = await newProject.save()
         return savedProject;
     } catch (e) {
