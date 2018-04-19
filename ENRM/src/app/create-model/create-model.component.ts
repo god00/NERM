@@ -45,7 +45,7 @@ export class CreateModelComponent implements OnInit {
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.project.projectName = decodeURI(this.router.url.slice(1, this.router.url.length));
-    console.log(this.project.projectName)
+    console.log(encodeURI(<string>this.project.projectName))
 
     this.project.email = this.user['email']
   }
