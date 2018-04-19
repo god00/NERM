@@ -213,7 +213,22 @@ exports.uploadsFile = async function (req, res, next) {
                                         if (dictObj[mode].indexOf(p) == -1) {    //check if for no duplication path file in db
                                             dictObj[mode].push(p);
                                         }
-                                        console.log(dictObj)
+                                        var query = NERMProject.findOne({ email: req.body.email, projectName: req.body.projectName });
+                                        query.exec(async function (err, project) {
+                                            if (err) {
+                                                return res.status(400).json({ status: 400., message: err });
+                                            }
+                                            else if (project) {
+                                                if (project[mode].indexOf(p) == -1) {    //check if for no duplication path file in db
+                                                    project[mode].push(p);
+                                                }
+                                                NERMService.updateNERM(project);
+                                            }
+                                            else {
+                                                return res.status(204).json({ status: 204, message: "Please create project before upload" });
+                                            }
+                                        })
+                                        // add selected
                                         NERMService.updateNERM(dictObj);
                                         return res.status(201).json({ status: 201, message: "File is uploaded" });
                                     })
@@ -246,9 +261,6 @@ exports.uploadsFile = async function (req, res, next) {
                                                 // }
                                                 if (project[mode].indexOf(p) == -1) {    //check if for no duplication path file in db
                                                     project[mode].push(p);
-                                                }
-                                                if (project['selectedDict'].indexOf(p) == -1) {    //check if for no duplication path file in db
-                                                    project['selectedDict'].push(p);
                                                 }
                                                 console.log(project)
                                                 NERMService.updateNERM(project);
