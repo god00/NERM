@@ -285,7 +285,7 @@ exports.getProject = async function (req, res, next) {
             }
             else if (project) {
                 let data = project
-                getDictByUser(data.email)
+                await getDictByUser(data.email)
                     .then(async (dictionary) => {
                         console.log(dictionary)
                         data['dictionary'] = dictionary;
