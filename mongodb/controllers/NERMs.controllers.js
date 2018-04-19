@@ -206,7 +206,7 @@ exports.uploadsFile = async function (req, res, next) {
                     if (req.body.mode == 'dictionary') {
                         checkDirectory(DIR + req.body.email + '/' + req.body.mode)
                             .then(() => {
-                                console.log('uploading...')
+                                console.log('dict : uploading...')
                                 if (err) {
                                     console.log(err.toString())
                                     return res.status(400).json({ status: 400, message: err.toString() })
@@ -233,7 +233,7 @@ exports.uploadsFile = async function (req, res, next) {
                             .then(() => {
                                 checkDirectory(DIR + req.body.email + '/' + req.body.projectName + '/' + req.body.mode)
                                     .then(() => {
-                                        console.log('uploading...')
+                                        console.log('other : uploading...')
                                         if (err) {
                                             console.log(err.toString())
                                             return res.status(400).json({ status: 400, message: err.toString() })
@@ -288,9 +288,9 @@ exports.getProject = async function (req, res, next) {
                 return res.status(400).json({ status: 400, message: err });
             }
             else if (project) {
-                getDictByUser(data.email)
+                getDictByUser(project.email)
                     .then(async (dictObj) => {
-                        await beforeSendToFront(data);
+                        await beforeSendToFront(project);
                         await beforeSendToFront(dictObj);
                         return res.status(200).json({ status: 200, data: { project, dictionary: dictObj.dictionary }, message: "Succesfully nermsdb Recieved" });
                     })
@@ -317,7 +317,7 @@ exports.updateProject = async function (req, res, next) {
             }
             else if (project) {
                 let selectedDict = await req.body.selectedDict.map(item => { return item.fileName })
-                getDictByUser(req.body.email)
+                getDictByUser(project.email)
                     .then(async (dictObj) => {
                         addPathsFromFileNames(selectedDict, dictObj)
                             .then(async (pathsList) => {
