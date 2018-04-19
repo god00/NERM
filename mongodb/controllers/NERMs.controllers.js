@@ -317,7 +317,7 @@ exports.updateProject = async function (req, res, next) {
                     .then(async (dictionary) => {
                         project['dictionary'] = dictionary;
                         addPathsFromFileNames(selectedDict, project.dictionary)
-                            .then((pathsList) => {
+                            .then(async (pathsList) => {
                                 project['selectedDict'] = pathsList;
                                 NERMService.updateProject(project);
                                 await beforeSendToFront(project)
