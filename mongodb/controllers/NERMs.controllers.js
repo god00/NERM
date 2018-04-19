@@ -321,6 +321,7 @@ exports.updateProject = async function (req, res, next) {
                                 project['selectedDict'] = pathsList;
                                 NERMService.updateProject(project);
                                 await beforeSendToFront(project)
+                                console.log(project)
                                 return res.status(201).json({ status: 201, data: project, message: `${decodeURI(req.body.projectName)} Updated` });
                             })
                     })
