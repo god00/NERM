@@ -1,7 +1,8 @@
 // Accessing the Service that we just created
 
 var NERMService = require('../services/NERM.service')
-var NERMModel = require('../models/NERM.model')
+var NERMProject = require('../models/NERM.model')
+var NERMDict = require('../models/NERMDict.model')
 var NERM = require('../models/NERMUser.model')
 var config = require('../config.json');
 var multer = require('multer');
@@ -27,7 +28,7 @@ exports.getItems = async function (req, res, next) {
 
     try {
         if (req.param('collections') == 'nerms') {
-            var query = NERMModel.find({ email: req.param('email') });
+            var query = NERMProject.find({ email: req.param('email') });
             query.exec(async function (err, items) {
                 if (err) {
                     return res.status(400).json({ status: 400, message: err.message });
@@ -36,7 +37,7 @@ exports.getItems = async function (req, res, next) {
                     return res.status(200).json({ status: 200, data: items, message: "Succesfully nermsdb Recieved" });
                 }
                 else {
-                    return res.status(200).json({ status: 200, message: "No model in database" });
+                    return res.status(200).json({ status: 200, message: "No Project in database" });
                 }
             })
         }
@@ -84,34 +85,34 @@ exports.createUser = async function (req, res, next) {
     } catch (e) {
 
         //Return an Error Response Message with Code and the Error Message.
-        return res.status(400).json({ status: 400, message: "Model Creation was Unsuccesfull" });
+        return res.status(400).json({ status: 400, message: "Project Creation was Unsuccesfull" });
     }
 }
 
-exports.createModel = async function (req, res, next) {
+exports.createProject = async function (req, res, next) {
 
     var page = req.query.page ? req.query.page : 1
     var limit = req.query.limit ? req.query.limit : 99999999;
 
     var nerm = {
         email: req.body.email,
-        ModelName: req.body.modelName,
+        projectName: req.body.projectName,
         date: req.body.date,
-        dictionary: req.body.dictionary,
+        selectedDict: req.body.selectedDict,
         corpus: req.body.corpus
     }
 
     try {
-        var query = NERMModel.findOne({ email: nerm.email, ModelName: nerm.ModelName });
-        query.exec(async function (err, model) {
+        var query = NERMProject.findOne({ email: nerm.email, projectName: nerm.projectName });
+        query.exec(async function (err, project) {
             if (err)
                 return res.status(400).json({ status: 400., message: err.message });
-            else if (model) {
-                return res.status(202).json({ status: 202., duplicate: true, message: "This model name already exists" });
+            else if (project) {
+                return res.status(202).json({ status: 202., duplicate: true, message: "This project name already exists" });
             }
             else {
-                var nermTmp = await NERMService.createModel(nerm);
-                return res.status(202).json({ status: 202, message: "Succesfully Create Model" });
+                var nermTmp = await NERMService.createProject(nerm);
+                return res.status(202).json({ status: 202, message: "Succesfully Create Project" });
             }
         })
     } catch (e) {
@@ -176,56 +177,97 @@ exports.uploadsFile = async function (req, res, next) {
         //     }
 
         //     checkDirectory(DIR + req.body.email[0]);
-        //     checkDirectory(DIR + req.body.email[0] + '/' + req.body.modelName[0]);
+        //     checkDirectory(DIR + req.body.email[0] + '/' + req.body.projectName[0]);
         // });
-
-        var storage = await multer.diskStorage({
-            destination: function (req, file, cb) {
-                cb(null, `${DIR}${req.body.email}/${req.body.modelName}/${req.body.mode}`)
-            },
-            filename: function (req, file, cb) {
-                cb(null, file.originalname)
-            }
-        })
+        if (req.body.mode == 'dictionary') {
+            var storage = await multer.diskStorage({
+                destination: function (req, file, cb) {
+                    cb(null, `${DIR}${req.body.email}/dictionary`)
+                },
+                filename: function (req, file, cb) {
+                    cb(null, file.originalname)
+                }
+            });
+        }
+        else {
+            var storage = await multer.diskStorage({
+                destination: function (req, file, cb) {
+                    cb(null, `${DIR}${req.body.email}/${req.body.projectName}/${req.body.mode}`)
+                },
+                filename: function (req, file, cb) {
+                    cb(null, file.originalname)
+                }
+            });
+        }
         var upload = multer({ storage: storage }).any();
         upload(req, res, async function (err) {
             checkDirectory(DIR + req.body.email)
                 .then(() => {
-                    checkDirectory(DIR + req.body.email + '/' + req.body.modelName)
-                        .then(() => {
-                            checkDirectory(DIR + req.body.email + '/' + req.body.modelName + '/' + req.body.mode)
-                                .then(() => {
-                                    console.log('uploading...')
+                    if (req.body.mode == 'dictionary') {
+                        checkDirectory(DIR + req.body.email + '/' + req.body.mode)
+                            .then(() => {
+                                console.log('uploading...')
+                                if (err) {
+                                    console.log(err.toString())
+                                    return res.status(400).json({ status: 400, message: err.toString() })
+                                }
+                                var query = NERMDict.findOne({ email: req.body.email });
+                                query.exec(async function (err, dictionary) {
                                     if (err) {
-                                        console.log(err.toString())
-                                        return res.status(400).json({ status: 400, message: err.toString() })
+                                        return res.status(400).json({ status: 400., message: err.message });
                                     }
-                                    var query = NERMModel.findOne({ email: req.body.email, ModelName: req.body.modelName });
-                                    query.exec(async function (err, model) {
+                                    if (dictionary) {
+                                        var mode = req.body.mode;
+                                        var p = `${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.mode}/${req.files[0].originalname}`
+                                        if (dictionary[mode].indexOf(p) == -1) {    //check if for no duplication path file in db
+                                            dictionary[mode].push(p);
+                                        }
+                                        NERMService.updateDict(dictionary);
+                                        return res.status(201).json({ status: 201, message: "File is uploaded" });
+                                    }
+                                })
+                            })
+                    }
+                    else {
+                        checkDirectory(DIR + req.body.email + '/' + req.body.projectName)
+                            .then(() => {
+                                checkDirectory(DIR + req.body.email + '/' + req.body.projectName + '/' + req.body.mode)
+                                    .then(() => {
+                                        console.log('uploading...')
                                         if (err) {
-                                            return res.status(400).json({ status: 400., message: err.message });
+                                            console.log(err.toString())
+                                            return res.status(400).json({ status: 400, message: err.toString() })
                                         }
-                                        else if (model) {
-                                            var mode = req.body.mode;
-                                            var p = `${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.modelName}/${req.body.mode}/${req.files[0].originalname}`
-                                            // if (mode == 'corpus') {
-                                            //     var data = runPython(p)
-                                            //     console.log("test data : ", data.toString('utf8'))
-                                            // }
-                                            if (model[mode].indexOf(p) == -1) {    //check if for no duplication path file in db
-                                                model[mode].push(p);
+                                        var query = NERMProject.findOne({ email: req.body.email, projectName: req.body.projectName });
+                                        query.exec(async function (err, project) {
+                                            if (err) {
+                                                return res.status(400).json({ status: 400., message: err.message });
                                             }
-                                            NERMService.updateModel(model);
-                                            return res.status(201).json({ status: 201, message: "File is uploaded" });
-                                        }
-                                        else {
-                                            return res.status(204).json({ status: 204, message: "Please create model before upload" });
-                                        }
+                                            else if (project) {
+                                                var mode = req.body.mode;
+                                                var p = `${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.projectName}/${req.body.mode}/${req.files[0].originalname}`
+                                                // if (mode == 'corpus') {
+                                                //     var data = runPython(p)
+                                                //     console.log("test data : ", data.toString('utf8'))
+                                                // }
+                                                if (project[mode].indexOf(p) == -1) {    //check if for no duplication path file in db
+                                                    project[mode].push(p);
+                                                }
+                                                NERMService.updateProject(project);
+                                                return res.status(201).json({ status: 201, message: "File is uploaded" });
+                                            }
+                                            else {
+                                                return res.status(204).json({ status: 204, message: "Please create project before upload" });
+                                            }
+                                        })
+
                                     })
 
-                                })
 
-                        })
+
+
+                            })
+                    }
                 })
         });
     } catch (e) {
@@ -234,19 +276,27 @@ exports.uploadsFile = async function (req, res, next) {
 
 }
 
-exports.getModel = async function (req, res, next) {
+exports.getProject = async function (req, res, next) {
     try {
-        var query = NERMModel.findOne({ email: req.param('email'), ModelName: decodeURI(req.param('modelName')) });
-        query.exec(async function (err, model) {
+        var query = NERMProject.findOne({ email: req.param('email'), projectName: decodeURI(req.param('projectName')) });
+        query.exec(async function (err, project) {
             if (err) {
                 return res.status(400).json({ status: 400, message: err.message });
             }
-            else if (model) {
-                let data = await beforeSendToFront(model)
+            else if (project) {
+                let data = project
+                await getDictByUser(data.email)
+                    .then((dictionary) => {
+                        data['dictionary'] = dictionary;
+                    })
+                    .catch(err => {
+                        return res.status(200).json({ status: 200, message: "Cannot found dictionary. Please create new project" });
+                    })
+                await beforeSendToFront(data)
                 return res.status(200).json({ status: 200, data: data, message: "Succesfully nermsdb Recieved" });
             }
             else {
-                return res.status(200).json({ status: 200, message: "Please create model first" });
+                return res.status(200).json({ status: 200, message: "Please create project first" });
             }
         })
     } catch (e) {
@@ -254,27 +304,27 @@ exports.getModel = async function (req, res, next) {
     }
 }
 
-exports.updateModel = async function (req, res, next) {
+exports.updateProject = async function (req, res, next) {
     try {
-        var query = NERMModel.findOne({ email: req.body.email, ModelName: decodeURI(req.body.modelName) });
-        query.exec(async function (err, model) {
+        var query = NERMProject.findOne({ email: req.body.email, projectName: decodeURI(req.body.projectName) });
+        query.exec(async function (err, project) {
             if (err) {
                 return res.status(400).json({ status: 400, message: err.message });
             }
-            else if (model) {
+            else if (project) {
                 let selectedDict = await req.body.selectedDict.map(item => { return item.fileName })
-                addPathsFromFileNames(selectedDict, model.dictionary)
+                addPathsFromFileNames(selectedDict, project.dictionary)
                     .then((pathsList) => {
-                        model['selectedDict'] = pathsList;
-                        NERMService.updateModel(model);
-                        beforeSendToFront(model).then(data => {
+                        project['selectedDict'] = pathsList;
+                        NERMService.updateProject(project);
+                        beforeSendToFront(project).then(data => {
                             if (data)
-                                return res.status(201).json({ status: 201, data: data, message: `${decodeURI(req.body.modelName)} Updated` });
+                                return res.status(201).json({ status: 201, data: data, message: `${decodeURI(req.body.projectName)} Updated` });
                         })
                     })
             }
             else {
-                return res.status(204).json({ status: 204, message: "Please create model first" });
+                return res.status(204).json({ status: 204, message: "Please create project first" });
             }
         })
 
@@ -289,38 +339,38 @@ exports.removeCorpus = async function (req, res, next) {
     var filename = req.param('fileName')
 
     try {
-        var query = NERMModel.findOne({ _id: id });
-        query.exec(async function (err, model) {
+        var query = NERMProject.findOne({ _id: id });
+        query.exec(async function (err, project) {
             if (err) {
                 return res.status(400).json({ status: 400, message: err.message });
             }
-            else if (model) {
+            else if (project) {
                 var list = []
-                matchFileNameFromPathsToArr(filename, model.corpus, list)
+                matchFileNameFromPathsToArr(filename, project.corpus, list)
                     .then(() => {
                         if (list.length != 0) {
-                            model.corpus.map((corpusPath, index) => {
+                            project.corpus.map((corpusPath, index) => {
                                 if (corpusPath == list[0]) {
-                                    model.corpus.splice(index, 1);
+                                    project.corpus.splice(index, 1);
                                 }
                             })
                             deleteFile(list[0]).then(() => {
-                                NERMService.updateModel(model)
-                                beforeSendToFront(model).then(model => {
-                                    if (model)
-                                        return res.status(200).json({ status: 200, corpus: model.corpus, message: `${filename} was deleted from database & storage` });
+                                NERMService.updateProject(project)
+                                beforeSendToFront(project).then(project => {
+                                    if (project)
+                                        return res.status(200).json({ status: 200, corpus: project.corpus, message: `${filename} was deleted from database & storage` });
                                 })
                             }).catch((err) => {
-                                return res.status(204).json({ status: 204, corpus: model.corpus, message: `ERROR: While delete ${filename}` });
+                                return res.status(204).json({ status: 204, corpus: project.corpus, message: `ERROR: While delete ${filename}` });
                             })
                         }
                         else {
-                            return res.status(204).json({ status: 204, corpus: model.corpus, message: `ERROR: Cannot found ${filename}` });
+                            return res.status(204).json({ status: 204, corpus: project.corpus, message: `ERROR: Cannot found ${filename}` });
                         }
                     })
             }
             else {
-                return res.status(204).json({ status: 204, message: "Please create model first" });
+                return res.status(204).json({ status: 204, message: "Please create project first" });
             }
         })
     } catch (e) {
@@ -413,23 +463,23 @@ async function readFile(filePath, files) {
     )
 }
 
-async function beforeSendToFront(model) {
-    if (model.dictionary.length != 0) {
-        await getDataFromPaths(model.dictionary).then(item => {
-            model.dictionary = item
+async function beforeSendToFront(project) {
+    if (project.dictionary.length != 0) {
+        await getDataFromPaths(project.dictionary).then(item => {
+            project.dictionary = item
         })
     }
-    if (model.corpus.length != 0) {
-        await getDataFromPaths(model.corpus).then(item => {
-            model.corpus = item
+    if (project.corpus.length != 0) {
+        await getDataFromPaths(project.corpus).then(item => {
+            project.corpus = item
         })
     }
-    if (model.selectedDict.length != 0) {
-        await getDataFromPaths(model.selectedDict).then(item => {
-            model.selectedDict = item
+    if (project.selectedDict.length != 0) {
+        await getDataFromPaths(project.selectedDict).then(item => {
+            project.selectedDict = item
         })
     }
-    return model;
+    return project;
 }
 
 async function runPython(filePath) {
@@ -450,6 +500,22 @@ async function runPython(filePath) {
     });
 }
 
+async function getDictByUser(email) {
+    return new Promise((resolve, reject) => {
+        var query = NERMDict.findOne({ email: email });
+        query.exec(async function (err, dictionary) {
+            if (err) {
+                reject(err);
+            }
+            else if (dictionary) {
+                resolve(dictionary);
+            }
+            else {
+                reject();
+            }
+        })
+    })
+}
 
 
 function getFileName(fullpath) {

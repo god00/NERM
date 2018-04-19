@@ -1,7 +1,8 @@
 
 // Gettign the Newly created Mongoose Model we just created 
 var NERM = require('../models/NERMUser.model');
-var NERMModel = require('../models/NERM.model')
+var NERMProject = require('../models/NERM.model')
+var NERMDict = require('../models/NERMDict.model')
 var config = require('../config.json');
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
@@ -28,7 +29,7 @@ exports.getItemFromDB = async function (query, page, limit, collections) {
             var items = await NERM.paginate(query, options);
         }
         else if (collections == "nerms") {
-            var items = await NERMModel.paginate(query, options);
+            var items = await NERMProject.paginate(query, options);
         }
         // Return the users list that was retured by the mongoose promise
         return items
@@ -65,32 +66,55 @@ exports.createUser = async function (user) {
     }
 }
 
-exports.createModel = async function (nerm) {
-    var newModel = new NERMModel({
+exports.createProject = async function (nerm) {
+    var newProject = new NERMProject({
         email: nerm.email,
-        ModelName: nerm.ModelName,
+        projectName: nerm.projectName,
         date: new Date(),
         corpus: [],
-        dictionary: [],
         selectedDict: [],
         extractFeature: [],
     })
 
+    var newDict = new NERMDict({
+        email: nerm.email,
+        dictionary: [],
+    })
+
     try {
-        // Saving the model 
-        var savedModel = await newModel.save()
-        return savedModel;
+        // Saving the savedProject 
+
+        var query = NERMDict.findOne({ email: req.body.email });
+        await query.exec(async function (err, dictionary) {
+            if (err) {
+                return res.status(400).json({ status: 400., message: err.message });
+            }
+            if (!dictionary) {
+                var savedDict = await newDict.save()
+            }
+        })
+        var savedProject = await newProject.save()
+        return savedProject;
     } catch (e) {
 
         // return a Error message describing the reason     
-        throw Error("Error while Creating Model")
+        throw Error("Error while Creating Project")
     }
 }
 
-exports.updateModel = async function (nerm) {
+exports.updateProject = async function (nerm) {
     try {
         var savedNERM = await nerm.save()
         return savedNERM;
+    } catch (e) {
+        throw Error("And Error occured while updating the Todo");
+    }
+}
+
+exports.updateDict = async function (dictionary) {
+    try {
+        var savedDict = await nerm.save()
+        return savedDict;
     } catch (e) {
         throw Error("And Error occured while updating the Todo");
     }

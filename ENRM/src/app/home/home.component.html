@@ -10,13 +10,13 @@
     </button>
   </div>
   <div class="modal-body">
-    <input type="text" placeholder="Please enter model name (except '/')" [(ngModel)]="newModelName">
-    <p [hidden]="!duplicateModelName" class="text-danger">* This model name already exists</p>
-    <p [hidden]="nameExcluse !== newModelName" class="text-danger">* Must not input '/' in model name</p>
+    <input type="text" placeholder="Please enter model name (except '/')" [(ngModel)]="newProjectName">
+    <p [hidden]="!duplicateProjectName" class="text-danger">* This model name already exists</p>
+    <p [hidden]="nameExcluse !== newProjectName" class="text-danger">* Must not input '/' in model name</p>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-light btn-lg" (click)="c('Close click')">Cancel</button>
-    <button class="btn btn-primary btn-lg" (click)="createModal()" [disabled]="newModelName == ''">Create</button>
+    <button class="btn btn-primary btn-lg" (click)="createModal()" [disabled]="newProjectName == ''">Create</button>
   </div>
 </ng-template>
 <!--  -->
@@ -93,7 +93,7 @@
 
   <div class="d-flex flex-column align-items-center">
     <div class="jumbotron special-card d-flex flex-column">
-      <h1 class="display-3">Start New Model</h1>
+      <h1 class="display-3">Start New Project</h1>
       <p class="lead">Use the noun creation to describe bringing something into existence, such as the creation of a new organization or
         the creation of a cutting-edge computer program.</p>
       <hr class="my-4">
@@ -103,23 +103,23 @@
     </div>
   </div>
 
-  <div class="d-flex flex-column align-items-center" *ngIf="modelsByUser?.length != 0">
+  <div class="d-flex flex-column align-items-center" *ngIf="projectsByUser?.length != 0">
     <div class="jumbotron special-card d-flex justify-content-around flex-column">
-      <h1 class="display-3">Your Model</h1>
+      <h1 class="display-3">Your Project</h1>
       <div class="card">
         <div class="card-body list">
-          <div style="display:block; width: 5rem; margin:0.5rem" *ngFor="let model of modelsByUser">
-            <a class="model-items" href="#/{{model.ModelName}}">
+          <div style="display:block; width: 5rem; margin:0.5rem" *ngFor="let project of projectsByUser">
+            <a class="model-items" href="#/{{project.projectName}}">
               <i class="fa fa-file" aria-hidden="true"></i>
-              <small>{{model.ModelName}}</small>
+              <small>{{project.projectName}}</small>
             </a>
           </div>
         </div>
         <!-- <i class="fa fa-file-code-o" aria-hidden="true"></i>
         <p class="lead p-text">Your Model</p>
         <div id="list-example" class="list-group list">
-          <a *ngFor="let model of modelsByUser" class="list-group-item list-group-item-action" href="#/{{model.ModelName}}">
-            <small>{{model.ModelName}}</small>
+          <a *ngFor="let model of projectsByUser" class="list-group-item list-group-item-action" href="#/{{model.projectName}}">
+            <small>{{model.projectName}}</small>
           </a>
         </div> -->
       </div>

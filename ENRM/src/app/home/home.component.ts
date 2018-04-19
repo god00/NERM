@@ -21,14 +21,14 @@ import NERMModel from '../models/nerm.model';
 })
 export class HomeComponent implements OnInit {
   updateNERM: any;
-  newModelName: string = '';
-  duplicateModelName: boolean = false;
+  newProjectName: string = '';
+  duplicateProjectName: boolean = false;
   nameExcluse: string;
   user: Object;
-  modelsByUser: NERMModel[];
+  projectsByUser: NERMModel[];
 
 
-  getModelSubscribe: any;
+  getProjectSubscribe: any;
 
   //Modal parameter
   modal;
@@ -50,9 +50,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-    this.getModelSubscribe = this.databaseService.getModels(this.user['email']).subscribe((data) => {
+    this.getProjectSubscribe = this.databaseService.getProjects(this.user['email']).subscribe((data) => {
       if (data) {
-        this.modelsByUser = data;
+        this.projectsByUser = data;
       }
       else {
 
@@ -75,23 +75,23 @@ export class HomeComponent implements OnInit {
     let nerm = new NERMModel();
 
     nerm.email = this.user['email'];
-    nerm.modelName = this.newModelName;
+    nerm.projectName = this.newProjectName;
 
-    if (/^[^/]*$/.test(this.newModelName)) {
-      this.updateNERM = this.databaseService.createModel(nerm).subscribe(res => {
+    if (/^[^/]*$/.test(this.newProjectName)) {
+      this.updateNERM = this.databaseService.createProject(nerm).subscribe(res => {
         if (res.duplicate) {
-          this.duplicateModelName = true;
+          this.duplicateProjectName = true;
         }
         else {
-          this.duplicateModelName = false;
+          this.duplicateProjectName = false;
           this.modal.close();
-          this.router.navigate([this.newModelName]);
+          this.router.navigate([this.newProjectName]);
           this.updateNERM.unsubscribe();
         }
       });
     }
     else {
-      this.nameExcluse = this.newModelName.toString();
+      this.nameExcluse = this.newProjectName.toString();
     }
   }
 

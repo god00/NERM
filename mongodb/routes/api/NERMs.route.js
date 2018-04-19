@@ -13,11 +13,11 @@ router.get('/', NERMController.getItems)
 
 router.post('/', NERMController.createUser)
 
-router.post('/model', NERMController.createModel)
+router.post('/project', NERMController.createProject)
 
-router.get('/model', NERMController.getModel)
+router.get('/project', NERMController.getProject)
 
-router.put('/model', NERMController.updateModel)
+router.put('/project', NERMController.updateProject)
 
 router.delete('/:id',NERMController.removeNERM)
 

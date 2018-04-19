@@ -28,9 +28,9 @@ export class DatabaseService {
   }
 
   //Create model, takes a NERMModel Object
-  createModel(nerm: NERMModel): Observable<any> {
+  createProject(nerm: NERMModel): Observable<any> {
     //returns the observable of http post request 
-    return this.http.post(`${nermUrl}/model`, nerm);
+    return this.http.post(`${nermUrl}/project`, nerm);
   }
 
   //Read nerm, takes no arguments
@@ -45,7 +45,7 @@ export class DatabaseService {
     })
   }
 
-  getModels(email: string): Observable<NERMModel[]> {
+  getProjects(email: string): Observable<NERMModel[]> {
     return this.http.get(`${nermUrl}/`, {
       params: {
         email: email,
@@ -60,7 +60,7 @@ export class DatabaseService {
   //Update nerm, takes a NERMModel Object as parameter
   updateNERM(nerm: NERMModel): Observable<any> {
     //returns the observable of http put request 
-    return this.http.put(`${nermUrl}/model`, nerm);
+    return this.http.put(`${nermUrl}/project`, nerm);
   }
 
   deleteNERM(id: string): any {
@@ -81,8 +81,8 @@ export class DatabaseService {
       })
   }
 
-  getModel(email: string, modelName: string): Observable<NERMModel> {
-    return this.http.get(`${nermUrl}/model`, {
+  getProject(email: string, modelName: string): Observable<NERMModel> {
+    return this.http.get(`${nermUrl}/project`, {
       params: {
         email: email,
         modelName: modelName

@@ -44,7 +44,7 @@ export class CreateModelComponent implements OnInit {
     public authenicationService: AuthenticationService,
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-    this.model.modelName = decodeURI(this.router.url.slice(1, this.router.url.length));
+    this.model.projectName = decodeURI(this.router.url.slice(1, this.router.url.length));
 
     this.model.email = this.user['email']
   }
@@ -77,10 +77,10 @@ export class CreateModelComponent implements OnInit {
 
   getModel() {
     return new Promise((resolve, reject) => {
-      this.getModelSubscribe = this.databaseService.getModel(this.user['email'], encodeURI(<string>this.model.modelName)).subscribe((data) => {
+      this.getModelSubscribe = this.databaseService.getProject(this.user['email'], encodeURI(<string>this.model.projectName)).subscribe((data) => {
         if (data) {
           this.model._id = data._id;
-          this.model.modelName = data['ModelName'];
+          this.model.projectName = data['projectName'];
           this.model.corpus = data.corpus;
           this.model.date = data.date;
           this.model.dictionary = data.dictionary;
@@ -115,7 +115,7 @@ export class CreateModelComponent implements OnInit {
     this.uploader = new FileUploader({ url: nermUrl });
     this.uploader.onBuildItemForm = (fileItem, form) => {
       form.append('email', this.user['email']);
-      form.append('modelName', this.model.modelName);
+      form.append('projectName', this.model.projectName);
       form.append('mode', mode);
       return { fileItem, form }
     };

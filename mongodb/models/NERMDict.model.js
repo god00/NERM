@@ -4,11 +4,10 @@ var mongoosePaginate = require('mongoose-paginate')
 
 var NERMSchema = new mongoose.Schema({
     email: String,
-    password: String,
-    date: Date,
-}, { collection: 'users' })
+    dictionary: Array,
+}, { collection: 'dictionary' })
 
 NERMSchema.plugin(mongoosePaginate)
-const NERM = mongoose.model('NERMUser', NERMSchema)
+const NERMDict = mongoose.model('NERMDict', NERMSchema)
 
-module.exports = NERM;
+module.exports = NERMDict;
