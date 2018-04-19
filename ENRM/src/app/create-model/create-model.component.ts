@@ -96,7 +96,7 @@ export class CreateModelComponent implements OnInit {
           });
         }
         else {
-          console.log('No model')
+          console.log('No model');
           this.router.navigate(['']);
         }
         resolve();
