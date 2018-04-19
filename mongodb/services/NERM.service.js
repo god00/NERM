@@ -63,13 +63,8 @@ exports.createUser = async function (user) {
 
         // Saving the user 
         var savedUser = await newUser.save()
-        createDictionaryByUser(user.email)
-            .then((savedDict) => {
-                return { savedUser, savedDict };
-            })
-            .catch((err) => {
-                return err
-            })
+        var savedDict = await newDict.save()
+        return { savedUser, savedDict };
     } catch (e) {
 
         // return a Error message describing the reason     
@@ -151,24 +146,6 @@ exports.loginNERM = async function (password, id, hash) {
     catch (e) {
         throw Error("Error Occured while Login")
     }
-}
-
-async function createDictionaryByUser(email) {
-    return new Promise((resolve, reject) => {
-        var query = NERMDict.findOne({ email: email });
-        query.exec(async function (err, dictionary) {
-            if (err) {
-                reject(err);
-            }
-            if (!dictionary) {
-                var savedDict = await newDict.save()
-                resolve(savedDict);
-            }
-            else {
-                reject();
-            }
-        })
-    })
 }
 
 function hashPassword(password) {
