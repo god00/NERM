@@ -277,6 +277,9 @@ exports.uploadsFile = async function (req, res, next) {
 }
 
 exports.getProject = async function (req, res, next) {
+    console.log(req.param('email'))
+    console.log(decodeURI(req.param('projectName')))
+
     try {
         var query = NERMProject.findOne({ email: req.param('email'), projectName: decodeURI(req.param('projectName')) });
         query.exec(async function (err, project) {
