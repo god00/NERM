@@ -287,6 +287,7 @@ exports.getProject = async function (req, res, next) {
                 let data = project
                 getDictByUser(data.email)
                     .then(async (dictionary) => {
+                        console.log(dictionary)
                         data['dictionary'] = dictionary;
                         await beforeSendToFront(data);
                         return res.status(200).json({ status: 200, data: data, message: "Succesfully nermsdb Recieved" });
