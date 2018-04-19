@@ -219,8 +219,8 @@ exports.uploadsFile = async function (req, res, next) {
                                                 return res.status(400).json({ status: 400., message: err });
                                             }
                                             else if (project) {
-                                                if (project[mode].indexOf(p) == -1) {    //check if for no duplication path file in db
-                                                    project[mode].push(p);
+                                                if (project['selectedDict'].indexOf(p) == -1) {    //check if for no duplication path file in db
+                                                    project['selectedDict'].push(p);
                                                 }
                                                 NERMService.updateNERM(project);
                                             }
@@ -228,7 +228,6 @@ exports.uploadsFile = async function (req, res, next) {
                                                 return res.status(204).json({ status: 204, message: "Please create project before upload" });
                                             }
                                         })
-                                        // add selected
                                         NERMService.updateNERM(dictObj);
                                         return res.status(201).json({ status: 201, message: "File is uploaded" });
                                     })
