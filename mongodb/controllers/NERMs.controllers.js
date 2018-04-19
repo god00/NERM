@@ -287,7 +287,6 @@ exports.getProject = async function (req, res, next) {
                 let data = project;
                 await getDictByUser(data.email)
                     .then(async (dictionary) => {
-                        console.log(dictionary)
                         data['dictionary'] = dictionary;
                         await beforeSendToFront(data);
                         return res.status(200).json({ status: 200, data: data, message: "Succesfully nermsdb Recieved" });
@@ -316,9 +315,7 @@ exports.updateProject = async function (req, res, next) {
                 let selectedDict = await req.body.selectedDict.map(item => { return item.fileName })
                 await getDictByUser(req.body.email)
                     .then(async (dictionary) => {
-                        console.log(dictionary)
                         project['dictionary'] = dictionary;
-                        await beforeSendToFront(data);
                         addPathsFromFileNames(selectedDict, project.dictionary)
                             .then((pathsList) => {
                                 project['selectedDict'] = pathsList;
