@@ -284,12 +284,10 @@ exports.getProject = async function (req, res, next) {
                 return res.status(400).json({ status: 400, message: err });
             }
             else if (project) {
-                let data = project;
                 getDictByUser(data.email)
                     .then(async (dictionary) => {
-                        data['dictionary'] = dictionary;
                         await beforeSendToFront(data);
-                        return res.status(200).json({ status: 200, data: data, message: "Succesfully nermsdb Recieved" });
+                        return res.status(200).json({ status: 200, data: { project, dictionary }, message: "Succesfully nermsdb Recieved" });
                     })
                     .catch(err => {
                         return res.status(200).json({ status: 200, message: "Cannot found dictionary. Please create new project" });
@@ -319,13 +317,8 @@ exports.updateProject = async function (req, res, next) {
                             .then(async (pathsList) => {
                                 project['selectedDict'] = pathsList;
                                 await NERMService.updateProject(project);
-                                console.log(dictionary)
-                                project['dictionary'] = dictionary;
-
-                                console.log("before : ", project.dictionary)
                                 await beforeSendToFront(project)
-                                console.log("after : ", project)
-                                return res.status(201).json({ status: 201, data: project, message: `${decodeURI(req.body.projectName)} Updated` });
+                                return res.status(201).json({ status: 201, data: { project, dictionary }, message: `${decodeURI(req.body.projectName)} Updated` });
                             })
                     })
                     .catch(err => {

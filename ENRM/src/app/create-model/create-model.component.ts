@@ -22,7 +22,7 @@ const nermUrl = `${appConfig.apiUrl}/api/nerms/uploads`;
 export class CreateModelComponent implements OnInit {
   public uploader: FileUploader = new FileUploader({ url: nermUrl });
   user: Object;
-  model: NERMModel = new NERMModel();
+  project: NERMModel = new NERMModel();
   hasError: boolean = false;
   deleteCorpusName: string = '';
 
@@ -44,9 +44,9 @@ export class CreateModelComponent implements OnInit {
     public authenicationService: AuthenticationService,
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-    this.model.projectName = decodeURI(this.router.url.slice(1, this.router.url.length));
+    this.project.projectName = decodeURI(this.router.url.slice(1, this.router.url.length));
 
-    this.model.email = this.user['email']
+    this.project.email = this.user['email']
   }
 
   ngOnInit() {
@@ -62,8 +62,8 @@ export class CreateModelComponent implements OnInit {
     this.selectedSubscribe = this.selectedItems.valueChanges.subscribe((selected) => {
       if (this.updateModelSubscribe)
         this.updateModelSubscribe.unsubscribe();
-      this.model.selectedDict = this.selectedItems.value;
-      this.updateModelSubscribe = this.databaseService.updateNERM(this.model).subscribe((res) => {
+      this.project.selectedDict = this.selectedItems.value;
+      this.updateModelSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
         if (res) {
           console.log(res.message)
         }
@@ -77,20 +77,20 @@ export class CreateModelComponent implements OnInit {
 
   getModel() {
     return new Promise((resolve, reject) => {
-      this.getModelSubscribe = this.databaseService.getProject(this.user['email'], encodeURI(<string>this.model.projectName)).subscribe((data) => {
+      this.getModelSubscribe = this.databaseService.getProject(this.user['email'], encodeURI(<string>this.project.projectName)).subscribe((data) => {
         if (data) {
-          this.model._id = data._id;
-          this.model.projectName = data['projectName'];
-          this.model.corpus = data.corpus;
-          this.model.date = data.date;
-          this.model.dictionary = data.dictionary;
-          let selectedTmp = data.selectedDict.map((dict, index) => {
+          this.project._id = data['project']._id;
+          this.project.projectName = data['project']['projectName'];
+          this.project.corpus = data['project'].corpus;
+          this.project.date = data['project'].date;
+          this.project.dictionary = data['dictionary'].dictionary;
+          let selectedTmp = data['project'].selectedDict.map((dict, index) => {
             dict['id'] = index;
             dict['itemName'] = dict['fileName'];
             return dict;
           });
           this.selectedItems.patchValue(selectedTmp);
-          this.dropdownList = data.dictionary.map((dict, index) => {
+          this.dropdownList = data['dictionary'].dictionary.map((dict, index) => {
             dict['id'] = index;
             dict['itemName'] = dict['fileName'];
             return dict;
@@ -107,7 +107,7 @@ export class CreateModelComponent implements OnInit {
   }
 
   showCorpus(index: number) {
-    this.showText = this.model.corpus[index];
+    this.showText = this.project.corpus[index];
   }
 
   uploadModal(content, mode) {
@@ -115,7 +115,7 @@ export class CreateModelComponent implements OnInit {
     this.uploader = new FileUploader({ url: nermUrl });
     this.uploader.onBuildItemForm = (fileItem, form) => {
       form.append('email', this.user['email']);
-      form.append('projectName', this.model.projectName);
+      form.append('projectName', this.project.projectName);
       form.append('mode', mode);
       return { fileItem, form }
     };
@@ -161,7 +161,7 @@ export class CreateModelComponent implements OnInit {
   }
 
   openConfirmModal(content, index) {
-    this.deleteCorpusName = this.model.corpus[index]['fileName'];
+    this.deleteCorpusName = this.project.corpus[index]['fileName'];
     this.modalService.open(content, { centered: true, size: 'sm' }).result.then((result) => {
       this.deleteCorpusName = '';
     }, (reason) => {
@@ -171,9 +171,9 @@ export class CreateModelComponent implements OnInit {
 
   deleteCorpus() {
     if (this.deleteCorpusName != '') {
-      this.databaseService.deleteCorpus(this.model._id, this.deleteCorpusName).subscribe((res) => {
+      this.databaseService.deleteCorpus(this.project._id, this.deleteCorpusName).subscribe((res) => {
         if (res) {
-          this.model.corpus = res.corpus;
+          this.project.corpus = res.corpus;
           this.showText = {};
           console.log(res.message);
         }
