@@ -21,7 +21,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     if (this.user) {
-      this.getModelSubscribe = this.databaseService.getModels(this.user['email']).subscribe((modelsByUser) => {
+      this.getModelSubscribe = this.databaseService.getProjects(this.user['email']).subscribe((modelsByUser) => {
         if (modelsByUser) {
           this.addPathModel(modelsByUser);
         }
