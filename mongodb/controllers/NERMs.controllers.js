@@ -179,7 +179,7 @@ exports.uploadsFile = async function (req, res, next) {
         //     checkDirectory(DIR + req.body.email[0]);
         //     checkDirectory(DIR + req.body.email[0] + '/' + req.body.projectName[0]);
         // });
-        console.log(req.body.mode)
+        
         if (req.body.mode == 'dictionary') {
             var storage = await multer.diskStorage({
                 destination: function (req, file, cb) {
@@ -202,6 +202,7 @@ exports.uploadsFile = async function (req, res, next) {
         }
         var upload = multer({ storage: storage }).any();
         upload(req, res, async function (err) {
+            console.log(req.body.mode)
             checkDirectory(DIR + req.body.email)
                 .then(() => {
                     if (req.body.mode == 'dictionary') {
@@ -271,13 +272,10 @@ exports.uploadsFile = async function (req, res, next) {
 }
 
 exports.getProject = async function (req, res, next) {
-    console.log(req.param('email'))
-    console.log(decodeURI(req.param('projectName')))
 
     try {
         var query = NERMProject.findOne({ email: req.param('email'), projectName: decodeURI(req.param('projectName')) });
         query.exec(async function (err, project) {
-            console.log(project)
             if (err) {
                 return res.status(400).json({ status: 400, message: err });
             }
