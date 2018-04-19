@@ -206,7 +206,7 @@ exports.uploadsFile = async function (req, res, next) {
                                     return res.status(400).json({ status: 400, message: err.toString() })
                                 }
                                 getDictByUser(req.body.email)
-                                    .then((dictObj) => {
+                                    .then(async (dictObj) => {
                                         var mode = req.body.mode;
                                         var p = `${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.mode}/${req.files[0].originalname}`
                                         if (dictObj[mode].indexOf(p) == -1) {    //check if for no duplication path file in db
