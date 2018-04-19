@@ -179,30 +179,22 @@ exports.uploadsFile = async function (req, res, next) {
         //     checkDirectory(DIR + req.body.email[0]);
         //     checkDirectory(DIR + req.body.email[0] + '/' + req.body.projectName[0]);
         // });
-        
-        if (req.body.mode == 'dictionary') {
-            var storage = await multer.diskStorage({
-                destination: function (req, file, cb) {
-                    cb(null, `${DIR}${req.body.email}/dictionary`)
-                },
-                filename: function (req, file, cb) {
-                    cb(null, file.originalname)
+
+        var storage = await multer.diskStorage({
+            destination: function (req, file, cb) {
+                if (req.body.mode == 'dictionary') {
+                    cb(null, `${DIR}${req.body.email}/dictionary`);
                 }
-            });
-        }
-        else {
-            var storage = await multer.diskStorage({
-                destination: function (req, file, cb) {
-                    cb(null, `${DIR}${req.body.email}/${req.body.projectName}/${req.body.mode}`)
-                },
-                filename: function (req, file, cb) {
-                    cb(null, file.originalname)
+                else {
+                    cb(null, `${DIR}${req.body.email}/${req.body.projectName}/${req.body.mode}`);
                 }
-            });
-        }
+            },
+            filename: function (req, file, cb) {
+                cb(null, file.originalname);
+            }
+        });
         var upload = multer({ storage: storage }).any();
         upload(req, res, async function (err) {
-            console.log(req.body.mode)
             checkDirectory(DIR + req.body.email)
                 .then(() => {
                     if (req.body.mode == 'dictionary') {
