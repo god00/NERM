@@ -285,7 +285,7 @@ exports.getProject = async function (req, res, next) {
             }
             else if (project) {
                 let data = project;
-                await getDictByUser(data.email)
+                getDictByUser(data.email)
                     .then(async (dictionary) => {
                         data['dictionary'] = dictionary;
                         await beforeSendToFront(data);
@@ -296,7 +296,7 @@ exports.getProject = async function (req, res, next) {
                     })
             }
             else {
-                return res.status(200).json({ status: 200, message: "Please create project first" });
+                return res.status(204).json({ status: 204, message: "Please create project first" });
             }
         })
     } catch (e) {
@@ -313,7 +313,7 @@ exports.updateProject = async function (req, res, next) {
             }
             else if (project) {
                 let selectedDict = await req.body.selectedDict.map(item => { return item.fileName })
-                await getDictByUser(req.body.email)
+                getDictByUser(req.body.email)
                     .then(async (dictionary) => {
                         project['dictionary'] = dictionary;
                         addPathsFromFileNames(selectedDict, project.dictionary)
@@ -327,7 +327,7 @@ exports.updateProject = async function (req, res, next) {
                             })
                     })
                     .catch(err => {
-                        return res.status(200).json({ status: 200, message: "Cannot found dictionary. Please create new project" });
+                        return res.status(204).json({ status: 204, message: "Cannot found dictionary. Please create new project" });
                     })
             }
             else {
