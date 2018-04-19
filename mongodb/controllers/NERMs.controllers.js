@@ -209,9 +209,11 @@ exports.uploadsFile = async function (req, res, next) {
                                     .then(async (dictObj) => {
                                         var mode = req.body.mode;
                                         var p = `${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.mode}/${req.files[0].originalname}`
+                                        console.log(p)
                                         if (dictObj[mode].indexOf(p) == -1) {    //check if for no duplication path file in db
                                             dictObj[mode].push(p);
                                         }
+                                        console.log(dictObj)
                                         NERMService.updateDict(dictObj);
                                         return res.status(201).json({ status: 201, message: "File is uploaded" });
                                     })
