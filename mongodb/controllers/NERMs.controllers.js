@@ -179,6 +179,7 @@ exports.uploadsFile = async function (req, res, next) {
         //     checkDirectory(DIR + req.body.email[0]);
         //     checkDirectory(DIR + req.body.email[0] + '/' + req.body.projectName[0]);
         // });
+        console.log(req.body.mode)
         if (req.body.mode == 'dictionary') {
             var storage = await multer.diskStorage({
                 destination: function (req, file, cb) {
@@ -258,12 +259,7 @@ exports.uploadsFile = async function (req, res, next) {
                                                 return res.status(204).json({ status: 204, message: "Please create project before upload" });
                                             }
                                         })
-
                                     })
-
-
-
-
                             })
                     }
                 })
