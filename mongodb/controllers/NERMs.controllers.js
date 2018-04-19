@@ -250,6 +250,7 @@ exports.uploadsFile = async function (req, res, next) {
                                                 if (project['selectedDict'].indexOf(p) == -1) {    //check if for no duplication path file in db
                                                     project['selectedDict'].push(p);
                                                 }
+                                                console.log(project)
                                                 NERMService.updateNERM(project);
                                                 return res.status(201).json({ status: 201, message: "File is uploaded" });
                                             }
