@@ -125,7 +125,7 @@ exports.loginNERM = async function (password, id, hash) {
                     resolve(token);
                 }
                 else {
-                    reject();
+                    resolve();
                 }
             })
                 .catch(err => {
