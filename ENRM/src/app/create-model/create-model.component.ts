@@ -83,14 +83,14 @@ export class CreateModelComponent implements OnInit {
           this.project.projectName = data['project']['projectName'];
           this.project.corpus = data['project'].corpus;
           this.project.date = data['project'].date;
-          this.project.dictionary = data['dictionary'].dictionary;
+          this.project.dictionary = data['dictionary'];
           let selectedTmp = data['project'].selectedDict.map((dict, index) => {
             dict['id'] = index;
             dict['itemName'] = dict['fileName'];
             return dict;
           });
           this.selectedItems.patchValue(selectedTmp);
-          this.dropdownList = data['dictionary'].dictionary.map((dict, index) => {
+          this.dropdownList = data['dictionary'].map((dict, index) => {
             dict['id'] = index;
             dict['itemName'] = dict['fileName'];
             return dict;
