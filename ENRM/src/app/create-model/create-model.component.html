@@ -175,7 +175,7 @@
 <body>
   <div class="d-flex flex-column align-items-center">
     <div class="jumbotron special-card d-flex flex-column">
-      <h1 class="display-3">{{model?.projectName}}</h1>
+      <h1 class="display-3">{{project?.projectName}}</h1>
       <ngb-tabset>
         <ngb-tab title="Preprocess">
           <ng-template ngbTabContent>
@@ -200,7 +200,7 @@
             <label style="display:block">Corpus:</label>
             <div class="corpus">
               <div class="list-group scroll list width20">
-                <button type="button" class="list-group-item corpus-file" *ngFor="let c of model.corpus; let i = index" (click)="showCorpus(i)">
+                <button type="button" class="list-group-item corpus-file" *ngFor="let c of project.corpus; let i = index" (click)="showCorpus(i)">
                   <h6 style="word-wrap: break-word; width: 10vw;">{{c?.fileName}}</h6>
                   <span class="fa fa-trash-o trash-icon" aria-hidden="true" (click)="openConfirmModal(delete,i)"></span>
                 </button>
