@@ -149,14 +149,14 @@ exports.loginNERM = async function (req, res, next) {
                         if (token !== undefined)
                             return res.status(201).json({ status: 201, data: usertmp, message: "Succesfully Login" })
                         else
-                            return res.status(201).json({ status: 201, data: usertmp, message: "Wrong password. Try again" })
+                            return res.status(201).json({ status: 201, data: usertmp, message: "Wrong Password. Try again" })
                     })
                     .catch((err) => {
                         return res.status(400).json({ status: 400, data: err, message: "Login Failed" })
                     });
             }
             else {
-                return res.status(201).json({ status: 201, message: "Please create user before login" });
+                return res.status(201).json({ status: 201, message: "Email or Password is incorrect. Try again" });
             }
         });
 
