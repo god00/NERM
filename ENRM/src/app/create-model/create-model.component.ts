@@ -78,7 +78,6 @@ export class CreateModelComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.getProjectSubscribe = this.databaseService.getProject(this.user['email'], encodeURI(<string>this.project.projectName)).subscribe((data) => {
         if (data) {
-          console.log(data)
           this.project._id = data['project']._id;
           this.project.projectName = data['project']['projectName'];
           this.project.corpus = data['project'].corpus;
@@ -121,7 +120,6 @@ export class CreateModelComponent implements OnInit {
     };
     this.uploader.onSuccessItem = (item: any, response: any, status: any, headers: any) => {
       count = 0;
-      console.log(item)
       this.hasError = item.isError;
       if (this.getProjectSubscribe)
         this.getProjectSubscribe.unsubscribe();
