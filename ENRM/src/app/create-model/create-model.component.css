@@ -38,7 +38,8 @@
 }
 
 .width80{
-    width: 80%
+    display: block;
+    width: 80%;
 }
 
 .corpus-file{
