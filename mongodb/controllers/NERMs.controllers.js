@@ -280,6 +280,7 @@ exports.getProject = async function (req, res, next) {
     try {
         var query = NERMProject.findOne({ email: req.param('email'), projectName: decodeURI(req.param('projectName')) });
         query.exec(async function (err, project) {
+            console.log(project)
             if (err) {
                 return res.status(400).json({ status: 400, message: err });
             }
@@ -295,6 +296,7 @@ exports.getProject = async function (req, res, next) {
                     })
             }
             else {
+                console.log("Please create project first")
                 return res.status(204).json({ status: 204, message: "Please create project first" });
             }
         })
