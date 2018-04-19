@@ -285,15 +285,16 @@ exports.getProject = async function (req, res, next) {
             }
             else if (project) {
                 let data = project
-                await getDictByUser(data.email)
+                getDictByUser(data.email)
                     .then((dictionary) => {
                         data['dictionary'] = dictionary;
+                        await beforeSendToFront(data);
+                        return res.status(200).json({ status: 200, data: data, message: "Succesfully nermsdb Recieved" });
                     })
                     .catch(err => {
                         return res.status(200).json({ status: 200, message: "Cannot found dictionary. Please create new project" });
                     })
-                await beforeSendToFront(data)
-                return res.status(200).json({ status: 200, data: data, message: "Succesfully nermsdb Recieved" });
+
             }
             else {
                 return res.status(200).json({ status: 200, message: "Please create project first" });
