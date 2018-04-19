@@ -315,14 +315,12 @@ exports.updateProject = async function (req, res, next) {
                 let selectedDict = await req.body.selectedDict.map(item => { return item.fileName })
                 getDictByUser(req.body.email)
                     .then(async (dictionary) => {
-                        project['dictionary'] = dictionary;
-                        console.log("1 :",project)
-                        addPathsFromFileNames(selectedDict, project.dictionary)
+                        addPathsFromFileNames(selectedDict, dictionary)
                             .then(async (pathsList) => {
                                 project['selectedDict'] = pathsList;
+                                project['dictionary'] = dictionary;
                                 NERMService.updateProject(project);
                                 await beforeSendToFront(project)
-                                console.log(project)
                                 return res.status(201).json({ status: 201, data: project, message: `${decodeURI(req.body.projectName)} Updated` });
                             })
                     })
