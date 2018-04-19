@@ -31,7 +31,7 @@ exports.getItems = async function (req, res, next) {
             var query = NERMProject.find({ email: req.param('email') });
             query.exec(async function (err, items) {
                 if (err) {
-                    return res.status(400).json({ status: 400, message: err.message });
+                    return res.status(400).json({ status: 400, message: err });
                 }
                 else if (items) {
                     return res.status(200).json({ status: 200, data: items, message: "Succesfully nermsdb Recieved" });
@@ -73,7 +73,7 @@ exports.createUser = async function (req, res, next) {
         var query = NERM.findOne({ email: user.email });
         query.exec(async function (err, userDB) {
             if (err)
-                return res.status(400).json({ status: 400., message: err.message });
+                return res.status(400).json({ status: 400., message: err });
             else if (userDB) {
                 return res.status(201).json({ status: 201, data: false, message: "This user already exists" })
             }
@@ -106,7 +106,7 @@ exports.createProject = async function (req, res, next) {
         var query = NERMProject.findOne({ email: nerm.email, projectName: nerm.projectName });
         query.exec(async function (err, project) {
             if (err)
-                return res.status(400).json({ status: 400., message: err.message });
+                return res.status(400).json({ status: 400., message: err });
             else if (project) {
                 return res.status(202).json({ status: 202., duplicate: true, message: "This project name already exists" });
             }
@@ -214,7 +214,7 @@ exports.uploadsFile = async function (req, res, next) {
                                 var query = NERMDict.findOne({ email: req.body.email });
                                 query.exec(async function (err, dictionary) {
                                     if (err) {
-                                        return res.status(400).json({ status: 400., message: err.message });
+                                        return res.status(400).json({ status: 400., message: err });
                                     }
                                     if (dictionary) {
                                         var mode = req.body.mode;
@@ -241,7 +241,7 @@ exports.uploadsFile = async function (req, res, next) {
                                         var query = NERMProject.findOne({ email: req.body.email, projectName: req.body.projectName });
                                         query.exec(async function (err, project) {
                                             if (err) {
-                                                return res.status(400).json({ status: 400., message: err.message });
+                                                return res.status(400).json({ status: 400., message: err });
                                             }
                                             else if (project) {
                                                 var mode = req.body.mode;
@@ -281,7 +281,7 @@ exports.getProject = async function (req, res, next) {
         var query = NERMProject.findOne({ email: req.param('email'), projectName: decodeURI(req.param('projectName')) });
         query.exec(async function (err, project) {
             if (err) {
-                return res.status(400).json({ status: 400, message: err.message });
+                return res.status(400).json({ status: 400, message: err });
             }
             else if (project) {
                 let data = project
@@ -309,7 +309,7 @@ exports.updateProject = async function (req, res, next) {
         var query = NERMProject.findOne({ email: req.body.email, projectName: decodeURI(req.body.projectName) });
         query.exec(async function (err, project) {
             if (err) {
-                return res.status(400).json({ status: 400, message: err.message });
+                return res.status(400).json({ status: 400, message: err });
             }
             else if (project) {
                 let selectedDict = await req.body.selectedDict.map(item => { return item.fileName })
@@ -342,7 +342,7 @@ exports.removeCorpus = async function (req, res, next) {
         var query = NERMProject.findOne({ _id: id });
         query.exec(async function (err, project) {
             if (err) {
-                return res.status(400).json({ status: 400, message: err.message });
+                return res.status(400).json({ status: 400, message: err });
             }
             else if (project) {
                 var list = []

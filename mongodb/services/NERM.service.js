@@ -58,7 +58,13 @@ exports.createUser = async function (user) {
 
         // Saving the user 
         var savedUser = await newUser.save()
-        return savedUser;
+        createDictionaryByUser(user.email)
+            .then((savedDict) => {
+                return { savedUser, savedDict };
+            })
+            .catch((err) => {
+                return err
+            })
     } catch (e) {
 
         // return a Error message describing the reason     
@@ -84,15 +90,7 @@ exports.createProject = async function (nerm) {
     try {
         // Saving the savedProject 
 
-        var query = NERMDict.findOne({ email: req.body.email });
-        await query.exec(async function (err, dictionary) {
-            if (err) {
-                return res.status(400).json({ status: 400., message: err.message });
-            }
-            if (!dictionary) {
-                var savedDict = await newDict.save()
-            }
-        })
+
         var savedProject = await newProject.save()
         return savedProject;
     } catch (e) {
@@ -155,6 +153,24 @@ exports.loginNERM = async function (password, id, hash) {
     catch (e) {
         throw Error("Error Occured while Login")
     }
+}
+
+async function createDictionaryByUser(email) {
+    return new Promise((resolve, reject) => {
+        var query = NERMDict.findOne({ email: email });
+        query.exec(async function (err, dictionary) {
+            if (err) {
+                reject(err);
+            }
+            if (!dictionary) {
+                var savedDict = await newDict.save()
+                resolve(savedDict);
+            }
+            else {
+                reject();
+            }
+        })
+    })
 }
 
 function hashPassword(password) {
