@@ -316,7 +316,7 @@ exports.updateProject = async function (req, res, next) {
                 getDictByUser(req.body.email)
                     .then(async (dictionary) => {
                         project['dictionary'] = dictionary;
-                        console.log(project.dictionary)
+                        console.log("1 :",project)
                         addPathsFromFileNames(selectedDict, project.dictionary)
                             .then(async (pathsList) => {
                                 project['selectedDict'] = pathsList;
