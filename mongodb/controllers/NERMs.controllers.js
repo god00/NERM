@@ -508,17 +508,14 @@ async function runPython(filePath) {
 async function getDictByUser(email) {
     return new Promise((resolve, reject) => {
         var query = NERMDict.findOne({ email: email });
-        query.exec(async function (err, dictionary) {
+        query.exec(async function (err, dict) {
             if (err) {
-                console.log("reject :", err)
                 reject(err);
             }
-            else if (dictionary) {
-                console.log("resolve :", dictionary)
-                resolve(dictionary);
+            else if (dict) {
+                resolve(dict.dictionary);
             }
             else {
-                console.log("reject !")
                 reject();
             }
         })
