@@ -121,11 +121,11 @@ export class CreateModelComponent implements OnInit {
     };
     this.uploader.onSuccessItem = (item: any, response: any, status: any, headers: any) => {
       count = 0;
+      console.log(item)
       this.hasError = item.isError;
       if (this.getProjectSubscribe)
         this.getProjectSubscribe.unsubscribe();
       this.getModel().then(() => {
-        console.log(this.selectedItems)
         var dupSelected = this.selectedItems.value.filter(function (el) {
           return el.fileName === item.file.name;
         });
