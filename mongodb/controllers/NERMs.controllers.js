@@ -285,9 +285,10 @@ exports.getProject = async function (req, res, next) {
             }
             else if (project) {
                 getDictByUser(data.email)
-                    .then(async (dictionary) => {
+                    .then(async (dictObj) => {
                         await beforeSendToFront(data);
-                        return res.status(200).json({ status: 200, data: { project, dictionary }, message: "Succesfully nermsdb Recieved" });
+                        await beforeSendToFront(dictObj);
+                        return res.status(200).json({ status: 200, data: { project, dictionary: dictObj.dictionary }, message: "Succesfully nermsdb Recieved" });
                     })
                     .catch(err => {
                         return res.status(200).json({ status: 200, message: "Cannot found dictionary. Please create new project" });
@@ -312,13 +313,14 @@ exports.updateProject = async function (req, res, next) {
             else if (project) {
                 let selectedDict = await req.body.selectedDict.map(item => { return item.fileName })
                 getDictByUser(req.body.email)
-                    .then(async (dictionary) => {
-                        addPathsFromFileNames(selectedDict, dictionary)
+                    .then(async (dictObj) => {
+                        addPathsFromFileNames(selectedDict, dictObj)
                             .then(async (pathsList) => {
                                 project['selectedDict'] = pathsList;
                                 await NERMService.updateProject(project);
                                 await beforeSendToFront(project)
-                                return res.status(201).json({ status: 201, data: { project, dictionary }, message: `${decodeURI(req.body.projectName)} Updated` });
+                                await beforeSendToFront(dictObj);
+                                return res.status(201).json({ status: 201, data: { project, dictionary: dictObj.dictionary }, message: `${decodeURI(req.body.projectName)} Updated` });
                             })
                     })
                     .catch(err => {
@@ -466,17 +468,17 @@ async function readFile(filePath, files) {
 }
 
 async function beforeSendToFront(project) {
-    if (project.dictionary.length != 0) {
+    if (project.dictionary && project.dictionary.length != 0) {
         await getDataFromPaths(project.dictionary).then(item => {
             project.dictionary = item
         })
     }
-    if (project.corpus.length != 0) {
+    if (project.corpus && project.corpus.length != 0) {
         await getDataFromPaths(project.corpus).then(item => {
             project.corpus = item
         })
     }
-    if (project.selectedDict.length != 0) {
+    if (project.selectedDict && project.selectedDict.length != 0) {
         await getDataFromPaths(project.selectedDict).then(item => {
             project.selectedDict = item
         })
@@ -505,12 +507,12 @@ async function runPython(filePath) {
 async function getDictByUser(email) {
     return new Promise((resolve, reject) => {
         var query = NERMDict.findOne({ email: email });
-        query.exec(async function (err, dict) {
+        query.exec(async function (err, dictObj) {
             if (err) {
                 reject(err);
             }
-            else if (dict) {
-                resolve(dict.dictionary);
+            else if (dictObj) {
+                resolve(dictObj);
             }
             else {
                 reject();
