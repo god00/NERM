@@ -320,10 +320,8 @@ exports.updateProject = async function (req, res, next) {
                             .then((pathsList) => {
                                 project['selectedDict'] = pathsList;
                                 NERMService.updateProject(project);
-                                beforeSendToFront(project).then(data => {
-                                    if (data)
-                                        return res.status(201).json({ status: 201, data: data, message: `${decodeURI(req.body.projectName)} Updated` });
-                                })
+                                await beforeSendToFront(project)
+                                return res.status(201).json({ status: 201, data: project, message: `${decodeURI(req.body.projectName)} Updated` });
                             })
                     })
                     .catch(err => {
@@ -512,12 +510,15 @@ async function getDictByUser(email) {
         var query = NERMDict.findOne({ email: email });
         query.exec(async function (err, dictionary) {
             if (err) {
+                console.log("reject :", err)
                 reject(err);
             }
             else if (dictionary) {
+                console.log("resolve :", dictionary)
                 resolve(dictionary);
             }
             else {
+                console.log("reject !")
                 reject();
             }
         })
