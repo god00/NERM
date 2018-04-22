@@ -187,7 +187,7 @@ export class CreateModelComponent implements OnInit {
 
   updateVocab(i, ev) {
     console.log(i + " : ", this.vocabFeature)
-    console.log(ev)
+    console.log(ev.target.checked)
     if (this.vocabFeature[i] != ev.target.checked)
       this.vocabFeature[i] = ev.target.checked
 
