@@ -50,6 +50,8 @@ export class CreateModelComponent implements OnInit {
   }
 
   ngOnInit() {
+    var b = [false,true,false,false,true,false,false,true,false,true,true]
+    this.vocabFeature = b;
     this.getModel();
     this.createSelectedForm();
     this.dropdownSettings = {
