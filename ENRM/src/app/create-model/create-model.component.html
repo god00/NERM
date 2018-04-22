@@ -78,7 +78,11 @@
       </button>
     </div>
 
-    <input type="file" ng2FileSelect [uploader]="uploader" multiple accept="text/plain"/>
+    <label class="custom-file">
+      <input type="file" ng2FileSelect [uploader]="uploader" multiple accept="text/plain"/>
+      <span class="custom-file-control"></span>
+    </label>
+    
     <br/>
   </div>
   <div class="modal-footer">
@@ -224,6 +228,68 @@
             <select class="form-control" id="sel1">
               <option>CRF++ (default)</option>
             </select>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Feature Selection">
+          <ng-template ngbTabContent>
+            <label for="sel1">Vocabulary Feature:</label>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"> W<sub>-5</sub>
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"> W<sub>-4</sub>
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"> W<sub>-3</sub>
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"> W<sub>-2</sub>
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"> W<sub>-1</sub>
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"> W<sub>0</sub>
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"> W<sub>+1</sub>
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"> W<sub>+2</sub>
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"> W<sub>+3</sub>
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2"> W<sub>+4</sub>
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3"> W<sub>+5</sub>
+              </label>
+            </div>
+
+            <label for="sel1">Dictionary Feature:</label>
           </ng-template>
         </ngb-tab>
       </ngb-tabset>
