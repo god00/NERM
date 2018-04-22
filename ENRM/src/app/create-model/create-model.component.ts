@@ -185,6 +185,10 @@ export class CreateModelComponent implements OnInit {
 
   }
 
+  updateVocab() {
+    console.log(this.vocabFeature)
+  }
+
   // onItemSelect(item: any) {
   //   console.log(this.selectedItems.value);
   // }
