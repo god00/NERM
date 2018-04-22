@@ -185,10 +185,12 @@ export class CreateModelComponent implements OnInit {
 
   }
 
-  updateVocab(i) {
-    console.log(i + " : ",this.vocabFeature)
-    this.vocabFeature[i] = !this.vocabFeature[i]
-    
+  updateVocab(i,ev) {
+    console.log(i + " : ", this.vocabFeature)
+    console.log(ev)
+    if (this.vocabFeature[i] != ev)
+      this.vocabFeature[i] = !this.vocabFeature[i]
+
   }
 
   // onItemSelect(item: any) {
