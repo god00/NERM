@@ -189,6 +189,8 @@ export class CreateModelComponent implements OnInit {
 
   updateVocab(i) {
     console.log(i + " : ",this.vocabFeature)
+    this.vocabFeature[i] = !this.vocabFeature[i]
+    
   }
 
   // onItemSelect(item: any) {
