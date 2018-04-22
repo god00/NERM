@@ -25,19 +25,7 @@ export class CreateModelComponent implements OnInit {
   project: NERMModel = new NERMModel();
   hasError: boolean = false;
   deleteCorpusName: string = '';
-  vocabFeature = {
-    "w0": false,
-    "w1": false,
-    "w2": false,
-    "w3": false,
-    "w4": false,
-    "w5": false,
-    "w6": false,
-    "w7": false,
-    "w8": false,
-    "w9": false,
-    "w10": false,
-  }
+  vocabFeature = new Array(11).fill(false);
 
   //Multiselect Dropdown Parameters
   dropdownList = [];
