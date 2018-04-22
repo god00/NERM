@@ -233,7 +233,7 @@
         <ngb-tab title="Feature Selection">
           <ng-template ngbTabContent>
             <label style="display:block">Vocabulary Feature:</label>
-            <input *ngFor="let value of vocabFeature;let i=index" [(ngModel)]="vocabFeature[i]" style="margin:1vw">
+            <input type="checkbox" *ngFor="let value of vocabFeature;let i=index" [(ngModel)]="vocabFeature[i]" style="margin:1vw">
 
             <!-- <div *ngFor="let value of vocabFeature;let i=index" class="form-check form-check-inline">
               <label class="form-check-label">
