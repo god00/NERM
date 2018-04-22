@@ -234,9 +234,8 @@
           <ng-template ngbTabContent>
             <label style="display:block">Vocabulary Feature:</label>
             <div *ngFor="let value of vocabFeature;let i=index" class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" [(ngModel)]="vocabFeature[i]" (click)="updateVocab(i)">
               <label class="form-check-label">
-                 W<sub>{{i-5}}</sub>
+                <input class="form-check-input" type="checkbox" [checked]="vocabFeature[i]" (change)="vocabFeature[i] = !vocabFeature[i]" (click)="updateVocab(i)"> W<sub>{{i-5}}</sub>
               </label>
             </div>
             <!-- <div class="form-check form-check-inline">
