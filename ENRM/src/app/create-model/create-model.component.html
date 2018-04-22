@@ -235,7 +235,7 @@
             <label style="display:block">Vocabulary Feature:</label>
             <div *ngFor="let value of vocabFeature;let i=index" class="form-check form-check-inline">
               <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" (click)="updateVocab(i)" [(ngModel)]="vocabFeature[i]"  [checked]="value"> W<sub>{{i-5}}  {{value}}</sub>
+                <input class="form-check-input" type="checkbox" (click)="updateVocab(i,$event)" [checked]="vocabFeature[i]"> W<sub>{{i-5}}  {{value}}</sub>
               </label>
             </div>
             <!-- <div class="form-check form-check-inline">
