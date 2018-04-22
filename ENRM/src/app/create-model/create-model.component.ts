@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 
@@ -43,7 +43,6 @@ export class CreateModelComponent implements OnInit {
     private modalService: NgbModal,
     public databaseService: DatabaseService,
     public authenicationService: AuthenticationService,
-    private cdRef:ChangeDetectorRef
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.project.projectName = decodeURI(this.router.url.slice(1, this.router.url.length));
@@ -187,7 +186,6 @@ export class CreateModelComponent implements OnInit {
   }
 
   updateVocab(index: number) {
-    this.cdRef.detectChanges()
     console.log(this.vocabFeature)
   }
 
