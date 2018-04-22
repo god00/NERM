@@ -187,7 +187,7 @@ export class CreateModelComponent implements OnInit {
 
   updateVocab(index: number, value: boolean) {
     console.log(index + " : ", this.vocabFeature)
-    if (this.vocabFeature[index] != value)
+    if (this.vocabFeature[index] == value)
       this.vocabFeature[index] = !value
 
   }
