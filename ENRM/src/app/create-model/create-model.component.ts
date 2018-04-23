@@ -119,6 +119,7 @@ export class CreateModelComponent implements OnInit {
             return { 'dictionary': dict['fileName'], '0': false }
           })
           console.log(this.dictFeature)
+          this.displayedColumns.push('0');
           this.dataSource = new MatTableDataSource(this.dictFeature);
 
         }
