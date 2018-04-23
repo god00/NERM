@@ -234,67 +234,11 @@
           <ng-template ngbTabContent>
             <label style="display:block">Vocabulary Feature:</label>
             <div class="div-section">
-              <section *ngFor="let vocab of vocabFeature;let i=index" class="section-checkbox">
-                <mat-checkbox [(ngModel)]="vocab.selected" (click)="updateVocab(i)"></mat-checkbox>
-                <p>W<sub>{{i-5}}</sub></p> 
+              <section *ngFor="let vocab of vocabFeature" class="section-checkbox">
+                <mat-checkbox [(ngModel)]="vocab.selected" (click)="updateVocab(vocab.id)"></mat-checkbox>
+                <p>W<sub>{{vocab.id}}</sub></p> 
               </section>
             </div>
-            <!-- <div *ngFor="let value of vocabFeature;let i=index" class="form-check form-check-inline">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" [ngModel]="vocabFeature[i]" (click)="updateVocab(i,$event)"> W<sub>{{i-5}}  {{value}}</sub>
-              </label>
-            </div> -->
-            <!-- <div class="form-check form-check-inline">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" [(ngModel)] = "vocabFeature.w9"> W<sub>-4</sub>
-              </label>
-            </div>
-            <div class="form-check form-check-inline">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" [(ngModel)] = "vocabFeature.w8"> W<sub>-3</sub>
-              </label>
-            </div>
-            <div class="form-check form-check-inline">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" [(ngModel)] = "vocabFeature.w7"> W<sub>-2</sub>
-              </label>
-            </div>
-            <div class="form-check form-check-inline">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" [(ngModel)] = "vocabFeature.w6"> W<sub>-1</sub>
-              </label>
-            </div>
-            <div class="form-check form-check-inline">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" [(ngModel)] = "vocabFeature.w0"> W<sub>0</sub>
-              </label>
-            </div>
-            <div class="form-check form-check-inline">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" [(ngModel)] = "vocabFeature.w1"> W<sub>+1</sub>
-              </label>
-            </div>
-            <div class="form-check form-check-inline">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" [(ngModel)] = "vocabFeature.w2"> W<sub>+2</sub>
-              </label>
-            </div>
-            <div class="form-check form-check-inline">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" [(ngModel)] = "vocabFeature.w3"> W<sub>+3</sub>
-              </label>
-            </div>
-            <div class="form-check form-check-inline">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" [(ngModel)] = "vocabFeature.w4"> W<sub>+4</sub>
-              </label>
-            </div>
-            <div class="form-check form-check-inline">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" [(ngModel)] = "vocabFeature.w5"> W<sub>+5</sub>
-              </label>
-            </div> -->
-
             <label style="display:block">Dictionary Feature:</label>
           </ng-template>
         </ngb-tab>

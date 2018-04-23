@@ -37,7 +37,8 @@ export class CreateModelComponent implements OnInit {
     { name: 'W8', selected: false, id: -3 },
     { name: 'W9', selected: false, id: -4 },
     { name: 'W10', selected: false, id: -5 },
-  ]
+  ];
+  dictFeature = [];
 
   //Multiselect Dropdown Parameters
   dropdownList = [];
