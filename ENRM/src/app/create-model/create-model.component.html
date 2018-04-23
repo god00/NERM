@@ -245,7 +245,7 @@
             <mat-table #table [dataSource]="dataSource">
 
                 <!-- Column -->
-              <ng-container *ngFor="let col of displayedColumns" [matColumnDef]="col">
+              <ng-container *ngFor="let col of displayedColumns" *ngIf="col != ''" [matColumnDef]="col">
                 <mat-header-cell *matHeaderCellDef><h6 *ngIf="col !== 'dictionary'">W<sub>{{col}}</sub></h6></mat-header-cell>
                 <mat-cell *matCellDef="let element">
                   <h6 *ngIf="col === 'dictionary';else elsetable">{{element[col]}}</h6>
