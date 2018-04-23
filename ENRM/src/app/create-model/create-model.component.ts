@@ -189,7 +189,7 @@ export class CreateModelComponent implements OnInit {
     setTimeout(() => {
       this.vocabFeature[index] = ev;
       console.log(this.vocabFeature)
-    })
+    },2000)
 
   }
 
