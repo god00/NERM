@@ -26,6 +26,7 @@ export class CreateModelComponent implements OnInit {
   hasError: boolean = false;
   deleteCorpusName: string = '';
   vocabFeature = new Array(11).fill(false);
+  vocabFeatureTmp = new Array(11).fill(false);
 
   //Multiselect Dropdown Parameters
   dropdownList = [];
@@ -190,14 +191,11 @@ export class CreateModelComponent implements OnInit {
 
   }
 
-  updateVocab(index: number) {
-    setTimeout(() => {
-      this.vocabFeature.map(item => {
-        return item
-      })
-    }, 500);
+  updateVocab(index: number, ev: boolean) {
+    this.vocabFeatureTmp[index] = ev
+    this.vocabFeature = this.vocabFeatureTmp;
 
-    console.log(this.vocabFeature)
+      console.log(this.vocabFeature)
   }
 
   // onItemSelect(item: any) {
