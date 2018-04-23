@@ -235,11 +235,11 @@
             <label style="display:block">Vocabulary Feature:</label>
             
 
-            <!-- <div *ngFor="let value of vocabFeature;let i=index" class="form-check form-check-inline">
+            <div *ngFor="let value of vocabFeature;let i=index" class="form-check form-check-inline">
               <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" (click)="updateVocab(i,$event)" [ngModel]="vocabFeature[i]"> W<sub>{{i-5}}  {{value}}</sub>
+                <input class="form-check-input" type="checkbox" (ngModelChange)="updateVocab(i,$event)" [ngModel]="vocabFeature[i]"> W<sub>{{i-5}}  {{value}}</sub>
               </label>
-            </div> -->
+            </div>
             <!-- <div class="form-check form-check-inline">
               <label class="form-check-label">
                 <input class="form-check-input" type="checkbox" id="inlineCheckbox1" [(ngModel)] = "vocabFeature.w9"> W<sub>-4</sub>
@@ -297,12 +297,6 @@
       </ngb-tabset>
 
     </div>
-  </div>
-
-  <div *ngFor="let value of vocabFeature;let i=index" class="form-check form-check-inline">
-    <label class="form-check-label">
-      <input class="form-check-input" type="checkbox" (click)="updateVocab(i,$event)" [ngModel]="vocabFeature[i]"> W<sub>{{i-5}}  {{value}}</sub>
-    </label>
   </div>
 
 </body>
