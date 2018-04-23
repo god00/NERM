@@ -96,6 +96,7 @@ export class CreateModelComponent implements OnInit {
                 return item
             })
           });
+          console.log(selectedTmp)
           this.selectedItems.patchValue(selectedTmp);
 
 
