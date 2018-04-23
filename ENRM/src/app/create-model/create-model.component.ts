@@ -87,8 +87,6 @@ export class CreateModelComponent implements OnInit {
         }
       });
     });
-    console.log(this.project.selectedDict)
-    this.dataSource = new MatTableDataSource(this.project.selectedDict);
   }
 
   createSelectedForm() {
@@ -117,7 +115,8 @@ export class CreateModelComponent implements OnInit {
             return selected[0]
           });
           this.selectedItems.patchValue(selectedTmp);
-
+          console.log(data['project'].selectedDict)
+          this.dataSource = new MatTableDataSource(data['project'].selectedDict);
 
         }
         else {
