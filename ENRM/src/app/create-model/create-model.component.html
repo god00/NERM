@@ -235,8 +235,8 @@
             <label style="display:block">Vocabulary Feature:</label>
             <div class="div-section">
               <section *ngFor="let vocab of vocabFeature" class="section-checkbox">
-                <mat-checkbox *ngIf="vocab.id == 0 ; else elsecheckbox" disabled></mat-checkbox>
-                <mat-checkbox #elsecheckbox [(ngModel)]="vocab.selected" (click)="updateVocab(vocab.id)"></mat-checkbox>
+                <mat-checkbox *ngIf="vocab.id == 0 ; else elsecheckbox" disabled checked></mat-checkbox>
+                <ng-template #elsecheckbox><mat-checkbox [(ngModel)]="vocab.selected" (click)="updateVocab(vocab.id)"></mat-checkbox></ng-template>
                 <p>W<sub>{{vocab.id}}</sub></p> 
               </section>
             </div>
