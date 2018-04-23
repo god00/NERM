@@ -41,7 +41,7 @@ export class CreateModelComponent implements OnInit {
   ];
 
   //dictfeature table 
-  displayedColumns = new Array(12);
+  displayedColumns: any = ["dictionary"];
   dictFeature: any;
   dataSource: any;
 
@@ -68,7 +68,6 @@ export class CreateModelComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.displayedColumns.splice(0, 1, "dictionary");
     this.getModel();
     this.createSelectedForm();
     this.dropdownSettings = {
