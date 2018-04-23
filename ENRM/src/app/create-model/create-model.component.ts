@@ -95,8 +95,7 @@ export class CreateModelComponent implements OnInit {
               if (item.fileName == dict['fileName'])
                 return item
             })
-            console.log(selected)
-            return selected
+            return selected[0]
           });
           console.log(selectedTmp)
           this.selectedItems.patchValue(selectedTmp);
