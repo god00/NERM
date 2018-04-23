@@ -205,8 +205,8 @@ export class CreateModelComponent implements OnInit {
 
   }
 
-  updateVocab(index: number) {
-
+  updateVocab(id: number) {
+    this.displayedColumns.push(`${id}`);
     console.log(this.vocabFeature)
   }
 
