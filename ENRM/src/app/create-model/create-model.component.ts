@@ -210,8 +210,9 @@ export class CreateModelComponent implements OnInit {
 
   }
 
-  updateVocab(id: number) {
-    console.log(id)
+  updateVocab(id: number,checked1) {
+
+    console.log(id, " ; ",checked1)
     let checked = this.vocabFeature.filter((item) => {
       if (item.id == id)
         return item
