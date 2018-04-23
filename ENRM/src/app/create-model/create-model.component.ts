@@ -25,7 +25,7 @@ export class CreateModelComponent implements OnInit {
   project: NERMModel = new NERMModel();
   hasError: boolean = false;
   deleteCorpusName: string = '';
-  vocabFeature = new Array(11).fill(false);
+  vocabFeature = new Array(11);
 
   //Multiselect Dropdown Parameters
   dropdownList = [];
@@ -185,7 +185,11 @@ export class CreateModelComponent implements OnInit {
 
   }
 
-  updateVocab(index: number) {
+  updateVocab(index: number, ev) {
+    if (ev.target.checked)
+      this.vocabFeature[index] = ev.target.checked;
+    else
+      this.vocabFeature[index] = undefined;
     console.log(this.vocabFeature)
   }
 
