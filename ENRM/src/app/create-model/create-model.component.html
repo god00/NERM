@@ -234,8 +234,9 @@
           <ng-template ngbTabContent>
             <label style="display:block">Vocabulary Feature:</label>
             
-            <section *ngFor="let value of vocabFeature;let i=index">
-              <mat-checkbox [ngModel]="vocabFeature[i]" (ngModelChange)="updateVocab(i,$event)">W<sub>{{i-5}}  {{value}}</sub></mat-checkbox>
+            <section *ngFor="let value of vocabFeature;let i=index" style="display: inline-flex;">
+              <mat-checkbox [ngModel]="vocabFeature[i]" (ngModelChange)="updateVocab(i,$event)"></mat-checkbox>
+              <span>W<sub>{{i-5}}  {{value}}</sub></span> 
             </section>
             <!-- <div *ngFor="let value of vocabFeature;let i=index" class="form-check form-check-inline">
               <label class="form-check-label">
