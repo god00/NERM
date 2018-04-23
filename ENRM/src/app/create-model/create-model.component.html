@@ -245,9 +245,9 @@
 
                 <!-- Column -->
               <ng-container *ngFor="let col of displayedColumns" [matColumnDef]="col">
-                <mat-header-cell *matHeaderCellDef><h5 *ngIf="col !== 'dictionary'">W<sub>{{col}}</sub></h5></mat-header-cell>
+                <mat-header-cell *matHeaderCellDef><h6 *ngIf="col !== 'dictionary'">W<sub>{{col}}</sub></h6></mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                  <h5 *ngIf="element.dictionary;else checkbox">{{element[col]}}</h5>
+                  <h6 *ngIf="col === 'dictionary';else checkbox">{{element[col]}}</h6>
                   <ng-template #checkbox><mat-checkbox></mat-checkbox>{{element[col]}}</ng-template>
                 </mat-cell>
               </ng-container>
