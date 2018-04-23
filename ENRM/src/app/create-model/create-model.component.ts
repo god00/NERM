@@ -215,6 +215,7 @@ export class CreateModelComponent implements OnInit {
       if (item.id == id)
         return item.selected
     })
+    console.log(checked)
     if (checked[0]) {
       this.displayedColumns.push(`${id}`)
       // this.displayedColumns.sort((a, b) => { return a - b })
