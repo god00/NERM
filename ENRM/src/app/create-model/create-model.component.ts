@@ -210,17 +210,14 @@ export class CreateModelComponent implements OnInit {
 
   }
 
-  updateVocab(id: number,checked1) {
-
-    console.log(id, " ; ",checked1)
+  updateVocab(id: number) {
     let checked = this.vocabFeature.filter((item) => {
       if (item.id == id)
         return item
     })
-    console.log(checked)
     if (checked[0]) {
       this.displayedColumns.push(`${id}`)
-      // this.displayedColumns.sort((a, b) => { return a - b })
+      this.displayedColumns.sort((a, b) => { return a - b })
       this.dictFeature.map(item => {
         item[id] = false;
         return item
