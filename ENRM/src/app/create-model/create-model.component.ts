@@ -116,7 +116,10 @@ export class CreateModelComponent implements OnInit {
           });
           this.selectedItems.patchValue(selectedTmp);
           console.log(data['project'].selectedDict)
-          this.dataSource = new MatTableDataSource(data['project'].selectedDict);
+          let dictionarys = data['project'].selectedDict.map((dict) => {
+            return { 'Dictionary': dict['filename'] }
+          })
+          this.dataSource = new MatTableDataSource(dictionarys);
 
         }
         else {
