@@ -119,10 +119,9 @@ export class CreateModelComponent implements OnInit {
           this.dictFeature = data['project'].selectedDict.map((dict) => {
             return { 'dictionary': dict['fileName'], '0': false }
           })
-          console.log(this.dictFeature)
           this.displayedColumns.splice(6, 1, '0');
-          console.log(this.displayedColumns)
           this.dataSource = new MatTableDataSource(this.dictFeature);
+          console.log(this.dataSource)
 
         }
         else {
