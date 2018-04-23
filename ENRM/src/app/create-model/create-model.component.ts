@@ -214,7 +214,7 @@ export class CreateModelComponent implements OnInit {
     console.log(id)
     let checked = this.vocabFeature.filter((item) => {
       if (item.id == id)
-        return item.selected
+        return item
     })
     console.log(checked)
     if (checked[0]) {
