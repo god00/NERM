@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
-import {MatTableDataSource} from '@angular/material';
+import { MatTableDataSource } from '@angular/material';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FileUploader, FileItem } from 'ng2-file-upload';
@@ -42,6 +42,7 @@ export class CreateModelComponent implements OnInit {
 
   //dictfeature table 
   displayedColumns = ['Dictionary'];
+  dataSource: any;
   dictFeature = [];
 
   //Multiselect Dropdown Parameters
@@ -86,6 +87,8 @@ export class CreateModelComponent implements OnInit {
         }
       });
     });
+    console.log(this.project.selectedDict)
+    this.dataSource = new MatTableDataSource(this.project.selectedDict);
   }
 
   createSelectedForm() {
