@@ -88,9 +88,9 @@ export class CreateModelComponent implements OnInit {
           this.dropdownList = data['dictionary'].map((dict, index) => {
             dict['id'] = index;
             dict['itemName'] = dict['fileName'];
-            this.dropdownList.push(dict);
+            return dict
           });
-          let selectedTmp = data['project'].selectedDict.map((dict, index) => {
+          let selectedTmp = data['project'].selectedDict.map((dict) => {
             let selected = this.dropdownList.filter(item => {
               if (item.fileName == dict['fileName'])
                 return item
