@@ -191,10 +191,10 @@ export class CreateModelComponent implements OnInit {
 
   }
 
-  updateVocab(index: number, ev: boolean) {
+  updateVocab(index: number, ev: any) {
     this.cdRef.detectChanges();
-    if (this.vocabFeature[index] != ev)
-      this.vocabFeature[index] = ev
+    if (this.vocabFeature[index] != ev.target.checked)
+      this.vocabFeature[index] = ev.target.checked
 
     console.log(this.vocabFeature)
   }
