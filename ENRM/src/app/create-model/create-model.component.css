@@ -50,5 +50,9 @@
 .section-checkbox{
     display: inline-flex;
     flex-direction: column;
+}
+
+.div-section{
+    display: flex;
     align-content: space-around;
 }
