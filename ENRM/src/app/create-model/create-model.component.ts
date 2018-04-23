@@ -41,7 +41,7 @@ export class CreateModelComponent implements OnInit {
   ];
 
   //dictfeature table 
-  displayedColumns = ["dictionary"];
+  displayedColumns = new Array(12);
   dictFeature: any;
   dataSource: any;
 
@@ -68,6 +68,7 @@ export class CreateModelComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.displayedColumns.splice(0, 1, "dictionary");
     this.getModel();
     this.createSelectedForm();
     this.dropdownSettings = {
@@ -119,7 +120,7 @@ export class CreateModelComponent implements OnInit {
             return { 'dictionary': dict['fileName'], '0': false }
           })
           console.log(this.dictFeature)
-          this.displayedColumns.push('0');
+          this.displayedColumns.splice(6, 1, '0');
           this.dataSource = new MatTableDataSource(this.dictFeature);
 
         }
@@ -213,11 +214,21 @@ export class CreateModelComponent implements OnInit {
   }
 
   updateVocab(id: number) {
-    this.displayedColumns.push(`${id}`);
-    this.dictFeature.map(item => {
-      item[id] = false;
-      return item
-    })
+    if (this.vocabFeature[id]) {
+      this.displayedColumns.splice(id + 6, 1, id)
+      this.dictFeature.map(item => {
+        item[id] = false;
+        return item
+      })
+    }
+    else {
+      this.displayedColumns.splice(id + 6, 1, undefined)
+      this.dictFeature.map(item => {
+        if (item[id])
+          delete item[id];
+        return item
+      })
+    }
   }
 
   // onItemSelect(item: any) {
