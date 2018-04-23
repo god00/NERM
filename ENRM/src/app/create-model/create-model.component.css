@@ -46,3 +46,9 @@
     display: flex;
     justify-content: space-between;
 }
+
+.section-checkbox{
+    display: inline-flex;
+    flex-direction: column;
+    margin-right: 1vw;
+}
