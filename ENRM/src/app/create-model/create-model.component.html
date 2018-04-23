@@ -237,9 +237,10 @@
 
             <div *ngFor="let value of vocabFeature;let i=index" class="form-check form-check-inline">
               <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" (change)="updateVocab(i,$event)" [checked]="vocabFeature[i] == true"> W<sub>{{i-5}}  {{value}}</sub>
+                <input class="form-check-input" type="checkbox" (change)="updateVocab(i,$event)" [ngChecked]="vocabFeature[i] == true"> W<sub>{{i-5}}  {{value}}</sub>
               </label>
             </div>
+            <mat-checkbox>Checked</mat-checkbox>
             <!-- <div class="form-check form-check-inline">
               <label class="form-check-label">
                 <input class="form-check-input" type="checkbox" id="inlineCheckbox1" [(ngModel)] = "vocabFeature.w9"> W<sub>-4</sub>
