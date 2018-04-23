@@ -236,7 +236,7 @@
             
             <section *ngFor="let value of vocabFeature;let i=index" class="section-checkbox">
               <mat-checkbox [ngModel]="vocabFeature[i]" (ngModelChange)="updateVocab(i,$event)"></mat-checkbox>
-              <p>W<sub>{{i-5}}  {{value}}</sub></p> 
+              <p>W<sub>{{i-5}}</sub></p> 
             </section>
             <!-- <div *ngFor="let value of vocabFeature;let i=index" class="form-check form-check-inline">
               <label class="form-check-label">
