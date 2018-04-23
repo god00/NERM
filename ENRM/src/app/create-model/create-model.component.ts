@@ -91,10 +91,12 @@ export class CreateModelComponent implements OnInit {
             this.dropdownList.push(dict);
           });
           let selectedTmp = data['project'].selectedDict.map((dict, index) => {
-            return this.dropdownList.filter(item => {
+            let selected = this.dropdownList.filter(item => {
               if (item.fileName == dict['fileName'])
                 return item
             })
+            console.log(selected)
+            return selected
           });
           console.log(selectedTmp)
           this.selectedItems.patchValue(selectedTmp);
