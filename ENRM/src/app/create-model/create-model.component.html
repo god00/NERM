@@ -235,7 +235,7 @@
             <label style="display:block">Vocabulary Feature:</label>
             <div class="div-section">
               <section *ngFor="let value of vocabFeature;let i=index" class="section-checkbox">
-                <mat-checkbox [ngModel]="vocabFeature[i]"  (click)="updateVocab(i,$event)"></mat-checkbox>
+                <mat-checkbox (ngModel)="vocabFeature[i]"  (click)="updateVocab(i,$event)"></mat-checkbox>
                 <p>W<sub>{{i-5}}</sub></p> 
               </section>
             </div>

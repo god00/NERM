@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 
@@ -16,7 +16,6 @@ const nermUrl = `${appConfig.apiUrl}/api/nerms/uploads`;
 @Component({
   selector: 'app-create-model',
   templateUrl: './create-model.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./create-model.component.css']
 })
 
@@ -27,6 +26,7 @@ export class CreateModelComponent implements OnInit {
   hasError: boolean = false;
   deleteCorpusName: string = '';
   vocabFeature = new Array(11).fill(false);
+  vocabFeatureSelected = new Array(11).fill(false);
 
   //Multiselect Dropdown Parameters
   dropdownList = [];
@@ -44,7 +44,6 @@ export class CreateModelComponent implements OnInit {
     private modalService: NgbModal,
     public databaseService: DatabaseService,
     public authenicationService: AuthenticationService,
-    private cdRef: ChangeDetectorRef
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.project.projectName = decodeURI(this.router.url.slice(1, this.router.url.length));
