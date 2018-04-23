@@ -215,17 +215,19 @@ export class CreateModelComponent implements OnInit {
 
   updateVocab(id: number) {
     if (this.vocabFeature[id]) {
-      this.displayedColumns.splice(id + 6, 1, id)
+      this.displayedColumns.push(id)
+      this.displayedColumns.sort((a, b) => { return a - b })
       this.dictFeature.map(item => {
         item[id] = false;
         return item
       })
     }
     else {
-      this.displayedColumns.splice(id + 6, 1, undefined)
+      let index = this.displayedColumns.indexOf(`${id}`)
+      this.displayedColumns.splice(index, 1)
       this.dictFeature.map(item => {
-        if (item[id])
-          delete item[id];
+        if (item[index])
+          delete item[index];
         return item
       })
     }
