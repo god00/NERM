@@ -120,8 +120,6 @@ export class CreateModelComponent implements OnInit {
           })
           this.displayedColumns.splice(6, 1, '0');
           this.dataSource = new MatTableDataSource(this.dictFeature);
-          console.log(this.dataSource)
-
         }
         else {
           console.log('No model');
@@ -212,9 +210,12 @@ export class CreateModelComponent implements OnInit {
 
   }
 
-  updateVocab(id: number, checked: boolean) {
-    console.log(this.vocabFeature)
-    if (checked) {
+  updateVocab(id: number) {
+    let checked = this.vocabFeature.filter((item) => {
+      if (item.id == id)
+        return item.selected
+    })
+    if (checked[0]) {
       this.displayedColumns.push(`${id}`)
       // this.displayedColumns.sort((a, b) => { return a - b })
       this.dictFeature.map(item => {
