@@ -186,12 +186,11 @@ export class CreateModelComponent implements OnInit {
   }
 
   updateVocab(index: number, ev) {
-    console.log(ev)
     setTimeout(() => {
-      if (ev.target.checked)
-        this.vocabFeature[index] = ev.target.checked;
-      else
-        this.vocabFeature[index] = undefined;
+      // if (ev.target.checked)
+      //   this.vocabFeature[index] = ev.target.checked;
+      // else
+      //   this.vocabFeature[index] = undefined;
       console.log(this.vocabFeature)
     }, 1000)
 
