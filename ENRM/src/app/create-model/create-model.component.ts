@@ -185,14 +185,8 @@ export class CreateModelComponent implements OnInit {
 
   }
 
-  updateVocab(index: number, ev: any) {
-    setTimeout(() => {
-      console.log(this.vocabFeature[index], " , ", this.vocabFeature[index + 1])
-      this.vocabFeature[index] = ev.target.checked;
-    }, 500)
-
-
-
+  updateVocab(index: number) {
+    console.log(this.vocabFeature)
   }
 
   // onItemSelect(item: any) {

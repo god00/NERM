@@ -235,7 +235,7 @@
             <label style="display:block">Vocabulary Feature:</label>
             
             <section *ngFor="let value of vocabFeature;let i=index">
-              <mat-checkbox [ngModel]="vocabFeature[i]" (click)="updateVocab(i,$event)">Checked</mat-checkbox>
+              <mat-checkbox [(ngModel)]="vocabFeature[i]" (click)="updateVocab(i)">Checked</mat-checkbox>
             </section>
             <!-- <div *ngFor="let value of vocabFeature;let i=index" class="form-check form-check-inline">
               <label class="form-check-label">
