@@ -187,8 +187,8 @@ export class CreateModelComponent implements OnInit {
 
   updateVocab(index: number, ev) {
     console.log(ev)
-    if (ev)
-      this.vocabFeature[index] = ev;
+    if (ev.target.checked)
+      this.vocabFeature[index] = ev.target.checked;
     else
       this.vocabFeature[index] = undefined;
     console.log(this.vocabFeature)
