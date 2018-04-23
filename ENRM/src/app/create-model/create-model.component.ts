@@ -60,7 +60,7 @@ export class CreateModelComponent implements OnInit {
       enableSearchFilter: true,
     };
     this.selectedSubscribe = this.selectedItems.valueChanges.subscribe((selected) => {
-      console.log(selected)
+      console.log(this.selectedItems.value)
       if (this.updateProjectSubscribe)
         this.updateProjectSubscribe.unsubscribe();
       this.project.selectedDict = this.selectedItems.value;
@@ -85,17 +85,20 @@ export class CreateModelComponent implements OnInit {
           this.project.corpus = data['project'].corpus;
           this.project.date = data['project'].date;
           this.project.dictionary = data['dictionary'];
-          let selectedTmp = data['project'].selectedDict.map((dict, index) => {
-            dict['id'] = index;
-            dict['itemName'] = dict['fileName'];
-            return dict;
-          });
-          this.selectedItems.patchValue(selectedTmp);
           this.dropdownList = data['dictionary'].map((dict, index) => {
             dict['id'] = index;
             dict['itemName'] = dict['fileName'];
-            return dict;
+            this.dropdownList.push(dict);
           });
+          let selectedTmp = data['project'].selectedDict.map((dict, index) => {
+            return this.dropdownList.filter(item => {
+              if (item.fileName == dict['fileName'])
+                return item
+            })
+          });
+          this.selectedItems.patchValue(selectedTmp);
+
+
         }
         else {
           console.log('No model');
