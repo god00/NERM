@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule } from "@angular/router";
+import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 import { AppComponent } from './app.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -50,7 +52,10 @@ const routes: Routes = [
     HttpClientModule,
     FormsModule,
     FileUploadModule,
-    AngularMultiSelectModule
+    AngularMultiSelectModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatCheckboxModule
   ],
   providers: [
     DatabaseService,
@@ -58,7 +63,7 @@ const routes: Routes = [
     AuthGuard,
   ],
   bootstrap: [AppComponent],
-  entryComponents :[
+  entryComponents: [
     CreateModelComponent
   ]
 })
