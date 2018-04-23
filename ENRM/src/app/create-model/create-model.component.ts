@@ -37,13 +37,13 @@ export class CreateModelComponent implements OnInit {
     { name: 'W2', selected: false, id: 2 },
     { name: 'W3', selected: false, id: 3 },
     { name: 'W4', selected: false, id: 4 },
-    { name: 'W5', selected: false, id: 5 },    
+    { name: 'W5', selected: false, id: 5 },
   ];
 
   //dictfeature table 
   displayedColumns = ["dictionary"];
+  dictFeature: any;
   dataSource: any;
-  dictFeature = [];
 
   //Multiselect Dropdown Parameters
   dropdownList = [];
@@ -115,11 +115,11 @@ export class CreateModelComponent implements OnInit {
             return selected[0]
           });
           this.selectedItems.patchValue(selectedTmp);
-          let dictionarys = data['project'].selectedDict.map((dict) => {
+          this.dictFeature = data['project'].selectedDict.map((dict) => {
             return { 'dictionary': dict['fileName'] }
           })
-          console.log(dictionarys)
-          this.dataSource = new MatTableDataSource(dictionarys);
+          console.log(this.dictFeature)
+          this.dataSource = new MatTableDataSource(this.dictFeature);
 
         }
         else {
@@ -213,7 +213,10 @@ export class CreateModelComponent implements OnInit {
 
   updateVocab(id: number) {
     this.displayedColumns.push(`${id}`);
-    console.log(this.vocabFeature)
+    this.dictFeature.map(item => {
+      item[id] = false;
+      return item
+    })
   }
 
   // onItemSelect(item: any) {
