@@ -116,6 +116,7 @@ export class CreateModelComponent implements OnInit {
           });
           this.selectedItems.patchValue(selectedTmp);
           let dictionarys = data['project'].selectedDict.map((dict) => {
+            console.log(dict)
             return { 'dictionary': dict['filename'] }
           })
           console.log(dictionarys)
