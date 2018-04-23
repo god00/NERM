@@ -97,7 +97,6 @@ export class CreateModelComponent implements OnInit {
             })
             return selected[0]
           });
-          console.log(selectedTmp)
           this.selectedItems.patchValue(selectedTmp);
 
 
@@ -192,6 +191,9 @@ export class CreateModelComponent implements OnInit {
   }
 
   updateVocab(index: number) {
+    this.vocabFeature.map(item => {
+      return item
+    })
     console.log(this.vocabFeature)
   }
 
