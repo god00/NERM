@@ -60,6 +60,7 @@ export class CreateModelComponent implements OnInit {
       enableSearchFilter: true,
     };
     this.selectedSubscribe = this.selectedItems.valueChanges.subscribe((selected) => {
+      console.log(this.selectedItems)
       if (this.updateProjectSubscribe)
         this.updateProjectSubscribe.unsubscribe();
       this.project.selectedDict = this.selectedItems.value;
