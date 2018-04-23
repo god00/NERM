@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 
@@ -16,6 +16,7 @@ const nermUrl = `${appConfig.apiUrl}/api/nerms/uploads`;
 @Component({
   selector: 'app-create-model',
   templateUrl: './create-model.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./create-model.component.css']
 })
 
