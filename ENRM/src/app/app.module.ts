@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule } from "@angular/router";
-import { MatCheckboxModule } from '@angular/material';
+import { MatCheckboxModule, MatTableModule } from '@angular/material';
 import { AppComponent } from './app.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -54,7 +54,8 @@ const routes: Routes = [
     FileUploadModule,
     AngularMultiSelectModule,
     BrowserAnimationsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTableModule
   ],
   providers: [
     DatabaseService,
