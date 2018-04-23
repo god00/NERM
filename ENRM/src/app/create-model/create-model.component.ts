@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 
@@ -26,7 +26,6 @@ export class CreateModelComponent implements OnInit {
   hasError: boolean = false;
   deleteCorpusName: string = '';
   vocabFeature = new Array(11).fill(false);
-  vocabFeatureTmp = new Array(11).fill(false);
 
   //Multiselect Dropdown Parameters
   dropdownList = [];
@@ -44,6 +43,7 @@ export class CreateModelComponent implements OnInit {
     private modalService: NgbModal,
     public databaseService: DatabaseService,
     public authenicationService: AuthenticationService,
+    private cdRef: ChangeDetectorRef
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.project.projectName = decodeURI(this.router.url.slice(1, this.router.url.length));
@@ -191,10 +191,11 @@ export class CreateModelComponent implements OnInit {
   }
 
   updateVocab(index: number, ev: boolean) {
-    this.vocabFeatureTmp[index] = ev
-    this.vocabFeature = this.vocabFeatureTmp;
+    this.cdRef.detectChanges();
+    if (this.vocabFeature[index] != ev)
+      this.vocabFeature[index] = ev
 
-      console.log(this.vocabFeature)
+    console.log(this.vocabFeature)
   }
 
   // onItemSelect(item: any) {
