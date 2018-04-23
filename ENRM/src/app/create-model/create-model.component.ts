@@ -32,7 +32,7 @@ export class CreateModelComponent implements OnInit {
     { name: 'W8', selected: false, id: -3 },
     { name: 'W7', selected: false, id: -2 },
     { name: 'W6', selected: false, id: -1 },
-    { name: 'W0', selected: false, id: 0 },
+    { name: 'W0', selected: true, id: 0 },
     { name: 'W1', selected: false, id: 1 },
     { name: 'W2', selected: false, id: 2 },
     { name: 'W3', selected: false, id: 3 },

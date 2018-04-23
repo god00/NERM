@@ -235,7 +235,8 @@
             <label style="display:block">Vocabulary Feature:</label>
             <div class="div-section">
               <section *ngFor="let vocab of vocabFeature" class="section-checkbox">
-                <mat-checkbox [(ngModel)]="vocab.selected" (click)="updateVocab(vocab.id)"></mat-checkbox>
+                <mat-checkbox *ngIf="vocab.id == 0 ; else elsecheckbox" disabled></mat-checkbox>
+                <mat-checkbox #elsecheckbox [(ngModel)]="vocab.selected" (click)="updateVocab(vocab.id)"></mat-checkbox>
                 <p>W<sub>{{vocab.id}}</sub></p> 
               </section>
             </div>
@@ -247,8 +248,8 @@
               <ng-container *ngFor="let col of displayedColumns" [matColumnDef]="col">
                 <mat-header-cell *matHeaderCellDef><h6 *ngIf="col !== 'dictionary'">W<sub>{{col}}</sub></h6></mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                  <h6 *ngIf="col === 'dictionary';else checkbox">{{element[col]}}</h6>
-                  <ng-template #checkbox><mat-checkbox></mat-checkbox>{{element[col]}}</ng-template>
+                  <h6 *ngIf="col === 'dictionary';else elsetable">{{element[col]}}</h6>
+                  <ng-template #elsetable><mat-checkbox></mat-checkbox>{{element[col]}}</ng-template>
                 </mat-cell>
               </ng-container>
             
