@@ -48,7 +48,6 @@
 }
 
 .section-checkbox{
-    display: inline-flex;
     flex-direction: column;
 }
 
