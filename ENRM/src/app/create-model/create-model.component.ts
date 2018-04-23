@@ -213,7 +213,7 @@ export class CreateModelComponent implements OnInit {
   }
 
   updateVocab(id: number, checked: boolean) {
-    console.log(checked)
+    console.log(this.vocabFeature)
     if (checked) {
       this.displayedColumns.push(`${id}`)
       // this.displayedColumns.sort((a, b) => { return a - b })
