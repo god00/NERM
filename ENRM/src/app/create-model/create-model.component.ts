@@ -121,6 +121,7 @@ export class CreateModelComponent implements OnInit {
           })
           console.log(this.dictFeature)
           this.displayedColumns.splice(6, 1, '0');
+          console.log(this.displayedColumns)
           this.dataSource = new MatTableDataSource(this.dictFeature);
 
         }
