@@ -191,9 +191,12 @@ export class CreateModelComponent implements OnInit {
   }
 
   updateVocab(index: number) {
-    this.vocabFeature.map(item => {
-      return item
-    })
+    setTimeout(() => {
+      this.vocabFeature.map(item => {
+        return item
+      })
+    }, 500);
+
     console.log(this.vocabFeature)
   }
 
