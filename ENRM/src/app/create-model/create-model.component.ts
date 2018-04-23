@@ -27,17 +27,17 @@ export class CreateModelComponent implements OnInit {
   hasError: boolean = false;
   deleteCorpusName: string = '';
   vocabFeature = [
+    { name: 'W10', selected: false, id: -5 },
+    { name: 'W9', selected: false, id: -4 },
+    { name: 'W8', selected: false, id: -3 },
+    { name: 'W7', selected: false, id: -2 },
+    { name: 'W6', selected: false, id: -1 },
     { name: 'W0', selected: false, id: 0 },
     { name: 'W1', selected: false, id: 1 },
     { name: 'W2', selected: false, id: 2 },
     { name: 'W3', selected: false, id: 3 },
     { name: 'W4', selected: false, id: 4 },
-    { name: 'W5', selected: false, id: 5 },
-    { name: 'W6', selected: false, id: -1 },
-    { name: 'W7', selected: false, id: -2 },
-    { name: 'W8', selected: false, id: -3 },
-    { name: 'W9', selected: false, id: -4 },
-    { name: 'W10', selected: false, id: -5 },
+    { name: 'W5', selected: false, id: 5 },    
   ];
 
   //dictfeature table 
