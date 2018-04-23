@@ -41,7 +41,7 @@ export class CreateModelComponent implements OnInit {
   ];
 
   //dictfeature table 
-  displayedColumns = ['Dictionary'];
+  displayedColumns = ["dictionary"];
   dataSource: any;
   dictFeature = [];
 
@@ -117,7 +117,7 @@ export class CreateModelComponent implements OnInit {
           this.selectedItems.patchValue(selectedTmp);
           console.log(data['project'].selectedDict)
           let dictionarys = data['project'].selectedDict.map((dict) => {
-            return { 'Dictionary': dict['filename'] }
+            return { 'dictionary': dict['filename'] }
           })
           this.dataSource = new MatTableDataSource(dictionarys);
 
