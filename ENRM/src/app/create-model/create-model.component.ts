@@ -40,6 +40,7 @@ export class CreateModelComponent implements OnInit {
     { name: 'W4', selected: false, id: 4 },
     { name: 'W5', selected: false, id: 5 },
   ];
+  isSummit: boolean = false;
 
   //dictfeature table 
   displayedColumns: any = ["dictionary"];
@@ -233,7 +234,6 @@ export class CreateModelComponent implements OnInit {
   }
 
   updateDictFeature(id: string, element: any) {
-    console.log(element)
     console.log(this.dataSource.data)
   }
 
