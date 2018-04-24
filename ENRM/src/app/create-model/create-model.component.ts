@@ -123,12 +123,12 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           }
 
           this.dataSource = new MatTableDataSource(this.dictFeature);
-          // if (this.project.summitPreProcessing) {
-          //   this.activeIdString = "featureSelection"
-          // }
-          // else{
-          //   this.activeIdString = "preProcess"
-          // }
+          if (this.project.summitPreProcessing) {
+            this.activeIdString = "featureSelection"
+          }
+          else{
+            this.activeIdString = "preProcess"
+          }
         }
         else {
           console.log('No model');
