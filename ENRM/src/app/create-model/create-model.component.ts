@@ -211,7 +211,7 @@ export class CreateModelComponent implements OnInit {
 
   }
 
-  updateVocab(id: number, checked: boolean) {
+  updateVocabFeature(id: number, checked: boolean) {
     if (!checked) {
       this.displayedColumns.push(`${id}`)
       this.displayedColumns.sort((a, b) => { return a - b })
@@ -232,6 +232,10 @@ export class CreateModelComponent implements OnInit {
         return item
       })
     }
+  }
+
+  updateDictFeature(id: string, element: any) {
+    console.log(element)
   }
 
   // onItemSelect(item: any) {
