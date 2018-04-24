@@ -112,6 +112,13 @@ export class CreateModelComponent implements OnInit, OnDestroy {
             return selected[0]
           });
           this.selectedItems.patchValue(selectedTmp);
+          this.displayedColumns.push(`0`)
+          this.project.featureSelection['vocabFeature'].forEach(item => {
+            if (item.selected) {
+              this.displayedColumns.push(`${item.id}`)
+              this.displayedColumns.sort((a, b) => { return a - b })
+            }
+          });
           if (this.project.featureSelection['dictFeature'].length != 0) {
             this.dictFeature = this.project.featureSelection['dictFeature'];
           }
@@ -122,14 +129,8 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           }
           console.log(this.dictFeature)
           console.log(this.project.featureSelection)
-          this.displayedColumns.push(`0`)
-          this.project.featureSelection['vocabFeature'].forEach(item => {
-            console.log(item)
-            if(item.selected){
-              this.displayedColumns.push(`${item.id}`)
-            }
-          });
-          this.displayedColumns.sort((a, b) => { return a - b })
+
+
           this.dataSource = new MatTableDataSource(this.dictFeature);
           if (this.project.summitPreProcessing) {
             this.buttonElement.click();
