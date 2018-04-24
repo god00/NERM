@@ -225,7 +225,8 @@ export class CreateModelComponent implements OnInit {
     }
     else {
       let index = this.displayedColumns.indexOf(id)
-      this.displayedColumns.splice(index, 1)
+      if (index != -1)
+        this.displayedColumns.splice(index, 1)
       this.dictFeature.map(item => {
         if (item[index])
           delete item[index];
