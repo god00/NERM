@@ -16,7 +16,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-light btn-lg" (click)="c('Close click')">Cancel</button>
-    <button class="btn btn-primary btn-lg" (click)="createProject()" [disabled]="newProjectName == '' && clickCreate">Create</button>
+    <button class="btn btn-primary btn-lg" (click)="createProject()" [disabled]="newProjectName == '' || clickCreate">Create</button>
   </div>
 </ng-template>
 <!--  -->
