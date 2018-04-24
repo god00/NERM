@@ -58,6 +58,7 @@
 }
 
 mat-checkbox{
+    display: content;
     max-width: 1.5vw;
     max-height: 1.5vw;
 }
