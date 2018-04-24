@@ -134,7 +134,10 @@ export class CreateModelComponent implements OnInit {
   }
 
   showCorpus(index: number) {
-    this.showText = this.project.corpus[index];
+    if (this.showText != this.project.corpus[index])
+      this.showText = this.project.corpus[index];
+    else
+      this.showText = {}
   }
 
   uploadModal(content, mode) {
