@@ -180,8 +180,8 @@
   <div class="d-flex flex-column align-items-center">
     <div class="jumbotron special-card d-flex flex-column">
       <h1 class="display-3">{{project?.projectName}}</h1>
-      <ngb-tabset #t="ngbTabset">
-        <ngb-tab title="Preprocess" [disabled] = "project.summitPreProcessing">
+      <ngb-tabset #t="ngbTabset" [activeId]="activeIdString">
+        <ngb-tab id="preProcess" title="Preprocess" [disabled] = "project.summitPreProcessing">
           <ng-template ngbTabContent>
             <!-- select field -->
             <label style="display:block">Select Dictionary:</label>

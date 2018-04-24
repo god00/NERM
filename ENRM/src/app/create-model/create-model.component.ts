@@ -27,8 +27,8 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   project: NERMModel = new NERMModel();
   hasError: boolean = false;
   deleteCorpusName: string = '';
-
-  buttonElement: any
+  activeIdString: string;
+  buttonElement: any;
 
   //dictfeature table 
   displayedColumns: any = ["dictionary"];
@@ -129,7 +129,11 @@ export class CreateModelComponent implements OnInit, OnDestroy {
 
           this.dataSource = new MatTableDataSource(this.dictFeature);
           if (this.project.summitPreProcessing) {
-            this.buttonElement.click();
+            this.activeIdString = "featureSelection"
+            // this.buttonElement.click();
+          }
+          else{
+            this.activeIdString = "preProcess"
           }
         }
         else {
