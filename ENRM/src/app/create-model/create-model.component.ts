@@ -84,6 +84,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
 
   ngAfterViewInit() {
     let t = document.getElementById('summit-button')
+    t.click()
     console.log(t)
   }
 
