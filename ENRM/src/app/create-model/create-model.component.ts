@@ -253,6 +253,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     }
     if (this.updateProjectSubscribe)
       this.updateProjectSubscribe.unsubscribe();
+    this.project.featureSelection['dictFeature'] = this.dictFeature
     this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
       if (res) {
         console.log("updateVocabFeature", res.message)
