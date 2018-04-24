@@ -224,7 +224,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       this.project.selectedDict = this.selectedItems.value;
       this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
         if (res) {
-          console.log(res.message)
+          console.log("updateSelectedDict", res.message)
         }
       });
     });
@@ -253,7 +253,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       this.updateProjectSubscribe.unsubscribe();
     this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
       if (res) {
-        console.log(res.message)
+        console.log("updateVocabFeature", res.message)
       }
     });
   }
@@ -265,7 +265,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       this.updateProjectSubscribe.unsubscribe();
     this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
       if (res) {
-        console.log(res.message)
+        console.log("updateDictFeature", res.message)
       }
     });
   }
