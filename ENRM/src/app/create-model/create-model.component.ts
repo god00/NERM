@@ -225,6 +225,7 @@ export class CreateModelComponent implements OnInit {
     }
     else {
       let index = this.displayedColumns.indexOf(id)
+      console.log(index)
       if (index != -1)
         this.displayedColumns.splice(index, 1)
       this.dictFeature.map(item => {
