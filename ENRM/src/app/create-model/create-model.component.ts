@@ -120,6 +120,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
               return { 'dictionary': dict['fileName'], '0': false }
             })
           }
+          console.log(this.dictFeature)
           this.displayedColumns.splice(6, 1, '0');
           this.dataSource = new MatTableDataSource(this.dictFeature);
           if (this.project.summitPreProcessing) {
