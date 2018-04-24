@@ -222,8 +222,6 @@ export class CreateModelComponent implements OnInit {
     }
     else {
       let index = this.displayedColumns.indexOf(`${id}`)
-      console.log(this.displayedColumns)
-      console.log(index)
       if (index != -1)
         this.displayedColumns.splice(index, 1)
       this.dictFeature.map(item => {
@@ -236,6 +234,7 @@ export class CreateModelComponent implements OnInit {
 
   updateDictFeature(id: string, element: any) {
     console.log(element)
+    console.log(this.dataSource.data)
   }
 
   // onItemSelect(item: any) {
