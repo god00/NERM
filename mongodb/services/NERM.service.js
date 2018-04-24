@@ -94,8 +94,9 @@ exports.createProject = async function (nerm) {
                 { name: 'W4', selected: false, id: 4 },
                 { name: 'W5', selected: false, id: 5 },
             ],
+            dictFeature: [],
         },
-        dictFeature: [],
+
     })
 
     try {
