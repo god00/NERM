@@ -221,7 +221,7 @@ export class CreateModelComponent implements OnInit {
       })
     }
     else {
-      let index = this.displayedColumns.indexOf(id)
+      let index = this.displayedColumns.indexOf(`${id}`)
       console.log(this.displayedColumns)
       console.log(index)
       if (index != -1)
