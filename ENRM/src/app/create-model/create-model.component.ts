@@ -212,8 +212,6 @@ export class CreateModelComponent implements OnInit {
   }
 
   updateVocab(id: number, checked: boolean) {
-    let dom = document.getElementById(`${id}`);
-    console.log(dom)
     if (!checked) {
       this.displayedColumns.push(`${id}`)
       this.displayedColumns.sort((a, b) => { return a - b })
