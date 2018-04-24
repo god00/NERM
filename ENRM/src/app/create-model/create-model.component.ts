@@ -28,7 +28,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   hasError: boolean = false;
   deleteCorpusName: string = '';
   activeIdString: string;
-  buttonElement: any;
 
   //dictfeature table 
   displayedColumns: any = ["dictionary"];
@@ -55,10 +54,10 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.project.projectName = decodeURI(this.router.url.slice(1, this.router.url.length));
     this.project.email = this.user['email'];
-    this.getModel();
   }
 
   ngOnInit() {
+    this.getModel();
     this.createSelectedForm();
     this.dropdownSettings = {
       singleSelection: false,
@@ -68,10 +67,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       enableSearchFilter: true,
     };
     this.updateSelectedDict()
-  }
-
-  ngAfterViewInit() {
-    this.buttonElement = document.getElementById('summit-button')
   }
 
 
@@ -130,7 +125,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           this.dataSource = new MatTableDataSource(this.dictFeature);
           if (this.project.summitPreProcessing) {
             this.activeIdString = "featureSelection"
-            // this.buttonElement.click();
           }
           else{
             this.activeIdString = "preProcess"
