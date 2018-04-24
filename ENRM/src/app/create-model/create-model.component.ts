@@ -237,11 +237,8 @@ export class CreateModelComponent implements OnInit {
     console.log(this.dataSource.data)
   }
 
-  onSummit(id) {
-    console.log(id)
-    var tabs = document.getElementById(id);
-    console.log(tabs)
-    // tabs.select('featureSelection')
+  onSummit(f) {
+    console.log(f)
     this.isSummit = true;
 
   }
