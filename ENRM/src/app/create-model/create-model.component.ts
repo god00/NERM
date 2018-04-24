@@ -237,6 +237,10 @@ export class CreateModelComponent implements OnInit {
     console.log(this.dataSource.data)
   }
 
+  onSummit() {
+    this.isSummit = true;
+  }
+
   // onItemSelect(item: any) {
   //   console.log(this.selectedItems.value);
   // }
