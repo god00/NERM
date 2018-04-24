@@ -57,6 +57,11 @@
     justify-content: space-around;
 }
 
+.summit-button{
+    display: flex;
+    justify-content:flex-end;
+}
+
 mat-checkbox{
     display: content;
     max-width: 1.5vw;
