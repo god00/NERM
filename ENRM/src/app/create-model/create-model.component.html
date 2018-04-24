@@ -221,7 +221,7 @@
             <button class="btn btn-primary" (click)="uploadModal(upload,'corpus')">Upload Corpus...</button>
             <!--  -->
             <br>
-            <button class="btn btn-outline-success" (click)="t.select('featureSelection')">Summit</button>
+            <button class="btn btn-success" (click)="t.select('featureSelection')">Summit</button>
           </ng-template>
         </ngb-tab>
         <ngb-tab title="Classify">
@@ -232,7 +232,7 @@
             </select>
           </ng-template>
         </ngb-tab>
-        <ngb-tab id="featureSelection" title="Feature Selection" [disabled]="!isSummit">
+        <ngb-tab id="featureSelection" title="Feature Selection">
           <ng-template ngbTabContent>
             <label style="display:block">Vocabulary Feature:</label>
             <div class="div-section">
