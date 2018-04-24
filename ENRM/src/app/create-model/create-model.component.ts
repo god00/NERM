@@ -11,6 +11,7 @@ import { DatabaseService } from '../services/database.service';
 
 import { appConfig } from '../app.config';
 import { AuthenticationService } from '../services/authentication.service';
+import { checkAndUpdateTextDynamic } from '@angular/core/src/view/text';
 
 const nermUrl = `${appConfig.apiUrl}/api/nerms/uploads`;
 
@@ -210,12 +211,8 @@ export class CreateModelComponent implements OnInit {
 
   }
 
-  updateVocab(id: number) {
-    let checked = this.vocabFeature.filter((item) => {
-      if (item.id == id)
-        return item
-    })
-    if (checked[0].selected) {
+  updateVocab(id: number, checked: boolean) {
+    if (!checked) {
       this.displayedColumns.push(`${id}`)
       this.displayedColumns.sort((a, b) => { return a - b })
       this.dictFeature.map(item => {
@@ -225,7 +222,6 @@ export class CreateModelComponent implements OnInit {
     }
     else {
       let index = this.displayedColumns.indexOf(id)
-      console.log(index)
       if (index != -1)
         this.displayedColumns.splice(index, 1)
       this.dictFeature.map(item => {
