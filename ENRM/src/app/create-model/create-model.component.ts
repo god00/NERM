@@ -113,9 +113,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           });
           this.selectedItems.patchValue(selectedTmp);
           this.project.featureSelection['vocabFeature'].forEach(item => {
-            console.log(item)
             if (item.selected) {
-              console.log(item.id)
               this.displayedColumns.push(`${item.id}`)
               this.displayedColumns.sort((a, b) => { return a - b })
             }
@@ -128,9 +126,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
               return { 'dictionary': dict['fileName'], '0': false }
             })
           }
-          console.log(this.dictFeature)
-          console.log(this.displayedColumns)
-
 
           this.dataSource = new MatTableDataSource(this.dictFeature);
           if (this.project.summitPreProcessing) {
