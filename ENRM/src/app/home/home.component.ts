@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   duplicateProjectName: boolean = false;
   nameExcluse: string;
   user: Object;
-  projectsByUser: NERMModel[];
+  projectsByUser: NERMModel[] = [];
 
 
   getProjectSubscribe: any;
@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit {
   //Modal parameter
   modal;
   closeResult: string;
+  clickCreate: boolean = false;
 
   //Alert parameter
   private _success = new Subject<string>();
@@ -71,7 +72,8 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  createModal() {
+  createProject() {
+    this.clickCreate = !this.clickCreate;
     let nerm = new NERMModel();
 
     nerm.email = this.user['email'];
@@ -88,9 +90,11 @@ export class HomeComponent implements OnInit {
           this.router.navigate([this.newProjectName]);
           this.updateNERM.unsubscribe();
         }
+        this.clickCreate = !this.clickCreate;
       });
     }
     else {
+      this.clickCreate = !this.clickCreate;
       this.nameExcluse = this.newProjectName.toString();
     }
   }
