@@ -180,7 +180,7 @@
   <div class="d-flex flex-column align-items-center">
     <div class="jumbotron special-card d-flex flex-column">
       <h1 class="display-3">{{project?.projectName}}</h1>
-      <ngb-tabset>
+      <ngb-tabset #t="ngbTabset">
         <ngb-tab title="Preprocess" [disabled] = "isSummit">
           <ng-template ngbTabContent>
             <!-- select field -->
