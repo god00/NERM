@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material';
@@ -21,7 +21,7 @@ const nermUrl = `${appConfig.apiUrl}/api/nerms/uploads`;
   styleUrls: ['./create-model.component.css']
 })
 
-export class CreateModelComponent implements OnInit {
+export class CreateModelComponent implements OnInit, OnDestroy {
   public uploader: FileUploader = new FileUploader({ url: nermUrl });
   user: Object;
   project: NERMModel = new NERMModel();
@@ -70,6 +70,8 @@ export class CreateModelComponent implements OnInit {
   }
 
   ngOnInit() {
+    let t = document.getElementById('summit-button')
+    console.log(t)
     this.getModel();
     this.createSelectedForm();
     this.dropdownSettings = {
@@ -79,16 +81,16 @@ export class CreateModelComponent implements OnInit {
       unSelectAllText: 'Unselect All',
       enableSearchFilter: true,
     };
-    this.selectedSubscribe = this.selectedItems.valueChanges.subscribe((selected) => {
-      if (this.updateProjectSubscribe)
-        this.updateProjectSubscribe.unsubscribe();
-      this.project.selectedDict = this.selectedItems.value;
-      this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
-        if (res) {
-          console.log(res.message)
-        }
-      });
-    });
+    this.updateSelectedDict()
+  }
+
+  ngOnDestroy() {
+    if (this.getProjectSubscribe)
+      this.getProjectSubscribe.unsubscribe()
+    if (this.selectedSubscribe)
+      this.selectedSubscribe.unsubscribe()
+    if (this.updateProjectSubscribe)
+      this.updateProjectSubscribe.unsubscribe()
   }
 
   createSelectedForm() {
@@ -212,7 +214,19 @@ export class CreateModelComponent implements OnInit {
         }
       })
     }
+  }
 
+  updateSelectedDict() {
+    this.selectedSubscribe = this.selectedItems.valueChanges.subscribe((selected) => {
+      if (this.updateProjectSubscribe)
+        this.updateProjectSubscribe.unsubscribe();
+      this.project.selectedDict = this.selectedItems.value;
+      this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
+        if (res) {
+          console.log(res.message)
+        }
+      });
+    });
   }
 
   updateVocabFeature(id: number, checked: boolean) {
@@ -241,7 +255,14 @@ export class CreateModelComponent implements OnInit {
   }
 
   onSummit(f) {
+    if (this.updateProjectSubscribe)
+      this.updateProjectSubscribe.unsubscribe();
     this.isSummit = true;
+    this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
+      if (res) {
+        console.log(res.message)
+      }
+    });
     f.activeId = "featureSelection"
   }
 
