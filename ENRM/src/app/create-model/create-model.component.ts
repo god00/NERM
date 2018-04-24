@@ -57,7 +57,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.activeIdString = ""
     this.getModel();
     this.createSelectedForm();
     this.dropdownSettings = {
