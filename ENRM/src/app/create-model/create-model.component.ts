@@ -82,6 +82,12 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     this.updateSelectedDict()
   }
 
+  ngAfterViewInit() {
+    let t = document.getElementById('summit-button')
+    console.log(t)
+  }
+
+
   ngOnDestroy() {
     if (this.getProjectSubscribe)
       this.getProjectSubscribe.unsubscribe()
@@ -97,8 +103,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
 
   getModel() {
     return new Promise((resolve, reject) => {
-      let t = document.getElementById('summit-button')
-      console.log(t)
       this.getProjectSubscribe = this.databaseService.getProject(this.user['email'], encodeURI(<string>this.project.projectName)).subscribe((data) => {
         if (data) {
           this.project._id = data['project']._id;
