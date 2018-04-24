@@ -112,7 +112,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
             return selected[0]
           });
           this.selectedItems.patchValue(selectedTmp);
-          this.displayedColumns.push(`0`)
           this.project.featureSelection['vocabFeature'].forEach(item => {
             console.log(item)
             if (item.selected) {
