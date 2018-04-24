@@ -232,7 +232,7 @@
             </select>
           </ng-template>
         </ngb-tab>
-        <ngb-tab id="featureSelection" title="Feature Selection" >
+        <ngb-tab id="featureSelection" title="Feature Selection" [disabled]="!isSummit">
           <ng-template ngbTabContent>
             <label style="display:block">Vocabulary Feature:</label>
             <div class="div-section">
