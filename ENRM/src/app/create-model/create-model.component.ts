@@ -240,6 +240,7 @@ export class CreateModelComponent implements OnInit {
   onSummit(f) {
     console.log(f)
     this.isSummit = true;
+    f.activeId = "featureSelection"
 
   }
 
