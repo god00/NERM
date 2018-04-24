@@ -181,7 +181,7 @@
     <div class="jumbotron special-card d-flex flex-column">
       <h1 class="display-3">{{project?.projectName}}</h1>
       <ngb-tabset>
-        <ngb-tab title="Preprocess" [disabled] = "!isSummit">
+        <ngb-tab title="Preprocess" [disabled] = "isSummit">
           <ng-template ngbTabContent>
             <!-- select field -->
             <label style="display:block">Select Dictionary:</label>
@@ -220,7 +220,7 @@
             </div>
             <button class="btn btn-primary" (click)="uploadModal(upload,'corpus')">Upload Corpus...</button>
             <!--  -->
-            <button type="submit" class="btn btn-outline-primary" (click)="t.select('tab-featureSelection')">Selected tab with "tab-selectbyid2" id</button>
+            <button class="btn btn-outline-primary" (click)="t.select('tab-featureSelection')">Summit</button>
           </ng-template>
         </ngb-tab>
         <ngb-tab title="Classify">
@@ -231,7 +231,7 @@
             </select>
           </ng-template>
         </ngb-tab>
-        <ngb-tab id="tab-featureSelection" title="Feature Selection" [disabled] = "isSummit">
+        <ngb-tab id="tab-featureSelection" title="Feature Selection" [disabled] = "!isSummit">
           <ng-template ngbTabContent>
             <label style="display:block">Vocabulary Feature:</label>
             <div class="div-section">
