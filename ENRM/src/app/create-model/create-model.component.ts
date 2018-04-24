@@ -122,7 +122,12 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           }
           console.log(this.dictFeature)
           console.log(this.project.featureSelection)
-          this.displayedColumns.splice(6, 1, '0');
+          this.displayedColumns.push(`0`)
+          this.project.featureSelection['vocabFeature'].forEach(item => {
+            if(item.selected){
+              this.displayedColumns.push(item.id)
+            }
+          });
           this.dataSource = new MatTableDataSource(this.dictFeature);
           if (this.project.summitPreProcessing) {
             this.buttonElement.click();
@@ -253,7 +258,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     }
     if (this.updateProjectSubscribe)
       this.updateProjectSubscribe.unsubscribe();
-    this.project.featureSelection['dictFeature'] = this.dictFeature
     this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
       if (res) {
         console.log("updateVocabFeature", res.message)
