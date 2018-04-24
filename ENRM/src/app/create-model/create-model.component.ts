@@ -128,7 +128,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
             })
           }
           console.log(this.dictFeature)
-          console.log(this.project.featureSelection)
+          console.log(this.displayedColumns)
 
 
           this.dataSource = new MatTableDataSource(this.dictFeature);
