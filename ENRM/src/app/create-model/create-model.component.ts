@@ -55,10 +55,10 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.project.projectName = decodeURI(this.router.url.slice(1, this.router.url.length));
     this.project.email = this.user['email'];
+    this.getModel();
   }
 
   ngOnInit() {
-    this.getModel();
     this.createSelectedForm();
     this.dropdownSettings = {
       singleSelection: false,
