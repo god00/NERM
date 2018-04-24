@@ -27,20 +27,8 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   project: NERMModel = new NERMModel();
   hasError: boolean = false;
   deleteCorpusName: string = '';
-  vocabFeature = [
-    { name: 'W10', selected: false, id: -5 },
-    { name: 'W9', selected: false, id: -4 },
-    { name: 'W8', selected: false, id: -3 },
-    { name: 'W7', selected: false, id: -2 },
-    { name: 'W6', selected: false, id: -1 },
-    { name: 'W0', selected: true, id: 0 },
-    { name: 'W1', selected: false, id: 1 },
-    { name: 'W2', selected: false, id: 2 },
-    { name: 'W3', selected: false, id: 3 },
-    { name: 'W4', selected: false, id: 4 },
-    { name: 'W5', selected: false, id: 5 },
-  ];
-  isSummit: boolean = false;
+
+  buttonElement: any
 
   //dictfeature table 
   displayedColumns: any = ["dictionary"];
@@ -66,7 +54,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.project.projectName = decodeURI(this.router.url.slice(1, this.router.url.length));
-    this.project.email = this.user['email']
+    this.project.email = this.user['email'];
   }
 
   ngOnInit() {
@@ -83,9 +71,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    let t = document.getElementById('summit-button')
-    t.click()
-    console.log(t)
+    this.buttonElement = document.getElementById('summit-button')
   }
 
 
@@ -110,6 +96,8 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           this.project.projectName = data['project']['projectName'];
           this.project.corpus = data['project'].corpus;
           this.project.date = data['project'].date;
+          this.project.summitPreProcessing = data['project'].summitPreProcessing;
+          this.project.featureSelection = data['project'].featureSelection;
           this.project.dictionary = data['dictionary'];
           this.dropdownList = data['dictionary'].map((dict, index) => {
             dict['id'] = index;
@@ -124,11 +112,19 @@ export class CreateModelComponent implements OnInit, OnDestroy {
             return selected[0]
           });
           this.selectedItems.patchValue(selectedTmp);
-          this.dictFeature = data['project'].selectedDict.map((dict) => {
-            return { 'dictionary': dict['fileName'], '0': false }
-          })
+          if (this.project.featureSelection['dictFeature'].length != 0) {
+            this.dictFeature = this.project.featureSelection['dictFeature'];
+          }
+          else {
+            this.dictFeature = data['project'].selectedDict.map((dict) => {
+              return { 'dictionary': dict['fileName'], '0': false }
+            })
+          }
           this.displayedColumns.splice(6, 1, '0');
           this.dataSource = new MatTableDataSource(this.dictFeature);
+          if (this.project.summitPreProcessing) {
+            this.buttonElement.click();
+          }
         }
         else {
           console.log('No model');
@@ -253,21 +249,38 @@ export class CreateModelComponent implements OnInit, OnDestroy {
         return item
       })
     }
-  }
-
-  updateDictFeature(id: string, element: any) {
-    console.log(this.dataSource.data)
-  }
-
-  onSummit(f) {
     if (this.updateProjectSubscribe)
       this.updateProjectSubscribe.unsubscribe();
-    this.isSummit = true;
     this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
       if (res) {
         console.log(res.message)
       }
     });
+  }
+
+  updateDictFeature(id: string, element: any) {
+    console.log(this.dataSource.data)
+    this.project.featureSelection['dictFeature'] = this.dataSource.data;
+    if (this.updateProjectSubscribe)
+      this.updateProjectSubscribe.unsubscribe();
+    this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
+      if (res) {
+        console.log(res.message)
+      }
+    });
+  }
+
+  onSummit(f) {
+    if (this.updateProjectSubscribe)
+      this.updateProjectSubscribe.unsubscribe();
+    if (this.project.summitPreProcessing == false) {
+      this.project.summitPreProcessing = true;
+      this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
+        if (res) {
+          console.log(res.message)
+        }
+      });
+    }
     f.activeId = "featureSelection"
   }
 

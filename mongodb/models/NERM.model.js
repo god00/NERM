@@ -7,8 +7,9 @@ var NERMSchema = new mongoose.Schema({
     date: Date,
     projectName: String,
     corpus: Array,                          // Save path of corpus to arr
-    selectedDict : Array,
-    extractFeature : Array,
+    selectedDict: Array,
+    summitPreProcessing: Boolean,
+    featureSelection: Object,
     // parameter and more...
 }, { collection: 'nerms' })
 

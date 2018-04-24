@@ -321,6 +321,8 @@ exports.updateProject = async function (req, res, next) {
                         addPathsFromFileNames(selectedDict, dictObj.dictionary)
                             .then(async (pathsList) => {
                                 project['selectedDict'] = pathsList;
+                                project['summitPreProcessing'] = req.body.summitPreProcessing;
+                                project['featureSelection'] = req.body.featureSelection;
                                 await NERMService.updateNERM(project);
                                 await beforeSendToFront(project);
                                 await beforeSendToFront(dictObj);

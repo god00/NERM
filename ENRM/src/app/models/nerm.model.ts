@@ -7,7 +7,7 @@ class NERMModel {
     dictionary: Object[];       // dicts have only on front-end
     selectedDict: Object[];
     summitPreProcessing: boolean;
-    featureSelection : Object
+    featureSelection: Object
     constructor(
     ) {
         this.email = "";
@@ -17,7 +17,10 @@ class NERMModel {
         this.selectedDict = [];
         this.date = new Date();
         this.summitPreProcessing = false;
-        this.featureSelection = {};
+        this.featureSelection = {
+            vocabFeature: [],
+            dictFeature: [],
+        };
     }
 }
 
