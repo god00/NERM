@@ -83,14 +83,15 @@ export class HomeComponent implements OnInit {
       this.updateNERM = this.databaseService.createProject(nerm).subscribe(res => {
         if (res.duplicate) {
           this.duplicateProjectName = true;
+          this.clickCreate = !this.clickCreate;
         }
         else {
+          this.clickCreate = !this.clickCreate;
           this.duplicateProjectName = false;
           this.modal.close();
           this.router.navigate([this.newProjectName]);
           this.updateNERM.unsubscribe();
         }
-        this.clickCreate = !this.clickCreate;
       });
     }
     else {
