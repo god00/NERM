@@ -126,7 +126,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           if (this.project.summitPreProcessing) {
             this.activeIdString = "featureSelection"
           }
-          else{
+          else {
             this.activeIdString = "preProcess"
           }
         }
@@ -281,6 +281,9 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       this.project.summitPreProcessing = true;
       this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
         if (res) {
+          this.dictFeature = res.data['project'].selectedDict.map((dict) => {
+            return { 'dictionary': dict['fileName'], '0': false }
+          })
           console.log(res.message)
         }
       });
