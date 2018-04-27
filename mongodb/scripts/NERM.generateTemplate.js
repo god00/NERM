@@ -16,7 +16,8 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
             // genarate vocab template
             featureSelection.vocabFeature.forEach(item => {
               if (item.selected) {
-                generateTemplateWithLine(item.id, 1, path);
+                var id = returnVocabIndexFromTable(item.id)
+                generateTemplateWithLine(0, id, path);
                 count += 1;
               }
             });
@@ -91,7 +92,8 @@ function advanceFeature(path, advanceFeature) {
       let str = `U${count}:`
       if (item.vocabFeature.length != 0) {
         item.vocabFeature.forEach(id => {
-          str = `${str}%x[${id},1]/`
+          var _id = returnVocabIndexFromTable(id);
+          str = `${str}%x[0,${_id}]/`
         })
       }
       if (item.dictFeature.length != 0) {
@@ -124,6 +126,15 @@ function advanceFeature(path, advanceFeature) {
       fs.appendFile(path, str)
       count += 1;
     })
+  }
+}
+
+function returnVocabIndexFromTable(id) {
+  if (id <= 0) {
+    return 1 + Math.abs(id);        // 1 is the first index of vocab from extract_table (start from W0)
+  }
+  else {
+    return 7 + id;                  // 7 is the first index of vocab from extract_table (start from W+1)
   }
 }
 
