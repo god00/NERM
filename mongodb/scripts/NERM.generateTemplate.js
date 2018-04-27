@@ -11,7 +11,7 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
     try {
       checkDirectory(`${config.templatePath}`).then(() => {
         checkDirectory(`${config.templatePath}${email}`).then(() => {
-          checkDirectory(`${config.templatePath}${email}/${projectName}`).then(async () => {
+          checkDirectory(`${config.templatePath}${email}/${projectName}`).then(() => {
             initTemplate(path);
             // genarate vocab template
             featureSelection.vocabFeature.forEach(item => {
@@ -28,7 +28,7 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
             for (let i = 0; i < featureSelection.dictFeature.length; i++) {
               for (let key in featureSelection.dictFeature[i]) {
                 if (featureSelection.dictFeature[i][key] == true) {
-                  await generateTemplateWithLine(key, 18 + i, path); // 18 is the first index of dictfeature from extract_table (start from common dict)
+                  generateTemplateWithLine(key, 18 + i, path); // 18 is the first index of dictfeature from extract_table (start from common dict)
                   count += 1;
                 }
               }
@@ -43,10 +43,10 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
             });
 
             // genarate advance template
-            await advanceFeature(path, featureSelection.advanceFeature);
+            advanceFeature(path, featureSelection.advanceFeature);
 
             // add bigram
-            await addBigram(path);
+            addBigram(path);
 
             resolve(path);
           })
