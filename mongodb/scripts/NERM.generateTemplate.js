@@ -56,19 +56,17 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
 }
 
 async function generateTemplateWithLine(row, column, path) {
-  fs.appendFileSync(path, `U${count}:%x[${row},${column}]\n`, 'utf8', (err) => {
+  fs.appendFile(path, `U${count}:%x[${row},${column}]\n`, 'utf8', (err) => {
     if (err) {
       throw err;
     } else {
       console.log("Template saved : ", `U${count}:%x[${row},${column}]`);
-      count += 1;
-      console.log(count)
     }
   })
 }
 
 function initTemplate(path) {
-  fs.writeFileSync(path, `# Unigram\n`, 'utf8', (err) => {
+  fs.writeFile(path, `# Unigram\n`, 'utf8', (err) => {
     if (err) {
       throw err;
     } else {
