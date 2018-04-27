@@ -24,9 +24,9 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
           // let dictFeature = featureSelection.dictFeature.sort(function (a, b) {
           //   return a.dictionary - b.dictionary;
           // })
-          for (let i = 0; i < dictFeature.length; i++) {
-            for (let key in dictFeature[i]) {
-              if (dictFeature[i][key] == true) {
+          for (let i = 0; i < featureSelection.dictFeature.length; i++) {
+            for (let key in featureSelection.dictFeature[i]) {
+              if (featureSelection.dictFeature[i][key] == true) {
                 await generateTemplateWithLine(key, 18 + i, path); // 18 is the first index of dictfeature from extract_table (start from common dict)
                 count += 1;
               }
