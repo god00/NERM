@@ -181,7 +181,7 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item list-background-color" *ngFor="let display of advanceDisplayed; let i = index">
               <div class="flex-space-between">
-                {{display}}
+                <p>{{display}}</p>
                 <span class="fa fa-trash-o trash-icon" aria-hidden="true" (click)="deleteAdvanceFeatureSelection(i)"></span>
               </div>
             </li>
@@ -398,7 +398,7 @@
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item list-background-color" *ngFor="let display of advanceDisplayed; let i = index">
                       <div class="flex-space-between">
-                        {{display}}
+                        <p>{{display}}</p>
                         <span class="fa fa-trash-o trash-icon" aria-hidden="true" (click)="openConfirmModal(deleteAdvanceFeature,i,'advanceFeature')"></span>
                       </div>
                     </li>
