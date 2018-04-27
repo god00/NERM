@@ -243,7 +243,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     }
     else if (mode == 'advanceFeature') {
       this.deleteAdvanceFetureName = this.advanceDisplayed[index];
-      this.modalService.open(content, { centered: true, size: 'sm' }).result.then((result) => {
+      this.modalService.open(content, { centered: true }).result.then((result) => {
         this.deleteAdvanceFetureName = '';
       }, (reason) => {
         this.deleteAdvanceFetureName = '';
