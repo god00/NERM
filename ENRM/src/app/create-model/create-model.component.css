@@ -68,8 +68,8 @@
 }
 
 .card-list{
-    max-height: 15vw;
-    overflow: scroll;
+    max-height: 10vw;
+    overflow-y: scroll;
 }
 
 mat-checkbox{
