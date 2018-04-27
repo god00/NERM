@@ -369,6 +369,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   }
 
   openAdvanceFeatureModal(content) {
+    this.initAdvanceFeatureItem();
     this.initAdvanceFeature(this.project.selectedDict);
     this.modalService.open(content, { centered: true, size: 'lg' });
   }
