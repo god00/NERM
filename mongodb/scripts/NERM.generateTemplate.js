@@ -67,7 +67,7 @@ async function generateTemplateWithLine(row, column, path) {
   })
 }
 
-async function initTemplate(path) {
+function initTemplate(path) {
   fs.writeFileSync(path, `# Unigram\n`, 'utf8', (err) => {
     if (err) {
       throw err;

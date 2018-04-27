@@ -393,8 +393,6 @@ exports.removeCorpus = async function (req, res, next) {
 }
 
 exports.genarateTemplate = async function (req, res, next) {
-    var id = req.body.id;
-    console.log(id," : ",req.body)
     try {
         var query = NERMProject.findOne({ _id: req.body.id });
         query.exec(async function (err, project) {
@@ -402,7 +400,6 @@ exports.genarateTemplate = async function (req, res, next) {
                 return res.status(400).json({ status: 400, message: err });
             }
             else if (project) {
-                console.log('else if')
                 var pathTemplate = await NERMGenerateTemplate.genarateTemplate(project.featureSelection, project.email, project.projectName)
                 return res.status(200).json({ status: 200, data: pathTemplate, message: `Genarate template successful` });
             }
