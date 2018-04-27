@@ -72,6 +72,12 @@
     overflow-y: scroll;
 }
 
+.advance-feature-button{
+    display: flex;
+    justify-content: center;
+    margin-top: 1vw;
+}
+
 mat-checkbox{
     display: content;
     max-width: 1.5vw;
