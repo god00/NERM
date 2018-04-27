@@ -116,9 +116,10 @@ function advanceFeature(path, advanceFeature) {
           throw err;
         } else {
           console.log("Template saved : ", str);
-          count += 1;
+          
         }
       })
+      count += 1;
     })
   }
 }
