@@ -272,25 +272,16 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     });
   }
 
-  updateDictFeature(id: string, element: any) {
-    this.project.featureSelection['dictFeature'] = this.dataSourceDict.data;
+  updateFeature(id: string, element: any, mode: string) {
+    if (mode == 'dict')
+      this.project.featureSelection['dictFeature'] = this.dataSourceDict.data;
+    else if (mode == 'word')
+      this.project.featureSelection['wordFeature'] = this.dataSourceWord.data;
     if (this.updateProjectSubscribe)
       this.updateProjectSubscribe.unsubscribe();
     this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
       if (res) {
-        console.log("updateDictFeature :", res.message)
-      }
-    });
-  }
-
-  updateWordFeature(id: string, element: any) {
-    this.project.featureSelection['wordFeature'] = this.dataSourceWord.data;
-    console.log(this.project.featureSelection)
-    if (this.updateProjectSubscribe)
-      this.updateProjectSubscribe.unsubscribe();
-    this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
-      if (res) {
-        console.log("updateWordFeature :", res.message)
+        console.log(`update${mode}Feature :`, res.message)
       }
     });
   }

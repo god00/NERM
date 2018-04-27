@@ -246,7 +246,7 @@
                 <mat-header-cell *matHeaderCellDef><h6 *ngIf="col !== 'dictionary'">W<sub>{{col}}</sub></h6></mat-header-cell>
                 <mat-cell *matCellDef="let element">
                   <h6 *ngIf="col === 'dictionary';else elseDictTable">{{element[col]}}</h6>
-                  <ng-template #elseDictTable><mat-checkbox [(ngModel)]="element[col]" (ngModelChange)="updateDictFeature(col,element)"></mat-checkbox></ng-template>
+                  <ng-template #elseDictTable><mat-checkbox [(ngModel)]="element[col]" (ngModelChange)="updateFeature(col,element,'dict')"></mat-checkbox></ng-template>
                 </mat-cell>
               </ng-container>
               <mat-header-row *matHeaderRowDef="displayedColumnsDict"></mat-header-row>
@@ -261,7 +261,7 @@
               <mat-header-cell *matHeaderCellDef><h6 *ngIf="col !== 'wordFeature'">W<sub>{{col}}</sub></h6></mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <h6 *ngIf="col === 'wordFeature';else elseWordTable">{{element[col]}}</h6>
-                <ng-template #elseWordTable><mat-checkbox [(ngModel)]="element[col]" (ngModelChange)="updateWordFeature(col,element)"></mat-checkbox></ng-template>
+                <ng-template #elseWordTable><mat-checkbox [(ngModel)]="element[col]" (ngModelChange)="updateFeature(col,element,'word')"></mat-checkbox></ng-template>
               </mat-cell>
             </ng-container>
             <mat-header-row *matHeaderRowDef="displayedColumnsWord"></mat-header-row>
