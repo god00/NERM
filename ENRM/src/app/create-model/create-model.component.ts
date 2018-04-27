@@ -285,6 +285,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
             return { 'dictionary': dict['fileName'], '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false }
           })
           console.log(this.dictFeature)
+          this.dataSource.data = this.dictFeature;
           f.activeId = "featureSelection"
         }
       });
