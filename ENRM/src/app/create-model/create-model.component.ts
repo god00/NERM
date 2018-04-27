@@ -290,7 +290,9 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     this.modalService.open(content, { centered: true, size: 'sm' })
   }
 
-  onSummit(f) {
+  onSummit() {
+    let f = document.getElementById('t')
+    console.log(f)
     if (this.updateProjectSubscribe)
       this.updateProjectSubscribe.unsubscribe();
     if (this.project.summitPreProcessing == false) {

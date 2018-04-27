@@ -118,11 +118,14 @@
       </button>
     </div>
     <div class="modal-body">
-      <p>Are you sure to summit this Preprocess ?&hellip;</p>
+      After summit, You can't go back to preprocess again<br>
+      <p>Are you sure to summit?&hellip;</p>
+      
+      
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-light" (click)="c('Close click')">No</button>
-      <button type="button" class="btn btn-danger" (click)="onSummit(t);c()">Yes</button>
+      <button type="button" class="btn btn-danger" (click)="onSummit();c()">Yes</button>
     </div>
   </ng-template>
   <!--  -->
