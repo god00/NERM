@@ -84,17 +84,19 @@ exports.createProject = async function (nerm) {
             vocabFeature: [
                 { name: 'W10', selected: false, id: -5 },
                 { name: 'W9', selected: false, id: -4 },
-                { name: 'W8', selected: false, id: -3 },
-                { name: 'W7', selected: false, id: -2 },
-                { name: 'W6', selected: false, id: -1 },
+                { name: 'W8', selected: true, id: -3 },
+                { name: 'W7', selected: true, id: -2 },
+                { name: 'W6', selected: true, id: -1 },
                 { name: 'W0', selected: true, id: 0 },
-                { name: 'W1', selected: false, id: 1 },
-                { name: 'W2', selected: false, id: 2 },
-                { name: 'W3', selected: false, id: 3 },
+                { name: 'W1', selected: true, id: 1 },
+                { name: 'W2', selected: true, id: 2 },
+                { name: 'W3', selected: true, id: 3 },
                 { name: 'W4', selected: false, id: 4 },
                 { name: 'W5', selected: false, id: 5 },
             ],
             dictFeature: [],
+            wordFeature: [],
+            advanceFeature: [],  // [ {vocabFeature : [] , dictFeature: []} , ... ]
         },
 
     })
