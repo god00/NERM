@@ -44,8 +44,5 @@ Thumbs.db
 # storage
 /storage/
 
-# templates
-/templates/
-
 # TODO
 ./TODO
