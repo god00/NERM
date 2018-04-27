@@ -27,6 +27,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   project: NERMModel = new NERMModel();
   hasError: boolean = false;
   deleteCorpusName: string = '';
+  deleteAdvanceFetureName: string = '';
   activeIdString: string;
 
   //Dictfeature table 
@@ -231,13 +232,23 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     }
   }
 
-  openConfirmModal(content, index) {
-    this.deleteCorpusName = this.project.corpus[index]['fileName'];
-    this.modalService.open(content, { centered: true, size: 'sm' }).result.then((result) => {
-      this.deleteCorpusName = '';
-    }, (reason) => {
-      this.deleteCorpusName = '';
-    });
+  openConfirmModal(content, index, mode) {
+    if (mode == 'corpus') {
+      this.deleteCorpusName = this.project.corpus[index]['fileName'];
+      this.modalService.open(content, { centered: true, size: 'sm' }).result.then((result) => {
+        this.deleteCorpusName = '';
+      }, (reason) => {
+        this.deleteCorpusName = '';
+      });
+    }
+    else if (mode == 'advanceFeature') {
+      this.deleteAdvanceFetureName = this.advanceDisplayed[index];
+      this.modalService.open(content, { centered: true, size: 'sm' }).result.then((result) => {
+        this.deleteAdvanceFetureName = '';
+      }, (reason) => {
+        this.deleteAdvanceFetureName = '';
+      });
+    }
   }
 
   deleteCorpus() {
@@ -504,6 +515,14 @@ export class CreateModelComponent implements OnInit, OnDestroy {
         this.advanceDisplayedItem = this.advanceDisplayedItem.replace(`${item.wordFeature}/`, '');
         this.checkedCount--;
       }
+    }
+  }
+
+  deleteAdvanceFeatureSelection() {
+    if (this.deleteAdvanceFetureName != '') {
+      let index = this.advanceDisplayed.indexOf(this.deleteAdvanceFetureName);
+      this.project.featureSelection['advanceFeature'].splice(index, 1);
+      this.advanceDisplayed.splice(index, 1);
     }
   }
 
