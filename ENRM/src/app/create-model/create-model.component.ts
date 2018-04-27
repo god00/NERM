@@ -118,7 +118,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           }
           else {
             this.dictFeature = data['project'].selectedDict.map((dict) => {
-              return { 'dictionary': dict['fileName'], '0': false }
+              return { 'dictionary': dict['fileName'], '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false }
             })
           }
 
@@ -282,7 +282,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
         if (res) {
           this.dictFeature = res.data['project'].selectedDict.map((dict) => {
-            return { 'dictionary': dict['fileName'], '0': false }
+            return { 'dictionary': dict['fileName'], '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false }
           })
           console.log(this.dictFeature)
           f.activeId = "featureSelection"
