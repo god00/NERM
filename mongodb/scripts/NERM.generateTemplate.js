@@ -134,7 +134,7 @@ function returnVocabIndexFromTable(id) {
     return 1 + Math.abs(id);        // 1 is the first index of vocab from extract_table (start from W0)
   }
   else {
-    return 7 + id - 1;                  // 7 is the first index of vocab from extract_table (start from W+1) , -1 because id start at +1
+    return 7 + id - 1;              // 7 is the first index of vocab from extract_table (start from W+1) , -1 because id start at +1
   }
 }
 
