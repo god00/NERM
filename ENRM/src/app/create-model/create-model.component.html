@@ -264,8 +264,8 @@
                 <ng-template #elseWordTable><mat-checkbox [(ngModel)]="element[col]" (ngModelChange)="updateWordFeature(col,element)"></mat-checkbox></ng-template>
               </mat-cell>
             </ng-container>
-            <mat-header-row *matHeaderRowDef="displayedColumnsDict"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumnsDict;"></mat-row>
+            <mat-header-row *matHeaderRowDef="displayedColumnsWord"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumnsWord;"></mat-row>
           </mat-table>
           </ng-template>
         </ngb-tab>

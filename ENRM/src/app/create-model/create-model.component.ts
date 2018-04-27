@@ -72,8 +72,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       unSelectAllText: 'Unselect All',
       enableSearchFilter: true,
     };
-    if (!this.project.summitPreProcessing)
-      this.updateSelectedDict()
   }
 
 
@@ -113,7 +111,10 @@ export class CreateModelComponent implements OnInit, OnDestroy {
             })
             return selected[0]
           });
-          this.selectedItems.patchValue(selectedTmp);
+          if (!this.project.summitPreProcessing) {
+            this.updateSelectedDict()
+            this.selectedItems.patchValue(selectedTmp);
+          }
           this.project.featureSelection['vocabFeature'].forEach(item => {
             if (item.selected) {
               this.displayedColumnsDict.push(`${item.id}`)
@@ -134,10 +135,10 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           else {
             this.activeIdString = "preProcess"
           }
-          console.log(this.dictFeature)
           this.wordFeature = data['project'].featureSelection['wordFeature'];
-          console.log(this.wordFeature)
-          this.dataSourceWord = new MatTableDataSource(this.wordFeature)
+          this.dataSourceWord = new MatTableDataSource(this.wordFeature);
+
+
         }
         else {
           console.log('No model');
