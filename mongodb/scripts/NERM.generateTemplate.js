@@ -28,7 +28,7 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
             for (let key in dictFeature[i]) {
               if (dictFeature[i][key] == true) {
                 await generateTemplateWithLine(key, 26 + i, path); // 26 is the first index of dictfeature from extract_table
-                count += 1; 
+                count += 1;
               }
             }
           }
@@ -60,11 +60,8 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
 
 async function generateTemplateWithLine(row, column, path) {
   fs.appendFile(path, `U${count}:%x[${row},${column}]\n`, 'utf8', (err) => {
-    if (err) {
+    if (err)
       throw err;
-    } else {
-      console.log("Template saved : ", `U${count}:%x[${row},${column}]`);
-    }
   })
 }
 
@@ -73,7 +70,6 @@ function initTemplate(path) {
     if (err) {
       throw err;
     } else {
-      console.log(`# Unigram`)
     }
   })
 }
@@ -83,7 +79,6 @@ function addBigram(path) {
     if (err) {
       throw err;
     } else {
-      console.log(`# Bigram`)
       count = 0;
     }
   })
@@ -115,8 +110,6 @@ function advanceFeature(path, advanceFeature) {
         if (err) {
           throw err;
         } else {
-          console.log("Template saved : ", str);
-          
         }
       })
       count += 1;
