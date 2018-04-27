@@ -63,7 +63,7 @@ export class DatabaseService {
     return this.http.put(`${nermUrl}/project`, nerm);
   }
 
-  genarateTemplate(id: string): Observable<any> {
+  genarateTemplate(id: any): Observable<any> {
     return this.http.post(`${nermUrl}/templates`, id);
   }
 

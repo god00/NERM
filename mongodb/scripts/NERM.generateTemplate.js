@@ -6,42 +6,44 @@ exports.genarateTemplate = function (featureSelection, email, projectName) {
   var count = 0;
   var path = `${config.templatePath}${email}/${projectName}/current_template.txt`
   try {
-    checkDirectory(`${config.templatePath}${email}`).then(() => {
-      checkDirectory(`${config.templatePath}${email}/${projectName}`).then(() => {
-        initTemplate(path);
-        // genarate vocab template
-        featureSelection.vocabFeature.forEach(item => {
-          if (item.selected) {
-            generateTemplateWithLine(item.id, 1, count, path).then();
-          }
-        });
+    checkDirectory(`${config.templatePath}`).then(() => {
+      checkDirectory(`${config.templatePath}${email}`).then(() => {
+        checkDirectory(`${config.templatePath}${email}/${projectName}`).then(() => {
+          initTemplate(path);
+          // genarate vocab template
+          featureSelection.vocabFeature.forEach(item => {
+            if (item.selected) {
+              generateTemplateWithLine(item.id, 1, count, path).then();
+            }
+          });
 
-        // genarate dict template
-        let dictFeature = featureSelection.dictFeature.sort(function (a, b) {
-          return a.dictionary - b.dictionary;
-        })
-        for (let i = 0; i < dictFeature.length; i++) {
-          for (let key in dictFeature[i]) {
-            if (dictFeature[i][key] == true) {
-              generateTemplateWithLine(key, 26 + i, count, path).then(); // 26 is the first index of dictfeature from extract_table 
+          // genarate dict template
+          let dictFeature = featureSelection.dictFeature.sort(function (a, b) {
+            return a.dictionary - b.dictionary;
+          })
+          for (let i = 0; i < dictFeature.length; i++) {
+            for (let key in dictFeature[i]) {
+              if (dictFeature[i][key] == true) {
+                generateTemplateWithLine(key, 26 + i, count, path).then(); // 26 is the first index of dictfeature from extract_table 
+              }
             }
           }
-        }
 
-        // genarate word template
-        featureSelection.wordFeature.forEach((item, index) => {
-          if (item['0']) {
-            generateTemplateWithLine(item.id, 12 + index, count, path).then(); // 12 is the first index of wordfeature from extract_table 
-          }
-        });
+          // genarate word template
+          featureSelection.wordFeature.forEach((item, index) => {
+            if (item['0']) {
+              generateTemplateWithLine(item.id, 12 + index, count, path).then(); // 12 is the first index of wordfeature from extract_table 
+            }
+          });
 
-        // genarate advance template
-        advanceFeature(path, featureSelection.advanceFeature);
+          // genarate advance template
+          advanceFeature(path, featureSelection.advanceFeature);
 
-        // add bigram
-        addBigram(path);
+          // add bigram
+          addBigram(path);
 
-        return path;
+          return path;
+        })
       })
     })
 
