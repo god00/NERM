@@ -388,11 +388,10 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   }
 
   initAdvanceFeatureItem() {
-    this.advanceFeatureItem = {
-      vocabFeature: [],
-      dictFeature: [],
-      wordFeature: []
-    };
+    this.advanceFeatureItem = {};
+    this.advanceFeatureItem['vocabFeature'] = [];
+    this.advanceFeatureItem['dictFeature'] = [];
+    this.advanceFeatureItem['wordFeature'] = [];
   }
 
   initAdvanceVocab() {
