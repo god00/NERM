@@ -181,6 +181,7 @@
     <div class="jumbotron special-card d-flex flex-column">
       <h1 class="display-3">{{project?.projectName}}</h1>
       <ngb-tabset *ngIf="activeIdString" #t="ngbTabset" [activeId]="activeIdString">
+
         <ngb-tab id="preProcess" title="Preprocess" [disabled] = "project.summitPreProcessing">
           <ng-template ngbTabContent>
             <!-- select field -->
@@ -225,14 +226,7 @@
             </div>
           </ng-template>
         </ngb-tab>
-        <ngb-tab title="Classify">
-          <ng-template ngbTabContent>
-            <label>Select Classifier:</label>
-            <select class="form-control">
-              <option>CRF++ (default)</option>
-            </select>
-          </ng-template>
-        </ngb-tab>
+
         <ngb-tab id="featureSelection" title="Feature Selection" [disabled]="!project.summitPreProcessing">
           <ng-template ngbTabContent>
             <label style="display:block">Vocabulary Feature:</label>
@@ -244,25 +238,47 @@
                 <p>W<sub>{{vocab.id}}</sub></p> 
               </section>
             </div>
+
             <label style="display:block">Dictionary Feature:</label>
-
-            <mat-table #table [dataSource]="dataSource">
-
-                <!-- Column -->
-              <ng-container *ngFor="let col of displayedColumns" [matColumnDef]="col">
+            <mat-table [dataSource]="dataSourceDict">
+                <!-- Dict Column -->
+              <ng-container *ngFor="let col of displayedColumnsDict" [matColumnDef]="col">
                 <mat-header-cell *matHeaderCellDef><h6 *ngIf="col !== 'dictionary'">W<sub>{{col}}</sub></h6></mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                  <h6 *ngIf="col === 'dictionary';else elsetable">{{element[col]}}</h6>
-                  <ng-template #elsetable><mat-checkbox [(ngModel)]="element[col]" (ngModelChange)="updateDictFeature(col,element)"></mat-checkbox></ng-template>
+                  <h6 *ngIf="col === 'dictionary';else elseDictTable">{{element[col]}}</h6>
+                  <ng-template #elseDictTable><mat-checkbox [(ngModel)]="element[col]" (ngModelChange)="updateDictFeature(col,element)"></mat-checkbox></ng-template>
                 </mat-cell>
               </ng-container>
-            
-              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              <mat-header-row *matHeaderRowDef="displayedColumnsDict"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumnsDict;"></mat-row>
             </mat-table>
+            
 
+            <label style="display:block">Word Feature:</label>
+            <mat-table [dataSource]="dataSourceWord">
+              <!-- Word Column -->
+            <ng-container *ngFor="let col of displayedColumnsWord" [matColumnDef]="col">
+              <mat-header-cell *matHeaderCellDef><h6 *ngIf="col !== 'wordFeature'">W<sub>{{col}}</sub></h6></mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <h6 *ngIf="col === 'wordFeature';else elseWordTable">{{element[col]}}</h6>
+                <ng-template #elseWordTable><mat-checkbox [(ngModel)]="element[col]" (ngModelChange)="updateWordFeature(col,element)"></mat-checkbox></ng-template>
+              </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumnsDict"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumnsDict;"></mat-row>
+          </mat-table>
           </ng-template>
         </ngb-tab>
+
+        <ngb-tab title="Classify">
+          <ng-template ngbTabContent>
+            <label>Select Classifier:</label>
+            <select class="form-control">
+              <option>CRF++ (default)</option>
+            </select>
+          </ng-template>
+        </ngb-tab>
+
       </ngb-tabset>
 
     </div>

@@ -30,9 +30,15 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   activeIdString: string;
 
   //dictfeature table 
-  displayedColumns: any = ["dictionary"];
+  displayedColumnsDict: any = ["dictionary"];
   dictFeature: any;
-  dataSource: any;
+  dataSourceDict: any;
+
+  //wordfeature table
+  displayedColumnsWord: any = ["wordFeature", "0"];
+  wordFeature: any;
+  dataSourceWord: any;
+
 
   //Multiselect Dropdown Parameters
   dropdownList = [];
@@ -109,8 +115,8 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           this.selectedItems.patchValue(selectedTmp);
           this.project.featureSelection['vocabFeature'].forEach(item => {
             if (item.selected) {
-              this.displayedColumns.push(`${item.id}`)
-              this.displayedColumns.sort((a, b) => { return a - b })
+              this.displayedColumnsDict.push(`${item.id}`)
+              this.displayedColumnsDict.sort((a, b) => { return a - b })
             }
           });
           if (this.project.featureSelection['dictFeature'].length != 0) {
@@ -122,13 +128,16 @@ export class CreateModelComponent implements OnInit, OnDestroy {
             })
           }
 
-          this.dataSource = new MatTableDataSource(this.dictFeature);
+          this.dataSourceDict = new MatTableDataSource(this.dictFeature);
           if (this.project.summitPreProcessing) {
             this.activeIdString = "featureSelection"
           }
           else {
             this.activeIdString = "preProcess"
           }
+
+          this.wordFeature = data['project'].featureSelection['wordFeature'];
+          this.dataSourceWord = new MatTableDataSource(this.wordFeature)
         }
         else {
           console.log('No model');
@@ -236,17 +245,17 @@ export class CreateModelComponent implements OnInit, OnDestroy {
 
   updateVocabFeature(id: number, checked: boolean) {
     if (checked) {
-      this.displayedColumns.push(`${id}`)
-      this.displayedColumns.sort((a, b) => { return a - b })
+      this.displayedColumnsDict.push(`${id}`)
+      this.displayedColumnsDict.sort((a, b) => { return a - b })
       this.dictFeature.map(item => {
         item[id] = false;
         return item
       })
     }
     else {
-      let index = this.displayedColumns.indexOf(`${id}`)
+      let index = this.displayedColumnsDict.indexOf(`${id}`)
       if (index != -1)
-        this.displayedColumns.splice(index, 1)
+        this.displayedColumnsDict.splice(index, 1)
       this.dictFeature.map(item => {
         if (item[index])
           delete item[index];
@@ -263,8 +272,18 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   }
 
   updateDictFeature(id: string, element: any) {
-    console.log(this.dataSource.data)
-    this.project.featureSelection['dictFeature'] = this.dataSource.data;
+    this.project.featureSelection['dictFeature'] = this.dataSourceDict.data;
+    if (this.updateProjectSubscribe)
+      this.updateProjectSubscribe.unsubscribe();
+    this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
+      if (res) {
+        console.log("updateDictFeature", res.message)
+      }
+    });
+  }
+
+  updateWordFeature(id: string, element: any) {
+    this.project.featureSelection['wordFeature'] = this.dataSourceWord.data;
     if (this.updateProjectSubscribe)
       this.updateProjectSubscribe.unsubscribe();
     this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
@@ -284,8 +303,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           this.dictFeature = res.data['project'].selectedDict.map((dict) => {
             return { 'dictionary': dict['fileName'], '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false }
           })
-          console.log(this.dictFeature)
-          this.dataSource.data = this.dictFeature;
+          this.dataSourceDict.data = this.dictFeature;
           f.activeId = "featureSelection"
         }
       });
