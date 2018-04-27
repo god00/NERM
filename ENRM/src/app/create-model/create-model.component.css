@@ -63,6 +63,10 @@
     justify-content:flex-end;
 }
 
+.list-background-color{
+    background-color: antiquewhite;
+}
+
 mat-checkbox{
     display: content;
     max-width: 1.5vw;
