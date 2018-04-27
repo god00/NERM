@@ -149,7 +149,7 @@
 
 
 <!-- Advance Feature Modal -->
-<ng-template #advanceFeature let-c="close" let-d="dismiss">
+<ng-template #advanceFeatureModal let-c="close" let-d="dismiss">
     <div class="modal-header">
       <h4 class="modal-title" style="word-break: break-word;">Advance Feature Selection</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -362,7 +362,7 @@
             </mat-table>
             
             <div>
-              <button id="advanceFeature-button" class="btn btn-outline-primary btn-sm" (click)="openAdvanceFeatureModal(advanceFeature)">Advance Feature...</button>
+              <button id="advanceFeature-button" class="btn btn-outline-primary btn-sm" (click)="openAdvanceFeatureModal(advanceFeatureModal)">Advance Feature...</button>
             </div>
             <div class="summit-button">
               <button id="summit-button" class="btn btn-success" (click)="openSummitModal(summitFeature)">Summit</button>
