@@ -362,6 +362,55 @@ export class CreateModelComponent implements OnInit, OnDestroy {
 
   }
 
+  initAdvanceFeature(selectedDict) {
+    this.initAdvanceVocab()
+    this.initAdvanceDict(selectedDict);
+    this.initAdvanceWord();
+  }
+
+  initAdvanceVocab() {
+    this.advanceFeature.vocabFeature = [
+      { name: 'W10', selected: false, id: -5 },
+      { name: 'W9', selected: false, id: -4 },
+      { name: 'W8', selected: false, id: -3 },
+      { name: 'W7', selected: false, id: -2 },
+      { name: 'W6', selected: false, id: -1 },
+      { name: 'W0', selected: false, id: 0 },
+      { name: 'W1', selected: false, id: 1 },
+      { name: 'W2', selected: false, id: 2 },
+      { name: 'W3', selected: false, id: 3 },
+      { name: 'W4', selected: false, id: 4 },
+      { name: 'W5', selected: false, id: 5 },
+    ];
+  }
+
+  initAdvanceDict(selectedDict) {
+    this.advanceFeature.dictFeature = [
+      { 'dictionary': 'common (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
+      { 'dictionary': 'loc_name (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
+      { 'dictionary': 'loc_clue (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
+      { 'dictionary': 'org_name (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
+      { 'dictionary': 'org_clue (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
+      { 'dictionary': 'per_clue (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
+      { 'dictionary': 'per_first (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
+      { 'dictionary': 'per_last (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
+    ];
+    selectedDict.map((dict) => {
+      this.advanceFeature.dictFeature.push({ 'dictionary': dict['fileName'], '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false })
+    });
+  }
+
+  initAdvanceWord() {
+    this.advanceFeature.wordFeature = [
+      { wordFeature: 'Alphanum', '0': false },
+      { wordFeature: 'Num', '0': false },
+      { wordFeature: 'Special Char', '0': false },
+      { wordFeature: 'English', '0': false },
+      { wordFeature: 'Blank Front', '0': false },
+      { wordFeature: 'Blank End', '0': false }
+    ];
+  }
+
   public logout() {
     this.authenicationService.logout();
     this.router.navigate(['login']);
