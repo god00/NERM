@@ -141,8 +141,8 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           });
           this.displayedColumnsDict.sort((a, b) => { return a - b })
 
-          this.sortSelectedDict();
-          
+          this.sortSelectedDict();        // repeat sort for sure
+
           if (this.project.featureSelection['dictFeature'].length != 0) {
             this.dictFeature = this.project.featureSelection['dictFeature'];
           }
