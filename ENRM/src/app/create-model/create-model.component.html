@@ -158,11 +158,9 @@
     </div>
     <div class="modal-body">
       <label style="display:block">Result of advance feaure:</label>
-      <div class="card">
-        <div class="card-block">
-          <p class="card-text" *ngFor="let display of advanceDisplayed; let i = index">{{display}}</p>
-        </div>
-      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" *ngFor="let display of advanceDisplayed; let i = index">{{display}}</li>
+      </ul>
       <label style="display:block">Vocabulary Feature:</label>
       <div class="div-section">
         <section *ngFor="let vocab of advanceFeature.vocabFeature" class="section-checkbox">
