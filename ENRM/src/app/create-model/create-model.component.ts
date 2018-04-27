@@ -40,12 +40,12 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   dataSourceWord: any;
 
   //Advance Feature Selection
-  advanceFeature: any;                    //This is the Object of DataSource  
-  advanceFeatureItem: Object;             //This is the Object of checked with combine all feature,And push to project.featureSelection['advanceFeature']
-  advanceDataSourceDict: any;             //This is the DataSource of dictFeature
-  advanceDataSourceWord: any;             //This is the DataSource of wordFeature
-  advanceDisplayed: string[] = [];        //This is the Displays to HTML
-  advanceDisplayedItem: string = '';      //This is temp of displayed to push to advanceDisplayed
+  advanceFeature: any;                    //This is the Object of DataSource ; both dict and word. 
+  advanceFeatureItem: Object;             //This is the Object of checked with combine all feature,And push to project.featureSelection['advanceFeature'].
+  advanceDataSourceDict: any;             //This is the DataSource of dictFeature.
+  advanceDataSourceWord: any;             //This is the DataSource of wordFeature.
+  advanceDisplayed: string[] = [];        //This is the Displays to HTML.
+  advanceDisplayedItem: string = '';      //This is temp of displayed to push to advanceDisplayed.
 
 
   //Multiselect Dropdown Parameters
@@ -381,6 +381,10 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   }
 
   initAdvanceFeature(selectedDict) {
+    this.advanceFeature = {};
+    this.advanceFeature['vocabFeature'] = [];
+    this.advanceFeature['dictFeature'] = [];
+    this.advanceFeature['wordFeature'] = [];
     this.initAdvanceFeatureItem();
     this.initAdvanceVocab()
     this.initAdvanceDict(selectedDict);
@@ -392,6 +396,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     this.advanceFeatureItem['vocabFeature'] = [];
     this.advanceFeatureItem['dictFeature'] = [];
     this.advanceFeatureItem['wordFeature'] = [];
+    console.log(this.advanceDisplayedItem)
   }
 
   initAdvanceVocab() {
