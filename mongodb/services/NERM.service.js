@@ -103,7 +103,7 @@ exports.createProject = async function (nerm) {
                 { wordFeature: 'Blank Front', '0': false },
                 { wordFeature: 'Blank End', '0': false },
             ],
-            advanceFeature: [],  // [ {vocabFeature : [] , dictFeature: []} , ... ]
+            advanceFeature: [],     // [ {vocabFeature : [] , dictFeature: [] , wordFeature: []}, ... , (n)Object ]
         },
 
     })

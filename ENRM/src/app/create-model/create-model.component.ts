@@ -154,6 +154,10 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           else {
             this.activeIdString = "preProcess";
           }
+
+          if (data['project'].featureSelection['advanceDisplayed']) {
+            this.project.featureSelection['advanceDisplayed'] = data['project'].featureSelection['advanceDisplayed'];
+          }
           this.wordFeature = data['project'].featureSelection['wordFeature'];
           this.dataSourceWord = new MatTableDataSource(this.wordFeature);
 
@@ -371,6 +375,8 @@ export class CreateModelComponent implements OnInit, OnDestroy {
 
   openAdvanceFeatureModal(content) {
     this.initAdvanceFeature(this.project.selectedDict);
+    if (this.project.featureSelection['advanceDisplayed'])
+      this.advanceDisplayed = this.project.featureSelection['advanceDisplayed'];
     this.modalService.open(content, { centered: true, size: 'lg' });
   }
 
@@ -378,6 +384,15 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     this.project.featureSelection['advanceFeature'].push(this.advanceFeatureItem);
     this.advanceDisplayed.push(this.advanceDisplayedItem.slice(0, -1));
     this.advanceDisplayedItem = '';
+    this.project.featureSelection['advanceDisplayed'] = this.advanceDisplayed;
+    if (this.updateProjectSubscribe)
+      this.updateProjectSubscribe.unsubscribe();
+    this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
+      if (res) {
+        console.log(`updated AdvanceFeature :`, res.message)
+      }
+    });
+
     this.initAdvanceFeature(this.project.selectedDict);
   }
 
