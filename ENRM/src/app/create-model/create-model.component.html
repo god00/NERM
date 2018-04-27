@@ -157,6 +157,12 @@
       </button>
     </div>
     <div class="modal-body">
+      <div class="card">
+        <div class="card-block">
+          <h4 class="card-title">Result of advance feaure</h4>
+          <p class="card-text" *ngFor="let display of advanceDisplayed; let i = index">{{display}}</p>
+        </div>
+      </div>
       <label style="display:block">Vocabulary Feature:</label>
       <div class="div-section">
         <section *ngFor="let vocab of advanceFeature.vocabFeature" class="section-checkbox">

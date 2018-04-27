@@ -396,7 +396,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     this.advanceFeatureItem['vocabFeature'] = [];
     this.advanceFeatureItem['dictFeature'] = [];
     this.advanceFeatureItem['wordFeature'] = [];
-    console.log(this.advanceDisplayedItem)
   }
 
   initAdvanceVocab() {
@@ -413,7 +412,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       { name: 'W4', selected: false, id: 4 },
       { name: 'W5', selected: false, id: 5 },
     ];
-    console.log(this.advanceFeature.vocabFeature)
   }
 
   initAdvanceDict(selectedDict) {
