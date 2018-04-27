@@ -10,7 +10,7 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
   try {
     checkDirectory(`${config.templatePath}`).then(() => {
       checkDirectory(`${config.templatePath}${email}`).then(() => {
-        checkDirectory(`${config.templatePath}${email}/${projectName}`).then(() => {
+        checkDirectory(`${config.templatePath}${email}/${projectName}`).then(async () => {
           initTemplate(path);
           // genarate vocab template
           featureSelection.vocabFeature.forEach(item => {
