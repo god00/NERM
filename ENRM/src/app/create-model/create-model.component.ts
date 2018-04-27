@@ -307,6 +307,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
         if (a['fileName'] > b['fileName']) return 1;
         return 0;
       });
+      console.log(this.project.selectedDict)
       this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
         if (res) {
           this.initDictFeature(res.data['project'].selectedDict);
