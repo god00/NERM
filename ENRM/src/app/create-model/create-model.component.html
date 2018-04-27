@@ -395,8 +395,10 @@
                 <div class="card card-list">
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item list-background-color" *ngFor="let display of advanceDisplayed; let i = index">
-                      {{display}}
-                      <span class="fa fa-trash-o trash-icon" aria-hidden="true" (click)="openConfirmModal(deleteAdvanceFeature,i,'advanceFeature')"></span>
+                      <div>
+                        {{display}}
+                        <span class="fa fa-trash-o trash-icon" aria-hidden="true" (click)="openConfirmModal(deleteAdvanceFeature,i,'advanceFeature')"></span>
+                      </div>
                     </li>
                   </ul>
                 </div>
