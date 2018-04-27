@@ -40,12 +40,12 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   dataSourceWord: any;
 
   //Advance Feature Selection
-  advanceFeature: any;
-  advanceFeatureItem: Object;
-  advanceDataSourceDict: any;
-  advanceDataSourceWord: any;
-  advanceDisplayed: string[] = [];
-  advanceDisplayedItem: string = '';
+  advanceFeature: any;                    //This is the Object of DataSource  
+  advanceFeatureItem: Object;             //This is the Object of checked with combine all feature,And push to project.featureSelection['advanceFeature']
+  advanceDataSourceDict: any;             //This is the DataSource of dictFeature
+  advanceDataSourceWord: any;             //This is the DataSource of wordFeature
+  advanceDisplayed: string[] = [];        //This is the Displays to HTML
+  advanceDisplayedItem: string = '';      //This is temp of displayed to push to advanceDisplayed
 
 
   //Multiselect Dropdown Parameters
@@ -369,7 +369,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   }
 
   openAdvanceFeatureModal(content) {
-    this.initAdvanceFeatureItem();
     this.initAdvanceFeature(this.project.selectedDict);
     this.modalService.open(content, { centered: true, size: 'lg' });
   }
@@ -378,11 +377,11 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     this.project.featureSelection['advanceFeature'].push(this.advanceFeatureItem);
     this.advanceDisplayed.push(this.advanceDisplayedItem.slice(0, -1));
     this.advanceDisplayedItem = '';
-    this.initAdvanceFeatureItem();
     this.initAdvanceFeature(this.project.selectedDict);
   }
 
   initAdvanceFeature(selectedDict) {
+    this.initAdvanceFeatureItem();
     this.initAdvanceVocab()
     this.initAdvanceDict(selectedDict);
     this.initAdvanceWord();
@@ -425,6 +424,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     selectedDict.map((dict) => {
       this.advanceFeature.dictFeature.push({ 'dictionary': dict['fileName'], '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false })
     });
+    this.advanceDataSourceDict = new MatTableDataSource(this.advanceFeature.dictFeature);
   }
 
   initAdvanceWord() {
@@ -436,6 +436,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       { wordFeature: 'Blank Front', '0': false },
       { wordFeature: 'Blank End', '0': false }
     ];
+    this.advanceDataSourceWord = new MatTableDataSource(this.advanceFeature.wordFeature);
   }
 
   updateAdvanceVocabFeature(id: string, checked: boolean) {
