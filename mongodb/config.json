@@ -3,5 +3,5 @@
     "secret": "THIS IS SECRET",
     "DIR": "../storage/uploads/",
     "extractScriptPath": "/home/tin/scripts/extract_feature/extract_features.py",
-    "templatePath": "../templates/"
+    "templatePath": "/home/tin/templates/"
 }

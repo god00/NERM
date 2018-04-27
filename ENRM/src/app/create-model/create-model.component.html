@@ -312,6 +312,53 @@
           </ng-template>
         </ngb-tab>
 
+        <ngb-tab id="advanceFeatureSelection" title="Advance Feature Selection" [hidden]="!project.summitPreProcessing">
+            <ng-template ngbTabContent>
+              <label style="display:block">Vocabulary Feature:</label>
+              <div class="div-section">
+                <section *ngFor="let vocab of project.featureSelection.vocabFeature" class="section-checkbox">
+                  <!-- <mat-checkbox *ngIf="vocab.id == 0 ;else elsecheckbox" disabled [checked]="true"></mat-checkbox>
+                  <ng-template #elsecheckbox><mat-checkbox [(ngModel)]="vocab.selected" (ngModelChange)="updateVocabFeature(vocab.id,vocab.selected)"></mat-checkbox></ng-template> -->
+                  <mat-checkbox [(ngModel)]="vocab.selected" (ngModelChange)="updateVocabFeature(vocab.id,vocab.selected)"></mat-checkbox>
+                  <p>W<sub>{{vocab.id}}</sub></p> 
+                </section>
+              </div>
+  
+              <label style="display:block">Dictionary Feature:</label>
+              <mat-table #dictFeaturetable [dataSource]="dataSourceDict">
+                  <!-- Dict Column -->
+                <ng-container *ngFor="let col of displayedColumnsDict" [matColumnDef]="col">
+                  <mat-header-cell *matHeaderCellDef><h6 *ngIf="col !== 'dictionary'">W<sub>{{col}}</sub></h6></mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <h6 *ngIf="col === 'dictionary';else elseDictTable">{{element[col]}}</h6>
+                    <ng-template #elseDictTable><mat-checkbox [(ngModel)]="element[col]" (ngModelChange)="updateFeature(col,element,'dict')"></mat-checkbox></ng-template>
+                  </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumnsDict"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumnsDict;"></mat-row>
+              </mat-table>
+              
+  
+              <label style="display:block">Word Feature:</label>
+              <mat-table #wordFeaturetable [dataSource]="dataSourceWord">
+                  <!-- Word Column -->
+                <ng-container *ngFor="let col of displayedColumnsWord" [matColumnDef]="col">
+                  <mat-header-cell *matHeaderCellDef><h6 *ngIf="col !== 'wordFeature'">W<sub>{{col}}</sub></h6></mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <h6 *ngIf="col === 'wordFeature';else elseWordTable">{{element[col]}}</h6>
+                    <ng-template #elseWordTable><mat-checkbox [(ngModel)]="element[col]" (ngModelChange)="updateFeature(col,element,'word')"></mat-checkbox></ng-template>
+                  </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumnsWord"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumnsWord;"></mat-row>
+              </mat-table>
+  
+              <div class="summit-button">
+                <button id="summit-button" class="btn btn-success" (click)="openSummitModal(summitFeature,t)">Summit</button>
+              </div>
+            </ng-template>
+          </ngb-tab>
+
         <ngb-tab title="Classify">
           <ng-template ngbTabContent>
             <label>Select Classifier:</label>

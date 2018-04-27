@@ -95,24 +95,23 @@ function advanceFeature(path, advanceFeature) {
         })
       }
       if (item.dictFeature.length != 0) {
-        let dictFeature = item.dictFeature.sort(function (a, b) {
-          return a.dictionary - b.dictionary;
-        })
-        for (let i = 0; i < dictFeature.length; i++) {
-          for (let key in dictFeature[i]) {
-            if (dictFeature[i][key] == true) {
+        for (let i = 0; i < item.dictFeature.length; i++) {
+          for (let key in item.dictFeature[i]) {
+            if (item.dictFeature[i][key] == true) {
               str = `${str}%x[${key},${18 + i}]/` // 18 is the first index of dictfeature from extract_table (start from common dict)
             }
           }
         }
       }
-      str = `${str.slice(0, -1)}\n`
-      fs.appendFile(path, str, 'utf8', (err) => {
-        if (err) {
-          throw err;
-        } else {
-        }
-      })
+      if (item.wordFeature.length != 0) {
+        item.wordFeature.forEach((item, index) => {
+          if (item['0']) {
+            str = `${str}%x[${0},${12 + index}]/`
+          }
+        })
+      }
+      str = `${str.slice(0, -1)}\n`;
+      fs.appendFileSync(path, str)
       count += 1;
     })
   }

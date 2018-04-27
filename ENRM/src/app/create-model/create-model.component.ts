@@ -39,6 +39,9 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   wordFeature: any;
   dataSourceWord: any;
 
+  //Advance Feature Selection
+  advanceFeature: any;
+
 
   //Multiselect Dropdown Parameters
   dropdownList = [];
@@ -102,6 +105,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           this.project.date = data['project'].date;
           this.project.summitPreProcessing = data['project'].summitPreProcessing;
           this.project.featureSelection = data['project'].featureSelection;
+          console.log(this.project.featureSelection)
           this.project.dictionary = data['dictionary'];
           this.dropdownList = data['dictionary'].map((dict, index) => {
             dict['id'] = index;
