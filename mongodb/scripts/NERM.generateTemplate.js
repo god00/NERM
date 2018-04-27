@@ -5,7 +5,7 @@ var config = require('../config.json');
 // Counter
 var count = 0;
 
-exports.genarateTemplate = function (featureSelection, email, projectName) {
+exports.genarateTemplate = async function (featureSelection, email, projectName) {
   var path = `${config.templatePath}${email}/${projectName}/current_template.txt`
   try {
     checkDirectory(`${config.templatePath}`).then(() => {
