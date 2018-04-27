@@ -291,8 +291,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   }
 
   onSummit() {
-    let f = document.getElementById('t')
-    console.log(f)
     if (this.updateProjectSubscribe)
       this.updateProjectSubscribe.unsubscribe();
     if (this.project.summitPreProcessing == false) {
@@ -301,7 +299,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
         if (res) {
           this.initDictFeature(res.data['project'].selectedDict);
           this.dataSourceDict.data = this.dictFeature;
-          f.activeId = "featureSelection";
+          this.activeIdString = "featureSelection"
         }
       });
     }
