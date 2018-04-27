@@ -490,13 +490,13 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       if (mode == 'dict') {
         var column = this.returnColumn(this.advanceDataSourceDict.data, item.dictionary, mode);
         this.advanceFeatureItem['dictFeature'].push({ row, column });
-        this.advanceDisplayedItem = `${this.advanceDisplayedItem}${item.dictionary}/`;
+        this.advanceDisplayedItem = `${this.advanceDisplayedItem}[W${row},${item.dictionary}]/`;
         this.checkedCount++;
       }
       else if (mode == 'word') {
         var column = this.returnColumn(this.advanceDataSourceWord.data, item.wordFeature, mode);
         this.advanceFeatureItem['wordFeature'].push({ row, column });
-        this.advanceDisplayedItem = `${this.advanceDisplayedItem}${item.wordFeature}/`;
+        this.advanceDisplayedItem = `${this.advanceDisplayedItem}[W${row},${item.wordFeature}]/`;
         this.checkedCount++;
       }
     }
@@ -505,14 +505,14 @@ export class CreateModelComponent implements OnInit, OnDestroy {
         var column = this.returnColumn(this.advanceDataSourceDict.data, item.dictionary, mode);
         var index = this.findIndexOfObject(this.advanceFeatureItem['dictFeature'], row, column);
         this.advanceFeatureItem['dictFeature'].splice(index, 1);
-        this.advanceDisplayedItem = this.advanceDisplayedItem.replace(`${item.dictionary}/`, '');
+        this.advanceDisplayedItem = this.advanceDisplayedItem.replace(`[W${row},${item.dictionary}]/`, '');
         this.checkedCount--;
       }
       else if (mode == 'word') {
         var column = this.returnColumn(this.advanceDataSourceWord.data, item.wordFeature, mode);
         var index = this.findIndexOfObject(this.advanceFeatureItem['wordFeature'], row, column);
         this.advanceFeatureItem['wordFeature'].splice(index, 1);
-        this.advanceDisplayedItem = this.advanceDisplayedItem.replace(`${item.wordFeature}/`, '');
+        this.advanceDisplayedItem = this.advanceDisplayedItem.replace(`[W${row},${item.wordFeature}]/`, '');
         this.checkedCount--;
       }
     }
