@@ -61,7 +61,7 @@ async function generateTemplateWithLine(row, column, count, path) {
       throw err;
     } else {
       console.log("Template saved : ", `U${count}:%x[${row},${column}]`);
-      ++count;
+      count += 1;
     }
   })
 }
@@ -113,7 +113,7 @@ function advanceFeature(path, advanceFeature, count) {
           throw err;
         } else {
           console.log("Template saved : ", str);
-          count++;
+          count += 1;
         }
       })
     })
