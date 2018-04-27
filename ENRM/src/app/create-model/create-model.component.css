@@ -67,6 +67,11 @@
     background-color: antiquewhite;
 }
 
+.card-list{
+    max-height: 15vw;
+    overflow: scroll;
+}
+
 mat-checkbox{
     display: content;
     max-width: 1.5vw;
