@@ -5,23 +5,29 @@ var config = require('../config.json');
 exports.genarateTemplate = function (featureSelection, email, projectName) {
   var count = 0;
   var path = `${config.DIR}${email}/${projectName}/current_template.txt`
-  initTemplate(path);
-  featureSelection.vocabFeature.forEach(item => {
-    if (item.selected) {
-      generateTemplateWithLine(item.id, 1, count, path);
-    }
-  });
-  let dictFeature = featureSelection.dictFeature.sort(function (a, b) {
-    return a.dictionary - b.dictionary;
-  })
-  for (let i = 0; i < dictFeature.length; i++) {
-    for (let key in dictFeature[i]) {
-      if (dictFeature[i][key] == true) {
-        generateTemplateWithLine(key, 26 + i, count, path); // 26 is the first index of dict from extract_table 
+  try {
+    initTemplate(path);
+    featureSelection.vocabFeature.forEach(item => {
+      if (item.selected) {
+        generateTemplateWithLine(item.id, 1, count, path);
+      }
+    });
+    let dictFeature = featureSelection.dictFeature.sort(function (a, b) {
+      return a.dictionary - b.dictionary;
+    })
+    for (let i = 0; i < dictFeature.length; i++) {
+      for (let key in dictFeature[i]) {
+        if (dictFeature[i][key] == true) {
+          generateTemplateWithLine(key, 26 + i, count, path); // 26 is the first index of dict from extract_table 
+        }
       }
     }
+    advanceFeature(path, featureSelection.advanceFeature);
+    addBigram(path);
   }
-  addBigram(path);
+  catch (e) {
+    throw Error('Error while genarate template')
+  }
 }
 
 async function generateTemplateWithLine(row, columm, count, path) {
@@ -87,7 +93,5 @@ function advanceFeature(path, advanceFeature, count) {
       })
     })
   }
-
-
 }
 
