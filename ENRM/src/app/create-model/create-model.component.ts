@@ -72,7 +72,8 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       unSelectAllText: 'Unselect All',
       enableSearchFilter: true,
     };
-    this.updateSelectedDict()
+    if (!this.project.summitPreProcessing)
+      this.updateSelectedDict()
   }
 
 

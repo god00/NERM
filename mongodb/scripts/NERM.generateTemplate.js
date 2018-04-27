@@ -32,12 +32,12 @@ exports.genarateTemplate = function (featureSelection, email, projectName) {
   }
 }
 
-async function generateTemplateWithLine(row, columm, count, path) {
-  fs.appendFile(path, `U${count}:%x[${row},${columm}]\n`, 'utf8', (err) => {
+async function generateTemplateWithLine(row, column, count, path) {
+  fs.appendFile(path, `U${count}:%x[${row},${column}]\n`, 'utf8', (err) => {
     if (err) {
       throw err;
     } else {
-      console.log("Template saved : ", `U${count}:%x[${row},${columm}]`);
+      console.log("Template saved : ", `U${count}:%x[${row},${column}]`);
       ++count;
     }
   })
