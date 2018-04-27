@@ -28,7 +28,7 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
             for (let i = 0; i < featureSelection.dictFeature.length; i++) {
               for (let key in featureSelection.dictFeature[i]) {
                 if (featureSelection.dictFeature[i][key] == true) {
-                  generateTemplateWithLine(key, 18 + i, path); // 18 is the first index of dictfeature from extract_table (start from common dict)
+                  await generateTemplateWithLine(key, 18 + i, path); // 18 is the first index of dictfeature from extract_table (start from common dict)
                   count += 1;
                 }
               }
@@ -43,10 +43,10 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
             });
 
             // genarate advance template
-            advanceFeature(path, featureSelection.advanceFeature);
+            await advanceFeature(path, featureSelection.advanceFeature);
 
             // add bigram
-            addBigram(path);
+            await addBigram(path);
 
             resolve(path);
           })
