@@ -351,7 +351,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       this.summitFeatureSubcribe.unsubscribe();
     this.summitFeatureSubcribe = this.databaseService.genarateTemplate(this.project._id).subscribe((res) => {
       if (res) {
-        console.log(res.data)
+        console.log(res.message)
         // this.activeIdString = "featureSelection"
       }
     });
