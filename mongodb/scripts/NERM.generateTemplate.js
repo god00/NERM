@@ -55,7 +55,7 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
   }
 }
 
-function generateTemplateWithLine(row, column, path) {
+async function generateTemplateWithLine(row, column, path) {
   fs.appendFileSync(path, `U${count}:%x[${row},${column}]\n`, 'utf8', (err) => {
     if (err) {
       throw err;
