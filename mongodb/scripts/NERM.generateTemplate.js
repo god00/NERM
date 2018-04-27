@@ -86,6 +86,7 @@ function addBigram(path) {
 }
 
 function advanceFeature(path, advanceFeature) {
+  console.log(advanceFeature)
   if (advanceFeature.length != 0) {
     advanceFeature.forEach(item => {
       let str = `U${count}:`
@@ -121,7 +122,7 @@ function advanceFeature(path, advanceFeature) {
       //   })
       // }
       str = `${str.slice(0, -1)}\n`;
-      fs.appendFileSync(path, str)
+      fs.appendFile(path, str)
       count += 1;
     })
   }
