@@ -255,18 +255,18 @@
             
 
             <label style="display:block">Word Feature:</label>
-            <!-- <mat-table [dataSource]="dataSourceWord"> -->
+            <mat-table [dataSource]="dataSourceWord">
               <!-- Word Column -->
-            <!-- <ng-container *ngFor="let col of displayedColumnsWord" [matColumnDef]="col">
+            <ng-container *ngFor="let col of displayedColumnsWord" [matColumnDef]="col">
               <mat-header-cell *matHeaderCellDef><h6 *ngIf="col !== 'wordFeature'">W<sub>{{col}}</sub></h6></mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <h6 *ngIf="col === 'wordFeature';else elseWordTable">{{element[col]}}</h6>
                 <ng-template #elseWordTable><mat-checkbox [(ngModel)]="element[col]" (ngModelChange)="updateWordFeature(col,element)"></mat-checkbox></ng-template>
               </mat-cell>
-            </ng-container> -->
-            <!-- <mat-header-row *matHeaderRowDef="displayedColumnsDict"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumnsDict;"></mat-row> -->
-          <!-- </mat-table> -->
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumnsDict"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumnsDict;"></mat-row>
+          </mat-table>
           </ng-template>
         </ngb-tab>
 

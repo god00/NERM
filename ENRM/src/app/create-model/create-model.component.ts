@@ -133,7 +133,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           else {
             this.activeIdString = "preProcess"
           }
-
+          console.log(this.dictFeature)
           this.wordFeature = data['project'].featureSelection['wordFeature'];
           console.log(this.wordFeature)
           this.dataSourceWord = new MatTableDataSource(this.wordFeature)
