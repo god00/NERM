@@ -143,6 +143,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
 
           if (this.project.featureSelection['dictFeature'].length != 0) {
             this.dictFeature = this.project.featureSelection['dictFeature'];
+            console.log(this.dictFeature)
           }
           else {
             this.initDictFeature(data['project'].selectedDict);
