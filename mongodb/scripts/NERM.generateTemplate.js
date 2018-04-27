@@ -97,12 +97,12 @@ function advanceFeature(path, advanceFeature) {
       }
       if (item.dictFeature.length != 0) {
         item.dictFeature.forEach(obj => {
-          str = `${str}%x[${obj.row},${obj.column + 18}]/`; // 18 is the first index of dictfeature from extract_table (start from common dict)
+          str = `${str}%x[${obj.row},${Number(obj.column) + 18}]/`; // 18 is the first index of dictfeature from extract_table (start from common dict)
         })
       }
       if (item.wordFeature.length != 0) {
         item.wordFeature.forEach(obj => {
-          str = `${str}%x[${obj.row},${obj.column + 12}]/`; // 12 is the first index of wordfeature from extract_table (start from alphanum)
+          str = `${str}%x[${obj.row},${Number(obj.column) + 12}]/`; // 12 is the first index of wordfeature from extract_table (start from alphanum)
         })
       }
       // if (item.dictFeature.length != 0) {
