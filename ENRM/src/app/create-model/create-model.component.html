@@ -112,13 +112,13 @@
 <!-- Delete Advance Feture Selection Modal -->
 <ng-template #deleteAdvanceFeature let-c="close" let-d="dismiss">
     <div class="modal-header">
-      <h4 class="modal-title" style="word-break: break-word;">Delete {{deleteAdvanceFetureName}}</h4>
+      <h4 class="modal-title" style="word-break: break-word;">Delete this feture selection ?</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-      <p>Do you want to delete this feture selection ?</p>
+      <p>Do you want to delete {{deleteAdvanceFetureName}} ?</p>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-light" (click)="c('Close click')">No</button>
@@ -391,7 +391,7 @@
               </div>
 
               <div style="width: 65%;">
-                <label style="display:block">Result of advance feaure:</label>
+                <label style="display:block">Result of advance feature:</label>
                 <div class="card card-list">
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item list-background-color" *ngFor="let display of advanceDisplayed; let i = index">

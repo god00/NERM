@@ -523,6 +523,13 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       let index = this.advanceDisplayed.indexOf(this.deleteAdvanceFetureName);
       this.project.featureSelection['advanceFeature'].splice(index, 1);
       this.advanceDisplayed.splice(index, 1);
+      if (this.updateProjectSubscribe)
+        this.updateProjectSubscribe.unsubscribe();
+      this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
+        if (res) {
+          console.log(`updated AdvanceFeature :`, res.message)
+        }
+      });
     }
   }
 
