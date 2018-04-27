@@ -311,7 +311,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   }
 
   initDictFeature(selectedDict) {
-    console.log(selectedDict)
     this.dictFeature = selectedDict.map((dict) => {
       return { 'dictionary': dict['fileName'], '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false }
     })
