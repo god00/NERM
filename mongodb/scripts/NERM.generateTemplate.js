@@ -15,7 +15,7 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
           // genarate vocab template
           featureSelection.vocabFeature.forEach(item => {
             if (item.selected) {
-              generateTemplateWithLine(item.id, 1, path).then();
+              generateTemplateWithLine(item.id, 1, path);
             }
           });
 
@@ -26,7 +26,7 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
           for (let i = 0; i < dictFeature.length; i++) {
             for (let key in dictFeature[i]) {
               if (dictFeature[i][key] == true) {
-                await generateTemplateWithLine(key, 26 + i, path).then(); // 26 is the first index of dictfeature from extract_table 
+                await generateTemplateWithLine(key, 26 + i, path); // 26 is the first index of dictfeature from extract_table 
               }
             }
           }
@@ -77,7 +77,7 @@ function initTemplate(path) {
   })
 }
 
-async function addBigram(path) {
+function addBigram(path) {
   fs.appendFile(path, `\n# Bigram\nB`, 'utf8', (err) => {
     if (err) {
       throw err;
