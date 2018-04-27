@@ -15,6 +15,8 @@ router.post('/', NERMController.createUser)
 
 router.post('/project', NERMController.createProject)
 
+router.post('/templates', NERMController.genarateTemplate)
+
 router.get('/project', NERMController.getProject)
 
 router.put('/project', NERMController.updateProject)

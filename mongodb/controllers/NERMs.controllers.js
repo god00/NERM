@@ -1,5 +1,4 @@
 // Accessing the Service that we just created
-
 var NERMService = require('../services/NERM.service')
 var NERMProject = require('../models/NERM.model')
 var NERMDict = require('../models/NERMDict.model')
@@ -8,6 +7,10 @@ var config = require('../config.json');
 var multer = require('multer');
 var fs = require('fs');
 var path = require('path')
+
+// genarate template script
+var NERMGenerateTemplate = require('../scripts/NERM.generateTemplate');
+
 // var PythonShell = require('python-shell');
 const { spawn } = require('child_process');
 
@@ -387,6 +390,28 @@ exports.removeCorpus = async function (req, res, next) {
         return res.status(400).json({ status: 400, message: e.message })
     }
 
+}
+
+exports.genarateTemplate = async function (req, res, next) {
+    var id = req.params.id;
+    try {
+        var query = NERMProject.findOne({ _id: id });
+        query.exec(async function (err, project) {
+            if (err) {
+                return res.status(400).json({ status: 400, message: err });
+            }
+            else if (project) {
+                var pathTemplate = NERMGenerateTemplate.genarateTemplate(project.featureSelection, project.email, project.projectName)
+                return res.status(200).json({ status: 200, data: pathTemplate, message: `Genarate template successful` });
+            }
+            else {
+                return res.status(204).json({ status: 204, message: "Please create project first" });
+            }
+        })
+    }
+    catch (e) {
+        return res.status(400).json({ status: 400, message: e.message })
+    }
 }
 
 async function addPathsFromFileNames(fileNames, paths) {

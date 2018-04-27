@@ -110,23 +110,42 @@
 <!--  -->
 
 <!-- Summit Preprocess Modal -->
-<ng-template #summit let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h4 class="modal-title" style="word-break: break-word;">Confirm Preprocess</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      After summit, You'll can't go back to preprocess again.<br>
-      <p>Are you sure to summit ?</p>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-light" (click)="c('Close click')">No</button>
-      <button type="button" class="btn btn-primary" (click)="onSummit();c()">Yes</button>
-    </div>
-  </ng-template>
-  <!--  -->
+<ng-template #summitPreProcess let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" style="word-break: break-word;">Confirm Preprocess</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    After summit, You'll can't go back to preprocess again.<br>
+    <p>Are you sure to summit ?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="c('Close click')">No</button>
+    <button type="button" class="btn btn-primary" (click)="onSummitPreprocess();c()">Yes</button>
+  </div>
+</ng-template>
+<!--  -->
+
+<!-- Summit FeatureSelection Modal -->
+<ng-template #summitFeature let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" style="word-break: break-word;">Confirm Feature Selection</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    After summit, You'll can't go back to adjust feature again.<br>
+    <p>Are you sure to summit ?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="c('Close click')">No</button>
+    <button type="button" class="btn btn-primary" (click)="onSummitFeature();c()">Yes</button>
+  </div>
+</ng-template>
+<!--  -->
 
 
 
@@ -241,7 +260,7 @@
             <button class="btn btn-primary" (click)="uploadModal(upload,'corpus')">Upload Corpus...</button>
             <!--  -->
             <div class="summit-button">
-              <button id="summit-button" class="btn btn-success" (click)="openSummitProprocessModal(summit,t)">Summit</button>
+              <button id="summit-button" class="btn btn-success" (click)="openSummitModal(summitPreProcess,t)">Summit</button>
             </div>
           </ng-template>
         </ngb-tab>
@@ -288,7 +307,7 @@
             </mat-table>
 
             <div class="summit-button">
-              <button id="summit-button" class="btn btn-success" (click)="openSummitFeatureSelectionModal(summit,t)">Summit</button>
+              <button id="summit-button" class="btn btn-success" (click)="openSummitModal(summitFeature,t)">Summit</button>
             </div>
           </ng-template>
         </ngb-tab>

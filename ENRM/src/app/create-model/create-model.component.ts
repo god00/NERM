@@ -29,12 +29,12 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   deleteCorpusName: string = '';
   activeIdString: string;
 
-  //dictfeature table 
+  //Dictfeature table 
   displayedColumnsDict: any = ["dictionary"];
   dictFeature: any;
   dataSourceDict: any;
 
-  //wordfeature table
+  //Wordfeature table
   displayedColumnsWord: any = ["wordFeature", "0"];
   wordFeature: any;
   dataSourceWord: any;
@@ -45,9 +45,11 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   selectedItems: FormControl;
   dropdownSettings = {};
 
+  //Subscribe parameter
   getProjectSubscribe: any;
   selectedSubscribe: any;
   updateProjectSubscribe: any;
+  summitFeatureSubcribe: any;
 
   showText = {};
 
@@ -77,11 +79,13 @@ export class CreateModelComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.getProjectSubscribe)
-      this.getProjectSubscribe.unsubscribe()
+      this.getProjectSubscribe.unsubscribe();
     if (this.selectedSubscribe)
-      this.selectedSubscribe.unsubscribe()
+      this.selectedSubscribe.unsubscribe();
     if (this.updateProjectSubscribe)
-      this.updateProjectSubscribe.unsubscribe()
+      this.updateProjectSubscribe.unsubscribe();
+    if (this.summitFeatureSubcribe)
+      this.summitFeatureSubcribe.unsubscribe();
   }
 
   createSelectedForm() {
@@ -286,11 +290,11 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     });
   }
 
-  openSummitProprocessModal(content, f) {
+  openSummitModal(content, f) {
     this.modalService.open(content, { centered: true })
   }
 
-  onSummit() {
+  onSummitPreprocess() {
     if (this.updateProjectSubscribe)
       this.updateProjectSubscribe.unsubscribe();
     if (this.project.summitPreProcessing == false) {
@@ -323,6 +327,18 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   // onDeSelectAll(items: any) {
   //   console.log(this.selectedItems.value);
   // }
+
+  onSummitFeature() {
+    if (this.summitFeatureSubcribe)
+      this.summitFeatureSubcribe.unsubscribe();
+    this.summitFeatureSubcribe = this.databaseService.genarateTemplate(this.project._id).subscribe((res) => {
+      if (res) {
+        console.log(res.data)
+        // this.activeIdString = "featureSelection"
+      }
+    });
+
+  }
 
   public logout() {
     this.authenicationService.logout();

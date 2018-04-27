@@ -63,6 +63,10 @@ export class DatabaseService {
     return this.http.put(`${nermUrl}/project`, nerm);
   }
 
+  genarateTemplate(id: string): Observable<any> {
+    return this.http.put(`${nermUrl}/templates`, id);
+  }
+
   deleteNERM(id: string): any {
     //Delete the object by the id
     let deleteUrl = `${nermUrl}/${id}`
