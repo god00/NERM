@@ -159,10 +159,11 @@
     <div class="modal-body">
       <label style="display:block">Vocabulary Feature:</label>
       <div class="div-section">
-        <div *ngFor="let vocab of advanceFeature.vocabFeature" class="section-checkbox">
+        <section *ngFor="let vocab of advanceFeature.vocabFeature" class="section-checkbox">
+            {{vocab}}
           <mat-checkbox [(ngModel)]="vocab.selected" (ngModelChange)="updateAdvanceVocabFeature(vocab.id,vocab.selected)"></mat-checkbox>
           <p>W<sub>{{vocab.id}}</sub></p> 
-        </div>
+        </section>
       </div>
 
       <label style="display:block">Dictionary Feature:</label>
