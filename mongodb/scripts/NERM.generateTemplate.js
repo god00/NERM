@@ -21,9 +21,9 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
           });
 
           // genarate dict template
-          let dictFeature = featureSelection.dictFeature.sort(function (a, b) {
-            return a.dictionary - b.dictionary;
-          })
+          // let dictFeature = featureSelection.dictFeature.sort(function (a, b) {
+          //   return a.dictionary - b.dictionary;
+          // })
           for (let i = 0; i < dictFeature.length; i++) {
             for (let key in dictFeature[i]) {
               if (dictFeature[i][key] == true) {

@@ -71,5 +71,5 @@ mat-checkbox{
 
 mat-table{
     overflow-y: scroll;
-    max-height: 20vw;
+    max-height: 15vw;
 }

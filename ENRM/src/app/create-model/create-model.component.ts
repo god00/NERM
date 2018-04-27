@@ -313,7 +313,11 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   }
 
   initDictFeature(selectedDict) {
-    let selectedDictSort = selectedDict.sort((a, b) => { return a.fileName - b.fileName })
+    let selectedDictSort = selectedDict.sort(function (a, b) {
+      if (a.fileName < b.fileName) return -1;
+      if (a.fileName > b.fileName) return 1;
+      return 0;
+    });
     this.dictFeature = [
       { 'dictionary': 'common (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
       { 'dictionary': 'loc_name (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
