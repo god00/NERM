@@ -353,19 +353,21 @@
             </mat-table>
             
             <div>
-              <label style="display:block">Word Feature:</label>
-              <mat-table #wordFeaturetable [dataSource]="dataSourceWord">
-                  <!-- Word Column -->
-                <ng-container *ngFor="let col of displayedColumnsWord" [matColumnDef]="col">
-                  <mat-header-cell *matHeaderCellDef><h6 *ngIf="col !== 'wordFeature'">W<sub>{{col}}</sub></h6></mat-header-cell>
-                  <mat-cell *matCellDef="let element">
-                    <h6 *ngIf="col === 'wordFeature';else elseWordTable">{{element[col]}}</h6>
-                    <ng-template #elseWordTable><mat-checkbox [(ngModel)]="element[col]" (ngModelChange)="updateFeature(col,element,'word')"></mat-checkbox></ng-template>
-                  </mat-cell>
-                </ng-container>
-                <mat-header-row *matHeaderRowDef="displayedColumnsWord"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumnsWord;"></mat-row>
-              </mat-table>
+              <div>
+                <label style="display:block">Word Feature:</label>
+                <mat-table #wordFeaturetable [dataSource]="dataSourceWord">
+                    <!-- Word Column -->
+                  <ng-container *ngFor="let col of displayedColumnsWord" [matColumnDef]="col">
+                    <mat-header-cell *matHeaderCellDef><h6 *ngIf="col !== 'wordFeature'">W<sub>{{col}}</sub></h6></mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      <h6 *ngIf="col === 'wordFeature';else elseWordTable">{{element[col]}}</h6>
+                      <ng-template #elseWordTable><mat-checkbox [(ngModel)]="element[col]" (ngModelChange)="updateFeature(col,element,'word')"></mat-checkbox></ng-template>
+                    </mat-cell>
+                  </ng-container>
+                  <mat-header-row *matHeaderRowDef="displayedColumnsWord"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumnsWord;"></mat-row>
+                </mat-table>
+              </div>
 
               <div *ngIf="advanceDisplayed.length != 0">
                 <label style="display:block">Result of advance feaure:</label>
