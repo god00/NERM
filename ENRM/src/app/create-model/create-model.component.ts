@@ -284,6 +284,8 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   }
 
   updateFeature(id: string, element: any, mode: string) {
+    console.log(id)
+    console.log(element)
     if (mode == 'dict')
       this.project.featureSelection['dictFeature'] = this.dataSourceDict.data;
     else if (mode == 'word')
