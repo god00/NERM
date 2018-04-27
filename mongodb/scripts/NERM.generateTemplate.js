@@ -16,6 +16,7 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
           featureSelection.vocabFeature.forEach(item => {
             if (item.selected) {
               generateTemplateWithLine(item.id, 1, path);
+              count += 1;
             }
           });
 
@@ -26,7 +27,8 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
           for (let i = 0; i < dictFeature.length; i++) {
             for (let key in dictFeature[i]) {
               if (dictFeature[i][key] == true) {
-                await generateTemplateWithLine(key, 26 + i, path); // 26 is the first index of dictfeature from extract_table 
+                await generateTemplateWithLine(key, 26 + i, path); // 26 is the first index of dictfeature from extract_table
+                count += 1; 
               }
             }
           }
@@ -35,6 +37,7 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
           featureSelection.wordFeature.forEach((item, index) => {
             if (item['0']) {
               generateTemplateWithLine(0, 12 + index, path) // 12 is the first index of wordfeature from extract_table 
+              count += 1;
             }
           });
 
