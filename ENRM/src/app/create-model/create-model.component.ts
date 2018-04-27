@@ -123,9 +123,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
             this.dictFeature = this.project.featureSelection['dictFeature'];
           }
           else {
-            this.dictFeature = data['project'].selectedDict.map((dict) => {
-              return { 'dictionary': dict['fileName'], '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false }
-            })
+            this.initDictFeature(data['project'].selectedDict);
           }
 
           this.dataSourceDict = new MatTableDataSource(this.dictFeature);
@@ -301,14 +299,18 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       this.project.summitPreProcessing = true;
       this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
         if (res) {
-          this.dictFeature = res.data['project'].selectedDict.map((dict) => {
-            return { 'dictionary': dict['fileName'], '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false }
-          })
+          this.initDictFeature(res.data['project'].selectedDict);
           this.dataSourceDict.data = this.dictFeature;
-          f.activeId = "featureSelection"
+          f.activeId = "featureSelection";
         }
       });
     }
+  }
+
+  initDictFeature(selectedDict) {
+    this.dictFeature = selectedDict.map((dict) => {
+      return { 'dictionary': dict['fileName'], '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false }
+    })
   }
 
   // onItemSelect(item: any) {
