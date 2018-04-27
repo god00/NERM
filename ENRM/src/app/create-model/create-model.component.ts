@@ -446,13 +446,13 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   updateAdvanceVocabFeature(id: string, checked: boolean) {
     if (checked) {
       this.advanceFeatureItem['vocabFeature'].push(id)
-      this.advanceDisplayedItem = `${this.advanceDisplayedItem}${id}/`;
+      this.advanceDisplayedItem = `${this.advanceDisplayedItem}W${id}/`;
     }
     else {
       let index = this.advanceFeatureItem['vocabFeature'].indexOf(id);
       if (index != -1) {
         this.advanceFeatureItem['vocabFeature'].splice(index, 1);
-        this.advanceDisplayedItem = this.advanceDisplayedItem.replace(`${id}/`, '');
+        this.advanceDisplayedItem = this.advanceDisplayedItem.replace(`W${id}/`, '');
       }
     }
   }
