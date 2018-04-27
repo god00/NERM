@@ -312,7 +312,7 @@
           </ng-template>
         </ngb-tab>
 
-        <ngb-tab id="advanceFeatureSelection" title="Advance Feature Selection" [hidden]="!project.summitPreProcessing">
+        <ngb-tab id="advanceFeatureSelection" title="Advance Feature Selection" *ngIf="!project.summitPreProcessing">
             <ng-template ngbTabContent>
               <label style="display:block">Vocabulary Feature:</label>
               <div class="div-section">
