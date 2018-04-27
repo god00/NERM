@@ -46,6 +46,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   advanceDataSourceWord: any;             //This is the DataSource of wordFeature.
   advanceDisplayed: string[] = [];        //This is the Displays to HTML.
   advanceDisplayedItem: string = '';      //This is temp of displayed to push to advanceDisplayed.
+  checkedCount: number = 0;               //This is counter for add button
 
 
   //Multiselect Dropdown Parameters
@@ -447,12 +448,14 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     if (checked) {
       this.advanceFeatureItem['vocabFeature'].push(id)
       this.advanceDisplayedItem = `${this.advanceDisplayedItem}W${id}/`;
+      this.checkedCount++;
     }
     else {
       let index = this.advanceFeatureItem['vocabFeature'].indexOf(id);
       if (index != -1) {
         this.advanceFeatureItem['vocabFeature'].splice(index, 1);
         this.advanceDisplayedItem = this.advanceDisplayedItem.replace(`W${id}/`, '');
+        this.checkedCount--;
       }
     }
   }
@@ -463,11 +466,13 @@ export class CreateModelComponent implements OnInit, OnDestroy {
         var column = this.returnColumn(this.advanceDataSourceDict.data, item.dictionary, mode);
         this.advanceFeatureItem['dictFeature'].push({ row, column });
         this.advanceDisplayedItem = `${this.advanceDisplayedItem}${item.dictionary}/`;
+        this.checkedCount++;
       }
       else if (mode == 'word') {
         var column = this.returnColumn(this.advanceDataSourceWord.data, item.wordFeature, mode);
         this.advanceFeatureItem['wordFeature'].push({ row, column });
         this.advanceDisplayedItem = `${this.advanceDisplayedItem}${item.wordFeature}/`;
+        this.checkedCount++;
       }
     }
     else {
@@ -476,12 +481,14 @@ export class CreateModelComponent implements OnInit, OnDestroy {
         var index = this.findIndexOfObject(this.advanceFeatureItem['dictFeature'], row, column);
         this.advanceFeatureItem['dictFeature'].splice(index, 1);
         this.advanceDisplayedItem = this.advanceDisplayedItem.replace(`${item.dictionary}/`, '');
+        this.checkedCount--;
       }
       else if (mode == 'word') {
         var column = this.returnColumn(this.advanceDataSourceWord.data, item.wordFeature, mode);
         var index = this.findIndexOfObject(this.advanceFeatureItem['wordFeature'], row, column);
         this.advanceFeatureItem['wordFeature'].splice(index, 1);
         this.advanceDisplayedItem = this.advanceDisplayedItem.replace(`${item.wordFeature}/`, '');
+        this.checkedCount--;
       }
     }
   }
