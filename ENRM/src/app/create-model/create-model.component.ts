@@ -108,23 +108,26 @@ export class CreateModelComponent implements OnInit, OnDestroy {
             dict['itemName'] = dict['fileName'];
             return dict
           });
-          let selectedTmp = data['project'].selectedDict.map((dict) => {
-            let selected = this.dropdownList.filter(item => {
-              if (item.fileName == dict['fileName'])
-                return item
-            })
-            return selected[0]
-          });
           if (!this.project.summitPreProcessing) {
-            this.updateSelectedDict()
+            let selectedTmp = data['project'].selectedDict.map((dict) => {
+              let selected = this.dropdownList.filter(item => {
+                if (item.fileName == dict['fileName'])
+                  return item
+              })
+              return selected[0]
+            });
+            this.updateSelectedDict();
             this.selectedItems.patchValue(selectedTmp);
           }
+
           this.project.featureSelection['vocabFeature'].forEach(item => {
             if (item.selected) {
               this.displayedColumnsDict.push(`${item.id}`)
-              this.displayedColumnsDict.sort((a, b) => { return a - b })
+
             }
           });
+          this.displayedColumnsDict.sort((a, b) => { return a - b })
+
           if (this.project.featureSelection['dictFeature'].length != 0) {
             this.dictFeature = this.project.featureSelection['dictFeature'];
           }
@@ -310,8 +313,19 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   }
 
   initDictFeature(selectedDict) {
-    this.dictFeature = selectedDict.map((dict) => {
-      return { 'dictionary': dict['fileName'], '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false }
+    let selectedDictSort = selectedDict.sort((a, b) => { return a.fileName - b.fileName })
+    this.dictFeature = [
+      { 'dictionary': 'common (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
+      { 'dictionary': 'loc_name (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
+      { 'dictionary': 'loc_clue (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
+      { 'dictionary': 'org_name (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
+      { 'dictionary': 'org_clue (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
+      { 'dictionary': 'per_clue (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
+      { 'dictionary': 'per_first (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
+      { 'dictionary': 'per_last (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
+    ]
+    selectedDictSort.map((dict) => {
+      this.dictFeature.push({ 'dictionary': dict['fileName'], '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false })
     })
   }
 
