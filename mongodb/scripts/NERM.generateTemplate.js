@@ -27,7 +27,7 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
           for (let i = 0; i < dictFeature.length; i++) {
             for (let key in dictFeature[i]) {
               if (dictFeature[i][key] == true) {
-                await generateTemplateWithLine(key, 26 + i, path); // 26 is the first index of dictfeature from extract_table
+                await generateTemplateWithLine(key, 18 + i, path); // 18 is the first index of dictfeature from extract_table (start from common dict)
                 count += 1;
               }
             }
@@ -36,7 +36,7 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
           // genarate word template
           featureSelection.wordFeature.forEach((item, index) => {
             if (item['0']) {
-              generateTemplateWithLine(0, 12 + index, path) // 12 is the first index of wordfeature from extract_table 
+              generateTemplateWithLine(0, 12 + index, path) // 12 is the first index of wordfeature from extract_table (start from alphanum)
               count += 1;
             }
           });
@@ -100,7 +100,7 @@ function advanceFeature(path, advanceFeature) {
         for (let i = 0; i < dictFeature.length; i++) {
           for (let key in dictFeature[i]) {
             if (dictFeature[i][key] == true) {
-              str = `${str}%x[${key},${26 + i}]/` // 26 is the first index of dict from extract_table 
+              str = `${str}%x[${key},${18 + i}]/` // 18 is the first index of dictfeature from extract_table (start from common dict)
             }
           }
         }
