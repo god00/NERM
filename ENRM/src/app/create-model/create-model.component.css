@@ -78,6 +78,12 @@
     margin-top: 1vw;
 }
 
+.word-feature{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
 mat-checkbox{
     display: content;
     max-width: 1.5vw;

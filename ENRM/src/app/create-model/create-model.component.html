@@ -352,8 +352,8 @@
               <mat-row *matRowDef="let row; columns: displayedColumnsDict;"></mat-row>
             </mat-table>
             
-            <div>
-              <div>
+            <div style="display: flex;justify-content: space-between;">
+              <div class="word-feature">
                 <label style="display:block">Word Feature:</label>
                 <mat-table #wordFeaturetable [dataSource]="dataSourceWord">
                     <!-- Word Column -->
@@ -369,7 +369,7 @@
                 </mat-table>
               </div>
 
-              <div *ngIf="advanceDisplayed.length != 0">
+              <div *ngIf="advanceDisplayed.length != 0" style="width: 65%;">
                 <label style="display:block">Result of advance feaure:</label>
                 <div class="card card-list">
                   <ul class="list-group list-group-flush">
