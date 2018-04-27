@@ -302,6 +302,11 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       this.updateProjectSubscribe.unsubscribe();
     if (this.project.summitPreProcessing == false) {
       this.project.summitPreProcessing = true;
+      this.project.selectedDict = this.project.selectedDict.sort(function (a, b) {
+        if (a['fileName'] < b['fileName']) return -1;
+        if (a['fileName'] > b['fileName']) return 1;
+        return 0;
+      });
       this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
         if (res) {
           this.initDictFeature(res.data['project'].selectedDict);
@@ -313,11 +318,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   }
 
   initDictFeature(selectedDict) {
-    let selectedDictSort = selectedDict.sort(function (a, b) {
-      if (a.fileName < b.fileName) return -1;
-      if (a.fileName > b.fileName) return 1;
-      return 0;
-    });
     this.dictFeature = [
       { 'dictionary': 'common (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
       { 'dictionary': 'loc_name (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
@@ -328,7 +328,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       { 'dictionary': 'per_first (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
       { 'dictionary': 'per_last (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
     ]
-    selectedDictSort.map((dict) => {
+    selectedDict.map((dict) => {
       this.dictFeature.push({ 'dictionary': dict['fileName'], '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false })
     })
   }
