@@ -112,13 +112,13 @@
 <!-- Delete Advance Feture Selection Modal -->
 <ng-template #deleteAdvanceFeature let-c="close" let-d="dismiss">
     <div class="modal-header">
-      <h4 class="modal-title" style="word-break: break-word;">Delete this feture selection ?</h4>
+      <h4 class="modal-title" style="word-break: break-word;">Delete this feture selection</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-      <p>Do you want to delete {{deleteAdvanceFetureName}} ?</p>
+      <p>Do you want to delete <br>{{deleteAdvanceFetureName}} ?</p>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-light" (click)="c('Close click')">No</button>
