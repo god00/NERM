@@ -396,7 +396,7 @@ exports.genarateTemplate = async function (req, res, next) {
     var id = req.body.id;
     console.log(id," : ",req.body.id)
     try {
-        var query = NERMProject.findOne({ _id: id });
+        var query = NERMProject.findOne({ _id: req.body.id });
         query.exec(async function (err, project) {
             if (err) {
                 return res.status(400).json({ status: 400, message: err });
