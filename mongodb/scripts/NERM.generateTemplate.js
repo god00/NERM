@@ -83,6 +83,7 @@ async function addBigram(path) {
       throw err;
     } else {
       console.log(`# Bigram`)
+      count = 0;
     }
   })
 }
