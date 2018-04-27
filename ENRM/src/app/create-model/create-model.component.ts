@@ -404,17 +404,17 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.initAdvanceFeature(this.project.selectedDict);
+    this.initAdvanceFeature();
   }
 
-  initAdvanceFeature(selectedDict) {
+  initAdvanceFeature() {
     this.advanceFeature = {};
     this.advanceFeature['vocabFeature'] = [];
     this.advanceFeature['dictFeature'] = [];
     this.advanceFeature['wordFeature'] = [];
     this.initAdvanceFeatureItem();
     this.initAdvanceVocab()
-    this.initAdvanceDict(selectedDict);
+    this.initAdvanceDict();
     this.initAdvanceWord();
   }
 
@@ -441,7 +441,12 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     ];
   }
 
-  initAdvanceDict(selectedDict) {
+  initAdvanceDict() {
+    this.project.selectedDict = this.project.selectedDict.sort(function (a, b) {
+      if (a['fileName'] < b['fileName']) return -1;
+      if (a['fileName'] > b['fileName']) return 1;
+      return 0;
+    });
     this.advanceFeature.dictFeature = [
       { 'dictionary': 'common (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
       { 'dictionary': 'loc_name (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
@@ -452,7 +457,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       { 'dictionary': 'per_first (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
       { 'dictionary': 'per_last (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
     ];
-    selectedDict.map((dict) => {
+    this.project.selectedDict.map((dict) => {
       this.advanceFeature.dictFeature.push({ 'dictionary': dict['fileName'], '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false })
     });
     this.advanceDataSourceDict = new MatTableDataSource(this.advanceFeature.dictFeature);
