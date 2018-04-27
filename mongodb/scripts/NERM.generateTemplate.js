@@ -90,26 +90,36 @@ function advanceFeature(path, advanceFeature) {
     advanceFeature.forEach(item => {
       let str = `U${count}:`
       if (item.vocabFeature.length != 0) {
-        item.vocabFeature.forEach(vocab => {
-          str = `${str}%x[${vocab.id},1]/`
+        item.vocabFeature.forEach(id => {
+          str = `${str}%x[${id},1]/`
         })
       }
       if (item.dictFeature.length != 0) {
-        for (let i = 0; i < item.dictFeature.length; i++) {
-          for (let key in item.dictFeature[i]) {
-            if (item.dictFeature[i][key] == true) {
-              str = `${str}%x[${key},${18 + i}]/` // 18 is the first index of dictfeature from extract_table (start from common dict)
-            }
-          }
-        }
-      }
-      if (item.wordFeature.length != 0) {
-        item.wordFeature.forEach((item, index) => {
-          if (item['0']) {
-            str = `${str}%x[${0},${12 + index}]/`
-          }
+        item.dictFeature.forEach(obj => {
+          str = `${str}%x[${obj.row},${obj.column + 18}]/`; // 18 is the first index of dictfeature from extract_table (start from common dict)
         })
       }
+      if (item.wordFeature.length != 0) {
+        item.wordFeature.forEach(obj => {
+          str = `${str}%x[${obj.row},${obj.column + 12}]/`; // 12 is the first index of wordfeature from extract_table (start from alphanum)
+        })
+      }
+      // if (item.dictFeature.length != 0) {
+      //   for (let i = 0; i < item.dictFeature.length; i++) {
+      //     for (let key in item.dictFeature[i]) {
+      //       if (item.dictFeature[i][key] == true) {
+      //         str = `${str}%x[${key},${18 + i}]/` // 18 is the first index of dictfeature from extract_table (start from common dict)
+      //       }
+      //     }
+      //   }
+      // }
+      // if (item.wordFeature.length != 0) {
+      //   item.wordFeature.forEach((item, index) => {
+      //     if (item['0']) {
+      //       str = `${str}%x[${0},${12 + index}]/`  // 12 is the first index of wordfeature from extract_table (start from alphanum)
+      //     }
+      //   })
+      // }
       str = `${str.slice(0, -1)}\n`;
       fs.appendFileSync(path, str)
       count += 1;

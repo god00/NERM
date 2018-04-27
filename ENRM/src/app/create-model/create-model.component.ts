@@ -41,6 +41,11 @@ export class CreateModelComponent implements OnInit, OnDestroy {
 
   //Advance Feature Selection
   advanceFeature: any;
+  advanceFeatureItem: Object;
+  advanceDataSourceDict: any;
+  advanceDataSourceWord: any;
+  advanceDisplayed: string[] = [];
+  advanceDisplayedItem: string = '';
 
 
   //Multiselect Dropdown Parameters
@@ -105,7 +110,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           this.project.date = data['project'].date;
           this.project.summitPreProcessing = data['project'].summitPreProcessing;
           this.project.featureSelection = data['project'].featureSelection;
-          console.log(this.project.featureSelection)
           this.project.dictionary = data['dictionary'];
           this.dropdownList = data['dictionary'].map((dict, index) => {
             dict['id'] = index;
@@ -122,6 +126,9 @@ export class CreateModelComponent implements OnInit, OnDestroy {
             });
             this.updateSelectedDict();
             this.selectedItems.patchValue(selectedTmp);
+          }
+          else {
+            this.project.selectedDict = data['project'].selectedDict;
           }
 
           this.project.featureSelection['vocabFeature'].forEach(item => {
@@ -141,10 +148,10 @@ export class CreateModelComponent implements OnInit, OnDestroy {
 
           this.dataSourceDict = new MatTableDataSource(this.dictFeature);
           if (this.project.summitPreProcessing) {
-            this.activeIdString = "featureSelection"
+            this.activeIdString = "featureSelection";
           }
           else {
-            this.activeIdString = "preProcess"
+            this.activeIdString = "preProcess";
           }
           this.wordFeature = data['project'].featureSelection['wordFeature'];
           this.dataSourceWord = new MatTableDataSource(this.wordFeature);
@@ -284,8 +291,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   }
 
   updateFeature(id: string, element: any, mode: string) {
-    console.log(id)
-    console.log(element)
     if (mode == 'dict')
       this.project.featureSelection['dictFeature'] = this.dataSourceDict.data;
     else if (mode == 'word')
@@ -299,7 +304,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     });
   }
 
-  openSummitModal(content, f) {
+  openSummitModal(content) {
     this.modalService.open(content, { centered: true })
   }
 
@@ -361,13 +366,32 @@ export class CreateModelComponent implements OnInit, OnDestroy {
         // this.activeIdString = "featureSelection"
       }
     });
+  }
 
+  openAdvanceFeatureModal(content) {
+    this.modalService.open(content, { centered: true, size: 'lg' });
+  }
+
+  addAdvanceFeature() {
+    this.project.featureSelection['advanceFeature'].push(this.advanceFeatureItem);
+    this.advanceDisplayed.push(this.advanceDisplayedItem.slice(0, -1));
+    this.advanceDisplayedItem = '';
+    this.initAdvanceFeatureItem();
+    this.initAdvanceFeature(this.project.selectedDict);
   }
 
   initAdvanceFeature(selectedDict) {
     this.initAdvanceVocab()
     this.initAdvanceDict(selectedDict);
     this.initAdvanceWord();
+  }
+
+  initAdvanceFeatureItem() {
+    this.advanceFeatureItem = {
+      vocabFeature: [],
+      dictFeature: [],
+      wordFeature: []
+    };
   }
 
   initAdvanceVocab() {
@@ -411,6 +435,66 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       { wordFeature: 'Blank Front', '0': false },
       { wordFeature: 'Blank End', '0': false }
     ];
+  }
+
+  updateAdvanceVocabFeature(id: string, checked: boolean) {
+    if (checked) {
+      this.advanceFeatureItem['vocabFeature'].push(id)
+      this.advanceDisplayedItem = `${this.advanceDisplayedItem}${id}/`;
+    }
+    else {
+      let index = this.advanceFeatureItem['vocabFeature'].indexOf(id);
+      if (index != -1) {
+        this.advanceFeatureItem['vocabFeature'].splice(index, 1);
+        this.advanceDisplayedItem = this.advanceDisplayedItem.replace(`${id}/`, '');
+      }
+    }
+  }
+
+  updateAdvanceFeature(row, item, mode, checked: boolean) {
+    if (checked) {
+      if (mode == 'dict') {
+        var column = this.returnColumn(this.advanceDataSourceDict.data, item.dictionary, mode);
+        this.advanceFeatureItem['dictFeature'].push({ row, column });
+        this.advanceDisplayedItem = `${this.advanceDisplayedItem}${item.dictionary}/`;
+      }
+      else if (mode == 'word') {
+        var column = this.returnColumn(this.advanceDataSourceWord.data, item.wordFeature, mode);
+        this.advanceFeatureItem['wordFeature'].push({ row, column });
+        this.advanceDisplayedItem = `${this.advanceDisplayedItem}${item.wordFeature}/`;
+      }
+    }
+    else {
+      if (mode == 'dict') {
+        var column = this.returnColumn(this.advanceDataSourceDict.data, item.dictionary, mode);
+        var index = this.findIndexOfObject(this.advanceFeatureItem['dictFeature'], row, column);
+        this.advanceFeatureItem['dictFeature'].splice(index, 1);
+        this.advanceDisplayedItem = this.advanceDisplayedItem.replace(`${item.dictionary}/`, '');
+      }
+      else if (mode == 'word') {
+        var column = this.returnColumn(this.advanceDataSourceWord.data, item.wordFeature, mode);
+        var index = this.findIndexOfObject(this.advanceFeatureItem['wordFeature'], row, column);
+        this.advanceFeatureItem['wordFeature'].splice(index, 1);
+        this.advanceDisplayedItem = this.advanceDisplayedItem.replace(`${item.wordFeature}/`, '');
+      }
+    }
+  }
+
+  returnColumn(dataSource, dictName, mode) {
+    for (let i in dataSource) {
+      if (mode == 'dict' && dataSource[i].dictionary == dictName)
+        return i;
+      else if (mode == 'word' && dataSource[i].wordFeature == dictName)
+        return i;
+    }
+  }
+
+  findIndexOfObject(array, row, col) {
+    array.forEach((item, index) => {
+      if (item.row == row && item.col == col) {
+        return index;
+      }
+    });
   }
 
   public logout() {

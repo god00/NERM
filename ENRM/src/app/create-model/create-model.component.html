@@ -148,6 +148,59 @@
 <!--  -->
 
 
+<!-- Advance Feature Modal -->
+<ng-template #advanceFeature let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" style="word-break: break-word;">Advance Feature Selection</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <label style="display:block">Vocabulary Feature:</label>
+      <div class="div-section">
+        <section *ngFor="let vocab of advanceFeature.vocabFeature" class="section-checkbox">
+          <mat-checkbox [(ngModel)]="vocab.selected" (ngModelChange)="updateAdvanceVocabFeature(vocab.id,vocab.selected)"></mat-checkbox>
+          <p>W<sub>{{vocab.id}}</sub></p> 
+        </section>
+      </div>
+
+      <label style="display:block">Dictionary Feature:</label>
+      <mat-table #dictFeaturetable [dataSource]="advanceDataSourceDict">
+          <!-- Dict Column -->
+        <ng-container *ngFor="let col of displayedColumnsDict" [matColumnDef]="col">
+          <mat-header-cell *matHeaderCellDef><h6 *ngIf="col !== 'dictionary'">W<sub>{{col}}</sub></h6></mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <h6 *ngIf="col === 'dictionary';else elseAdvanceDictTable">{{element[col]}}</h6>
+            <ng-template #elseAdvanceDictTable><mat-checkbox [(ngModel)]="element[col]" (ngModelChange)="updateAdvanceFeature(col,element,'dict',element[col])"></mat-checkbox></ng-template>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumnsDict"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumnsDict;"></mat-row>
+      </mat-table>
+
+
+      <label style="display:block">Word Feature:</label>
+      <mat-table #wordFeaturetable [dataSource]="advanceDataSourceWord">
+          <!-- Word Column -->
+        <ng-container *ngFor="let col of displayedColumnsWord" [matColumnDef]="col">
+          <mat-header-cell *matHeaderCellDef><h6 *ngIf="col !== 'wordFeature'">W<sub>{{col}}</sub></h6></mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <h6 *ngIf="col === 'wordFeature';else elseAdvanceWordTable">{{element[col]}}</h6>
+            <ng-template #elseAdvanceWordTable><mat-checkbox [(ngModel)]="element[col]" (ngModelChange)="updateAdvanceFeature(col,element,'word',element[col])"></mat-checkbox></ng-template>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumnsWord"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumnsWord;"></mat-row>
+      </mat-table>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="addAdvanceFeature()">Add</button>
+    </div>
+  </ng-template>
+  <!--  -->
+
 
 <head>
   <title>Entity Name Recognizer Model</title>
@@ -260,7 +313,7 @@
             <button class="btn btn-primary" (click)="uploadModal(upload,'corpus')">Upload Corpus...</button>
             <!--  -->
             <div class="summit-button">
-              <button id="summit-button" class="btn btn-success" (click)="openSummitModal(summitPreProcess,t)">Summit</button>
+              <button id="summit-button" class="btn btn-success" (click)="openSummitModal(summitPreProcess)">Summit</button>
             </div>
           </ng-template>
         </ngb-tab>
@@ -305,9 +358,12 @@
               <mat-header-row *matHeaderRowDef="displayedColumnsWord"></mat-header-row>
               <mat-row *matRowDef="let row; columns: displayedColumnsWord;"></mat-row>
             </mat-table>
-
+            
             <div class="summit-button">
-              <button id="summit-button" class="btn btn-success" (click)="openSummitModal(summitFeature,t)">Summit</button>
+              <button id="advanceFeature-button" class="btn btn-outline-primary btn-sm" (click)="openAdvanceFeatureModal(advanceFeature)">Advance Feature...</button>
+            </div>
+            <div class="summit-button">
+              <button id="summit-button" class="btn btn-success" (click)="openSummitModal(summitFeature)">Summit</button>
             </div>
           </ng-template>
         </ngb-tab>
