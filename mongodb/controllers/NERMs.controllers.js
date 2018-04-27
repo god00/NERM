@@ -400,7 +400,7 @@ exports.genarateTemplate = async function (req, res, next) {
                 return res.status(400).json({ status: 400, message: err });
             }
             else if (project) {
-                var pathTemplate = await NERMGenerateTemplate.genarateTemplate(project.featureSelection, project.email, project.projectName)
+                var pathTemplate = await NERMGenerateTemplate.genarateTemplate(project.featureSelection, project.email, project.projectName).then()
                 return res.status(200).json({ status: 200, data: pathTemplate, message: `Genarate template successful` });
             }
             else {
