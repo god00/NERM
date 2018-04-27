@@ -157,11 +157,13 @@
       </button>
     </div>
     <div class="modal-body">
-      <label style="display:block">Result of advance feaure:</label>
-      <div class="card">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item" *ngFor="let display of advanceDisplayed; let i = index">{{display}}</li>
-        </ul>
+      <div *ngIf="advanceDisplayed.length != 0">
+        <label style="display:block">Result of advance feaure:</label>
+        <div class="card">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" *ngFor="let display of advanceDisplayed; let i = index">{{display}}</li>
+          </ul>
+        </div>
       </div>
       <label style="display:block">Vocabulary Feature:</label>
       <div class="div-section">
