@@ -141,11 +141,13 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           });
           this.displayedColumnsDict.sort((a, b) => { return a - b })
 
+          this.sortSelectedDict();
+          
           if (this.project.featureSelection['dictFeature'].length != 0) {
             this.dictFeature = this.project.featureSelection['dictFeature'];
           }
           else {
-            this.initDictFeature(data['project'].selectedDict);
+            this.initDictFeature();
           }
 
           this.dataSourceDict = new MatTableDataSource(this.dictFeature);
@@ -330,14 +332,10 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       this.updateProjectSubscribe.unsubscribe();
     if (this.project.summitPreProcessing == false) {
       this.project.summitPreProcessing = true;
-      this.project.selectedDict = this.project.selectedDict.sort(function (a, b) {
-        if (a['fileName'] < b['fileName']) return -1;
-        if (a['fileName'] > b['fileName']) return 1;
-        return 0;
-      });
+      this.sortSelectedDict();
       this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
         if (res) {
-          this.initDictFeature(res.data['project'].selectedDict);
+          this.initDictFeature();
           this.dataSourceDict.data = this.dictFeature;
           this.activeIdString = "featureSelection"
         }
@@ -345,8 +343,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     }
   }
 
-  initDictFeature(selectedDict) {
-    console.log(selectedDict)
+  initDictFeature() {
     this.dictFeature = [
       { 'dictionary': 'common (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
       { 'dictionary': 'loc_name (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
@@ -357,9 +354,17 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       { 'dictionary': 'per_first (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
       { 'dictionary': 'per_last (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
     ]
-    selectedDict.map((dict) => {
+    this.project.selectedDict.map((dict) => {
       this.dictFeature.push({ 'dictionary': dict['fileName'], '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false })
     })
+  }
+
+  sortSelectedDict() {
+    this.project.selectedDict = this.project.selectedDict.sort(function (a, b) {
+      if (a['fileName'] < b['fileName']) return -1;
+      if (a['fileName'] > b['fileName']) return 1;
+      return 0;
+    });
   }
 
   // onItemSelect(item: any) {
@@ -387,7 +392,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   }
 
   openAdvanceFeatureModal(content) {
-    this.initAdvanceFeature(this.project.selectedDict);
+    this.initAdvanceFeature();
     this.modalService.open(content, { centered: true, size: 'lg' });
   }
 
@@ -442,11 +447,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   }
 
   initAdvanceDict() {
-    this.project.selectedDict = this.project.selectedDict.sort(function (a, b) {
-      if (a['fileName'] < b['fileName']) return -1;
-      if (a['fileName'] > b['fileName']) return 1;
-      return 0;
-    });
     this.advanceFeature.dictFeature = [
       { 'dictionary': 'common (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
       { 'dictionary': 'loc_name (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
