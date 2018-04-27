@@ -109,6 +109,24 @@
 </ng-template>
 <!--  -->
 
+<!-- Summit Modal -->
+<ng-template #summit let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" style="word-break: break-word;">Summit Preprocess</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Are you sure to summit this Preprocess ?&hellip;</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="c('Close click')">No</button>
+      <button type="button" class="btn btn-danger" (click)="onSummit(t);c()">Yes</button>
+    </div>
+  </ng-template>
+  <!--  -->
+
 
 
 <head>
@@ -222,7 +240,7 @@
             <button class="btn btn-primary" (click)="uploadModal(upload,'corpus')">Upload Corpus...</button>
             <!--  -->
             <div class="summit-button">
-              <button id="summit-button" class="btn btn-success" (click)="onSummit(t)">Summit</button>
+              <button id="summit-button" class="btn btn-success" (click)="openSummitProprocessModal(summit,t)">Summit</button>
             </div>
           </ng-template>
         </ngb-tab>

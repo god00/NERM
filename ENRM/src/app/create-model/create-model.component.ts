@@ -286,6 +286,10 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     });
   }
 
+  openSummitProprocessModal(content, f) {
+    this.modalService.open(content, { centered: true, size: 'sm' })
+  }
+
   onSummit(f) {
     if (this.updateProjectSubscribe)
       this.updateProjectSubscribe.unsubscribe();
