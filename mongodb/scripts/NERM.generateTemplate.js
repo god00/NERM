@@ -62,6 +62,7 @@ async function generateTemplateWithLine(row, column, count, path) {
     } else {
       console.log("Template saved : ", `U${count}:%x[${row},${column}]`);
       count += 1;
+      console.log(count)
     }
   })
 }
