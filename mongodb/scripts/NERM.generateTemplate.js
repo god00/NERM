@@ -26,7 +26,7 @@ exports.genarateTemplate = function (featureSelection, email, projectName) {
           for (let i = 0; i < dictFeature.length; i++) {
             for (let key in dictFeature[i]) {
               if (dictFeature[i][key] == true) {
-                generateTemplateWithLine(key, 26 + i, count, path).then(); // 26 is the first index of dictfeature from extract_table 
+                generateTemplateWithLine(key, 26 + i, path).then(); // 26 is the first index of dictfeature from extract_table 
               }
             }
           }
@@ -34,7 +34,7 @@ exports.genarateTemplate = function (featureSelection, email, projectName) {
           // genarate word template
           featureSelection.wordFeature.forEach((item, index) => {
             if (item['0']) {
-              generateTemplateWithLine(item.id, 12 + index, count, path).then(); // 12 is the first index of wordfeature from extract_table 
+              generateTemplateWithLine(0, 12 + index, path).then(); // 12 is the first index of wordfeature from extract_table 
             }
           });
 
@@ -55,7 +55,7 @@ exports.genarateTemplate = function (featureSelection, email, projectName) {
   }
 }
 
-async function generateTemplateWithLine(row, column, count, path) {
+async function generateTemplateWithLine(row, column, path) {
   fs.appendFile(path, `U${count}:%x[${row},${column}]\n`, 'utf8', (err) => {
     if (err) {
       throw err;
@@ -87,7 +87,7 @@ async function addBigram(path) {
   })
 }
 
-function advanceFeature(path, advanceFeature, count) {
+function advanceFeature(path, advanceFeature) {
   if (advanceFeature.length != 0) {
     advanceFeature.forEach(item => {
       let str = `U${count}:`
