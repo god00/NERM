@@ -243,7 +243,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     }
     else if (mode == 'advanceFeature') {
       this.deleteAdvanceFetureName = this.advanceDisplayed[index];
-      this.modalService.open(content, { centered: true }).result.then((result) => {
+      this.modalService.open(content, { centered: true, size: 'sm' }).result.then((result) => {
         this.deleteAdvanceFetureName = '';
       }, (reason) => {
         this.deleteAdvanceFetureName = '';
@@ -518,19 +518,23 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     }
   }
 
-  deleteAdvanceFeatureSelection() {
+  confirmDeleteAdvanceFeature() {
     if (this.deleteAdvanceFetureName != '') {
       let index = this.advanceDisplayed.indexOf(this.deleteAdvanceFetureName);
-      this.project.featureSelection['advanceFeature'].splice(index, 1);
-      this.advanceDisplayed.splice(index, 1);
-      if (this.updateProjectSubscribe)
-        this.updateProjectSubscribe.unsubscribe();
-      this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
-        if (res) {
-          console.log(`updated AdvanceFeature :`, res.message)
-        }
-      });
+      this.deleteAdvanceFeatureSelection(index);
     }
+  }
+
+  deleteAdvanceFeatureSelection(index) {
+    this.project.featureSelection['advanceFeature'].splice(index, 1);
+    this.advanceDisplayed.splice(index, 1);
+    if (this.updateProjectSubscribe)
+      this.updateProjectSubscribe.unsubscribe();
+    this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
+      if (res) {
+        console.log(`updated AdvanceFeature :`, res.message)
+      }
+    });
   }
 
   returnColumn(dataSource, dictName, mode) {

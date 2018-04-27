@@ -42,7 +42,7 @@
     width: 80%;
 }
 
-.corpus-file{
+.flex-space-between{
     display: flex;
     justify-content: space-between;
 }

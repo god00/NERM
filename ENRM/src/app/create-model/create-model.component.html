@@ -122,7 +122,7 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-light" (click)="c('Close click')">No</button>
-      <button type="button" class="btn btn-danger" (click)="deleteAdvanceFeatureSelection();c()">Delete</button>
+      <button type="button" class="btn btn-danger" (click)="confirmDeleteAdvanceFeature();c()">Delete</button>
     </div>
   </ng-template>
   <!--  -->
@@ -180,8 +180,10 @@
         <div class="card card-list">
           <ul class="list-group list-group-flush">
             <li class="list-group-item list-background-color" *ngFor="let display of advanceDisplayed; let i = index">
-              {{display}}
-              <span class="fa fa-trash-o trash-icon" aria-hidden="true" (click)="openConfirmModal(deleteAdvanceFeature,i,'advanceFeature')"></span>
+              <div class="flex-space-between">
+                {{display}}
+                <span class="fa fa-trash-o trash-icon" aria-hidden="true" (click)="deleteAdvanceFeatureSelection(i)"></span>
+              </div>
             </li>
           </ul>
         </div>
@@ -325,7 +327,7 @@
             <label style="display:block">Corpus:</label>
             <div class="corpus">
               <div class="list-group scroll list width20">
-                <button type="button" class="list-group-item corpus-file" *ngFor="let c of project.corpus; let i = index" (click)="showCorpus(i)">
+                <button type="button" class="list-group-item flex-space-between" *ngFor="let c of project.corpus; let i = index" (click)="showCorpus(i)">
                   <h6 style="word-wrap: break-word; width: 10vw;">{{c?.fileName}}</h6>
                   <span class="fa fa-trash-o trash-icon" aria-hidden="true" (click)="openConfirmModal(delete,i,'corpus')"></span>
                 </button>
@@ -395,7 +397,7 @@
                 <div class="card card-list">
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item list-background-color" *ngFor="let display of advanceDisplayed; let i = index">
-                      <div>
+                      <div class="flex-space-between">
                         {{display}}
                         <span class="fa fa-trash-o trash-icon" aria-hidden="true" (click)="openConfirmModal(deleteAdvanceFeature,i,'advanceFeature')"></span>
                       </div>
