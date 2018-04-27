@@ -15,7 +15,7 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
           // genarate vocab template
           featureSelection.vocabFeature.forEach(item => {
             if (item.selected) {
-              await generateTemplateWithLine(item.id, 1, path).then();
+              generateTemplateWithLine(item.id, 1, path).then();
             }
           });
 
