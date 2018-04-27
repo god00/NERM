@@ -4,7 +4,7 @@ var config = require('../config.json');
 
 exports.genarateTemplate = function (featureSelection, email, projectName) {
   var count = 0;
-  var path = `${config.DIR}${email}/${projectName}/current_template.txt`
+  var path = `${config.templatePath}${email}/${projectName}/current_template.txt`
   try {
     initTemplate(path);
     featureSelection.vocabFeature.forEach(item => {
@@ -24,6 +24,8 @@ exports.genarateTemplate = function (featureSelection, email, projectName) {
     }
     advanceFeature(path, featureSelection.advanceFeature);
     addBigram(path);
+
+    return path;
   }
   catch (e) {
     throw Error('Error while genarate template')
