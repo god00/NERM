@@ -15,7 +15,7 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
           // genarate vocab template
           featureSelection.vocabFeature.forEach(item => {
             if (item.selected) {
-              generateTemplateWithLine(item.id, 1, path).then();
+              await generateTemplateWithLine(item.id, 1, path).then();
             }
           });
 
@@ -26,7 +26,7 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
           for (let i = 0; i < dictFeature.length; i++) {
             for (let key in dictFeature[i]) {
               if (dictFeature[i][key] == true) {
-                generateTemplateWithLine(key, 26 + i, path).then(); // 26 is the first index of dictfeature from extract_table 
+                await generateTemplateWithLine(key, 26 + i, path).then(); // 26 is the first index of dictfeature from extract_table 
               }
             }
           }
@@ -34,15 +34,15 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
           // genarate word template
           featureSelection.wordFeature.forEach((item, index) => {
             if (item['0']) {
-              generateTemplateWithLine(0, 12 + index, path).then(); // 12 is the first index of wordfeature from extract_table 
+              await generateTemplateWithLine(0, 12 + index, path).then(); // 12 is the first index of wordfeature from extract_table 
             }
           });
 
           // genarate advance template
-          advanceFeature(path, featureSelection.advanceFeature);
+          await advanceFeature(path, featureSelection.advanceFeature);
 
           // add bigram
-          addBigram(path);
+          await addBigram(path);
 
           return path;
         })
