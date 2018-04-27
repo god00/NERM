@@ -143,7 +143,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
 
           if (this.project.featureSelection['dictFeature'].length != 0) {
             this.dictFeature = this.project.featureSelection['dictFeature'];
-            console.log(this.dictFeature)
           }
           else {
             this.initDictFeature(data['project'].selectedDict);
@@ -347,6 +346,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   }
 
   initDictFeature(selectedDict) {
+    console.log(selectedDict)
     this.dictFeature = [
       { 'dictionary': 'common (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
       { 'dictionary': 'loc_name (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
