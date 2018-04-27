@@ -20,6 +20,8 @@ class NERMModel {
         this.featureSelection = {
             vocabFeature: [],
             dictFeature: [],
+            wordFeature: [],
+            advanceFeature: [],
         };
     }
 }
