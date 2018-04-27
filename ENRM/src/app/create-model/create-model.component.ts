@@ -157,6 +157,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
 
           if (data['project'].featureSelection['advanceDisplayed']) {
             this.project.featureSelection['advanceDisplayed'] = data['project'].featureSelection['advanceDisplayed'];
+            this.advanceDisplayed = this.project.featureSelection['advanceDisplayed'];
           }
           this.wordFeature = data['project'].featureSelection['wordFeature'];
           this.dataSourceWord = new MatTableDataSource(this.wordFeature);
@@ -375,8 +376,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
 
   openAdvanceFeatureModal(content) {
     this.initAdvanceFeature(this.project.selectedDict);
-    if (this.project.featureSelection['advanceDisplayed'])
-      this.advanceDisplayed = this.project.featureSelection['advanceDisplayed'];
     this.modalService.open(content, { centered: true, size: 'lg' });
   }
 
