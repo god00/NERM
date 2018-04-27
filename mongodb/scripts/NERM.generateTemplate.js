@@ -6,26 +6,45 @@ exports.genarateTemplate = function (featureSelection, email, projectName) {
   var count = 0;
   var path = `${config.templatePath}${email}/${projectName}/current_template.txt`
   try {
-    initTemplate(path);
-    featureSelection.vocabFeature.forEach(item => {
-      if (item.selected) {
-        generateTemplateWithLine(item.id, 1, count, path);
-      }
-    });
-    let dictFeature = featureSelection.dictFeature.sort(function (a, b) {
-      return a.dictionary - b.dictionary;
-    })
-    for (let i = 0; i < dictFeature.length; i++) {
-      for (let key in dictFeature[i]) {
-        if (dictFeature[i][key] == true) {
-          generateTemplateWithLine(key, 26 + i, count, path); // 26 is the first index of dict from extract_table 
-        }
-      }
-    }
-    advanceFeature(path, featureSelection.advanceFeature);
-    addBigram(path);
+    checkDirectory(`${config.templatePath}${email}`).then(() => {
+      checkDirectory(`${config.templatePath}${email}/${projectName}`).then(() => {
+        initTemplate(path);
+        // genarate vocab template
+        featureSelection.vocabFeature.forEach(item => {
+          if (item.selected) {
+            generateTemplateWithLine(item.id, 1, count, path).then();
+          }
+        });
 
-    return path;
+        // genarate dict template
+        let dictFeature = featureSelection.dictFeature.sort(function (a, b) {
+          return a.dictionary - b.dictionary;
+        })
+        for (let i = 0; i < dictFeature.length; i++) {
+          for (let key in dictFeature[i]) {
+            if (dictFeature[i][key] == true) {
+              generateTemplateWithLine(key, 26 + i, count, path).then(); // 26 is the first index of dictfeature from extract_table 
+            }
+          }
+        }
+
+        // genarate word template
+        featureSelection.wordFeature.forEach((item, index) => {
+          if (item['0']) {
+            generateTemplateWithLine(item.id, 12 + index, count, path).then(); // 12 is the first index of wordfeature from extract_table 
+          }
+        });
+
+        // genarate advance template
+        advanceFeature(path, featureSelection.advanceFeature);
+
+        // add bigram
+        addBigram(path);
+
+        return path;
+      })
+    })
+
   }
   catch (e) {
     throw Error('Error while genarate template')
@@ -95,5 +114,14 @@ function advanceFeature(path, advanceFeature, count) {
       })
     })
   }
+}
+
+async function checkDirectory(directory) {
+  return new Promise((resolve, reject) => {
+    if (!fs.existsSync(directory)) {
+      fs.mkdirSync(directory);
+    }
+    resolve();
+  })
 }
 
