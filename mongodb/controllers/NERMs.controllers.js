@@ -394,7 +394,7 @@ exports.removeCorpus = async function (req, res, next) {
 
 exports.genarateTemplate = async function (req, res, next) {
     var id = req.body.id;
-    console.log(id," : ",req.body.id)
+    console.log(id," : ",req.body)
     try {
         var query = NERMProject.findOne({ _id: req.body.id });
         query.exec(async function (err, project) {
