@@ -8,6 +8,7 @@ var count = 0;
 exports.genarateTemplate = async function (featureSelection, email, projectName) {
   var path = `${config.templatePath}${email}/${projectName}/current_template.txt`
   try {
+
     checkDirectory(`${config.templatePath}`).then(() => {
       checkDirectory(`${config.templatePath}${email}`).then(() => {
         checkDirectory(`${config.templatePath}${email}/${projectName}`).then(async () => {
@@ -47,7 +48,7 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
           // add bigram
           await addBigram(path);
 
-          return path;
+          Promise.resolve(path);
         })
       })
     })
