@@ -86,7 +86,6 @@ function addBigram(path) {
 }
 
 function advanceFeature(path, advanceFeature) {
-  console.log(advanceFeature)
   if (advanceFeature.length != 0) {
     advanceFeature.forEach(item => {
       let str = `U${count}:`
