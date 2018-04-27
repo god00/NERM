@@ -34,7 +34,7 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
           // genarate word template
           featureSelection.wordFeature.forEach((item, index) => {
             if (item['0']) {
-              generateTemplateWithLine(0, 12 + index, path).then(); // 12 is the first index of wordfeature from extract_table 
+              generateTemplateWithLine(0, 12 + index, path) // 12 is the first index of wordfeature from extract_table 
             }
           });
 
