@@ -240,7 +240,7 @@
             </div>
 
             <label style="display:block">Dictionary Feature:</label>
-            <mat-table [dataSource]="dataSourceDict">
+            <mat-table #table [dataSource]="dataSourceDict">
                 <!-- Dict Column -->
               <ng-container *ngFor="let col of displayedColumnsDict" [matColumnDef]="col">
                 <mat-header-cell *matHeaderCellDef><h6 *ngIf="col !== 'dictionary'">W<sub>{{col}}</sub></h6></mat-header-cell>
