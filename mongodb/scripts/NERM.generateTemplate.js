@@ -8,50 +8,52 @@ var count = 0;
 exports.genarateTemplate = async function (featureSelection, email, projectName) {
   var path = `${config.templatePath}${email}/${projectName}/current_template.txt`
   try {
-
-    checkDirectory(`${config.templatePath}`).then(() => {
-      checkDirectory(`${config.templatePath}${email}`).then(() => {
-        checkDirectory(`${config.templatePath}${email}/${projectName}`).then(async () => {
-          initTemplate(path);
-          // genarate vocab template
-          featureSelection.vocabFeature.forEach(item => {
-            if (item.selected) {
-              generateTemplateWithLine(item.id, 1, path);
-              count += 1;
-            }
-          });
-
-          // genarate dict template
-          // let dictFeature = featureSelection.dictFeature.sort(function (a, b) {
-          //   return a.dictionary - b.dictionary;
-          // })
-          for (let i = 0; i < featureSelection.dictFeature.length; i++) {
-            for (let key in featureSelection.dictFeature[i]) {
-              if (featureSelection.dictFeature[i][key] == true) {
-                await generateTemplateWithLine(key, 18 + i, path); // 18 is the first index of dictfeature from extract_table (start from common dict)
+    return new Promise((resolve, reject) => {
+      checkDirectory(`${config.templatePath}`).then(() => {
+        checkDirectory(`${config.templatePath}${email}`).then(() => {
+          checkDirectory(`${config.templatePath}${email}/${projectName}`).then(async () => {
+            initTemplate(path);
+            // genarate vocab template
+            featureSelection.vocabFeature.forEach(item => {
+              if (item.selected) {
+                generateTemplateWithLine(item.id, 1, path);
                 count += 1;
               }
+            });
+
+            // genarate dict template
+            // let dictFeature = featureSelection.dictFeature.sort(function (a, b) {
+            //   return a.dictionary - b.dictionary;
+            // })
+            for (let i = 0; i < featureSelection.dictFeature.length; i++) {
+              for (let key in featureSelection.dictFeature[i]) {
+                if (featureSelection.dictFeature[i][key] == true) {
+                  await generateTemplateWithLine(key, 18 + i, path); // 18 is the first index of dictfeature from extract_table (start from common dict)
+                  count += 1;
+                }
+              }
             }
-          }
 
-          // genarate word template
-          featureSelection.wordFeature.forEach((item, index) => {
-            if (item['0']) {
-              generateTemplateWithLine(0, 12 + index, path) // 12 is the first index of wordfeature from extract_table (start from alphanum)
-              count += 1;
-            }
-          });
+            // genarate word template
+            featureSelection.wordFeature.forEach((item, index) => {
+              if (item['0']) {
+                generateTemplateWithLine(0, 12 + index, path) // 12 is the first index of wordfeature from extract_table (start from alphanum)
+                count += 1;
+              }
+            });
 
-          // genarate advance template
-          await advanceFeature(path, featureSelection.advanceFeature);
+            // genarate advance template
+            await advanceFeature(path, featureSelection.advanceFeature);
 
-          // add bigram
-          await addBigram(path);
+            // add bigram
+            await addBigram(path);
 
-          Promise.resolve(path);
+            resolve(path);
+          })
         })
       })
     })
+
 
   }
   catch (e) {
