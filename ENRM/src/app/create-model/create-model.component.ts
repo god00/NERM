@@ -281,15 +281,14 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       this.project.summitPreProcessing = true;
       this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
         if (res) {
-          console.log(res)
           this.dictFeature = res.data['project'].selectedDict.map((dict) => {
             return { 'dictionary': dict['fileName'], '0': false }
           })
-          console.log(res.message)
+          console.log(this.dictFeature)
+          f.activeId = "featureSelection"
         }
       });
     }
-    f.activeId = "featureSelection"
   }
 
   // onItemSelect(item: any) {
