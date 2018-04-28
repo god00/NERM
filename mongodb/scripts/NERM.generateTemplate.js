@@ -76,16 +76,6 @@ function initTemplate(path) {
   })
 }
 
-function addBigram(path) {
-  fs.appendFile(path, `\n# Bigram\nB`, 'utf8', (err) => {
-    if (err) {
-      throw err;
-    } else {
-      count = 0;
-    }
-  })
-}
-
 function advanceFeature(path, advanceFeature) {
   if (advanceFeature.length != 0) {
     advanceFeature.forEach(item => {
@@ -127,6 +117,16 @@ function advanceFeature(path, advanceFeature) {
       count += 1;
     })
   }
+}
+
+function addBigram(path) {
+  fs.appendFile(path, `\n# Bigram\nB`, 'utf8', (err) => {
+    if (err) {
+      throw err;
+    } else {
+      count = 0;
+    }
+  })
 }
 
 function returnVocabIndexFromTable(id) {
