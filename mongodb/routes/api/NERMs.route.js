@@ -17,6 +17,8 @@ router.post('/project', NERMController.createProject)
 
 router.post('/templates', NERMController.genarateTemplate)
 
+router.post('/dictionary', NERMController.genarateDictList)
+
 router.get('/project', NERMController.getProject)
 
 router.put('/project', NERMController.updateProject)

@@ -63,6 +63,10 @@ export class DatabaseService {
     return this.http.put(`${nermUrl}/project`, nerm);
   }
 
+  genarateDictList(id: string): Observable<any> {
+    return this.http.post(`${nermUrl}/dictionary`, { id });
+  }
+
   genarateTemplate(id: string): Observable<any> {
     return this.http.post(`${nermUrl}/templates`, { id });
   }

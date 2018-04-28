@@ -415,6 +415,29 @@ exports.genarateTemplate = async function (req, res, next) {
     }
 }
 
+exports.genarateDictList = async function (req, res, next) {
+    try {
+        var query = NERMProject.findOne({ _id: req.body.id });
+        query.exec(async function (err, project) {
+            if (err) {
+                return res.status(400).json({ status: 400, message: err });
+            }
+            else if (project) {
+                NERMGenerateTemplate.genarateTemplate(project.featureSelection, project.email, project.projectName).then((pathTemplate) => {
+                    console.log(pathTemplate)
+                    return res.status(200).json({ status: 200, message: `${project.projectName} genarate dict-list successful` });
+                })
+            }
+            else {
+                return res.status(204).json({ status: 204, message: "Please create project first" });
+            }
+        })
+    }
+    catch (e) {
+        return res.status(400).json({ status: 400, message: e.message })
+    }
+}
+
 async function addPathsFromFileNames(fileNames, paths) {
     return new Promise((resolve, reject) => {
         let promise = [];
