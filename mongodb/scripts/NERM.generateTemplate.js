@@ -61,14 +61,14 @@ exports.genarateTemplate = async function (featureSelection, email, projectName)
 }
 
 async function generateTemplateWithLine(row, column, path) {
-  fs.appendFile(path, `U${count}:%x[${row},${column}]\n`, 'utf8', (err) => {
+  fs.appendFile(path, `U${count}:%x[${row},${column}]\n`, { encoding: 'utf8' }, (err) => {
     if (err)
       throw err;
   })
 }
 
 function initTemplate(path) {
-  fs.writeFile(path, `# Unigram\n`, 'utf8', (err) => {
+  fs.writeFile(path, `# Unigram\n`, { encoding: 'utf8' }, (err) => {
     if (err) {
       throw err;
     } else {
@@ -77,7 +77,7 @@ function initTemplate(path) {
 }
 
 function addBigram(path) {
-  fs.appendFile(path, `\n# Bigram\nB`, 'utf8', (err) => {
+  fs.appendFile(path, `\n# Bigram\nB`, { encoding: 'utf8' }, (err) => {
     if (err) {
       throw err;
     } else {
@@ -123,7 +123,7 @@ function advanceFeature(path, advanceFeature) {
       //   })
       // }
       str = `${str.slice(0, -1)}\n`;
-      fs.appendFile(path, str)
+      fs.appendFile(path, str, { encoding: 'utf8' })
       count += 1;
     })
   }
