@@ -29,6 +29,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   deleteCorpusName: string = '';
   deleteAdvanceFetureName: string = '';
   activeIdString: string;
+  onUpdate: boolean = false;
 
   //Dictfeature table 
   displayedColumnsDict: any = ["dictionary"];
@@ -302,10 +303,12 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     }
     if (this.updateProjectSubscribe)
       this.updateProjectSubscribe.unsubscribe();
+    this.onUpdate = true;
     this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
       if (res) {
         console.log("updateVocabFeature", res.message)
       }
+      this.onUpdate = false;
     });
   }
 
@@ -316,10 +319,12 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       this.project.featureSelection['wordFeature'] = this.dataSourceWord.data;
     if (this.updateProjectSubscribe)
       this.updateProjectSubscribe.unsubscribe();
+    this.onUpdate = true;
     this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
       if (res) {
         console.log(`update${mode}Feature :`, res.message)
       }
+      this.onUpdate = false;
     });
   }
 
@@ -403,10 +408,12 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     this.project.featureSelection['advanceDisplayed'] = this.advanceDisplayed;
     if (this.updateProjectSubscribe)
       this.updateProjectSubscribe.unsubscribe();
+    this.onUpdate = true;
     this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
       if (res) {
         console.log(`updated AdvanceFeature :`, res.message)
       }
+      this.onUpdate = false;
     });
 
     this.initAdvanceFeature();
@@ -536,10 +543,12 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     this.advanceDisplayed.splice(index, 1);
     if (this.updateProjectSubscribe)
       this.updateProjectSubscribe.unsubscribe();
+    this.onUpdate = true;
     this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
       if (res) {
         console.log(`updated AdvanceFeature :`, res.message)
       }
+      this.onUpdate = false;
     });
   }
 
