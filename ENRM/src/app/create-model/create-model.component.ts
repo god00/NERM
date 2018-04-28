@@ -61,6 +61,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   selectedSubscribe: any;
   updateProjectSubscribe: any;
   summitFeatureSubcribe: any;
+  generateDictListSubcribe: any;
 
   showText = {};
 
@@ -97,6 +98,8 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       this.updateProjectSubscribe.unsubscribe();
     if (this.summitFeatureSubcribe)
       this.summitFeatureSubcribe.unsubscribe();
+    if (this.generateDictListSubcribe)
+      this.generateDictListSubcribe.unsubscribe();
   }
 
   createSelectedForm() {
@@ -342,7 +345,12 @@ export class CreateModelComponent implements OnInit, OnDestroy {
         if (res) {
           this.initDictFeature();
           this.dataSourceDict.data = this.dictFeature;
-          this.activeIdString = "featureSelection"
+          this.activeIdString = "featureSelection";
+          if (this.generateDictListSubcribe)
+            this.generateDictListSubcribe.unsubscribe();
+          this.generateDictListSubcribe = this.databaseService.genarateDictList(this.project._id).subscribe((res) => {
+            console.log(res.message);
+          })
         }
       });
     }

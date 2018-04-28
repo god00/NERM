@@ -11,6 +11,9 @@ var path = require('path')
 // genarate template script
 var NERMGenerateTemplate = require('../scripts/NERM.generateTemplate');
 
+// genarate distlist script
+var NERMGenerateDictList = require('../scripts/NERM.generateDictList');
+
 // var PythonShell = require('python-shell');
 const { spawn } = require('child_process');
 
@@ -423,8 +426,7 @@ exports.genarateDictList = async function (req, res, next) {
                 return res.status(400).json({ status: 400, message: err });
             }
             else if (project) {
-                NERMGenerateTemplate.genarateTemplate(project.featureSelection, project.email, project.projectName).then((pathTemplate) => {
-                    console.log(pathTemplate)
+                NERMGenerateDictList.genarateDictList(project.selectedDict, project.email, project.projectName).then(() => {
                     return res.status(200).json({ status: 200, message: `${project.projectName} genarate dict-list successful` });
                 })
             }
