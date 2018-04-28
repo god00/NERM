@@ -5,14 +5,22 @@ var config = require('../config.json');
 exports.genarateDictList = async function (selectedDict, email, projectName) {
     var path = `${config.DIR}${email}/${projectName}/current_dictlist.txt`;
     return new Promise((resolve, reject) => {
+        try {
+            // var selectedDictsort = selectedDict.sort((a, b) => { return a - b })
+            checkDirectory(`${config.DIR}${email}`).then(() => {
+                checkDirectory(`${config.DIR}${email}/${projectName}`).then(() => {
+                    selectedDict.forEach((item, index) => {
+                        console.log(item)
+                        generateDictListWithLine(item, index, selectedDict.length - 1, path);
+                    });
 
-        // var selectedDictsort = selectedDict.sort((a, b) => { return a - b })
-        selectedDict.forEach((item, index) => {
-            console.log(item)
-            generateDictListWithLine(item, index, selectedDict.length - 1, path);
-        });
-
-        resolve();
+                    resolve();
+                })
+            })
+        }
+        catch (e) {
+            reject(Error('Error while genarate template'));
+        }
     })
 }
 
@@ -28,4 +36,13 @@ async function generateDictListWithLine(item, index, lastItemIndex, path) {
             if (err)
                 throw err;
         })
+}
+
+async function checkDirectory(directory) {
+    return new Promise((resolve, reject) => {
+        if (!fs.existsSync(directory)) {
+            fs.mkdirSync(directory);
+        }
+        resolve();
+    })
 }
