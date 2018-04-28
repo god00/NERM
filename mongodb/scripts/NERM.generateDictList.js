@@ -2,6 +2,9 @@
 const fs = require('fs');
 var config = require('../config.json');
 
+// Counter
+var count = 0;
+
 exports.genarateDictList = async function (selectedDict, email, projectName) {
     var path = `${config.DIR}${email}/${projectName}/current_dictlist.txt`;
     return new Promise((resolve, reject) => {
@@ -9,9 +12,9 @@ exports.genarateDictList = async function (selectedDict, email, projectName) {
             // var selectedDictsort = selectedDict.sort((a, b) => { return a - b })
             checkDirectory(`${config.DIR}${email}`).then(() => {
                 checkDirectory(`${config.DIR}${email}/${projectName}`).then(() => {
-                    selectedDict.forEach((item, index) => {
-                        console.log(item)
-                        generateDictListWithLine(item, index, selectedDict.length - 1, path);
+                    selectedDict.forEach(item => {
+                        generateDictListWithLine(item, selectedDict.length - 1, path);
+                        count += 1;
                     });
 
                     resolve();
@@ -24,8 +27,8 @@ exports.genarateDictList = async function (selectedDict, email, projectName) {
     })
 }
 
-async function generateDictListWithLine(item, index, lastItemIndex, path) {
-    if (index != lastItemIndex) {
+async function generateDictListWithLine(item, lastItemIndex, path) {
+    if (count === lastItemIndex) {
         fs.appendFile(path, `${item}`, 'utf8', (err) => {
             if (err)
                 throw err;
