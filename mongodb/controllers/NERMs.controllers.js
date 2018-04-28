@@ -426,6 +426,7 @@ exports.genarateDictList = async function (req, res, next) {
                 return res.status(400).json({ status: 400, message: err });
             }
             else if (project) {
+                console.log(project)
                 NERMGenerateDictList.genarateDictList(project.selectedDict, project.email, project.projectName).then(() => {
                     return res.status(200).json({ status: 200, message: `${project.projectName} genarate dict-list successful` });
                 })
