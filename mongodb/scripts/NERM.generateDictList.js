@@ -25,7 +25,7 @@ exports.genarateDictList = async function (selectedDict, email, projectName) {
 }
 
 async function generateDictListWithLine(item, index, lastItemIndex, path) {
-    if (index = lastItemIndex) {
+    if (index != lastItemIndex) {
         fs.appendFile(path, `${item}`, 'utf8', (err) => {
             if (err)
                 throw err;
