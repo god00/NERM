@@ -343,14 +343,14 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       this.sortSelectedDict();
       this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
         if (res) {
-          console.log(res.message);
-          this.initDictFeature();
-          this.dataSourceDict.data = this.dictFeature;
-          this.activeIdString = "featureSelection";
+          // console.log(res.message);
           if (this.generateDictListSubcribe)
             this.generateDictListSubcribe.unsubscribe();
           this.generateDictListSubcribe = this.databaseService.genarateDictList(this.project._id).subscribe((res) => {
-            console.log(res.message);
+            this.initDictFeature();
+            this.dataSourceDict.data = this.dictFeature;
+            this.activeIdString = "featureSelection";
+            // console.log(res.message);
           })
         }
       });
