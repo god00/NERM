@@ -9,14 +9,14 @@ exports.genarateDictList = async function (selectedDict, email, projectName) {
         // var selectedDictsort = selectedDict.sort((a, b) => { return a - b })
         selectedDict.forEach((item, index) => {
             console.log(item)
-            generateDictListWithLine(item, index, selectedDict.length - 1);
+            generateDictListWithLine(item, index, selectedDict.length - 1, path);
         });
 
         resolve();
     })
 }
 
-async function generateDictListWithLine(item, index, lastItemIndex) {
+async function generateDictListWithLine(item, index, lastItemIndex, path) {
     if (index = lastItemIndex) {
         fs.appendFile(path, `${item}`, 'utf8', (err) => {
             if (err)
