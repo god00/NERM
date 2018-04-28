@@ -518,22 +518,25 @@ async function beforeSendToFront(project) {
     return project;
 }
 
-async function runPython(filePath) {
-    const py = spawn('python', [extractScriptPath, filePath]);
-    await py.stdout.on('data', (data) => {
-        // console.log(`stdout: ${data}`);
-        return data
-    });
+async function runPython(arg1, arg2) {
+    return new Promise((resolve, reject) => {
+        const py = spawn('python', [extractScriptPath, arg1, arg2]);  // arg[1] : path of corpus folder , arg[2] : path of file dictionary
+        // py.stdout.on('data', (data) => {
+        //     // console.log(`stdout: ${data}`);
+        //     return data;
+        // });
 
-    // await py.stderr.on('data', (data) => {
-    //     console.log(`stderr: ${data}`);
-    //     return (data)
-    // });
+        py.stderr.on('data', (data) => {
+            console.log(`stderr: ${data}`);
+            reject(data);
+        });
 
-    await py.on('exit', (code) => {
-        console.log(`child process exited with code ${code}`);
-        py.kill()
-    });
+        py.on('exit', (code) => {
+            console.log(`child process exited with code ${code}`);
+            py.kill()
+            resolve();
+        });
+    })
 }
 
 async function getDictByUser(email) {

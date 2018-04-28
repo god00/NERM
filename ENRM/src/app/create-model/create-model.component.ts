@@ -358,6 +358,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       { 'dictionary': 'per_clue (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
       { 'dictionary': 'per_first (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
       { 'dictionary': 'per_last (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
+      { 'dictionary': 'country (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
     ]
     this.project.selectedDict.map((dict) => {
       this.dictFeature.push({ 'dictionary': dict['fileName'], '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false })
@@ -463,6 +464,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       { 'dictionary': 'per_clue (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
       { 'dictionary': 'per_first (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
       { 'dictionary': 'per_last (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
+      { 'dictionary': 'country (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
     ];
     this.project.selectedDict.map((dict) => {
       this.advanceFeature.dictFeature.push({ 'dictionary': dict['fileName'], '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false })
