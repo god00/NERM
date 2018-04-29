@@ -204,7 +204,7 @@ exports.uploadsFile = async function (req, res, next) {
                                 getDictByUser(req.body.email)
                                     .then(async (dictObj) => {
                                         var mode = req.body.mode;
-                                        var p = `${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.mode}/${req.files[0].originalname}`
+                                        var p = `${pathUploads}${req.body.email}/${req.body.mode}/${req.files[0].originalname}`
                                         if (dictObj[mode].indexOf(p) == -1) {    //check if for no duplication path file in db
                                             dictObj[mode].push(p);
                                         }
@@ -237,10 +237,6 @@ exports.uploadsFile = async function (req, res, next) {
                                 checkDirectory(pathUploads + req.body.email + '/' + req.body.projectName + '/' + req.body.mode)
                                     .then(() => {
                                         console.log('other : uploading...')
-                                        if (err) {
-                                            console.log(err.toString())
-                                            return res.status(400).json({ status: 400, message: err.toString() })
-                                        }
                                         var query = NERMProject.findOne({ email: req.body.email, projectName: req.body.projectName });
                                         query.exec(async function (err, project) {
                                             if (err) {
@@ -248,7 +244,7 @@ exports.uploadsFile = async function (req, res, next) {
                                             }
                                             else if (project) {
                                                 var mode = req.body.mode;
-                                                var p = `${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.projectName}/${req.body.mode}/${req.files[0].originalname}`
+                                                var p = `${pathUploads}${req.body.email}/${req.body.projectName}/${req.body.mode}/${req.files[0].originalname}`
                                                 // if (mode == 'corpus') {
                                                 //     var data = runPython(p)
                                                 //     console.log("test data : ", data.toString('utf8'))
