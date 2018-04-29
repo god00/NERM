@@ -155,11 +155,10 @@
     </button>
   </div>
   <div class="modal-body">
-      <input type="text" placeholder="Please enter model name (except '/')" [(ngModel)]="newModelName">
-      <p [hidden]="!duplicateModelName" class="text-danger">* This model name already exists</p>
-      <p [hidden]="nameExcluse !== newModelName" class="text-danger">* Must not input '/' in model name</p>
-      <p>After summit, You'll can't go back to adjust feature again.</p>
-    <p>Are you sure to summit ?</p>
+    <input type="text" placeholder="Please enter model name (except '/')" [(ngModel)]="newModelName">
+    <p [hidden]="!duplicateModelName" class="text-danger">* This model name already exists</p>
+    <p [hidden]="nameExcluse !== newModelName" class="text-danger">* Must not input '/' in model name</p><br>
+    <p>After summit, You'll can't go back to adjust feature again.<br>Are you sure to summit ?</p>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-light" (click)="c('Close click')">No</button>
