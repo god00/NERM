@@ -410,10 +410,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     if (/^[^/]*$/.test(this.newModelName)) {
       if (this.summitFeatureSubcribe)
         this.summitFeatureSubcribe.unsubscribe();
-      this.project.model.forEach((item) => {
-        if (item == this.newModelName)
-          this.duplicateModelName = true;
-      })
+
       if (!this.duplicateModelName) {
         this.summitFeatureSubcribe = this.databaseService.genarateTemplate(this.project._id, this.newModelName).subscribe((res) => {
           if (res) {
@@ -606,6 +603,18 @@ export class CreateModelComponent implements OnInit, OnDestroy {
         return index;
       }
     });
+  }
+
+  checkDuplicateModelName() {
+    return new Promise(async (resolve, reject) => {
+      await this.project.model.forEach((item, index) => {
+        if (item == this.newModelName) {
+          this.duplicateModelName = true;
+          resolve();
+        }
+      })
+      reject();
+    })
   }
 
   public logout() {
