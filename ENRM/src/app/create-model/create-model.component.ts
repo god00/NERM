@@ -420,9 +420,10 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     this.summitFeatureSubcribe = this.databaseService.genarateTemplate(this.project._id).subscribe((res) => {
       if (res) {
         console.log(res.message)
-        this.clickNewModel = !this.clickNewModel; // after summit - active button 
+
         this.activeIdString = "classify"
       }
+      this.clickNewModel = !this.clickNewModel; // after summit - active button 
     });
   }
 

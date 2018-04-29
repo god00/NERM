@@ -155,11 +155,11 @@
     </button>
   </div>
   <div class="modal-body">
-    <p>After summit, You'll can go back to adjust feature again.<br>Are you sure to summit ?</p>
+    <p>Are you sure to summit ?</p>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-light" (click)="c('Close click')">No</button>
-    <button type="button" [disabled]="newModelName == '' || clickNewModel" class="btn btn-primary" (click)="onSummitFeature();c()">Yes</button>
+    <button type="button" [disabled]="clickNewModel" class="btn btn-primary" (click)="onSummitFeature();c()">Yes</button>
   </div>
 </ng-template>
 <!--  -->
@@ -450,7 +450,7 @@
             <select class="form-control">
               <option>CRF++ (default)</option>
             </select>
-            <button id="summit-button" [disabled]="this.clickNewModel" class="btn btn-success" (click)="openSummitModal(trainModel)">Summit</button>
+            <button id="summit-button" class="btn btn-success" (click)="openSummitModal(trainModel)">Train Model</button>
           </ng-template>
         </ngb-tab>
 
