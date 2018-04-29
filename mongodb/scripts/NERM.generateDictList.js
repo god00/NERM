@@ -17,7 +17,7 @@ exports.genarateDictList = async function (selectedDict, email, projectName) {
                         generateDictListWithLine(item, selectedDict.length - 1, path);
                         count += 1;
                     });
-                    
+
                     resolve();
                 })
             })
@@ -29,13 +29,8 @@ exports.genarateDictList = async function (selectedDict, email, projectName) {
 }
 
 function initFile(path) {
-    fs.writeFile(path, ``, 'utf8', (err) => {
-      if (err) {
-        throw err;
-      } else {
-      }
-    })
-  }
+    fs.writeFileSync(path, ``, 'utf8');
+}
 
 async function generateDictListWithLine(item, lastItemIndex, path) {
     if (count === lastItemIndex) {
