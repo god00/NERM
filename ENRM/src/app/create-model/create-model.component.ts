@@ -345,9 +345,9 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     });
   }
 
-  openSummitModal(content) {
+  openSummitModal(content, mode) {
     console.log(content)
-    if (content == 'trainModel')
+    if (mode == 'trainModel')
       this.modal = this.modalService.open(content, { centered: true })
     else {
       this.modalService.open(content, { centered: true })

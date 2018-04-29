@@ -356,7 +356,7 @@
             <button class="btn btn-primary" (click)="uploadModal(upload,'corpus')">Upload Corpus...</button>
             <!--  -->
             <div class="summit-button">
-              <button id="summit-button" class="btn btn-success" [disabled]="project.summitPreProcessing" (click)="openSummitModal(summitPreProcess)">Summit</button>
+              <button id="summit-button" class="btn btn-success" [disabled]="project.summitPreProcessing" (click)="openSummitModal(summitPreProcess,'summitPreProcess')">Summit</button>
             </div>
           </ng-template>
         </ngb-tab>
@@ -439,7 +439,7 @@
               <button id="advanceFeature-button" class="btn btn-outline-primary btn-sm" (click)="openAdvanceFeatureModal(advanceFeatureModal)">Advance Feature...</button>
             </div>
             <div class="summit-button">
-              <button id="summit-button" [disabled]="onUpdate" class="btn btn-success" (click)="openSummitModal(summitFeature)">Summit</button>
+              <button id="summit-button" [disabled]="onUpdate" class="btn btn-success" (click)="openSummitModal(summitFeature,'summitFeature')">Summit</button>
             </div>
           </ng-template>
         </ngb-tab>
@@ -450,7 +450,7 @@
             <select class="form-control">
               <option>CRF++ (default)</option>
             </select>
-            <button id="summit-button" class="btn btn-success btn-lg btn-block" (click)="openSummitModal(trainModel)">Train Model</button>
+            <button id="summit-button" class="btn btn-success btn-lg btn-block" (click)="openSummitModal(trainModel,'trainModel')">Train Model</button>
           </ng-template>
         </ngb-tab>
 
