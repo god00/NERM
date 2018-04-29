@@ -17,7 +17,6 @@ var NERMGenerateDictList = require('../scripts/NERM.generateDictList');
 // var PythonShell = require('python-shell');
 const { spawn } = require('child_process');
 
-var DIR = `${config.DIR}`;
 var extractScriptPath = config.extractScriptPath;
 
 // Saving the context of this module inside the _the variable
@@ -176,23 +175,14 @@ exports.loginNERM = async function (req, res, next) {
 
 exports.uploadsFile = async function (req, res, next) {
     try {
-        // var test = await multer({}).any();
-        // await test(req, res, function (err) {
-        //     if (err) {
-        //         return res.status(400).json({ status: 400, message: err.toString() })
-        //     }
-
-        //     checkDirectory(DIR + req.body.email[0]);
-        //     checkDirectory(DIR + req.body.email[0] + '/' + req.body.projectName[0]);
-        // });
-
+        var pathUploads = `${path.dirname(process.cwd())}/storage/uploads/`
         var storage = await multer.diskStorage({
             destination: function (req, file, cb) {
                 if (req.body.mode == 'dictionary') {
-                    cb(null, `${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/dictionary`);
+                    cb(null, `${pathUploads}${req.body.email}/dictionary`);
                 }
                 else {
-                    cb(null, `${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.projectName}/${req.body.mode}`);
+                    cb(null, `${pathUploads}${req.body.email}/${req.body.projectName}/${req.body.mode}`);
                 }
             },
             filename: function (req, file, cb) {
@@ -201,10 +191,10 @@ exports.uploadsFile = async function (req, res, next) {
         });
         var upload = multer({ storage: storage }).any();
         upload(req, res, async function (err) {
-            checkDirectory(DIR + req.body.email)
+            checkDirectory(pathUploads + req.body.email)
                 .then(() => {
                     if (req.body.mode == 'dictionary') {
-                        checkDirectory(DIR + req.body.email + '/' + req.body.mode)
+                        checkDirectory(pathUploads + req.body.email + '/' + req.body.mode)
                             .then(() => {
                                 console.log('dict : uploading...')
                                 if (err) {
@@ -242,9 +232,9 @@ exports.uploadsFile = async function (req, res, next) {
                             })
                     }
                     else {
-                        checkDirectory(DIR + req.body.email + '/' + req.body.projectName)
+                        checkDirectory(pathUploads + req.body.email + '/' + req.body.projectName)
                             .then(() => {
-                                checkDirectory(DIR + req.body.email + '/' + req.body.projectName + '/' + req.body.mode)
+                                checkDirectory(pathUploads + req.body.email + '/' + req.body.projectName + '/' + req.body.mode)
                                     .then(() => {
                                         console.log('other : uploading...')
                                         if (err) {
