@@ -13,7 +13,13 @@ router.get('/', NERMController.getItems)
 
 router.post('/', NERMController.createUser)
 
+router.delete('/:id', NERMController.removeNERM)
+
 router.post('/project', NERMController.createProject)
+
+router.get('/project', NERMController.getProject)
+
+router.put('/project', NERMController.updateProject)
 
 router.post('/templates', NERMController.genarateTemplate)
 
@@ -21,17 +27,11 @@ router.post('/model', NERMController.createModel)
 
 router.post('/dictionary', NERMController.genarateDictList)
 
-router.get('/project', NERMController.getProject)
+router.delete('/corpus/:id', NERMController.removeCorpus)
 
-router.put('/project', NERMController.updateProject)
+router.post('/login', NERMController.loginNERM)
 
-router.delete('/:id',NERMController.removeNERM)
-
-router.delete('/corpus/:id',NERMController.removeCorpus)
-
-router.post('/login',NERMController.loginNERM)
-
-router.post('/uploads',NERMController.uploadsFile)
+router.post('/uploads', NERMController.uploadsFile)
 
 
 // Export the Router

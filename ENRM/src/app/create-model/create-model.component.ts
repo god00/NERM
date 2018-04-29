@@ -29,6 +29,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   deleteAdvanceFetureName: string = '';
   activeIdString: string;
   onUpdate: boolean = false;
+  isSummitFeature: boolean = false;
 
   //create Model
   newModelName: string = '';
@@ -411,7 +412,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     this.summitFeatureSubcribe = this.databaseService.genarateTemplate(this.project._id).subscribe((res) => {
       if (res) {
         console.log(res.message)
-
+        this.isSummitFeature = true;
         this.activeIdString = "classify"
       }
       this.clickNewModel = !this.clickNewModel; // after summit - active button 

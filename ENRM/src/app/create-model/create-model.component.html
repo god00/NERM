@@ -443,7 +443,7 @@
           </ng-template>
         </ngb-tab>
 
-        <ngb-tab id="classify" title="Classify">
+        <ngb-tab [disabled]="isSummitFeature" id="classify" title="Classify">
           <ng-template ngbTabContent>
             <label>Select Classifier:</label>
             <select class="form-control">
