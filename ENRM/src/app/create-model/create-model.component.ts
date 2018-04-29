@@ -155,13 +155,14 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           else {
             this.project.selectedDict = data['project'].selectedDict;
           }
-          // this.project.featureSelection['vocabFeature'].forEach(item => {
-          //   if (item.selected) {
-          //     this.displayedColumnsDict.push(`${item.id}`)
-          //   }
-          // });
-          // this.displayedColumnsDict.sort((a, b) => { return a - b })
-          console.log(this.displayedColumnsDict)
+          this.project.featureSelection['vocabFeature'].forEach(item => {
+            if (item.selected) {
+              if (!this.displayedColumnsDict.includes(item.id))
+                this.displayedColumnsDict.push(`${item.id}`)
+            }
+          });
+          this.displayedColumnsDict.sort((a, b) => { return a - b })
+
           this.sortSelectedDict();        // repeat sort for sure
 
           if (this.project.featureSelection['dictFeature'].length != 0) {
@@ -291,7 +292,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   }
 
   updateVocabFeature(id: number, checked: boolean) {
-    console.log('updateVocab')
     if (checked) {
       this.displayedColumnsDict.push(`${id}`)
       this.displayedColumnsDict.sort((a, b) => { return a - b })
@@ -359,7 +359,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
             this.generateDictListSubcribe.unsubscribe();
           this.generateDictListSubcribe = this.databaseService.genarateDictList(this.project._id).subscribe((res) => {
             this.dataSourceDict = new MatTableDataSource(this.dictFeature);
-            console.log(this.displayedColumnsDict)
             this.activeIdString = "featureSelection";
             // console.log(res.message);
           })
