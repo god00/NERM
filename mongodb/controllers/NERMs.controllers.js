@@ -390,7 +390,6 @@ exports.genarateTemplate = async function (req, res, next) {
             }
             else if (project) {
                 NERMGenerateTemplate.genarateTemplate(project.featureSelection, project.email, project.projectName).then((pathTemplate) => {
-                    console.log(pathTemplate)
                     return res.status(200).json({ status: 200, message: `${project.projectName} genarate template successful` });
                 })
             }
@@ -416,7 +415,7 @@ exports.createModel = async function (req, res, next) {
                 project.model.push(modelname);
                 project.isTraining = true;
                 NERMService.updateNERM(project);
-
+                console.log('before run py')
                 // run extract (then crf_learn) here
                 runExtractFeaturePython(project, modelname);
 
