@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material';
 
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FileUploader, FileItem } from 'ng2-file-upload';
 
 import NERMModel from '../models/nerm.model';
@@ -11,7 +11,6 @@ import { DatabaseService } from '../services/database.service';
 
 import { appConfig } from '../app.config';
 import { AuthenticationService } from '../services/authentication.service';
-import { checkAndUpdateTextDynamic } from '@angular/core/src/view/text';
 
 const nermUrl = `${appConfig.apiUrl}/api/nerms/uploads`;
 
@@ -243,16 +242,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       this.hasError = item.isError;
     };
     this.modalService.open(content, { centered: true, size: 'lg' });
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
   }
 
   openConfirmModal(content, index, mode) {

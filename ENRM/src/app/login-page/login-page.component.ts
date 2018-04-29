@@ -36,6 +36,7 @@ export class LoginPageComponent implements OnInit {
   //Alert parameter
   private _success = new Subject<string>();
   alertMessage: string;
+  successLogin: boolean = false;
 
 
   constructor(
@@ -108,7 +109,10 @@ export class LoginPageComponent implements OnInit {
       this.loginNERM = this.authenicationService.loginNERM(user, loginCheckbox.checked)
         .subscribe(res => {
           if (res && res.message === 'Succesfully Login') {
+            this.successLogin = true;
+            this._success.next(`${new Date()} - Succesfully Login.`);
             this.router.navigate(['']);
+
           }
           else {
             this._success.next(` - ${res.message}.`);
