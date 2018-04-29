@@ -612,9 +612,11 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   checkDuplicateModelName() {
     return new Promise(async (resolve, reject) => {
       if (this.project.model.includes(this.newModelName)) {
+        this.duplicateModelName = true;
         reject()
       }
       else {
+        this.duplicateModelName = false;
         resolve();
       }
     })
