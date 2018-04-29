@@ -15,11 +15,13 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2
 import { LoginPageComponent } from './login-page/login-page.component';
 import { HomeComponent } from './home/home.component';
 import { CreateModelComponent } from './create-model/create-model.component';
+import { ModelComponent } from './model/model.component';
 
 import { DatabaseService } from './services/database.service';
 import { AuthenticationService } from './services/authentication.service';
 
 import { AuthGuard } from './guard/auth.guard';
+
 
 
 const routes: Routes = [
@@ -34,6 +36,7 @@ const routes: Routes = [
     LoginPageComponent,
     HomeComponent,
     CreateModelComponent,
+    ModelComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,7 +67,8 @@ const routes: Routes = [
   ],
   bootstrap: [AppComponent],
   entryComponents: [
-    CreateModelComponent
+    CreateModelComponent,
+    ModelComponent
   ]
 })
 export class AppModule { }

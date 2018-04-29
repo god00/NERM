@@ -12,6 +12,8 @@ import { DatabaseService } from '../services/database.service';
 import { appConfig } from '../app.config';
 import { AuthenticationService } from '../services/authentication.service';
 
+import { ModelComponent } from '../model/model.component';
+
 const nermUrl = `${appConfig.apiUrl}/api/nerms/uploads`;
 
 @Component({
@@ -165,7 +167,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
             }
             this.displayedColumnsDict.sort((a, b) => { return a - b })
           }
-          
+
           this.sortSelectedDict();        // repeat sort for sure
 
           if (this.project.featureSelection['dictFeature'].length != 0) {
@@ -364,7 +366,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
             this.generateDictListSubcribe.unsubscribe();
           this.generateDictListSubcribe = this.databaseService.genarateDictList(this.project._id).subscribe((res) => {
             this.dataSourceDict = new MatTableDataSource(this.dictFeature);
-            console.log(this.displayedColumnsDict)
             this.activeIdString = "featureSelection";
             // console.log(res.message);
           })
@@ -434,6 +435,9 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           this.createModelSubcribe = this.databaseService.createModel(this.project._id, this.newModelName).subscribe((res) => {
             if (res) {
               this.modal.close();
+              let routerPath = `${this.project.projectName}/${this.newModelName}`
+              this.router.config.unshift({ path: routerPath, component: ModelComponent })
+              this.router.navigate([routerPath]);
             }
           })
         })
