@@ -4,11 +4,11 @@
 <head>
   <title>Entity Name Recognizer Model</title>
 </head>
-<ng-template *ngIf="alertMessage && successLogin ;else error">
+<ng-template *ngIf="alertMessage && successLogin ;else ERROR">
   <div class="alert alert-success" style="z-index:9999; margin:0; position:absolute; width:100%; opacity: .88;">{{ alertMessage }}</div>
 </ng-template>
 
-<div #error class="alert alert-danger" style="z-index:9999; margin:0; position:absolute; width:100%; opacity: .88;"><strong>ERROR!</strong>{{ alertMessage }}</div>
+<div #ERROR *ngIf="alertMessage" class="alert alert-danger" style="z-index:9999; margin:0; position:absolute; width:100%; opacity: .88;"><strong>ERROR!</strong>{{ alertMessage }}</div>
 
 <body class="d-flex justify-content-center align-items-center flex-row justify-content-around">
 
