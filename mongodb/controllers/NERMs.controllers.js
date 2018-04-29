@@ -432,7 +432,7 @@ exports.createModel = async function (req, res, next) {
                 NERMService.updateNERM(project);
 
                 // run extract (then crf_learn) here
-                runExtractFeaturePython(project,modelname)
+                runExtractFeaturePython(project, modelname)
 
                 return res.status(200).json({ status: 200, message: `${modelname} is training` });
             }
@@ -575,7 +575,7 @@ async function runExtractFeaturePython(project, modelname) {
     var extractScriptPath = config.extractScriptPath;
     var pathCorpus = `${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/corpus`;
     var pathDictList = `${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/current_dictlist.txt`;
-    const py = spawn('python', [extractScriptPath, pathCorpus, pathDictList], { detached: true, stdio: ['ignore', out, err] });  // arg[1] : path of corpus folder , arg[2] : path of file dictionary
+    const py = spawn('python', [extractScriptPath, pathCorpus, pathDictList], { detached: true, stdio: 'ignore' });  // arg[1] : path of corpus folder , arg[2] : path of file dictionary
     // py.stdout.on('data', (data) => {
     //     // console.log(`stdout: ${data}`);
     //     return data;
@@ -599,7 +599,7 @@ async function crf_learn(project, modelname) {
     var template = `${config.templatePath}${project.email}/${project.projectName}/current_template.txt`
     var train_data = `${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/feature.txt`
     var modelPath = `${path.dirname(process.cwd())}/storage/model/${project.email}/${project.projectName}/${modelname}`
-    const crf = spawn('crf_learn', [template, train_data, modelPath], { detached: true, stdio: ['ignore', out, err] })
+    const crf = spawn('crf_learn', [template, train_data, modelPath], { detached: true, stdio: 'ignore' })
 
     crf.on('exit', async (code) => {
         console.log(`child process exited with code ${code}`);
