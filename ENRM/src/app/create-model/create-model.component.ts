@@ -156,13 +156,21 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           else {
             this.project.selectedDict = data['project'].selectedDict;
           }
-          this.project.featureSelection['vocabFeature'].forEach(item => {
+
+          // this.project.featureSelection['vocabFeature'].forEach(item => {
+          //   if (item.selected) {
+          //     this.displayedColumnsDict.push(`${item.id}`)
+          //   }
+          // });
+          
+
+          for (let item of this.project.featureSelection['vocabFeature']) {
             if (item.selected) {
               this.displayedColumnsDict.push(`${item.id}`)
             }
-          });
+          }
           this.displayedColumnsDict.sort((a, b) => { return a - b })
-          this.displayedTmp = this.displayedColumnsDict;
+
           this.sortSelectedDict();        // repeat sort for sure
 
           if (this.project.featureSelection['dictFeature'].length != 0) {
@@ -360,7 +368,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           this.generateDictListSubcribe = this.databaseService.genarateDictList(this.project._id).subscribe((res) => {
             this.dataSourceDict = new MatTableDataSource(this.dictFeature);
             this.displayedColumnsDict = this.displayedTmp;
-            console.log(this.displayedTmp ,"tmp")
+            console.log(this.displayedTmp, "tmp")
             console.log(this.displayedColumnsDict)
             this.activeIdString = "featureSelection";
             // console.log(res.message);
