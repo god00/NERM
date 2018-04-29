@@ -155,11 +155,11 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           else {
             this.project.selectedDict = data['project'].selectedDict;
           }
-          this.project.featureSelection['vocabFeature'].forEach(item => {
-            if (item.selected) {
-              this.displayedColumnsDict.push(`${item.id}`)
-            }
-          });
+          // this.project.featureSelection['vocabFeature'].forEach(item => {
+          //   if (item.selected) {
+          //     this.displayedColumnsDict.push(`${item.id}`)
+          //   }
+          // });
           this.displayedColumnsDict.sort((a, b) => { return a - b })
           console.log(this.displayedColumnsDict)
           this.sortSelectedDict();        // repeat sort for sure
