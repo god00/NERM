@@ -155,10 +155,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <input type="text" placeholder="Please enter model name (except '/')" [(ngModel)]="newModelName" style="width: 70%;">
-    <p [hidden]="!duplicateModelName" class="text-danger">* This model name already exists</p>
-    <p [hidden]="nameExcluse !== newModelName" class="text-danger">* Must not input '/' in model name</p><br>
-    <p>After summit, You'll can't go back to adjust feature again.<br>Are you sure to summit ?</p>
+    <p>After summit, You'll can go back to adjust feature again.<br>Are you sure to summit ?</p>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-light" (click)="c('Close click')">No</button>
@@ -234,6 +231,26 @@
   </ng-template>
   <!--  -->
 
+  <!-- Confirm Train Modal -->
+<ng-template #trainModel let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" style="word-break: break-word;">Confirm Train Model</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <input type="text" placeholder="Please enter model name (except '/')" [(ngModel)]="newModelName" style="width: 70%;">
+      <p [hidden]="!duplicateModelName" class="text-danger">* This model name already exists</p>
+      <p [hidden]="nameExcluse !== newModelName" class="text-danger">* Must not input '/' in model name</p><br>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="c('Close click')">No</button>
+      <button type="button" [disabled]="newModelName == '' || clickNewModel" class="btn btn-primary" (click)="onSummitFeature()">Yes</button>
+    </div>
+  </ng-template>
+  <!--  -->
+
 
 <head>
   <title>Entity Name Recognizer Model</title>
@@ -269,14 +286,7 @@
           <div class="dropdown-divider"></div>
         </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link disabled">Disabled</a>
-      </li>
     </ul>
-    <!-- <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form> -->
   </div>
 
   <div id="navbarSupportedContent">
@@ -434,7 +444,7 @@
           </ng-template>
         </ngb-tab>
 
-        <ngb-tab title="Classify">
+        <ngb-tab id="classify" title="Classify">
           <ng-template ngbTabContent>
             <label>Select Classifier:</label>
             <select class="form-control">

@@ -67,8 +67,12 @@ export class DatabaseService {
     return this.http.post(`${nermUrl}/dictionary`, { id });
   }
 
-  genarateTemplate(id: string, modelname: string): Observable<any> {
-    return this.http.post(`${nermUrl}/templates`, { id, modelname });
+  genarateTemplate(id: string): Observable<any> {
+    return this.http.post(`${nermUrl}/templates`, { id });
+  }
+
+  createModel(id: string, modelname: string): Observable<any> {
+    return this.http.post(`${nermUrl}/model`, { id, modelname });
   }
 
   deleteNERM(id: string): any {

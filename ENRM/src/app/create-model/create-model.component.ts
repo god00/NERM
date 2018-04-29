@@ -70,6 +70,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   updateProjectSubscribe: any;
   summitFeatureSubcribe: any;
   generateDictListSubcribe: any;
+  createModelSubcribe: any;
 
   showText = {};
 
@@ -108,6 +109,8 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       this.summitFeatureSubcribe.unsubscribe();
     if (this.generateDictListSubcribe)
       this.generateDictListSubcribe.unsubscribe();
+    if (this.createModelSubcribe)
+      this.createModelSubcribe.unsubscribe();
   }
 
   createSelectedForm() {
@@ -410,29 +413,36 @@ export class CreateModelComponent implements OnInit, OnDestroy {
 
   onSummitFeature() {
     this.clickNewModel = !this.clickNewModel;
-    if (/^[^/]*$/.test(this.newModelName)) {
-      if (this.summitFeatureSubcribe)
-        this.summitFeatureSubcribe.unsubscribe();
+    this.summitFeatureSubcribe = this.databaseService.genarateTemplate(this.project._id).subscribe((res) => {
+      if (res) {
+        console.log(res.message)
+        this.clickNewModel = !this.clickNewModel; // after summit - active button 
+        this.modal.close()
+        this.activeIdString = "classify"
+      }
+    });
+  }
+
+  onTrainModel() {
+    if (/^ [^ /]*$/.test(this.newModelName)) {
+      if (this.createModelSubcribe)
+        this.createModelSubcribe.unsubscribe();
       this.checkDuplicateModelName()
         .then(() => {
-          this.summitFeatureSubcribe = this.databaseService.genarateTemplate(this.project._id, this.newModelName).subscribe((res) => {
+          this.createModelSubcribe = this.databaseService.createModel(this.project._id, this.newModelName).subscribe((res) => {
             if (res) {
-              console.log(res.message)
-              this.clickNewModel = !this.clickNewModel; // after summit - active button 
-              this.modal.close()
-              // this.activeIdString = "featureSelection"
+
             }
-          });
+          })
         })
         .catch(() => {
           this.clickNewModel = !this.clickNewModel;
-        })
+        });
     }
     else {
       this.nameExcluse = this.newModelName.toString();
       this.clickNewModel = !this.clickNewModel;
     }
-
   }
 
   openAdvanceFeatureModal(content) {

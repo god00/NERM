@@ -421,6 +421,29 @@ exports.genarateTemplate = async function (req, res, next) {
     }
 }
 
+exports.createModel = async function (req, res, next) {
+    var modelname = req.body.modelname
+    try {
+        var query = NERMProject.findOne({ _id: req.body.id });
+        query.exec(async function (err, project) {
+            if (err) {
+                return res.status(400).json({ status: 400, message: err });
+            }
+            else if (project) {
+                project.model.push(modelname);
+                NERMService.updateNERM(project);
+                return res.status(200).json({ status: 200, message: `${modelname} training` });
+            }
+            else {
+                return res.status(204).json({ status: 204, message: "Please create project first" });
+            }
+        })
+    }
+    catch (e) {
+        return res.status(400).json({ status: 400, message: e.message })
+    }
+}
+
 exports.genarateDictList = async function (req, res, next) {
     try {
         var query = NERMProject.findOne({ _id: req.body.id });
