@@ -12,7 +12,7 @@ exports.genarateDictList = async function (selectedDict, email, projectName) {
             // var selectedDictsort = selectedDict.sort((a, b) => { return a - b })
             checkDirectory(`${config.DIR}${email}`).then(() => {
                 checkDirectory(`${config.DIR}${email}/${projectName}`).then(() => {
-                    initFile();
+                    initFile(path);
                     selectedDict.forEach(item => {
                         generateDictListWithLine(item, selectedDict.length - 1, path);
                         count += 1;
