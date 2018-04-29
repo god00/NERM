@@ -583,7 +583,7 @@ async function runExtractFeaturePython(project, modelname) {
 
     py.stderr.on('data', (data) => {
         console.log(`stderr: ${data}`);
-        reject(data);
+        return data;
     });
 
     py.on('exit', async (code) => {
@@ -603,7 +603,7 @@ async function crf_learn(project, modelname) {
 
     crf.stderr.on('data', (data) => {
         console.log(`stderr: ${data}`);
-        reject(data);
+        return data;
     });
 
     crf.on('exit', async (code) => {
