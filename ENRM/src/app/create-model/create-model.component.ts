@@ -129,8 +129,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           this.project.featureSelection = data['project'].featureSelection;
           this.project.dictionary = data['dictionary'];
           this.project.model = data['project'].model;   // string[] of ModelName
-          console.log(this.project.model)
-          console.log(data['project'].model)
           this.dropdownList = data['dictionary'].map((dict, index) => {
             dict['id'] = index;
             dict['itemName'] = dict['fileName'];
@@ -346,7 +344,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   }
 
   openSummitModal(content, mode) {
-    console.log(content)
     if (mode == 'trainModel')
       this.modal = this.modalService.open(content, { centered: true })
     else {
