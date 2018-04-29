@@ -360,6 +360,8 @@ export class CreateModelComponent implements OnInit, OnDestroy {
             this.generateDictListSubcribe.unsubscribe();
           this.generateDictListSubcribe = this.databaseService.genarateDictList(this.project._id).subscribe((res) => {
             this.dataSourceDict.data = this.dictFeature;
+            console.log(this.dictFeature)
+            console.log(this.dataSourceDict.data)
             this.activeIdString = "featureSelection";
             // console.log(res.message);
           })
