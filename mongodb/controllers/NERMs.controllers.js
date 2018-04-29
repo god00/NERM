@@ -1,5 +1,3 @@
-import { AssertionError } from 'assert';
-
 // Accessing the Service that we just created
 var NERMService = require('../services/NERM.service')
 var NERMProject = require('../models/NERM.model')
