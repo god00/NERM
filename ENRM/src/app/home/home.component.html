@@ -10,7 +10,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <input type="text" placeholder="Please enter project name (except '/')" [(ngModel)]="newProjectName">
+    <input type="text" placeholder="Please enter project name (except '/')" [(ngModel)]="newProjectName" style="width: 70%;">
     <p [hidden]="!duplicateProjectName" class="text-danger">* This project name already exists</p>
     <p [hidden]="nameExcluse !== newProjectName" class="text-danger">* Must not input '/' in project name</p>
   </div>

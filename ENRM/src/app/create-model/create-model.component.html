@@ -155,7 +155,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <input type="text" placeholder="Please enter model name (except '/')" [(ngModel)]="newModelName">
+    <input type="text" placeholder="Please enter model name (except '/')" [(ngModel)]="newModelName" style="width: 70%;">
     <p [hidden]="!duplicateModelName" class="text-danger">* This model name already exists</p>
     <p [hidden]="nameExcluse !== newModelName" class="text-danger">* Must not input '/' in model name</p><br>
     <p>After summit, You'll can't go back to adjust feature again.<br>Are you sure to summit ?</p>
