@@ -35,11 +35,6 @@ export class HomeComponent implements OnInit {
   closeResult: string;
   clickCreate: boolean = false;
 
-  //Alert parameter
-  private _success = new Subject<string>();
-  alertMessage: string;
-  successLogin: boolean;
-
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -55,21 +50,7 @@ export class HomeComponent implements OnInit {
       if (data) {
         this.projectsByUser = data;
       }
-      else {
-
-      }
     })
-    this._success.subscribe((message) => {
-      this.alertMessage = message;
-    });
-    debounceTime.call(this._success, 3000).subscribe(() => {
-      this.alertMessage = null;
-      this.successLogin = null;
-    });
-    if (this.user) {
-      this.successLogin = true;
-      this._success.next(`${new Date()} - Succesfully Login.`);
-    }
   }
 
   createProject() {
