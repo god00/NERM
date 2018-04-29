@@ -36,7 +36,7 @@ export class LoginPageComponent implements OnInit {
   //Alert parameter
   private _success = new Subject<string>();
   alertMessage: string;
-  successLogin: boolean ;
+  successLogin: boolean = false;
 
 
   constructor(
