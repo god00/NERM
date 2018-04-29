@@ -111,7 +111,7 @@ export class LoginPageComponent implements OnInit {
           if (res && res.message === 'Succesfully Login') {
             this.successLogin = true;
             this._success.next(`${new Date()} - Succesfully Login.`);
-            this.router.navigate(['']);
+            setTimeout(() => { this.router.navigate(['']); },3000)
 
           }
           else {
