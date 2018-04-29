@@ -156,7 +156,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           else {
             this.project.selectedDict = data['project'].selectedDict;
           }
-          if (this.advanceDisplayed.length == 1) {
+          if (this.displayedColumnsDict.length == 1) {
             for (let item of this.project.featureSelection['vocabFeature']) {
               if (item.selected) {
                 this.displayedColumnsDict.push(`${item.id}`)
