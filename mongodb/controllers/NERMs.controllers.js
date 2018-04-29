@@ -569,10 +569,10 @@ async function runExtractFeaturePython(project, modelname) {
     //     return data;
     // });
 
-    py.stderr.on('data', (data) => {
-        console.log(`stderr: ${data}`);
-        return data;
-    });
+    // py.stderr.on('data', (data) => {
+    //     console.log(`stderr: ${data}`);
+    //     return data;
+    // });
 
     py.on('exit', async (code) => {
         console.log(`child process exited with code ${code}`);
@@ -589,10 +589,10 @@ async function crf_learn(project, modelname) {
     var modelPath = `${path.dirname(process.cwd())}/storage/model/${project.email}/${project.projectName}/${modelname}`
     const crf = spawn('crf_learn', [template, train_data, modelPath], { detached: true , stdio : 'ignore'})
 
-    crf.stderr.on('data', (data) => {
-        console.log(`stderr: ${data}`);
-        return data;
-    });
+    // crf.stderr.on('data', (data) => {
+    //     console.log(`stderr: ${data}`);
+    //     return data;
+    // });
 
     crf.on('exit', async (code) => {
         console.log(`child process exited with code ${code}`);
