@@ -410,19 +410,19 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     if (/^[^/]*$/.test(this.newModelName)) {
       if (this.summitFeatureSubcribe)
         this.summitFeatureSubcribe.unsubscribe();
-
-      if (!this.duplicateModelName) {
-        this.summitFeatureSubcribe = this.databaseService.genarateTemplate(this.project._id, this.newModelName).subscribe((res) => {
-          if (res) {
-            console.log(res.message)
-            this.clickNewModel = !this.clickNewModel; // after summit - active button 
-            // this.activeIdString = "featureSelection"
-          }
-        });
-      }
-      else {
-        this.clickNewModel = !this.clickNewModel;
-      }
+      this.checkDuplicateModelName()
+        .then(() => {
+          this.summitFeatureSubcribe = this.databaseService.genarateTemplate(this.project._id, this.newModelName).subscribe((res) => {
+            if (res) {
+              console.log(res.message)
+              this.clickNewModel = !this.clickNewModel; // after summit - active button 
+              // this.activeIdString = "featureSelection"
+            }
+          });
+        })
+        .catch(() => {
+          this.clickNewModel = !this.clickNewModel;
+        })
     }
     else {
       this.nameExcluse = this.newModelName.toString();
@@ -607,13 +607,12 @@ export class CreateModelComponent implements OnInit, OnDestroy {
 
   checkDuplicateModelName() {
     return new Promise(async (resolve, reject) => {
-      await this.project.model.forEach((item, index) => {
-        if (item == this.newModelName) {
-          this.duplicateModelName = true;
-          resolve();
-        }
-      })
-      reject();
+      if (this.project.model.includes(this.newModelName)) {
+        reject()
+      }
+      else {
+        resolve();
+      }
     })
   }
 
