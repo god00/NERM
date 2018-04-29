@@ -418,7 +418,7 @@ exports.createModel = async function (req, res, next) {
                 NERMService.updateNERM(project);
 
                 // run extract (then crf_learn) here
-                await runExtractFeaturePython(project, modelname)
+                runExtractFeaturePython(project, modelname);
 
                 return res.status(200).json({ status: 200, message: `${modelname} is training` });
             }
