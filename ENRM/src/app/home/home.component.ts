@@ -85,7 +85,6 @@ export class HomeComponent implements OnInit {
           this.duplicateProjectName = true;
         }
         else {
-          
           this.duplicateProjectName = false;
           this.modal.close();
           this.router.navigate([this.newProjectName]);

@@ -155,12 +155,15 @@
     </button>
   </div>
   <div class="modal-body">
+      <input type="text" placeholder="Please enter model name (except '/')" [(ngModel)]="newModelName">
+      <p [hidden]="!duplicateModelName" class="text-danger">* This model name already exists</p>
+      <p [hidden]="nameExcluse !== newModelName" class="text-danger">* Must not input '/' in model name</p>
     After summit, You'll can't go back to adjust feature again.<br>
     <p>Are you sure to summit ?</p>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-light" (click)="c('Close click')">No</button>
-    <button type="button" class="btn btn-primary" (click)="onSummitFeature();c()">Yes</button>
+    <button type="button" [disabled]="newModelName == '' || clickNewModel" class="btn btn-primary" (click)="onSummitFeature();c()">Yes</button>
   </div>
 </ng-template>
 <!--  -->
@@ -344,7 +347,7 @@
             <button class="btn btn-primary" (click)="uploadModal(upload,'corpus')">Upload Corpus...</button>
             <!--  -->
             <div class="summit-button">
-              <button id="summit-button" [disabled]="onUpdate" class="btn btn-success" [disabled]="project.summitPreProcessing" (click)="openSummitModal(summitPreProcess)">Summit</button>
+              <button id="summit-button" class="btn btn-success" [disabled]="project.summitPreProcessing" (click)="openSummitModal(summitPreProcess)">Summit</button>
             </div>
           </ng-template>
         </ngb-tab>
@@ -427,7 +430,7 @@
               <button id="advanceFeature-button" class="btn btn-outline-primary btn-sm" (click)="openAdvanceFeatureModal(advanceFeatureModal)">Advance Feature...</button>
             </div>
             <div class="summit-button">
-              <button id="summit-button" class="btn btn-success" (click)="openSummitModal(summitFeature)">Summit</button>
+              <button id="summit-button" [disabled]="onUpdate" class="btn btn-success" (click)="openSummitModal(summitFeature)">Summit</button>
             </div>
           </ng-template>
         </ngb-tab>

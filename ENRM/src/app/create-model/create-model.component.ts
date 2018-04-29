@@ -31,6 +31,13 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   activeIdString: string;
   onUpdate: boolean = false;
 
+  //create Model
+  newModelName: string;
+  clickNewModel: boolean = false;
+  nameExcluse: string;
+  duplicateModelName: boolean = false;
+
+
   //Dictfeature table 
   displayedColumnsDict: any = ["dictionary"];
   dictFeature: any;
@@ -117,6 +124,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           this.project.summitPreProcessing = data['project'].summitPreProcessing;
           this.project.featureSelection = data['project'].featureSelection;
           this.project.dictionary = data['dictionary'];
+          this.project.model = data['project'].model;   // string[] of ModelName
           this.dropdownList = data['dictionary'].map((dict, index) => {
             dict['id'] = index;
             dict['itemName'] = dict['fileName'];
@@ -396,14 +404,32 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   // }
 
   onSummitFeature() {
-    if (this.summitFeatureSubcribe)
-      this.summitFeatureSubcribe.unsubscribe();
-    this.summitFeatureSubcribe = this.databaseService.genarateTemplate(this.project._id).subscribe((res) => {
-      if (res) {
-        console.log(res.message)
-        // this.activeIdString = "featureSelection"
+    this.clickNewModel = !this.clickNewModel;
+    if (/^[^/]*$/.test(this.newModelName)) {
+      if (this.summitFeatureSubcribe)
+        this.summitFeatureSubcribe.unsubscribe();
+      this.project.model.forEach((item) => {
+        if (item == this.newModelName)
+          this.duplicateModelName = true;
+      })
+      if (!this.duplicateModelName) {
+        this.summitFeatureSubcribe = this.databaseService.genarateTemplate(this.project._id, this.newModelName).subscribe((res) => {
+          if (res) {
+            console.log(res.message)
+            this.clickNewModel = !this.clickNewModel; // after summit - active button 
+            // this.activeIdString = "featureSelection"
+          }
+        });
       }
-    });
+      else {
+        this.clickNewModel = !this.clickNewModel;
+      }
+    }
+    else {
+      this.nameExcluse = this.newModelName.toString();
+      this.clickNewModel = !this.clickNewModel;
+    }
+
   }
 
   openAdvanceFeatureModal(content) {

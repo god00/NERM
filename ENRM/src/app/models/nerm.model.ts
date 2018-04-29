@@ -7,7 +7,8 @@ class NERMModel {
     dictionary: Object[];       // dicts have only on front-end
     selectedDict: Object[];
     summitPreProcessing: boolean;
-    featureSelection: Object
+    featureSelection: Object;
+    model : String[]            // path of model folder
     constructor(
     ) {
         this.email = "";
