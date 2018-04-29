@@ -95,6 +95,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       unSelectAllText: 'Unselect All',
       enableSearchFilter: true,
     };
+
   }
 
 
@@ -121,6 +122,14 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     return new Promise((resolve, reject) => {
       this.getProjectSubscribe = this.databaseService.getProject(this.user['email'], encodeURI(<string>this.project.projectName)).subscribe((data) => {
         if (data) {
+          if (!data) {
+            this.router.navigate(['']);
+          }
+          this.project.isTraining = data['project'].isTraining;
+          // if (this.project.isTraining) {
+          //   this.router.config.unshift({ path: this.project.projectName, component: CreateModelComponent })
+          //   this.router.navigate(['']);
+          // }
           this.project._id = data['project']._id;
           this.project.projectName = data['project']['projectName'];
           this.project.corpus = data['project'].corpus;
@@ -129,6 +138,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           this.project.featureSelection = data['project'].featureSelection;
           this.project.dictionary = data['dictionary'];
           this.project.model = data['project'].model;   // string[] of ModelName
+
           this.dropdownList = data['dictionary'].map((dict, index) => {
             dict['id'] = index;
             dict['itemName'] = dict['fileName'];

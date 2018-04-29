@@ -315,7 +315,6 @@
     <div class="jumbotron special-card d-flex flex-column">
       <h1 class="display-3">{{project?.projectName}}</h1>
       <ngb-tabset *ngIf="activeIdString" #t="ngbTabset" [activeId]="activeIdString">
-
         <ngb-tab id="preProcess" title="Preprocess" [disabled] = "project.summitPreProcessing">
           <ng-template ngbTabContent>
             <!-- select field -->

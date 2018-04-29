@@ -8,7 +8,8 @@ class NERMModel {
     selectedDict: Object[];
     summitPreProcessing: boolean;
     featureSelection: Object;
-    model : String[]            // path of model folder
+    model: String[];            // path of model folder
+    isTraining: boolean;
     constructor(
     ) {
         this.email = "";
@@ -24,6 +25,8 @@ class NERMModel {
             wordFeature: [],
             advanceFeature: [],
         };
+        this.model = [];
+        this.isTraining = false;
     }
 }
 
