@@ -156,16 +156,8 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           else {
             this.project.selectedDict = data['project'].selectedDict;
           }
-
-          // this.project.featureSelection['vocabFeature'].forEach(item => {
-          //   if (item.selected) {
-          //     this.displayedColumnsDict.push(`${item.id}`)
-          //   }
-          // });
           
-
           for (let item of this.project.featureSelection['vocabFeature']) {
-            console.log(item)
             if (item.selected) {
               this.displayedColumnsDict.push(`${item.id}`)
             }
@@ -368,8 +360,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
             this.generateDictListSubcribe.unsubscribe();
           this.generateDictListSubcribe = this.databaseService.genarateDictList(this.project._id).subscribe((res) => {
             this.dataSourceDict = new MatTableDataSource(this.dictFeature);
-            console.log(this.displayedTmp, "tmp")
-            console.log(this.displayedColumnsDict)
             this.activeIdString = "featureSelection";
             // console.log(res.message);
           })
