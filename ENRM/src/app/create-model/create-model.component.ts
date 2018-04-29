@@ -125,6 +125,8 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           this.project.featureSelection = data['project'].featureSelection;
           this.project.dictionary = data['dictionary'];
           this.project.model = data['project'].model;   // string[] of ModelName
+          console.log(this.project.model)
+          console.log(data['project'].model)
           this.dropdownList = data['dictionary'].map((dict, index) => {
             dict['id'] = index;
             dict['itemName'] = dict['fileName'];
