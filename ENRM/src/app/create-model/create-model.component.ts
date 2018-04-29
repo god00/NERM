@@ -36,6 +36,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   clickNewModel: boolean = false;
   nameExcluse: string;
   duplicateModelName: boolean = false;
+  modal: any;
 
 
   //Dictfeature table 
@@ -342,6 +343,8 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   }
 
   openSummitModal(content) {
+    if (content == 'summitFeature')
+      this.modal = this.modalService.open(content, { centered: true })
     this.modalService.open(content, { centered: true })
   }
 
@@ -416,6 +419,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
             if (res) {
               console.log(res.message)
               this.clickNewModel = !this.clickNewModel; // after summit - active button 
+              this.modal.close()
               // this.activeIdString = "featureSelection"
             }
           });
