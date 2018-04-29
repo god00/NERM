@@ -122,9 +122,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     return new Promise((resolve, reject) => {
       this.getProjectSubscribe = this.databaseService.getProject(this.user['email'], encodeURI(<string>this.project.projectName)).subscribe((data) => {
         if (data) {
-          if (!data) {
-            this.router.navigate(['']);
-          }
           this.project.isTraining = data['project'].isTraining;
           // if (this.project.isTraining) {
           //   this.router.config.unshift({ path: this.project.projectName, component: CreateModelComponent })
@@ -190,8 +187,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           }
           this.wordFeature = data['project'].featureSelection['wordFeature'];
           this.dataSourceWord = new MatTableDataSource(this.wordFeature);
-
-
         }
         else {
           console.log('No model');

@@ -100,8 +100,13 @@ export class DatabaseService {
         projectName: projectName
       }
     }).map((res) => {
-      //Maps the response object sent from the server
-      return res["data"];
+      if (res["data"]) {
+        //Maps the response object sent from the server
+        return res["data"];
+      }
+      else {
+        return res
+      }
     })
   }
 
