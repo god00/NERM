@@ -100,7 +100,7 @@ export class DatabaseService {
         projectName: projectName
       }
     }).map((res) => {
-      if (res["data"]) {
+      if (res["data"] != undefined) {
         //Maps the response object sent from the server
         return res["data"];
       }
