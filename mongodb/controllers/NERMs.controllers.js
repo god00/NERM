@@ -430,8 +430,11 @@ exports.createModel = async function (req, res, next) {
                 project.model.push(modelname);
                 project.isTraining = true;
                 NERMService.updateNERM(project);
+
                 // run extract (then crf_learn) here
-                return res.status(200).json({ status: 200, message: `${modelname} training` });
+                runExtractFeaturePython(project,modelname)
+
+                return res.status(200).json({ status: 200, message: `${modelname} is training` });
             }
             else {
                 return res.status(204).json({ status: 204, message: "Please create project first" });
@@ -568,9 +571,10 @@ async function beforeSendToFront(project) {
     return project;
 }
 
-async function runExtractFeaturePython(project, pathDictList, modelname) {
+async function runExtractFeaturePython(project, modelname) {
     var extractScriptPath = config.extractScriptPath;
     var pathCorpus = `${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/corpus`;
+    var pathDictList = `${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/current_dictlist.txt`;
     const py = spawn('python', [extractScriptPath, pathCorpus, pathDictList], { detached: true, stdio: ['ignore', out, err] });  // arg[1] : path of corpus folder , arg[2] : path of file dictionary
     // py.stdout.on('data', (data) => {
     //     // console.log(`stdout: ${data}`);
@@ -593,7 +597,7 @@ async function runExtractFeaturePython(project, pathDictList, modelname) {
 
 async function crf_learn(project, modelname) {
     var template = `${config.templatePath}${project.email}/${project.projectName}/current_template.txt`
-    // var train_data = `${config.templatePath}${email}/${projectName}/current_template.txt`
+    var train_data = `${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/train_data.txt`
     var modelPath = `${path.dirname(process.cwd())}/storage/model/${project.email}/${project.projectName}/${modelname}`
     const crf = spawn('crf_learn', [template, train_data, modelPath], { detached: true, stdio: ['ignore', out, err] })
 
