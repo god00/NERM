@@ -586,7 +586,7 @@ async function runExtractFeaturePython(project, modelname) {
 async function crf_learn(project, modelname) {
     var template = `${config.templatePath}${project.email}/${project.projectName}/current_template.txt`
     var train_data = `${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/feature.txt`
-    var modelPath = `${path.dirname(process.cwd())}/storage/model/${project.email}/${project.projectName}/${modelname}`
+    var modelPath = `${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/${modelname}`
     const crf = spawn('crf_learn', [template, train_data, modelPath], { detached: true , stdio : 'ignore'})
 
     // crf.stderr.on('data', (data) => {
