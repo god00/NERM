@@ -110,9 +110,8 @@ export class LoginPageComponent implements OnInit {
         .subscribe(res => {
           if (res && res.message === 'Succesfully Login') {
             this.successLogin = true;
-            console.log(this.successLogin)
+            this._success.next(`${new Date()} - Succesfully Login.`);
             setTimeout(() => {
-              this._success.next(`${new Date()} - Succesfully Login.`);
               this.router.navigate(['']);
             }, 3000)
           }
