@@ -160,7 +160,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           //     this.displayedColumnsDict.push(`${item.id}`)
           //   }
           // });
-          this.displayedColumnsDict.sort((a, b) => { return a - b })
+          // this.displayedColumnsDict.sort((a, b) => { return a - b })
           console.log(this.displayedColumnsDict)
           this.sortSelectedDict();        // repeat sort for sure
 
