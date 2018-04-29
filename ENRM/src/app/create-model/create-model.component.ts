@@ -32,7 +32,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   onUpdate: boolean = false;
 
   //create Model
-  newModelName: string;
+  newModelName: string = '';
   clickNewModel: boolean = false;
   nameExcluse: string;
   duplicateModelName: boolean = false;
