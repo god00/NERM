@@ -291,6 +291,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   }
 
   updateVocabFeature(id: number, checked: boolean) {
+    console.log('updateVocab')
     if (checked) {
       this.displayedColumnsDict.push(`${id}`)
       this.displayedColumnsDict.sort((a, b) => { return a - b })
