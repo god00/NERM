@@ -36,7 +36,7 @@ export class LoginPageComponent implements OnInit {
   //Alert parameter
   private _success = new Subject<string>();
   alertMessage: string;
-  successLogin: boolean ;
+  successLogin: boolean = false;
 
 
   constructor(
@@ -112,7 +112,6 @@ export class LoginPageComponent implements OnInit {
             this.successLogin = true;
             this._success.next(`${new Date()} - Succesfully Login.`);
             setTimeout(() => { this.router.navigate(['']); },3000)
-
           }
           else {
             this._success.next(` - ${res.message}.`);
