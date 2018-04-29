@@ -156,6 +156,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           else {
             this.project.selectedDict = data['project'].selectedDict;
           }
+
           if (this.displayedColumnsDict.length == 1) {
             for (let item of this.project.featureSelection['vocabFeature']) {
               if (item.selected) {
@@ -164,6 +165,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
             }
             this.displayedColumnsDict.sort((a, b) => { return a - b })
           }
+          
           this.sortSelectedDict();        // repeat sort for sure
 
           if (this.project.featureSelection['dictFeature'].length != 0) {
