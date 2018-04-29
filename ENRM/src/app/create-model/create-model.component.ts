@@ -346,9 +346,12 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   }
 
   openSummitModal(content) {
-    if (content == 'summitFeature')
+    if (content == 'trainModel')
       this.modal = this.modalService.open(content, { centered: true })
-    this.modalService.open(content, { centered: true })
+    else {
+      this.modalService.open(content, { centered: true })
+    }
+
   }
 
   onSummitPreprocess() {
@@ -417,7 +420,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       if (res) {
         console.log(res.message)
         this.clickNewModel = !this.clickNewModel; // after summit - active button 
-        this.modal.close()
         this.activeIdString = "classify"
       }
     });
@@ -431,7 +433,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
         .then(() => {
           this.createModelSubcribe = this.databaseService.createModel(this.project._id, this.newModelName).subscribe((res) => {
             if (res) {
-
+              this.modal.close();
             }
           })
         })
