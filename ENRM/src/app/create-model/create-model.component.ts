@@ -220,18 +220,16 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       if (this.getProjectSubscribe)
         this.getProjectSubscribe.unsubscribe();
       this.getModel().then(() => {
-        if (mode == "dictionary") {
-          var dupSelected = this.selectedItems.value.filter(function (el) {
-            return el.fileName === item.file.name;
-          });
-          if (dupSelected.length == 0) {
-            let selectedTmp = this.selectedItems.value;
-            this.dropdownList.map((dict, index) => {
-              if (dict['fileName'] == item.file.name)
-                selectedTmp.push(dict)
-            })
-            this.selectedItems.patchValue(selectedTmp);
-          }
+        var dupSelected = this.selectedItems.value.filter(function (el) {
+          return el.fileName === item.file.name;
+        });
+        if (dupSelected.length == 0) {
+          let selectedTmp = this.selectedItems.value;
+          this.dropdownList.map((dict, index) => {
+            if (dict['fileName'] == item.file.name)
+              selectedTmp.push(dict)
+          })
+          this.selectedItems.patchValue(selectedTmp);
         }
       });
 
