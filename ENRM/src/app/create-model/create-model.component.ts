@@ -430,8 +430,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   onTrainModel() {
     this.clickNewModel = !this.clickNewModel;
     console.log(this.newModelName)
-    console.log(/^ [^ /]*$/.test(this.newModelName))
-    if (/^ [^ /]*$/.test(this.newModelName)) {
+    if (/^[^/]*$/.test(this.newModelName)) {
       if (this.createModelSubcribe)
         this.createModelSubcribe.unsubscribe();
       this.checkDuplicateModelName()
