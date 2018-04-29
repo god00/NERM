@@ -573,7 +573,7 @@ async function beforeSendToFront(project) {
 
 async function runExtractFeaturePython(project, modelname) {
     var extractScriptPath = config.extractScriptPath;
-    var pathCorpus = `${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/corpus`;
+    var pathCorpus = `${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/corpus/`;
     var pathDictList = `${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/current_dictlist.txt`;
     const py = spawn('python', [extractScriptPath, pathCorpus, pathDictList], { detached: true });  // arg[1] : path of corpus folder , arg[2] : path of file dictionary
     // py.stdout.on('data', (data) => {
