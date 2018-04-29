@@ -361,7 +361,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           if (this.generateDictListSubcribe)
             this.generateDictListSubcribe.unsubscribe();
           this.generateDictListSubcribe = this.databaseService.genarateDictList(this.project._id).subscribe((res) => {
-            this.initDictFeature();
             this.dataSourceDict.data = this.dictFeature;
             this.activeIdString = "featureSelection";
             // console.log(res.message);
