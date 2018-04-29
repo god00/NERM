@@ -244,6 +244,7 @@ exports.uploadsFile = async function (req, res, next) {
                                             }
                                             else if (project) {
                                                 var mode = req.body.mode;
+                                                console.log(req.files[0])
                                                 var p = `${pathUploads}${req.body.email}/${req.body.projectName}/${req.body.mode}/${req.files[0].originalname}`
                                                 // if (mode == 'corpus') {
                                                 //     var data = runPython(p)
