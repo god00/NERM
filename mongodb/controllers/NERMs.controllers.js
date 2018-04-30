@@ -271,25 +271,28 @@ exports.uploadsFile = async function (req, res, next) {
                       })
                     }
                     else if (req.body.mode == 'testdata') {
-                      console.log('testdata : uploading...');
-                      var query = NERMProject.findOne({ email: req.body.email, projectName: req.body.projectName });
-                      query.exec(async function (err, project) {
-                        if (err) {
-                          return res.status(400).json({ status: 400, message: err });
-                        }
-                        else if (project) {
-                          var p = `${pathUploads}${req.body.email}/${req.body.projectName}/${req.body.mode}/${req.body.modelname}/${req.files[0].originalname}`
+                      checkDirectory(pathUploads + req.body.email + '/' + req.body.projectName + '/' + req.body.mode + '/' + req.body.modelname)
+                        .then(() => {
+                          console.log('testdata : uploading...');
+                          var query = NERMProject.findOne({ email: req.body.email, projectName: req.body.projectName });
+                          query.exec(async function (err, project) {
+                            if (err) {
+                              return res.status(400).json({ status: 400, message: err });
+                            }
+                            else if (project) {
+                              var p = `${pathUploads}${req.body.email}/${req.body.projectName}/${req.body.mode}/${req.body.modelname}/${req.files[0].originalname}`
 
-                          if (project.testData[req.body.modelname].indexOf(p) == -1) {    //check if for no duplication path file in db
-                            project.testData[req.body.modelname].push(p);
-                          }
-                          NERMService.updateNERM(project);
-                          return res.status(201).json({ status: 201, message: "File is uploaded" });
-                        }
-                        else {
-                          return res.status(204).json({ status: 204, message: "Please create project before upload" });
-                        }
-                      })
+                              if (project.testData[req.body.modelname].indexOf(p) == -1) {    //check if for no duplication path file in db
+                                project.testData[req.body.modelname].push(p);
+                              }
+                              NERMService.updateNERM(project);
+                              return res.status(201).json({ status: 201, message: "File is uploaded" });
+                            }
+                            else {
+                              return res.status(204).json({ status: 204, message: "Please create project before upload" });
+                            }
+                          })
+                        })
                     }
                   })
 
