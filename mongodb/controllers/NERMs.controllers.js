@@ -178,6 +178,7 @@ exports.loginNERM = async function (req, res, next) {
 
 exports.uploadsFile = async function (req, res, next) {
   try {
+    console.log(req.body.modelname)
     var pathUploads = `${path.dirname(process.cwd())}/storage/uploads/`
     var storage = await multer.diskStorage({
       destination: function (req, file, cb) {
