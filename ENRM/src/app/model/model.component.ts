@@ -116,8 +116,7 @@ export class ModelComponent implements OnInit, OnDestroy {
           this.testDataId = data['id'];
         }
         else {
-          console.log('No model');
-          this.router.navigate(['']);
+          console.log('No Test Data');
         }
         resolve();
       })
