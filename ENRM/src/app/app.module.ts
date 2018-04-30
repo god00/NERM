@@ -31,6 +31,7 @@ const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: ':name/create/model', component: CreateModelComponent },
   { path: ':name', component: ModelListComponent },
+  { path: ':name/:name', component: ModelComponent },
 ];
 
 @NgModule({
