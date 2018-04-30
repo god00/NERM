@@ -46,14 +46,12 @@ export class ModelComponent implements OnInit, OnDestroy {
     if (this.intervalId) {
       clearInterval(this.intervalId);
     }
-    if (this.project.model[this.project.model.length - 1] == this.modelName) {
-      this.intervalId = setInterval(() => {
-        if (this.getProjectSubscribe) {
-          this.getProjectSubscribe.unsubscribe();
-        }
-        this.getProjectWithModelName();
-      }, 5000)
-    }
+    this.intervalId = setInterval(() => {
+      if (this.getProjectSubscribe) {
+        this.getProjectSubscribe.unsubscribe();
+      }
+      this.getProjectWithModelName();
+    }, 5000)
 
   }
 
