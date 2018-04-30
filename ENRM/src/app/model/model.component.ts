@@ -1,9 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { FileUploader } from 'ng2-file-upload';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { appConfig } from '../app.config';
 import { DatabaseService } from '../services/database.service';
 
 import NERMModel from '../models/nerm.model';
+
+const nermUrl = `${appConfig.apiUrl}/api/nerms/uploads`;
 
 @Component({
   selector: 'app-model',
@@ -11,6 +17,8 @@ import NERMModel from '../models/nerm.model';
   styleUrls: ['./model.component.css']
 })
 export class ModelComponent implements OnInit, OnDestroy {
+  public uploader: FileUploader = new FileUploader({ url: nermUrl });
+  hasError: boolean = false;
   user: Object;
   project: NERMModel = new NERMModel();
   modelName: string;
@@ -22,6 +30,7 @@ export class ModelComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     public databaseService: DatabaseService,
+    private modalService: NgbModal,
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.project.projectName = decodeURI(this.router.url.split("/")[1]);
@@ -62,7 +71,6 @@ export class ModelComponent implements OnInit, OnDestroy {
           this.project = data['project'];
           let index = this.project.model.indexOf(this.modelName);
           if (index != -1) {
-            console.log(data['project'].corpusInfo)
             this.project.corpusInfo = data['project'].corpusInfo[index]
           }
         }
@@ -82,6 +90,36 @@ export class ModelComponent implements OnInit, OnDestroy {
       }
     });
 
+  }
+
+  uploadModal(content, mode) {
+    let count = 0;
+    this.uploader = new FileUploader({ url: nermUrl });
+    this.uploader.onBuildItemForm = (fileItem, form) => {
+      form.append('email', this.user['email']);
+      form.append('projectName', this.project.projectName);
+      form.append('mode', mode);
+      form.append('modelname', this.modelName);
+      return { fileItem, form }
+    };
+    this.uploader.onSuccessItem = (item: any, response: any, status: any, headers: any) => {
+      count = 0;
+      this.hasError = item.isError;
+      if (this.getProjectSubscribe)
+        this.getProjectSubscribe.unsubscribe();
+      this.getProject().then(() => {
+      });
+
+    };
+    this.uploader.onErrorItem = (item: any, response: any, status: any, headers: any) => {
+      // console.log("fail:", item, status);
+      if (count == 0) {
+        this.uploader.uploadItem(item);
+        count++;
+      }
+      this.hasError = item.isError;
+    };
+    this.modalService.open(content, { centered: true, size: 'lg' });
   }
 
 }

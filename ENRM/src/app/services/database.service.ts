@@ -110,6 +110,24 @@ export class DatabaseService {
     })
   }
 
+  getProjectWithModelName(email: string, projectName: string, modelname: string): Observable<Object> {
+    return this.http.get(`${nermUrl}/project`, {
+      params: {
+        email: email,
+        projectName: projectName,
+        modelname: modelname
+      }
+    }).map((res) => {
+      if (res != undefined) {
+        //Maps the response object sent from the server
+        return res["data"];
+      }
+      else {
+        return res
+      }
+    })
+  }
+
   //Default Error handling method.
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only

@@ -1,6 +1,108 @@
 <!doctype html>
 <html lang="en">
 
+<!-- Upload Modal -->
+<ng-template #upload let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Upload Dictionary</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <p>Upload Queue length: {{ uploader?.queue?.length }}</p>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th width="50%">Name</th>
+          <th>Size</th>
+          <th>Progress</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of uploader.queue">
+          <td>
+            <strong style="word-break: break-word">{{ item?.file?.name }}</strong>
+          </td>
+          <td *ngIf="uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+          <td *ngIf="uploader.isHTML5">
+            <div class="progress" style="margin-bottom: 0;">
+              <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+            </div>
+          </td>
+          <td class="text-center">
+            <span *ngIf="item.isSuccess">
+              <i class="fa fa-check" aria-hidden="true"></i>
+            </span>
+            <span *ngIf="item.isCancel">
+              <i class="fa fa-ban" aria-hidden="true"></i>
+            </span>
+            <span *ngIf="item.isError">
+              <i class="fa fa-exclamation" aria-hidden="true"></i>
+            </span>
+          </td>
+          <td nowrap>
+            <button type="button" class="btn btn-success btn-xs" (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+              <span class="fa fa-upload" aria-hidden="true"></span> Upload
+            </button>
+            <button type="button" class="btn btn-warning btn-xs" (click)="item.cancel()" [disabled]="!item.isUploading">
+              <span class="fa fa-ban" aria-hidden="true"></span> Cancel
+            </button>
+            <button type="button" class="btn btn-danger btn-xs" (click)="item.remove()">
+              <span class="fa fa-trash-o" aria-hidden="true"></span> Remove
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div>
+      <div>
+        Queue progress:
+        <p *ngIf="hasError ;else elseblock">
+          <ngb-progressbar type="danger" [value]="uploader.progress" [striped]="true">Try again</ngb-progressbar>
+        </p>
+        <ng-template #elseblock>
+          <p *ngIf="uploader.progress < 100 ;else elseblock2">
+            <ngb-progressbar type="info" [value]="uploader.progress" [striped]="true" [animated]="true">
+              <i></i>
+            </ngb-progressbar>
+          </p>
+        </ng-template>
+        <ng-template #elseblock2>
+          <p>
+            <ngb-progressbar type="success" [value]="uploader.progress" [striped]="true">Completed!</ngb-progressbar>
+          </p>
+        </ng-template>
+      </div>
+      <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+        <span class="fa fa-upload" aria-hidden="true"></span> Upload all
+      </button>
+      <button type="button" class="btn btn-warning btn-s" (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+        <span class="fa fa-ban" aria-hidden="true"></span> Cancel all
+      </button>
+      <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+        <span class="fa fa-trash-o" aria-hidden="true"></span> Remove all
+      </button>
+    </div>
+
+    <label class="custom-file" style="margin-top: 1vw;">
+      <input type="file" ng2FileSelect [uploader]="uploader" multiple accept="text/plain" />
+      <span class="custom-file-control"></span>
+    </label>
+
+    <br/>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
+<!--  -->
+
 <head>
   <title>{{modelName}}</title>
 </head>
@@ -27,7 +129,7 @@
               <li class="list-group-item">Total Word : {{project.corpusInfo[modelName]?.vocabcount}}</li>
               <li class="list-group-item">Total Tags : {{project.corpusInfo[modelName]?.tags.length}}</li>
               <li class="list-group-item">
-                <div class="card border-primary mb-3" style="max-width: 18rem;">
+                <div class="card border-primary mb-3">
                   <div class="card-header">Tags List:</div>
                   <div class="card-body text-primary tags">
                     <p *ngFor="let tag of project.corpusInfo[modelName]?.tags" class="card-text">{{tag}}</p>
@@ -43,8 +145,8 @@
             </div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item">
-                
-                <div class="card border-primary mb-3" style="max-width: 18rem;">
+                <button class="btn btn-primary" (click)="uploadModal(upload,'testdata')">Upload Test Data...</button>
+                <div class="card border-primary mb-3">
                   <div class="card-header">Test File:</div>
                   <div class="card-body text-primary tags">
                     <p *ngFor="let file of project?.testData[modelName]" class="card-text">{{file}}</p>
