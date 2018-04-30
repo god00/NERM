@@ -48,6 +48,9 @@ export class ModelComponent implements OnInit, OnDestroy {
           this.project.model = data['project'].model;   // string[] of ModelName
           this.project.isTraining = data['project'].isTraining;
         }
+        console.log(this.user['email'])
+        console.log(this.project.projectName)
+        console.log(data)
       })
     })
   }
