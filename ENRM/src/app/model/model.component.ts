@@ -23,6 +23,7 @@ export class ModelComponent implements OnInit, OnDestroy {
   isLastModel: boolean;
   index: number;
   testDataId: any;
+  projectTmp: any;
 
   // upload parameter
   public uploader: FileUploader = new FileUploader({ url: nermUrl });
@@ -84,6 +85,7 @@ export class ModelComponent implements OnInit, OnDestroy {
     return new Promise((resolve, reject) => {
       this.getProjectSubscribe = this.databaseService.getProject(this.user['email'], encodeURI(<string>this.project.projectName)).subscribe(async (data) => {
         if (data) {
+          this.projectTmp = data['project'];
           this.index = data['project'].model.indexOf(this.modelName);
           this.project.model = data['project'].model;
           this.project.isTraining = data['project'].isTraining;
@@ -125,7 +127,7 @@ export class ModelComponent implements OnInit, OnDestroy {
 
 
   goToCreateModel() {
-    this.project.summitPreProcessing = false;
+    this.projectTmp.summitPreProcessing = false;
     if (this.updateProjectSubscribe) {
       this.updateProjectSubscribe.unsubscribe();
     }
