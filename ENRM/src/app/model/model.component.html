@@ -10,7 +10,7 @@
     <div class="jumbotron special-card d-flex justify-content-around flex-column">
       <h1 class="display-3">{{modelName}}</h1>
 
-      <div class="training" ngIf="project?.isTraining  ;else showCorpusResult">
+      <div class="training" *ngIf="project?.isTraining && project?.model[project.model.length-1] == modelName ;else showCorpusResult">
         <mat-spinner></mat-spinner>
         <h4>{{modelName}} is training</h4>
       </div>
@@ -21,7 +21,7 @@
           <div class="card-header">
             Corpus Information :
           </div>
-          <!-- <ul class="list-group list-group-flush">
+          <ul class="list-group list-group-flush">
             <li class="list-group-item">Total Word : {{project.corpusInfo[modelName].vocabcount}}</li>
             <li class="list-group-item">Total Tags : {{project.corpusInfo[modelName].totalTags}}</li>
             <li class="list-group-item">
@@ -32,7 +32,7 @@
                 </div>
               </div>
             </li>
-          </ul> -->
+          </ul>
         </div>
       </ng-template>
       <!--  -->
