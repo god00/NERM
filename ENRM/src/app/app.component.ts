@@ -46,10 +46,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   addPathModel(projectsByUser: any) {
     for (let project of projectsByUser) {
-      // this.router.config.unshift({ path: `${project.projectName}/create/model`, component: CreateModelComponent })
+      this.router.config.unshift({ path: `/${project.projectName}/create/model`, component: CreateModelComponent })
       this.router.config.unshift({ path: project.projectName, component: ModelListComponent })
       for (let model of project.model) {
-        let routerPath = `${project.projectName}/${model}`
+        let routerPath = `/${project.projectName}/${model}`
         this.router.config.unshift({ path: routerPath, component: ModelComponent })
       }
     }
