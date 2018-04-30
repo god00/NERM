@@ -65,6 +65,7 @@ export class ModelComponent implements OnInit, OnDestroy {
   getProject() {
     return new Promise((resolve, reject) => {
       this.getProjectSubscribe = this.databaseService.getProject(this.user['email'], encodeURI(<string>this.project.projectName)).subscribe((data) => {
+        console.log('getProject')
         if (data) {
           this.project = data['project'];
         }
@@ -125,7 +126,6 @@ export class ModelComponent implements OnInit, OnDestroy {
         this.getProjectSubscribe.unsubscribe();
       this.getProject().then(() => {
       });
-
     };
     this.uploader.onErrorItem = (item: any, response: any, status: any, headers: any) => {
       // console.log("fail:", item, status);
