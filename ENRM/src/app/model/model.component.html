@@ -10,13 +10,13 @@
     <div class="jumbotron special-card d-flex justify-content-around flex-column">
       <h1 class="display-3">{{modelName}}</h1>
 
-      <div class="training" ngIf="project.isTraining && project.model[project.model-1] == modelName ; else showResult">
+      <div class="training" ngIf="project.isTraining && project.model[project.model-1] == modelName ; else showCorpusResult">
         <mat-spinner></mat-spinner>
         <h4>{{modelName}} is training</h4>
       </div>
 
       <!-- showResult block -->
-      <ng-template #showResult>
+      <ng-template #showCorpusResult>
         <div class="card" style="width: 18rem;">
           <div class="card-header">
             Corpus Information :
