@@ -139,7 +139,7 @@
       </div>
 
       <!-- showResult block -->
-      <ng-template #showCorpusResult *ngIf="project.corpusInfo[modelName] != undefined">
+      <ng-template #showCorpusResult *ngIf="project.corpusInfo[modelName]">
         <div class="flex-row">
           <div class="card" style="width: 30%;">
             <div class="card-header text-white bg-secondary">
@@ -184,7 +184,7 @@
 
       <button *ngIf="!project.isTraining ;else newModel" class="btn btn-primary margin-button" (click)="goToCreateModel()">Create New Model</button>
       <ng-template #newModel>
-        <button class="btn btn-outline-secondary margin-button" placement="bottom" ngbTooltip="Please wait until {{project.model[project.model-1]}} is training finish">
+        <button class="btn btn-outline-secondary margin-button" placement="bottom" ngbTooltip="Please wait until the last model is training finish">
           Create New Model
         </button>
       </ng-template>
