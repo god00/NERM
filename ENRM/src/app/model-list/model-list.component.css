@@ -13,8 +13,14 @@
     flex-flow: row wrap;
 }
 
+small{
+    font-size: 1vw;
+    word-wrap: break-word;
+}
+
 .model-items{
     display: flex;
     flex-direction: column;
 }
+
 
