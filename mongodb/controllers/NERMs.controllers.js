@@ -288,8 +288,7 @@ exports.uploadsFile = async function (req, res, next) {
                                 };
                                 project.testData[req.body.indexTestData][req.body.modelname].push(p);
                               }
-                              console.log(project.testData)
-                              project.testData = project.testData
+                              project.markModified('update test data path')
                               await NERMService.updateNERM(project);
                               return res.status(201).json({ status: 201, message: "File is uploaded" });
                             }
