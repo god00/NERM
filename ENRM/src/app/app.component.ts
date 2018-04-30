@@ -29,6 +29,7 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.user) {
       this.getModelSubscribe = this.databaseService.getProjects(this.user['email']).subscribe((projectsByUser) => {
         if (projectsByUser) {
+          this.projectsByUser = projectsByUser;
           this.addPathModel(projectsByUser);
         }
       })
