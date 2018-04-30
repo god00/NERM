@@ -39,22 +39,21 @@ export class ModelComponent implements OnInit, OnDestroy {
     this.project.projectName = decodeURI(this.router.url.split("/")[1]);
     this.modelName = decodeURI(this.router.url.split("/")[2]);
     this.project.email = this.user['email'];
-    this.getProjectWithModelName();
+    this.getProject();
   }
 
   ngOnInit() {
     if (this.intervalId) {
       clearInterval(this.intervalId);
     }
+    
     this.intervalId = setInterval(() => {
       if (this.getProjectSubscribe) {
         this.getProjectSubscribe.unsubscribe();
       }
-      this.getProjectWithModelName();
+      this.getProject();
     }, 5000)
     console.log(this.project.model[this.project.model.length - 1])
-
-
   }
 
   ngOnDestroy() {
@@ -67,11 +66,20 @@ export class ModelComponent implements OnInit, OnDestroy {
     clearInterval(this.intervalId);
   }
 
-  getProjectWithModelName() {
+  getProject() {
+    return new Promise((resolve, reject) => {
+      this.getProjectSubscribe = this.databaseService.getProject(this.user['email'], encodeURI(<string>this.project.projectName)).subscribe((data) => {
+        if (data) {
+          this.project = data['project'];
+        }
+      })
+    })
+  }
+
+  getCorpusInfo() {
     return new Promise((resolve, reject) => {
       this.getProjectSubscribe = this.databaseService.getProjectWithModelName(this.user['email'], encodeURI(<string>this.project.projectName), this.modelName).subscribe((data) => {
         if (data) {
-          this.project = data['project'];
           let index = this.project.model.indexOf(this.modelName);
           if (index != -1) {
             this.project.corpusInfo = data['project'].corpusInfo[index]
@@ -109,7 +117,7 @@ export class ModelComponent implements OnInit, OnDestroy {
       this.hasError = item.isError;
       if (this.getProjectSubscribe)
         this.getProjectSubscribe.unsubscribe();
-      this.getProjectWithModelName().then(() => {
+      this.getProject().then(() => {
       });
 
     };
