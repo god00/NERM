@@ -446,7 +446,7 @@ exports.removeTestData = async function (req, res, next) {
                 NERMService.updateNERM(project)
                 beforeSendToFront(project)
                   .then(project => {
-                    beforeSendToFrontTestData(project)
+                    beforeSendToFrontTestData(project, modelname)
                       .then(project => {
                         if (project)
                           return res.status(200).json({ status: 200, testData: project.testData[modelname], message: `${filename} was deleted from database & storage` });
