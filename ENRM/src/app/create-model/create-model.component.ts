@@ -84,6 +84,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     public authenicationService: AuthenticationService,
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
+    console.log(this.router.url)
     this.project.projectName = decodeURI(this.router.url.slice(1, this.router.url.length));
     this.project.email = this.user['email'];
   }
