@@ -169,8 +169,8 @@
                 <div class="card border-primary mb-3" *ngIf="project?.testData && project?.testData.length != 0">
                   <div class="card-header">Test File:</div>
                   <div class="card-body text-primary tags">
-                    <p *ngFor="let file of project?.testData" class="card-text">{{file?.fileName}}
-                      <span class="fa fa-trash-o trash-icon; let i = index" aria-hidden="true" (click)="openConfirmModal(delete,i,'testdata')"></span>
+                    <p *ngFor="let file of project?.testData ;let i = index" class="card-text">{{file?.fileName}}
+                      <span class="fa fa-trash-o trash-icon" aria-hidden="true" (click)="openConfirmModal(delete,i,'testdata')"></span>
                     </p>
                   </div>
                 </div>
