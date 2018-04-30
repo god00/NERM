@@ -58,6 +58,9 @@ export class ModelComponent implements OnInit, OnDestroy {
         }, 3500)
       }
       else {
+        if (this.getProjectSubscribe) {
+          this.getProjectSubscribe.unsubscribe();
+        }
         this.getCorpusInfo();
       }
     });
