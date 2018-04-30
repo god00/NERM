@@ -178,7 +178,6 @@ exports.loginNERM = async function (req, res, next) {
 
 exports.uploadsFile = async function (req, res, next) {
   try {
-    console.log(req.body.modelname)
     var pathUploads = `${path.dirname(process.cwd())}/storage/uploads/`
     var storage = await multer.diskStorage({
       destination: function (req, file, cb) {
@@ -198,6 +197,8 @@ exports.uploadsFile = async function (req, res, next) {
     });
     var upload = multer({ storage: storage }).any();
     upload(req, res, async function (err) {
+      console.log(req.body.modelname)
+      console.log(req.body.mode)
       checkDirectory(pathUploads + req.body.email)
         .then(() => {
           if (req.body.mode == 'dictionary') {
