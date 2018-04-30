@@ -1,7 +1,7 @@
 .list{
     display: flex;
     text-align: center;
-    overflow-y: scroll;
+    overflow-y: auto;
     max-height:50vw ;
     font-size: 3vw ;
     flex-flow: row wrap;
