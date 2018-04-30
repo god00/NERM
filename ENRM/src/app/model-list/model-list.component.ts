@@ -16,6 +16,7 @@ export class ModelListComponent implements OnInit, OnDestroy {
   project: NERMModel = new NERMModel();
 
   getProjectSubscribe: any;
+  updateProjectSubscribe: any;
 
   constructor(
     private router: Router,
@@ -40,6 +41,9 @@ export class ModelListComponent implements OnInit, OnDestroy {
     if (this.getProjectSubscribe) {
       this.getProjectSubscribe.unsubscribe();
     }
+    if (this.updateProjectSubscribe) {
+      this.updateProjectSubscribe.unsubscribe();
+    }
   }
 
   getProject() {
@@ -54,6 +58,15 @@ export class ModelListComponent implements OnInit, OnDestroy {
   }
 
   goToCreateModel() {
-    this.router.navigate([`${this.project.projectName}/create/model`]);
+    this.project.summitPreProcessing = false;
+    if (this.updateProjectSubscribe) {
+      this.updateProjectSubscribe.unsubscribe();
+    }
+    this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
+      if (res) {
+        this.router.navigate([`${this.project.projectName}/create/model`]);
+      }
+    });
+
   }
 }
