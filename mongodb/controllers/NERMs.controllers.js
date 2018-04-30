@@ -283,7 +283,7 @@ exports.uploadsFile = async function (req, res, next) {
                             }
                             else if (project) {
                               var p = `${pathUploads}${req.body.email}/${req.body.projectName}/${req.body.mode}/${req.body.modelname}/${req.files[0].originalname}`
-                              if (project.testData[req.body.indexTestData][req.body.modelname])
+                              console.log(project.testData[req.body.indexTestData][req.body.modelname])
                                 if (project.testData[req.body.indexTestData][req.body.modelname].indexOf(p) == -1) {    //check if for no duplication path file in db
                                   project.testData[req.body.indexTestData][req.body.modelname].push(p);
                                 }
