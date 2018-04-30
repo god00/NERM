@@ -50,7 +50,6 @@ export class ModelComponent implements OnInit, OnDestroy {
           }
           this.getProject().then(() => {
             if (!this.project.isTraining) {
-              this.getCorpusInfo();
               if (this.intervalId)
                 clearInterval(this.intervalId);
             }
@@ -61,7 +60,7 @@ export class ModelComponent implements OnInit, OnDestroy {
         if (this.getProjectSubscribe) {
           this.getProjectSubscribe.unsubscribe();
         }
-        this.getCorpusInfo();
+        this.getProject();
       }
     });
   }
@@ -81,25 +80,10 @@ export class ModelComponent implements OnInit, OnDestroy {
     return new Promise((resolve, reject) => {
       this.getProjectSubscribe = this.databaseService.getProjectWithModelName(this.user['email'], encodeURI(<string>this.project.projectName), this.modelName).subscribe((data) => {
         if (data) {
-          console.log(data['project'])
-          this.project = data['project'];
-        }
-        else {
-          console.log('No model');
-          this.router.navigate(['']);
-        }
-        resolve();
-      })
-    })
-  }
-
-  getCorpusInfo() {
-    return new Promise((resolve, reject) => {
-      this.getProjectSubscribe = this.databaseService.getProjectWithModelName(this.user['email'], encodeURI(<string>this.project.projectName), this.modelName).subscribe((data) => {
-        if (data) {
           let index = this.project.model.indexOf(this.modelName);
           if (index != -1) {
-            this.project.corpusInfo = data['project'].corpusInfo[index]
+            this.project.corpusInfo = data['project'].corpusInfo[index];
+            this.project.testData = data['testData'].testData[index];
           }
         }
         else {
@@ -110,6 +94,7 @@ export class ModelComponent implements OnInit, OnDestroy {
       })
     })
   }
+
 
   goToCreateModel() {
     this.project.summitPreProcessing = false;
