@@ -93,8 +93,6 @@ export class ModelComponent implements OnInit, OnDestroy {
             this.project.testData = data['project'].testData[this.index];
           }
           this.isLastModel = (this.index == data['project'].model.length - 1);
-
-
           console.log(this.project)
         }
         else {
