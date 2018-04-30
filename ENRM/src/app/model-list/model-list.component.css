@@ -18,6 +18,10 @@ small{
     word-wrap: break-word;
 }
 
+.margin-button{
+    margin-top: 10vw;
+}
+
 .model-items{
     display: flex;
     flex-direction: column;
