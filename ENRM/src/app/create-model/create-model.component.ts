@@ -362,12 +362,10 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       this.sortSelectedDict();
       this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
         if (res) {
-          console.log(res.message);
           if (this.generateDictListSubcribe)
             this.generateDictListSubcribe.unsubscribe();
           this.generateDictListSubcribe = this.databaseService.genarateDictList(this.project._id).subscribe((res) => {
             this.dataSourceDict = new MatTableDataSource(this.dictFeature);
-            console.log(this.dataSourceDict)
             this.activeIdString = "featureSelection";
             // console.log(res.message);
           })
@@ -428,7 +426,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
 
   onTrainModel() {
     this.clickNewModel = !this.clickNewModel;
-    console.log(this.newModelName)
     if (/^[^/]*$/.test(this.newModelName)) {
       if (this.createModelSubcribe)
         this.createModelSubcribe.unsubscribe();
