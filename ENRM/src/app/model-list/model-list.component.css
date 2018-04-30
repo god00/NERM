@@ -1,3 +1,9 @@
+.jumbotron {
+    width: 85%;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+}
+
 .list{
     display: flex;
     text-align: center;
@@ -6,3 +12,4 @@
     font-size: 3vw ;
     flex-flow: row wrap;
 }
+
