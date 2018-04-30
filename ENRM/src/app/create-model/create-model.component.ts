@@ -23,15 +23,18 @@ const nermUrl = `${appConfig.apiUrl}/api/nerms/uploads`;
 })
 
 export class CreateModelComponent implements OnInit, OnDestroy {
-  public uploader: FileUploader = new FileUploader({ url: nermUrl });
+
   user: Object;
   project: NERMModel = new NERMModel();
-  hasError: boolean = false;
   deleteCorpusName: string = '';
   deleteAdvanceFetureName: string = '';
   activeIdString: string;
   onUpdate: boolean = false;
   isSummitFeature: boolean = false;
+
+  //upload parameter
+  public uploader: FileUploader = new FileUploader({ url: nermUrl });
+  hasError: boolean = false;
 
   //create Model
   newModelName: string = '';
@@ -138,7 +141,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           this.project.featureSelection = data['project'].featureSelection;
           this.project.dictionary = data['dictionary'];
           this.project.model = data['project'].model;   // string[] of ModelName
-          
+
           this.dropdownList = data['dictionary'].map((dict, index) => {
             dict['id'] = index;
             dict['itemName'] = dict['fileName'];
@@ -238,8 +241,8 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           }
         }
       });
-
     };
+
     this.uploader.onErrorItem = (item: any, response: any, status: any, headers: any) => {
       // console.log("fail:", item, status);
       if (count == 0) {

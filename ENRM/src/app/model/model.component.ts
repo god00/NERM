@@ -17,12 +17,14 @@ const nermUrl = `${appConfig.apiUrl}/api/nerms/uploads`;
   styleUrls: ['./model.component.css']
 })
 export class ModelComponent implements OnInit, OnDestroy {
-  deleteTestDataName: any;
-  public uploader: FileUploader = new FileUploader({ url: nermUrl });
-  hasError: boolean = false;
   user: Object;
   project: NERMModel = new NERMModel();
   modelName: string;
+
+  // upload parameter
+  public uploader: FileUploader = new FileUploader({ url: nermUrl });
+  hasError: boolean = false;
+  deleteTestDataName: string = '';
 
   getProjectSubscribe: any;
   updateProjectSubscribe: any;
@@ -96,7 +98,6 @@ export class ModelComponent implements OnInit, OnDestroy {
     let count = 0;
     this.uploader = new FileUploader({ url: nermUrl });
     this.uploader.onBuildItemForm = (fileItem, form) => {
-      console.log(fileItem)
       form.append('email', this.user['email']);
       form.append('projectName', this.project.projectName);
       form.append('mode', mode);
