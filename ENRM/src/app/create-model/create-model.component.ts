@@ -101,7 +101,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
       unSelectAllText: 'Unselect All',
       enableSearchFilter: true,
     };
-
   }
 
 
@@ -196,7 +195,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           this.dataSourceWord = new MatTableDataSource(this.wordFeature);
         }
         else {
-          console.log('No model');
+          console.log('No project');
           this.router.navigate(['']);
         }
         resolve();

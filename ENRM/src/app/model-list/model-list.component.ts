@@ -58,6 +58,11 @@ export class ModelListComponent implements OnInit, OnDestroy {
         if (data) {
           this.project = data['project'];
         }
+        else {
+          console.log('No model');
+          this.router.navigate(['']);
+        }
+        resolve();
       })
     })
   }

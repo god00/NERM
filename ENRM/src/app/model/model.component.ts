@@ -70,9 +70,13 @@ export class ModelComponent implements OnInit, OnDestroy {
     return new Promise((resolve, reject) => {
       this.getProjectSubscribe = this.databaseService.getProject(this.user['email'], encodeURI(<string>this.project.projectName)).subscribe((data) => {
         if (data) {
-          console.log(data)
           this.project = data['project'];
         }
+        else {
+          console.log('No model');
+          this.router.navigate(['']);
+        }
+        resolve();
       })
     })
   }
@@ -86,6 +90,11 @@ export class ModelComponent implements OnInit, OnDestroy {
             this.project.corpusInfo = data['project'].corpusInfo[index]
           }
         }
+        else {
+          console.log('No model');
+          this.router.navigate(['']);
+        }
+        resolve();
       })
     })
   }
