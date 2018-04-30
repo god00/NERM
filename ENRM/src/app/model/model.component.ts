@@ -52,6 +52,10 @@ export class ModelComponent implements OnInit, OnDestroy {
       }
       this.getProjectWithModelName();
     }, 5000)
+    if (this.project.model[this.project.model.length - 1] != this.modelName) {
+      clearInterval(this.intervalId);
+    }
+
 
   }
 
