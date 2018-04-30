@@ -602,7 +602,7 @@ async function crf_learn(project, modelname) {
         project.isTraining = false;
         NERMGetCorpusInfo.getCorpusInfo(project, modelname)
             .then(async (corpusInfo) => {
-                project.corpusInfo.push({ modelName: corpusInfo });
+                project.corpusInfo.push({ modelname: corpusInfo });
                 await NERMService.updateNERM(project);
                 crf.kill()
             })
