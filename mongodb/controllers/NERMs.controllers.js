@@ -285,7 +285,7 @@ exports.uploadsFile = async function (req, res, next) {
                               var p = `${pathUploads}${req.body.email}/${req.body.projectName}/${req.body.mode}/${req.body.modelname}/${req.files[0].originalname}`
 
                               if (project.testData[req.body.indexTestData][req.body.modelname].indexOf(p) == -1) {    //check if for no duplication path file in db
-                                project.testData[req.body.modelname].push(p);
+                                project.testData[req.body.indexTestData][req.body.modelname].push(p);
                               }
                               NERMService.updateNERM(project);
                               return res.status(201).json({ status: 201, message: "File is uploaded" });
