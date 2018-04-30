@@ -42,14 +42,20 @@ export class ModelComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.getProject();
-    this.intervalId = setInterval(() => {
-      if (this.getProjectSubscribe) {
-        this.getProjectSubscribe.unsubscribe();
+    this.getProject().then(() => {
+      if (this.project.isTraining && this.project.model[this.project.model.length - 1] == this.modelName) {
+        this.intervalId = setInterval(() => {
+          if (this.getProjectSubscribe) {
+            this.getProjectSubscribe.unsubscribe();
+          }
+          this.getProject();
+        }, 5000)
       }
-      this.getProject();
-    }, 5000)
-    console.log(this.project.model[this.project.model.length - 1])
+      else{
+        this.getCorpusInfo();
+      }
+      console.log(this.project.model[this.project.model.length - 1])
+    });
   }
 
   ngOnDestroy() {
