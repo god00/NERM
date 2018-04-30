@@ -2,10 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { DatabaseService } from './services/database.service';
+import { AuthenticationService } from './services/authentication.service';
 
 import { CreateModelComponent } from './create-model/create-model.component';
 import { ModelListComponent } from './model-list/model-list.component';
 import { ModelComponent } from './model/model.component';
+
+import NERMModel from './models/nerm.model';
 
 @Component({
   selector: 'app-root',
@@ -14,12 +17,13 @@ import { ModelComponent } from './model/model.component';
 })
 export class AppComponent implements OnInit, OnDestroy {
   user: Object;
-
+  projectsByUser: NERMModel[] = [];
   getModelSubscribe: any;
 
   constructor(
     public router: Router,
-    public databaseService: DatabaseService
+    public databaseService: DatabaseService,
+    public authenicationService: AuthenticationService
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     if (this.user) {
@@ -53,6 +57,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
       }
     }
+  }
+
+  public logout() {
+    this.authenicationService.logout();
+    this.router.navigate(['login']);
   }
 
 }

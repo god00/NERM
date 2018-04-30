@@ -638,11 +638,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     })
   }
 
-  public logout() {
-    this.authenicationService.logout();
-    this.router.navigate(['login']);
-  }
-
 }
 
 
