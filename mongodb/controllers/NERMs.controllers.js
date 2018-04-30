@@ -81,7 +81,7 @@ exports.createUser = async function (req, res, next) {
     var query = NERM.findOne({ email: user.email });
     query.exec(async function (err, userDB) {
       if (err)
-        return res.status(400).json({ status: 400., message: err });
+        return res.status(400).json({ status: 400, message: err });
       else if (userDB) {
         return res.status(201).json({ status: 201, data: false, message: "This user already exists" })
       }
@@ -114,7 +114,7 @@ exports.createProject = async function (req, res, next) {
     var query = NERMProject.findOne({ email: nerm.email, projectName: nerm.projectName });
     query.exec(async function (err, project) {
       if (err)
-        return res.status(400).json({ status: 400., message: err });
+        return res.status(400).json({ status: 400, message: err });
       else if (project) {
         return res.status(202).json({ status: 202., duplicate: true, message: "This project name already exists" });
       }
@@ -124,7 +124,7 @@ exports.createProject = async function (req, res, next) {
       }
     })
   } catch (e) {
-    return res.status(400).json({ status: 400., message: e.message });
+    return res.status(400).json({ status: 400, message: e.message });
   }
 }
 
@@ -145,7 +145,7 @@ exports.loginNERM = async function (req, res, next) {
   try {
     await NERM.findOne({ email: req.body.email }, async function (err, userDB) {
       if (err) {
-        return res.status(400).json({ status: 400., message: err.message });
+        return res.status(400).json({ status: 400, message: err.message });
       }
       else if (userDB) {
         NERMService.loginNERM(req.body.password, userDB._id, userDB.password)
@@ -217,7 +217,7 @@ exports.uploadsFile = async function (req, res, next) {
                     var query = NERMProject.findOne({ email: req.body.email, projectName: req.body.projectName });
                     query.exec(async function (err, project) {
                       if (err) {
-                        return res.status(400).json({ status: 400., message: err });
+                        return res.status(400).json({ status: 400, message: err });
                       }
                       else if (project) {
                         if (project['selectedDict'].indexOf(p) == -1) {    //check if for no duplication path file in db
@@ -233,7 +233,7 @@ exports.uploadsFile = async function (req, res, next) {
                     return res.status(201).json({ status: 201, message: "File is uploaded" });
                   })
                   .catch(err => {
-                    return res.status(400).json({ status: 400., message: err });
+                    return res.status(400).json({ status: 400, message: err });
                   })
               })
           }
@@ -243,14 +243,13 @@ exports.uploadsFile = async function (req, res, next) {
                 checkDirectory(pathUploads + req.body.email + '/' + req.body.projectName + '/' + req.body.mode)
                   .then(() => {
                     if (!req.files[0]) {
-                      return res.status(400).json({ status: 400 })
+                      return res.status(400).json({ status: 400 ,  message: 'no receive file'})
                     }
-
                     if (req.body.mode == 'corpus') {
                       var query = NERMProject.findOne({ email: req.body.email, projectName: req.body.projectName });
                       query.exec(async function (err, project) {
                         if (err) {
-                          return res.status(400).json({ status: 400., message: err });
+                          return res.status(400).json({ status: 400, message: err });
                         }
                         else if (project) {
                           var mode = req.body.mode;
@@ -275,7 +274,7 @@ exports.uploadsFile = async function (req, res, next) {
                       var query = NERMProject.findOne({ email: req.body.email, projectName: req.body.projectName });
                       query.exec(async function (err, project) {
                         if (err) {
-                          return res.status(400).json({ status: 400., message: err });
+                          return res.status(400).json({ status: 400, message: err });
                         }
                         else if (project) {
                           var p = `${pathUploads}${req.body.email}/${req.body.projectName}/${req.body.mode}/${req.body.modelname}/${req.files[0].originalname}`
