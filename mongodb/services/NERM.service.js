@@ -123,6 +123,7 @@ exports.createProject = async function (nerm) {
 }
 
 exports.updateNERM = async function (nerm) {
+    console.log(nerm.testData)
     try {
         var savedNERM = await nerm.save()
         return savedNERM;
