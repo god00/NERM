@@ -45,19 +45,18 @@
       <div class="card">
         <div class="card-body list">
           <div style="display:block; width: 5rem; margin:0.5rem" *ngFor="let project of projectsByUser">
-            <div *ngIf="project.model?.length != 0 ;else createModel">
+            <div *ngIf="project.model.length != 0 ;else createModel">
               <a class="model-items" href="#/{{project.projectName}}">
                 <i class="fa fa-file" aria-hidden="true"></i>
                 <small>{{project.projectName}}</small>
-                <small>{{project.model.length}}</small>
               </a>
             </div>
-            <div #createModel>
+            <ng-template #createModel>
               <a class="model-items" href="#/{{project.projectName}}/create/model">
                 <i class="fa fa-file" aria-hidden="true"></i>
                 <small>{{project.projectName}}</small>
               </a>
-            </div>
+            </ng-template>
           </div>
         </div>
         <!-- <i class="fa fa-file-code-o" aria-hidden="true"></i>
