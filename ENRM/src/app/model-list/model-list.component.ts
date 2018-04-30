@@ -39,7 +39,7 @@ export class ModelListComponent implements OnInit, OnDestroy {
         this.getProjectSubscribe.unsubscribe();
       }
       this.getProject();
-    }, 5000)
+    }, 3500)
   }
 
   ngOnDestroy() {
