@@ -11,12 +11,9 @@ exports.getCorpusInfo = async function (project, modelname) {
                 rows = str.split('\n');
                 rows.splice(-1, 1);
                 vocabcount = (rows.splice(0, 1))[0];
-                tags = {
-                    'info': [],
-                };
+                tags = []
                 rows.forEach(row => {
-                    tags['info'].push(row);
-                    arr = row.split(' ');
+                    tags.push(row);
                 });
                 resolve({ vocabcount, tags });
             } else {
