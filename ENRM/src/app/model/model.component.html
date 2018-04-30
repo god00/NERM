@@ -131,9 +131,11 @@
       <h1 class="display-3">{{modelName}}</h1>
 
       <div class="training" *ngIf="project.isTraining && project.model[project.model.length-1] == modelName ;else showCorpusResult">
-        <h4>{{modelName}} is training</h4>
-        <br>
         <mat-spinner style="display: block"></mat-spinner>
+        <div>
+          <h4>{{modelName}} is training</h4>
+          <br>
+        </div>
       </div>
 
       <!-- showResult block -->
