@@ -3,6 +3,7 @@
 var NERM = require('../models/NERMUser.model');
 var NERMProject = require('../models/NERM.model')
 var NERMDict = require('../models/NERMDict.model')
+var NERMTestData = require('../models/NERMTestData.model')
 var config = require('../config.json');
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
@@ -111,6 +112,7 @@ exports.createProject = async function (nerm) {
         testData: [],
     })
 
+
     try {
         // Saving the savedProject 
         var savedProject = await newProject.save()
@@ -122,9 +124,25 @@ exports.createProject = async function (nerm) {
     }
 }
 
+exports.createModel = async function (email, projectName, modelname) {
+    var newTestData = new NERMTestData({
+        email: email,
+        projectName: projectName,
+        modelname: modelname,
+        testData: []
+    })
+    try {
+        var savedTestData = await newTestData.save()
+        return savedTestData;
+    } catch (e) {
+
+        // return a Error message describing the reason     
+        throw Error("Error while Creating Project")
+    }
+}
+
 exports.updateNERM = async function (nerm) {
-    
-    console.log(nerm.testData)
+
     try {
         var savedNERM = await nerm.save()
         return savedNERM;

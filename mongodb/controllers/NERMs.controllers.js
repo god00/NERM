@@ -2,6 +2,7 @@
 var NERMService = require('../services/NERM.service')
 var NERMProject = require('../models/NERM.model')
 var NERMDict = require('../models/NERMDict.model')
+var NERMTestData = require('../models/NERMTestData.model')
 var NERM = require('../models/NERMUser.model')
 var config = require('../config.json');
 var multer = require('multer');
@@ -276,22 +277,20 @@ exports.uploadsFile = async function (req, res, next) {
                             return res.status(400).json({ status: 400, message: 'no receive file' })
                           }
                           console.log('testdata : uploading...');
-                          var query = NERMProject.findOne({ email: req.body.email, projectName: req.body.projectName });
-                          query.exec(async function (err, project) {
+                          var p = `${pathUploads}${req.body.email}/${req.body.projectName}/${req.body.mode}/${req.body.modelname}/${req.files[0].originalname}`
+                          var queryTestData = NERMTestData.findOne({ email: req.body.email, projectName: req.body.projectName, modelname: req.body.modelname });
+                          queryTestData.exec(async function (err, modelTestData) {
                             if (err) {
                               return res.status(400).json({ status: 400, message: err });
                             }
-                            else if (project) {
-                              var p = `${pathUploads}${req.body.email}/${req.body.projectName}/${req.body.mode}/${req.body.modelname}/${req.files[0].originalname}`
-                              if (project.testData[req.body.indexTestData][req.body.modelname].indexOf(p) == -1) {    //check if for no duplication path file in db
-                                project.testData[req.body.indexTestData][req.body.modelname].push(p);
-                              }
-                              project.markModified('update')
-                              await NERMService.updateNERM(project).then();
+                            else if (modelTestData) {
+                              if (modelTestData.testData.indexOf(p) == -1)
+                                modelTestData.testData.push(p);
+                              await NERMService.updateNERM(modelTestData);
                               return res.status(201).json({ status: 201, message: "File is uploaded" });
                             }
                             else {
-                              return res.status(204).json({ status: 204, message: "Please create project before upload" });
+                              return res.status(204).json({ status: 204, message: "Please train model before upload" });
                             }
                           })
                         })
@@ -320,13 +319,32 @@ exports.getProject = async function (req, res, next) {
           .then(async (dictObj) => {
             await beforeSendToFront(project);
             await beforeSendToFront(dictObj);
-            if (req.param('modelname'))
-              await beforeSendToFrontTestData(project, req.param('modelname'));
             return res.status(200).json({ status: 200, data: { project, dictionary: dictObj.dictionary }, message: "Succesfully nermsdb Recieved" });
           })
           .catch(err => {
             return res.status(200).json({ status: 200, message: "Cannot found dictionary. Please create new project" });
           })
+      }
+      else {
+        console.log("Please create project first")
+        return res.status(204).json({ status: 204, message: "Please create project first" });
+      }
+    })
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: e.message });
+  }
+}
+
+exports.getTestData = async function (req, res, next) {
+  try {
+    var query = NERMTestData.findOne({ email: req.param('email'), projectName: decodeURI(req.param('projectName')), modelname: req.param('modelname') });
+    query.exec(async function (err, modelTestData) {
+      if (err) {
+        return res.status(400).json({ status: 400, message: err });
+      }
+      else if (modelTestData) {
+        await beforeSendToFrontTestData(modelTestData);
+        return res.status(200).json({ status: 200, data: { testData: modelTestData.testData, id: modelTestData._id }, message: "Succesfully nermsdb Recieved" });
       }
       else {
         console.log("Please create project first")
@@ -424,36 +442,32 @@ exports.removeTestData = async function (req, res, next) {
 
   var id = req.params.id;
   var filename = req.param('fileName')
-  var modelname = req.param('modelname')
 
   try {
-    var query = NERMProject.findOne({ _id: id });
-    query.exec(async function (err, project) {
+    var query = NERMTestData.findOne({ _id: id });
+    query.exec(async function (err, modelTestData) {
       if (err) {
         return res.status(400).json({ status: 400, message: err });
       }
-      else if (project) {
+      else if (modelTestData) {
         var list = []
-        matchFileNameFromPathsToArr(filename, project.testData[modelname], list)
+        matchFileNameFromPathsToArr(filename, modelTestData.testData, list)
           .then(() => {
             if (list.length != 0) {
-              project.testData[modelname].map((testDataPath, index) => {
+              modelTestData.testData.map((testDataPath, index) => {
                 if (testDataPath == list[0]) {
-                  project.testData[modelname].splice(index, 1);
+                  modelTestData.testData.splice(index, 1);
                 }
               })
               deleteFile(list[0]).then(() => {
-                NERMService.updateNERM(project)
-                beforeSendToFront(project)
-                  .then(project => {
-                    beforeSendToFrontTestData(project, modelname)
-                      .then(project => {
-                        if (project)
-                          return res.status(200).json({ status: 200, testData: project.testData[modelname], message: `${filename} was deleted from database & storage` });
-                      })
-                      .catch((err) => {
-                        return res.status(204).json({ status: 204, corpus: project.corpus, message: `ERROR: While Match data with filename` });
-                      })
+                NERMService.updateNERM(modelTestData)
+                beforeSendToFrontTestData(modelTestData)
+                  .then(modelTestData => {
+                    if (modelTestData)
+                      return res.status(200).json({ status: 200, testData: modelTestData.testData, message: `${filename} was deleted from database & storage` });
+                  })
+                  .catch((err) => {
+                    return res.status(204).json({ status: 204, corpus: project.corpus, message: `ERROR: While Match data with filename` });
                   })
               }).catch((err) => {
                 return res.status(204).json({ status: 204, corpus: project.corpus, message: `ERROR: While delete ${filename}` });
@@ -649,13 +663,13 @@ async function beforeSendToFront(project) {
   return project;
 }
 
-async function beforeSendToFrontTestData(project, modelname) {
-  if (project.testData[modelname] && project.testData[modelname].length != 0) {
-    await getDataFromPaths(project.testData[modelname]).then(item => {
-      project.testData[modelname] = item
+async function beforeSendToFrontTestData(modelTestData) {
+  if (modelTestData.testData && modelTestData.testData.length != 0) {
+    await getDataFromPaths(modelTestData.testData).then(item => {
+      modelTestData.testData = item;
     })
   }
-  return project;
+  return modelTestData;
 }
 
 async function runExtractFeaturePython(project, modelname) {
@@ -702,10 +716,9 @@ async function crf_learn(project, modelname) {
         corpusInfoTmp[modelname] = corpusInfo;
         project.corpusInfo.push(corpusInfoTmp);
 
-        let testdataTmp = {};
-        testdataTmp[modelname] = [];
-        project.testData.push(testdataTmp);
+        await NERMService.createModel(project.email, project.projectName, modelname);
         await NERMService.updateNERM(project);
+
         crf.kill()
       })
       .catch(async () => {

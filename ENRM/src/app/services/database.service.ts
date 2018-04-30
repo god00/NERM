@@ -93,10 +93,10 @@ export class DatabaseService {
       })
   }
 
-  deleteTestData(id: string, fileName: string, modelname: string): any {
+  deleteTestData(id: string, fileName: string): any {
     //Delete the object by the id
     let deleteUrl = `${nermUrl}/testdata/${id}`
-    return this.http.delete(deleteUrl, { params: { fileName, modelname } })
+    return this.http.delete(deleteUrl, { params: { fileName } })
       .map(res => {
         return res;
       })
@@ -119,8 +119,8 @@ export class DatabaseService {
     })
   }
 
-  getProjectWithModelName(email: string, projectName: string, modelname: string): Observable<Object> {
-    return this.http.get(`${nermUrl}/project`, {
+  getTestData(email: string, projectName: string, modelname: string): Observable<Object> {
+    return this.http.get(`${nermUrl}/testdata`, {
       params: {
         email: email,
         projectName: projectName,

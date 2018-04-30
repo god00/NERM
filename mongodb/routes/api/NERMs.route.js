@@ -29,7 +29,10 @@ router.post('/dictionary', NERMController.genarateDictList)
 
 router.delete('/corpus/:id', NERMController.removeCorpus)
 
+router.get('/testdata', NERMController.getTestData)
+
 router.delete('/testdata/:id', NERMController.removeTestData)
+
 
 router.post('/login', NERMController.loginNERM)
 

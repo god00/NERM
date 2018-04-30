@@ -22,6 +22,7 @@ export class ModelComponent implements OnInit, OnDestroy {
   modelName: string;
   isLastModel: boolean;
   index: number;
+  testDataId: any;
 
   // upload parameter
   public uploader: FileUploader = new FileUploader({ url: nermUrl });
@@ -29,6 +30,7 @@ export class ModelComponent implements OnInit, OnDestroy {
   deleteTestDataName: string = '';
 
   getProjectSubscribe: any;
+  getTestDataSubscribe: any;
   updateProjectSubscribe: any;
 
   intervalId: any;
@@ -70,23 +72,45 @@ export class ModelComponent implements OnInit, OnDestroy {
     if (this.updateProjectSubscribe) {
       this.updateProjectSubscribe.unsubscribe();
     }
+    if (this.getTestDataSubscribe) {
+      this.getTestDataSubscribe.unsubscribe();
+    }
     if (this.intervalId)
       clearInterval(this.intervalId);
   }
 
   getProject() {
     return new Promise((resolve, reject) => {
-      this.getProjectSubscribe = this.databaseService.getProjectWithModelName(this.user['email'], encodeURI(<string>this.project.projectName), this.modelName).subscribe(async (data) => {
+      this.getProjectSubscribe = this.databaseService.getProject(this.user['email'], encodeURI(<string>this.project.projectName)).subscribe(async (data) => {
         if (data) {
           this.index = data['project'].model.indexOf(this.modelName);
           this.project.model = data['project'].model;
           this.project.isTraining = data['project'].isTraining;
           if (this.index != -1) {
             this.project.corpusInfo = data['project'].corpusInfo[this.index];
-            this.project.testData = data['project'].testData[this.index];
           }
           this.isLastModel = (this.index == data['project'].model.length - 1);
 
+          console.log(this.project)
+        }
+        else {
+          console.log('No model');
+          this.router.navigate(['']);
+        }
+        resolve();
+      })
+    })
+  }
+
+  getTestData() {
+    return new Promise((resolve, reject) => {
+      if (this.getTestDataSubscribe)
+        this.getTestDataSubscribe.unsubscribe();
+
+      this.getTestDataSubscribe = this.databaseService.getTestData(this.user['email'], encodeURI(<string>this.project.projectName), this.modelName).subscribe(async (data) => {
+        if (data) {
+          this.project.testData = data['testData'];
+          this.testDataId = data['id'];
           console.log(this.project)
         }
         else {
@@ -128,8 +152,7 @@ export class ModelComponent implements OnInit, OnDestroy {
       this.hasError = item.isError;
       if (this.getProjectSubscribe)
         this.getProjectSubscribe.unsubscribe();
-      this.getProject().then(() => {
-      });
+      this.getTestData();
     };
     this.uploader.onErrorItem = (item: any, response: any, status: any, headers: any) => {
       // console.log("fail:", item, status);
@@ -153,10 +176,9 @@ export class ModelComponent implements OnInit, OnDestroy {
 
   deleteTestData() {
     if (this.deleteTestDataName != '') {
-      this.databaseService.deleteTestData(this.project._id, this.deleteTestDataName, this.modelName).subscribe((res) => {
+      this.databaseService.deleteTestData(this.testDataId, this.deleteTestDataName).subscribe((res) => {
         if (res) {
           this.project.testData = res.testData;
-          console.log(res.message);
         }
         else {
           console.log('ERROR: please try again!');

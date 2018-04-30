@@ -11,7 +11,7 @@ class NERMModel {
     model: String[];            // path of model folder
     isTraining: boolean;
     corpusInfo: Object;
-    testData: String[];
+    testData: Object[];
     constructor(
     ) {
         this.email = "";
