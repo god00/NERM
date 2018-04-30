@@ -24,6 +24,7 @@ export class ModelComponent implements OnInit, OnDestroy {
   index: number;
   testDataId: any;
   projectTmp: any;
+  clickTestModel: boolean = false;
 
   // upload parameter
   public uploader: FileUploader = new FileUploader({ url: nermUrl });
@@ -33,6 +34,7 @@ export class ModelComponent implements OnInit, OnDestroy {
   getProjectSubscribe: any;
   getTestDataSubscribe: any;
   updateProjectSubscribe: any;
+  testModelSubscribe: any;
 
   intervalId: any;
   constructor(
@@ -76,6 +78,9 @@ export class ModelComponent implements OnInit, OnDestroy {
     }
     if (this.getTestDataSubscribe) {
       this.getTestDataSubscribe.unsubscribe();
+    }
+    if (this.testModelSubscribe) {
+      this.testModelSubscribe.unsubscribe();
     }
     if (this.intervalId)
       clearInterval(this.intervalId);
@@ -173,6 +178,15 @@ export class ModelComponent implements OnInit, OnDestroy {
     }, (reason) => {
       this.deleteTestDataName = '';
     });
+  }
+
+  testModel() {
+    this.clickTestModel = !this.clickTestModel;
+    this.testModelSubscribe = this.databaseService.testModel(this.testDataId).subscribe((res) => {
+      if (res) {
+        this.clickTestModel = !this.clickTestModel;
+      }
+    })
   }
 
   deleteTestData() {

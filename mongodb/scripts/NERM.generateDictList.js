@@ -17,7 +17,6 @@ exports.genarateDictList = async function (selectedDict, email, projectName) {
                         generateDictListWithLine(item, selectedDict.length - 1, path);
                         count += 1;
                     });
-
                     resolve();
                 })
             })

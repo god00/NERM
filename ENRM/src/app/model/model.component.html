@@ -174,7 +174,7 @@
                 </div>
               </li>
               <li class="list-group-item training">
-                <button class="btn btn-success btn-lg" [disabled]="project?.testData.length == 0" (click)="testModel()">Test</button>
+                <button class="btn btn-success btn-lg" [disabled]="project?.testData.length == 0 || !clickTestModel" (click)="testModel()">Test</button>
               </li>
             </ul>
           </div>

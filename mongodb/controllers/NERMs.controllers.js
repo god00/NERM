@@ -1,3 +1,5 @@
+import { truncate } from 'fs';
+
 // Accessing the Service that we just created
 var NERMService = require('../services/NERM.service')
 var NERMProject = require('../models/NERM.model')
@@ -319,7 +321,6 @@ exports.getProject = async function (req, res, next) {
           .then(async (dictObj) => {
             await beforeSendToFront(project);
             await beforeSendToFront(dictObj);
-            console.log(project)
             return res.status(200).json({ status: 200, data: { project, dictionary: dictObj.dictionary }, message: "Succesfully nermsdb Recieved" });
           })
           .catch(err => {
@@ -561,6 +562,32 @@ exports.genarateDictList = async function (req, res, next) {
   }
 }
 
+exports.testModel = async function (req, res, next) {
+  try {
+    var query = NERMTestData.findOne({ _id: req.body.id });
+    query.exec(async function (err, project) {
+      if (err) {
+        return res.status(400).json({ status: 400, message: err });
+      }
+      else if (modelTestData) {
+        files = [];
+        var pathOutput = `${path.dirname(process.cwd())}/storage/uploads/${modelTestData.email}/${modelTestData.projectName}/${modelTestData.modelname}/output.txt`;
+        runExtractFeaturePython_Test(modelTestData).then(() => {
+          readFile(pathOutput, files).then(() => {
+            return res.status(200).json({ status: 200, data: files[0], message: `${modelTestData.projectName} test model successful` });
+          })
+        });
+      }
+      else {
+        return res.status(204).json({ status: 204, message: "Please upload test data first" });
+      }
+    })
+  }
+  catch (e) {
+    return res.status(400).json({ status: 400, message: e.message })
+  }
+}
+
 async function addPathsFromFileNames(fileNames, paths) {
   return new Promise((resolve, reject) => {
     let promise = [];
@@ -697,6 +724,23 @@ async function runExtractFeaturePython(project, modelname) {
   py.unref();
 }
 
+async function runExtractFeaturePython_Test(testData) {
+  var extractScriptPath = config.extractScriptPath;
+  var pathTestData = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/testdata/`;
+  var pathDictList = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}/current_dictlist.txt`;
+  const py = spawn('python', [extractScriptPath, pathTestData, pathDictList], { detached: true, stdio: 'ignore' });  // arg[1] : path of corpus folder , arg[2] : path of file dictionary
+
+  py.on('exit', async (code) => {
+    console.log(`child process exited with code ${code}`);
+    // run test.py
+    runTestDataPython(testData);
+    py.kill()
+  });
+
+  py.unref();
+}
+
+
 async function crf_learn(project, modelname) {
   var template = `${config.templatePath}${project.email}/${project.projectName}/current_template.txt`
   var train_data = `${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/feature.txt`
@@ -717,6 +761,8 @@ async function crf_learn(project, modelname) {
         corpusInfoTmp[modelname] = corpusInfo;
         project.corpusInfo.push(corpusInfoTmp);
 
+        await copyDistList(project.email, project.projectName, modelname);
+
         await NERMService.createModel(project.email, project.projectName, modelname);
         await NERMService.updateNERM(project);
 
@@ -730,6 +776,39 @@ async function crf_learn(project, modelname) {
   });
 
   crf.unref();
+}
+
+async function runTestDataPython(testData) {
+  var testScriptPath = config.testScriptPath;
+  var pathTestData = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/feature.txt`;
+  var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}`;
+
+  var logStream = fs.createWriteStream(`${pathModel}/output.txt`, { flags: 'a' });
+
+  const py = spawn('python', [testScriptPath, pathTestData, pathModel], { detached: true });  // arg[1] : path of extracted.txt , arg[2] : path of model
+
+  py.stdout.pipe(logStream);
+
+  py.on('exit', async (code) => {
+    console.log(`child process exited with code ${code}`);
+    py.kill()
+  });
+
+  py.unref();
+}
+
+async function copyDistList(email, projectName, modelname) {
+  var pathDictList = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/current_dictlist.txt`;
+  var pathTarget = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/${modelname}/`
+  checkDirectory(`${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/${modelname}`)
+    .then(() => {
+      const terminal = spawn('cp', [pathDictList, pathTarget], { detached: true, stdio: 'ignore' });
+      terminal.on('exit', async (code) => {
+        console.log(`child process exited with code ${code}`);
+        terminal.kill();
+      });
+      terminal.unref();
+    })
 }
 
 async function getDictByUser(email) {

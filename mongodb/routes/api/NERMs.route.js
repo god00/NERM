@@ -23,6 +23,8 @@ router.put('/project', NERMController.updateProject)
 
 router.post('/templates', NERMController.genarateTemplate)
 
+router.post('/testmodel', NERMController.testModel)
+
 router.post('/model', NERMController.createModel)
 
 router.post('/dictionary', NERMController.genarateDictList)
@@ -32,7 +34,6 @@ router.delete('/corpus/:id', NERMController.removeCorpus)
 router.get('/testdata', NERMController.getTestData)
 
 router.delete('/testdata/:id', NERMController.removeTestData)
-
 
 router.post('/login', NERMController.loginNERM)
 

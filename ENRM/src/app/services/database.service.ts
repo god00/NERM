@@ -67,6 +67,10 @@ export class DatabaseService {
     return this.http.post(`${nermUrl}/dictionary`, { id });
   }
 
+  testModel(id: string): Observable<any> {
+    return this.http.post(`${nermUrl}/testmodel`, { id });
+  }
+
   genarateTemplate(id: string): Observable<any> {
     return this.http.post(`${nermUrl}/templates`, { id });
   }
