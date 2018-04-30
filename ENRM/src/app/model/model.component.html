@@ -11,7 +11,7 @@
       <h1 class="display-3">{{modelName}}</h1>
 
       <div class="training" ngIf="project.isTraining && project.model[project.model-1] == modelName ; else showCorpusResult">
-        <mat-spinner></mat-spinner>
+        <progress-spinner-overview-example>loading</progress-spinner-overview-example>
         <h4>{{modelName}} is training</h4>
       </div>
 
