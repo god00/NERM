@@ -19,7 +19,9 @@
           </div>
         </div>
       </div>
-      <button class="btn btn-primary btn-lg" [disabled]="project.isTraining" (click)="openModal(content)">Create New Model</button>
+      <a class="model-items" href="#/{{project.projectName}}/create">
+        <button class="btn btn-primary btn-lg" [disabled]="project.isTraining">Create New Model</button>
+      </a>
     </div>
   </div>
 </body>
