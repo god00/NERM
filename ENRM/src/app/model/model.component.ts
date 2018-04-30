@@ -45,8 +45,7 @@ export class ModelComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getProject().then(() => {
-      console.log(this.project.model[this.project.model.length - 1] == this.modelName)
-      if (this.project.model[this.project.model.length - 1] == this.modelName) {
+      if (this.project.isTraining && this.isLastModel) {
         if (this.intervalId)
           clearInterval(this.intervalId);
         this.intervalId = setInterval(() => {
@@ -60,12 +59,6 @@ export class ModelComponent implements OnInit, OnDestroy {
             }
           });
         }, 3500)
-      }
-      else {
-        if (this.getProjectSubscribe) {
-          this.getProjectSubscribe.unsubscribe();
-        }
-        this.getProject();
       }
     });
   }
