@@ -9,11 +9,17 @@
     justify-content: center;
 }
 
+.flex-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .margin-button{
-    margin-top: 10vw;
+    margin-top: 5vw;
 }
 
 .tags{
     overflow-y: auto;
-    max-height: 10vw;
+    max-height: 15vw;
 }

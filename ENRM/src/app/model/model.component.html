@@ -18,22 +18,42 @@
 
       <!-- showResult block -->
       <ng-template #showCorpusResult>
-        <div class="card" style="width: 18rem;">
-          <div class="card-header text-white bg-secondary">
-            Corpus Information
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Total Word : {{project.corpusInfo[modelName]?.vocabcount}}</li>
-            <li class="list-group-item">Total Tags : {{project.corpusInfo[modelName]?.tags.length}}</li>
-            <li class="list-group-item">
-              <div class="card border-primary mb-3" style="max-width: 18rem;">
-                <div class="card-header">Tag:</div>
-                <div class="card-body text-primary tags">
-                  <p *ngFor="let tag of project.corpusInfo[modelName]?.tags" class="card-text">{{tag}}</p>
+        <div class="flex-row">
+          <div class="card" style="width: 30%;">
+            <div class="card-header text-white bg-secondary">
+              Corpus Information
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Total Word : {{project.corpusInfo[modelName]?.vocabcount}}</li>
+              <li class="list-group-item">Total Tags : {{project.corpusInfo[modelName]?.tags.length}}</li>
+              <li class="list-group-item">
+                <div class="card border-primary mb-3" style="max-width: 18rem;">
+                  <div class="card-header">Tag:</div>
+                  <div class="card-body text-primary tags">
+                    <p *ngFor="let tag of project.corpusInfo[modelName]?.tags" class="card-text">{{tag}}</p>
+                  </div>
                 </div>
-              </div>
-            </li>
-          </ul>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-header text-white bg-secondary">
+              Corpus Information
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Total Word : {{project.corpusInfo[modelName]?.vocabcount}}</li>
+              <li class="list-group-item">Total Tags : {{project.corpusInfo[modelName]?.tags.length}}</li>
+              <li class="list-group-item">
+                <div class="card border-primary mb-3" style="max-width: 18rem;">
+                  <div class="card-header">Tag:</div>
+                  <div class="card-body text-primary tags">
+                    <p *ngFor="let tag of project.corpusInfo[modelName]?.tags" class="card-text">{{tag}}</p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
       </ng-template>
       <!--  -->
