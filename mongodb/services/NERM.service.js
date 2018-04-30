@@ -106,7 +106,8 @@ exports.createProject = async function (nerm) {
             advanceFeature: [],     // [ {vocabFeature : [] , dictFeature: [] , wordFeature: []}, ... , (n)Object ]
         },
         model: [],
-        isTraining: false
+        isTraining: false,
+        corpusInfo: []
     })
 
     try {

@@ -11,7 +11,8 @@ var NERMSchema = new mongoose.Schema({
     summitPreProcessing: Boolean,
     featureSelection: Object,
     model: Array,
-    isTraining: Boolean
+    isTraining: Boolean,
+    corpusInfo: Array
     // parameter and more...
 }, { collection: 'nerms' })
 

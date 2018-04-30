@@ -17,7 +17,23 @@
 
       <!-- showResult block -->
       <ng-template #showResult>
-        <label>Corpus Information</label>
+        <div class="card" style="width: 18rem;">
+          <div class="card-header">
+            Corpus Information :
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Total Word : {{project.corpusInfo[modelName]['vocabcount']}}</li>
+            <li class="list-group-item">Total Tags : {{project.corpusInfo[modelName]['totalTags']}}</li>
+            <li class="list-group-item">
+              <div class="card border-primary mb-3" style="max-width: 18rem;">
+                <div class="card-header">Tag:</div>
+                <div class="card-body text-primary">
+                  <p *ngFor="let tag of project.corpusInfo[modelName]['info']" class="card-text">{{tag}}</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
       </ng-template>
       <!--  -->
 

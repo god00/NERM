@@ -14,6 +14,9 @@ var NERMGenerateTemplate = require('../scripts/NERM.generateTemplate');
 // genarate distlist script
 var NERMGenerateDictList = require('../scripts/NERM.generateDictList');
 
+// get corpus infomation script
+var NERMGetCorpusInfo = require('../scripts/NERM.getCorpusInfo');
+
 // var PythonShell = require('python-shell');
 const { spawn } = require('child_process');
 
@@ -237,7 +240,7 @@ exports.uploadsFile = async function (req, res, next) {
                                 checkDirectory(pathUploads + req.body.email + '/' + req.body.projectName + '/' + req.body.mode)
                                     .then(() => {
                                         console.log('other : uploading...')
-                                        if(!req.files[0]){
+                                        if (!req.files[0]) {
                                             return res.status(400).json({ status: 400 })
                                         }
                                         var query = NERMProject.findOne({ email: req.body.email, projectName: req.body.projectName });
@@ -418,7 +421,7 @@ exports.createModel = async function (req, res, next) {
                 project.model.push(modelname);
                 project.isTraining = true;
                 NERMService.updateNERM(project);
-                
+
                 // run extract (then crf_learn) here
                 runExtractFeaturePython(project, modelname);
 
@@ -563,7 +566,7 @@ async function runExtractFeaturePython(project, modelname) {
     var extractScriptPath = config.extractScriptPath;
     var pathCorpus = `${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/corpus/`;
     var pathDictList = `${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/current_dictlist.txt`;
-    const py = spawn('python', [extractScriptPath, pathCorpus, pathDictList], { detached: true , stdio : 'ignore'});  // arg[1] : path of corpus folder , arg[2] : path of file dictionary
+    const py = spawn('python', [extractScriptPath, pathCorpus, pathDictList], { detached: true, stdio: 'ignore' });  // arg[1] : path of corpus folder , arg[2] : path of file dictionary
     // py.stdout.on('data', (data) => {
     //     // console.log(`stdout: ${data}`);
     //     return data;
@@ -587,7 +590,7 @@ async function crf_learn(project, modelname) {
     var template = `${config.templatePath}${project.email}/${project.projectName}/current_template.txt`
     var train_data = `${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/feature.txt`
     var modelPath = `${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/${modelname}`
-    const crf = spawn('crf_learn', [template, train_data, modelPath], { detached: true , stdio : 'ignore'})
+    const crf = spawn('crf_learn', [template, train_data, modelPath], { detached: true, stdio: 'ignore' })
 
     // crf.stderr.on('data', (data) => {
     //     console.log(`stderr: ${data}`);
@@ -597,8 +600,17 @@ async function crf_learn(project, modelname) {
     crf.on('exit', async (code) => {
         console.log(`child process exited with code ${code}`);
         project.isTraining = false;
-        await NERMService.updateNERM(project);
-        crf.kill()
+        NERMGetCorpusInfo.getCorpusInfo(project, modelname)
+            .then(async (corpusInfo) => {
+                project.corpusInfo.push({ modelName: corpusInfo });
+                await NERMService.updateNERM(project);
+                crf.kill()
+            })
+            .catch(() => {
+                await NERMService.updateNERM(project);
+                crf.kill()
+            })
+
     });
 
     crf.unref();
