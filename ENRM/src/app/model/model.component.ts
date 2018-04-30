@@ -39,14 +39,14 @@ export class ModelComponent implements OnInit, OnDestroy {
     this.project.projectName = decodeURI(this.router.url.split("/")[1]);
     this.modelName = decodeURI(this.router.url.split("/")[2]);
     this.project.email = this.user['email'];
+    this.getProjectWithModelName();
   }
 
   ngOnInit() {
-    this.getProjectWithModelName();
     if (this.intervalId) {
       clearInterval(this.intervalId);
     }
-    if (this.project.isTraining && this.project.model[this.project.model.length - 1] == this.modelName) {
+    if (!this.project.isTraining && this.project.model[this.project.model.length - 1] == this.modelName) {
       this.intervalId = setInterval(() => {
         console.log('interval')
         if (this.getProjectSubscribe) {
