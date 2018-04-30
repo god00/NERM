@@ -16,6 +16,7 @@ export class ModelComponent implements OnInit, OnDestroy {
   modelName: string;
 
   getProjectSubscribe: any;
+  updateProjectSubscribe: any;
 
   intervalId: any;
   constructor(
@@ -45,6 +46,9 @@ export class ModelComponent implements OnInit, OnDestroy {
     if (this.getProjectSubscribe) {
       this.getProjectSubscribe.unsubscribe();
     }
+    if (this.updateProjectSubscribe) {
+      this.updateProjectSubscribe.unsubscribe();
+    }
     clearInterval(this.intervalId);
   }
 
@@ -62,6 +66,19 @@ export class ModelComponent implements OnInit, OnDestroy {
         console.log(data)
       })
     })
+  }
+
+  goToCreateModel() {
+    this.project.summitPreProcessing = false;
+    if (this.updateProjectSubscribe) {
+      this.updateProjectSubscribe.unsubscribe();
+    }
+    this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
+      if (res) {
+        this.router.navigate([`${this.project.projectName}/create/model`]);
+      }
+    });
+
   }
 
 }
