@@ -319,6 +319,7 @@ exports.getProject = async function (req, res, next) {
           .then(async (dictObj) => {
             await beforeSendToFront(project);
             await beforeSendToFront(dictObj);
+            console.log(project)
             return res.status(200).json({ status: 200, data: { project, dictionary: dictObj.dictionary }, message: "Succesfully nermsdb Recieved" });
           })
           .catch(err => {
