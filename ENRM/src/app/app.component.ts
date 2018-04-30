@@ -37,7 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
+    console.log(this.projectsByUser)
   }
 
   ngOnDestroy() {
