@@ -46,7 +46,7 @@ export class ModelComponent implements OnInit, OnDestroy {
     if (this.intervalId) {
       clearInterval(this.intervalId);
     }
-    
+
     this.intervalId = setInterval(() => {
       if (this.getProjectSubscribe) {
         this.getProjectSubscribe.unsubscribe();
@@ -70,6 +70,7 @@ export class ModelComponent implements OnInit, OnDestroy {
     return new Promise((resolve, reject) => {
       this.getProjectSubscribe = this.databaseService.getProject(this.user['email'], encodeURI(<string>this.project.projectName)).subscribe((data) => {
         if (data) {
+          console.log(data)
           this.project = data['project'];
         }
       })
