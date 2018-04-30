@@ -131,7 +131,7 @@ export class ModelComponent implements OnInit, OnDestroy {
     if (this.updateProjectSubscribe) {
       this.updateProjectSubscribe.unsubscribe();
     }
-    this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
+    this.updateProjectSubscribe = this.databaseService.updateNERM(this.projectTmp).subscribe((res) => {
       if (res) {
         this.router.navigate([`${this.project.projectName}/create/model`]);
       }
