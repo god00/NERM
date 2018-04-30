@@ -19,9 +19,13 @@
           </div>
         </div>
       </div>
-      <a class="model-items" href="#/{{project.projectName}}/create/model" [disabled]="project.isTraining">
-        <button class="btn btn-primary" >Create New Model</button>
-      </a>
+      <button *ngIf="!project.isTraining ;else newModel" class="btn btn-primary" (click)="goToCreateModel()">Create New Model</button>
+      <ng-template #newModel>
+        <button class="btn btn-primary" [disabled]="project.isTraining" placement="bottom" ngbTooltip="Please wait until the last model is training successful">
+          Create New Model
+        </button>
+      </ng-template>
+
     </div>
   </div>
 </body>

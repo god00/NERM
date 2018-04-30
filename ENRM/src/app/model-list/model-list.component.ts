@@ -50,4 +50,8 @@ export class ModelListComponent implements OnInit, OnDestroy {
       })
     })
   }
+
+  goToCreateModel(){
+    this.router.navigate([`${this.project.projectName}/create/model`]);
+  }
 }
