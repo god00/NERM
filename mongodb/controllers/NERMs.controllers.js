@@ -197,7 +197,7 @@ exports.uploadsFile = async function (req, res, next) {
     });
     var upload = multer({ storage: storage }).any();
     upload(req, res, async function (err) {
-      console.log(req.files)
+      console.log(req)
       checkDirectory(pathUploads + req.body.email)
         .then(() => {
           if (req.body.mode == 'dictionary') {
@@ -239,8 +239,6 @@ exports.uploadsFile = async function (req, res, next) {
               })
           }
           else {
-            console.log(req.body.mode)
-            console.log(req.body.modelname)
             checkDirectory(pathUploads + req.body.email + '/' + req.body.projectName)
               .then(() => {
                 checkDirectory(pathUploads + req.body.email + '/' + req.body.projectName + '/' + req.body.mode)
