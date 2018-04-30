@@ -87,6 +87,7 @@ export class ModelComponent implements OnInit, OnDestroy {
           let index = data['project'].model.indexOf(this.modelName);
           console.log(index)
           if (index != -1) {
+            console.log(data['project'])
             this.project.corpusInfo = data['project'].corpusInfo[index];
             this.project.testData = data['project'].testData[index];
           }
