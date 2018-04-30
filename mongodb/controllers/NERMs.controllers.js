@@ -245,6 +245,8 @@ exports.uploadsFile = async function (req, res, next) {
                     if (!req.files[0]) {
                       return res.status(400).json({ status: 400 })
                     }
+                    console.log(req.body.mode)
+                    console.log(req.body.modelname)
                     if (req.body.mode == 'corpus') {
                       var query = NERMProject.findOne({ email: req.body.email, projectName: req.body.projectName });
                       query.exec(async function (err, project) {
