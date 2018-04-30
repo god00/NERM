@@ -242,8 +242,9 @@ exports.uploadsFile = async function (req, res, next) {
               .then(() => {
                 checkDirectory(pathUploads + req.body.email + '/' + req.body.projectName + '/' + req.body.mode)
                   .then(() => {
+                    console.log(req.files)
                     if (!req.files[0]) {
-                      return res.status(400).json({ status: 400 ,  message: 'no receive file'})
+                      return res.status(400).json({ status: 400, message: 'no receive file' })
                     }
                     if (req.body.mode == 'corpus') {
                       var query = NERMProject.findOne({ email: req.body.email, projectName: req.body.projectName });
