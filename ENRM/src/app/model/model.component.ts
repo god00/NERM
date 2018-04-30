@@ -50,6 +50,7 @@ export class ModelComponent implements OnInit, OnDestroy {
           }
           this.getProject().then(() => {
             if (!this.project.isTraining) {
+              this.getCorpusInfo();
               if (this.intervalId)
                 clearInterval(this.intervalId);
             }
