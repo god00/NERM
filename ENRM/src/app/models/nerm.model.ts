@@ -11,6 +11,7 @@ class NERMModel {
     model: String[];            // path of model folder
     isTraining: boolean;
     corpusInfo: Object;
+    testData: String[];
     constructor(
     ) {
         this.email = "";
@@ -29,6 +30,7 @@ class NERMModel {
         this.model = [];
         this.isTraining = false;
         this.corpusInfo = {};
+        this.testData = [];
     }
 }
 

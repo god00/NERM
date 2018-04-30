@@ -28,7 +28,7 @@
               <li class="list-group-item">Total Tags : {{project.corpusInfo[modelName]?.tags.length}}</li>
               <li class="list-group-item">
                 <div class="card border-primary mb-3" style="max-width: 18rem;">
-                  <div class="card-header">Tag:</div>
+                  <div class="card-header">Tags List:</div>
                   <div class="card-body text-primary tags">
                     <p *ngFor="let tag of project.corpusInfo[modelName]?.tags" class="card-text">{{tag}}</p>
                   </div>
@@ -37,18 +37,17 @@
             </ul>
           </div>
 
-          <div class="card">
+          <div class="card" style="width: 69%;">
             <div class="card-header text-white bg-secondary">
-              Corpus Information
+              Upload Test Data
             </div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item">Total Word : {{project.corpusInfo[modelName]?.vocabcount}}</li>
-              <li class="list-group-item">Total Tags : {{project.corpusInfo[modelName]?.tags.length}}</li>
               <li class="list-group-item">
+                
                 <div class="card border-primary mb-3" style="max-width: 18rem;">
-                  <div class="card-header">Tag:</div>
+                  <div class="card-header">Test File:</div>
                   <div class="card-body text-primary tags">
-                    <p *ngFor="let tag of project.corpusInfo[modelName]?.tags" class="card-text">{{tag}}</p>
+                    <p *ngFor="let file of project?.testData[modelName]" class="card-text">{{file}}</p>
                   </div>
                 </div>
               </li>
