@@ -283,8 +283,7 @@ exports.uploadsFile = async function (req, res, next) {
                             }
                             else if (project) {
                               var p = `${pathUploads}${req.body.email}/${req.body.projectName}/${req.body.mode}/${req.body.modelname}/${req.files[0].originalname}`
-
-                              if (project.testData[req.body.modelname] && project.testData[req.body.modelname].indexOf(p) == -1) {    //check if for no duplication path file in db
+                              if (project.testData[req.body.modelname].indexOf(p) == -1) {    //check if for no duplication path file in db
                                 project.testData[req.body.modelname].push(p);
                               }
                               NERMService.updateNERM(project);
@@ -701,6 +700,10 @@ async function crf_learn(project, modelname) {
         let corpusInfoTmp = {};
         corpusInfoTmp[modelname] = corpusInfo;
         project.corpusInfo.push(corpusInfoTmp);
+        
+        let testdataTmp = {};
+        testdataTmp[modelname] = [];
+        project.testData.push(testdataTmp);
         await NERMService.updateNERM(project);
         crf.kill()
       })
