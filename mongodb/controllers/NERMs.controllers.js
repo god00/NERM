@@ -606,7 +606,7 @@ async function crf_learn(project, modelname) {
                 await NERMService.updateNERM(project);
                 crf.kill()
             })
-            .catch(() => {
+            .catch(async () => {
                 await NERMService.updateNERM(project);
                 crf.kill()
             })
