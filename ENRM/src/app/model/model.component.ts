@@ -21,7 +21,7 @@ export class ModelComponent implements OnInit, OnDestroy {
     public databaseService: DatabaseService,
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-    this.project.projectName = decodeURI(this.router.url.slice(1, this.router.url.length));
+    this.project.projectName = decodeURI(this.router.url.split("/")[1]);
     this.project.email = this.user['email'];
   }
 
