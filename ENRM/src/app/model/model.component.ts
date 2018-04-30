@@ -25,6 +25,7 @@ export class ModelComponent implements OnInit, OnDestroy {
   testDataId: any;
   projectTmp: any;
   clickTestModel: boolean = false;
+  output: any;
 
   // upload parameter
   public uploader: FileUploader = new FileUploader({ url: nermUrl });
@@ -119,6 +120,8 @@ export class ModelComponent implements OnInit, OnDestroy {
         if (data) {
           this.project.testData = data['testData'];
           this.testDataId = data['id'];
+          if (data['output'] != '')
+            this.output = data['output'];
         }
         else {
           console.log('No Test Data');
@@ -185,7 +188,7 @@ export class ModelComponent implements OnInit, OnDestroy {
     this.testModelSubscribe = this.databaseService.testModel(this.testDataId).subscribe((res) => {
       if (res) {
         if (res.data) {
-          
+          this.output = res.data;
         }
         this.clickTestModel = !this.clickTestModel;
       }
