@@ -21,9 +21,18 @@
             Projects
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" *ngFor="let project of projectsByUser" href="#/{{project.projectName}}">
-              {{project.projectName}}
-            </a>
+            <div *ngFor="let project of projectsByUser">
+              <div *ngIf="project.model.length != 0 ;else createModel">
+                <a class="dropdown-item" href="#/{{project.projectName}}">
+                  <small>{{project.projectName}}</small>
+                </a>
+              </div>
+              <ng-template #createModel>
+                <a class="model-items" href="#/{{project.projectName}}/create/model">
+                  <small>{{project.projectName}}</small>
+                </a>
+              </ng-template>
+            </div>
             <div class="dropdown-divider"></div>
           </div>
         </li>
