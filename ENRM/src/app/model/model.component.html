@@ -132,11 +132,8 @@
 
       <div class="training" *ngIf="project.isTraining && isLastModel ;else showCorpusResult">
         <mat-spinner style="display: block"></mat-spinner>
-        <div>
-          <h4>{{modelName}} is training</h4>
-          <br>
-        </div>
       </div>
+      <h4 *ngIf="project.isTraining && isLastModel ;else showCorpusResult">{{modelName}} is training</h4>
 
       <!-- showResult block -->
       <ng-template #showCorpusResult>
