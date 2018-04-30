@@ -48,10 +48,15 @@ export class ModelComponent implements OnInit, OnDestroy {
           if (this.getProjectSubscribe) {
             this.getProjectSubscribe.unsubscribe();
           }
-          this.getProject();
-        }, 5000)
+          this.getProject().then(() => {
+            if (!this.project.isTraining) {
+              if (this.intervalId)
+                clearInterval(this.intervalId);
+            }
+          });
+        }, 3500)
       }
-      else{
+      else {
         this.getCorpusInfo();
       }
       console.log(this.project.model[this.project.model.length - 1])
@@ -65,7 +70,8 @@ export class ModelComponent implements OnInit, OnDestroy {
     if (this.updateProjectSubscribe) {
       this.updateProjectSubscribe.unsubscribe();
     }
-    clearInterval(this.intervalId);
+    if (this.intervalId)
+      clearInterval(this.intervalId);
   }
 
   getProject() {
