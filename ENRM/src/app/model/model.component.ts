@@ -43,9 +43,6 @@ export class ModelComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-    }
 
     this.intervalId = setInterval(() => {
       if (this.getProjectSubscribe) {
