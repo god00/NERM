@@ -60,7 +60,6 @@ export class ModelComponent implements OnInit, OnDestroy {
       else {
         this.getCorpusInfo();
       }
-      console.log(this.project.model[this.project.model.length - 1])
     });
   }
 
@@ -78,7 +77,6 @@ export class ModelComponent implements OnInit, OnDestroy {
   getProject() {
     return new Promise((resolve, reject) => {
       this.getProjectSubscribe = this.databaseService.getProject(this.user['email'], encodeURI(<string>this.project.projectName)).subscribe((data) => {
-        console.log('getProject')
         if (data) {
           this.project = data['project'];
         }
@@ -130,6 +128,7 @@ export class ModelComponent implements OnInit, OnDestroy {
       form.append('projectName', this.project.projectName);
       form.append('mode', mode);
       form.append('modelname', this.modelName);
+      form.append('indexTestData', this.project.model.indexOf(this.modelName));
       return { fileItem, form }
     };
     this.uploader.onSuccessItem = (item: any, response: any, status: any, headers: any) => {
