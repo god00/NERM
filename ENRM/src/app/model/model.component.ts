@@ -93,8 +93,6 @@ export class ModelComponent implements OnInit, OnDestroy {
             this.project.corpusInfo = data['project'].corpusInfo[this.index];
           }
           this.isLastModel = (this.index == data['project'].model.length - 1);
-
-          console.log(this.project)
         }
         else {
           console.log('No model');
@@ -114,7 +112,6 @@ export class ModelComponent implements OnInit, OnDestroy {
         if (data) {
           this.project.testData = data['testData'];
           this.testDataId = data['id'];
-          console.log(this.project)
         }
         else {
           console.log('No model');
@@ -169,7 +166,6 @@ export class ModelComponent implements OnInit, OnDestroy {
   }
 
   openConfirmModal(content, index) {
-    console.log(this.project.testData[index])
     this.deleteTestDataName = this.project.testData[index]['fileName'];
     this.modalService.open(content, { centered: true, size: 'sm' }).result.then((result) => {
       this.deleteTestDataName = '';
