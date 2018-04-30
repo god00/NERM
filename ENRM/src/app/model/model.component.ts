@@ -39,11 +39,15 @@ export class ModelComponent implements OnInit, OnDestroy {
     this.project.projectName = decodeURI(this.router.url.split("/")[1]);
     this.modelName = decodeURI(this.router.url.split("/")[2]);
     this.project.email = this.user['email'];
+    this.getProject()
   }
 
   ngOnInit() {
     this.getProject().then(() => {
+      console.log(this.project)
       if (this.project.model[this.project.model.length - 1] == this.modelName) {
+        if (this.intervalId)
+          clearInterval(this.intervalId);
         this.intervalId = setInterval(() => {
           if (this.getProjectSubscribe) {
             this.getProjectSubscribe.unsubscribe();
