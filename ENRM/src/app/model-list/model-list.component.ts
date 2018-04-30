@@ -72,6 +72,7 @@ export class ModelListComponent implements OnInit, OnDestroy {
     if (this.updateProjectSubscribe) {
       this.updateProjectSubscribe.unsubscribe();
     }
+    console.log(this.project)
     this.updateProjectSubscribe = this.databaseService.updateNERM(this.project).subscribe((res) => {
       if (res) {
         this.router.navigate([`${this.project.projectName}/create/model`]);

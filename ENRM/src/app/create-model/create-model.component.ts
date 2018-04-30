@@ -64,7 +64,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
   advanceDisplayedItem: string = '';      //This is temp of displayed to push to advanceDisplayed.
   checkedCount: number = 0;               //This is counter for add button
 
-
   //Multiselect Dropdown Parameters
   dropdownList = [];
   selectedItems: FormControl;
