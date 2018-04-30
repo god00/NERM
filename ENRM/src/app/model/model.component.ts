@@ -167,7 +167,7 @@ export class ModelComponent implements OnInit, OnDestroy {
   }
 
   openConfirmModal(content, index) {
-    this.deleteTestDataName = this.project.testData[this.modelName][index]['fileName'];
+    this.deleteTestDataName = this.project.testData[index]['fileName'];
     this.modalService.open(content, { centered: true, size: 'sm' }).result.then((result) => {
       this.deleteTestDataName = '';
     }, (reason) => {
