@@ -29,8 +29,8 @@ import { AuthGuard } from './guard/auth.guard';
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginPageComponent },
-  { path: '/:name/create/model', component: CreateModelComponent },
-  { path: '/:name/', component: ModelListComponent },
+  { path: ':name/create/model', component: CreateModelComponent },
+  { path: ':name/', component: ModelListComponent },
 ];
 
 @NgModule({

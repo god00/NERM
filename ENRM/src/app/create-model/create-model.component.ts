@@ -435,7 +435,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           this.createModelSubcribe = this.databaseService.createModel(this.project._id, this.newModelName).subscribe((res) => {
             if (res) {
               this.modal.close();
-              let routerPath = `/${this.project.projectName}/${this.newModelName}`
+              let routerPath = `${this.project.projectName}/${this.newModelName}`
               this.router.config.unshift({ path: routerPath, component: ModelComponent })
               this.router.navigate([routerPath]);
             }
