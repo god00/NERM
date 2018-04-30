@@ -109,7 +109,6 @@ exports.createProject = async function (nerm) {
         model: [],
         isTraining: false,
         corpusInfo: [],
-        testData: [],
     })
 
 
