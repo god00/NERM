@@ -13,3 +13,8 @@
     flex-flow: row wrap;
 }
 
+.model-items{
+    display: flex;
+    flex-direction: column;
+}
+
