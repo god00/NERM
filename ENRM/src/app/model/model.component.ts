@@ -82,14 +82,14 @@ export class ModelComponent implements OnInit, OnDestroy {
 
   getProject() {
     return new Promise((resolve, reject) => {
-      this.getProjectSubscribe = this.databaseService.getProjectWithModelName(this.user['email'], encodeURI(<string>this.project.projectName), this.modelName).subscribe((data) => {
+      this.getProjectSubscribe = this.databaseService.getProjectWithModelName(this.user['email'], encodeURI(<string>this.project.projectName), this.modelName).subscribe(async (data) => {
         if (data) {
           let index = data['project'].model.indexOf(this.modelName);
           console.log(index)
           if (index != -1) {
             console.log(data['project'])
-            this.project.corpusInfo = data['project'].corpusInfo[index][this.modelName];
-            this.project.testData = data['project'].testData[index][this.modelName];
+            this.project.corpusInfo = data['project'].corpusInfo[index];
+            this.project.testData = data['project'].testData[index];
           }
           this.project.model = data['project'].model;
 
