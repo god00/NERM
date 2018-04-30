@@ -21,7 +21,7 @@
       </div>
       <button *ngIf="!project.isTraining ;else newModel" class="btn btn-primary margin-button" (click)="goToCreateModel()">Create New Model</button>
       <ng-template #newModel>
-        <button class="btn btn-outline-secondary margin-button" placement="bottom" ngbTooltip="Please wait until the last model is training successful">
+        <button class="btn btn-outline-secondary margin-button" placement="bottom" ngbTooltip="Please wait until {{project.model[project.model-1]}} is training finish">
           Create New Model
         </button>
       </ng-template>
