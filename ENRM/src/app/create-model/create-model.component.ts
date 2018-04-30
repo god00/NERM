@@ -125,6 +125,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     return new Promise((resolve, reject) => {
       this.getProjectSubscribe = this.databaseService.getProject(this.user['email'], encodeURI(<string>this.project.projectName)).subscribe((data) => {
         if (data) {
+          this.project = data['project'];
           this.project.isTraining = data['project'].isTraining;
           if (this.project.isTraining) {
             let routerPath = `${this.project.projectName}/${this.project.model[this.project.model.length - 1]}`
@@ -138,8 +139,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           this.project.featureSelection = data['project'].featureSelection;
           this.project.dictionary = data['dictionary'];
           this.project.model = data['project'].model;   // string[] of ModelName
-          this.project.model = data['project'].model;   // string[] of ModelName
-
+          
           this.dropdownList = data['dictionary'].map((dict, index) => {
             dict['id'] = index;
             dict['itemName'] = dict['fileName'];
