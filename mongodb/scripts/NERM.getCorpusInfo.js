@@ -10,7 +10,7 @@ exports.getCorpusInfo = async function (project, modelname) {
                 str = data;
                 rows = str.split('\n');
                 rows.splice(-1, 1);
-                vocabcount = rows.splice(0, 1);
+                vocabcount = (rows.splice(0, 1))[0];
                 tags = {
                     'info': [],
                     'totalTags': 0
