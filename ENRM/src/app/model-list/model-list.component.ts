@@ -18,6 +18,8 @@ export class ModelListComponent implements OnInit, OnDestroy {
   getProjectSubscribe: any;
   updateProjectSubscribe: any;
 
+  intervalId: any;
+
   constructor(
     private router: Router,
     public databaseService: DatabaseService,
@@ -29,7 +31,10 @@ export class ModelListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getProject();
-    setInterval(() => {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+    this.intervalId = setInterval(() => {
       if (this.getProjectSubscribe) {
         this.getProjectSubscribe.unsubscribe();
       }
@@ -44,6 +49,7 @@ export class ModelListComponent implements OnInit, OnDestroy {
     if (this.updateProjectSubscribe) {
       this.updateProjectSubscribe.unsubscribe();
     }
+    clearInterval(this.intervalId);
   }
 
   getProject() {
