@@ -28,6 +28,12 @@ export class ModelListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getProject();
+    setInterval(() => {
+      if (this.getProjectSubscribe) {
+        this.getProjectSubscribe.unsubscribe();
+      }
+      this.getProject();
+    }, 5000)
   }
 
   ngOnDestroy() {
@@ -40,6 +46,7 @@ export class ModelListComponent implements OnInit, OnDestroy {
     return new Promise((resolve, reject) => {
       this.getProjectSubscribe = this.databaseService.getProject(this.user['email'], encodeURI(<string>this.project.projectName)).subscribe((data) => {
         this.project.model = data['project'].model;   // string[] of ModelName
+        this.project.isTraining = data['project'].isTraining;
       })
     })
   }

@@ -68,7 +68,7 @@ export class HomeComponent implements OnInit {
         else {
           this.duplicateProjectName = false;
           this.modal.close();
-          this.router.navigate([this.newProjectName]);
+          this.router.navigate([this.newProjectName + "/create"]);
           this.updateNERM.unsubscribe();
         }
         this.clickCreate = !this.clickCreate;
