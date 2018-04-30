@@ -1,0 +1,8 @@
+.list{
+    display: flex;
+    text-align: center;
+    overflow-y: scroll;
+    max-height:50vw ;
+    font-size: 3vw ;
+    flex-flow: row wrap;
+}
