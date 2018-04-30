@@ -346,7 +346,7 @@ exports.getTestData = async function (req, res, next) {
       }
       else if (modelTestData) {
         await beforeSendToFrontTestData(modelTestData);
-        return res.status(200).json({ status: 200, data: { testData: modelTestData.testData, id: modelTestData._id }, message: "Succesfully nermsdb Recieved" });
+        return res.status(200).json({ status: 200, data: { testData: modelTestData.testData, output: modelTestData.output, id: modelTestData._id }, message: "Succesfully nermsdb Recieved" });
       }
       else {
         console.log("Please create project first")
@@ -697,6 +697,11 @@ async function beforeSendToFrontTestData(modelTestData) {
       modelTestData.testData = item;
     })
   }
+  if (modelTestData.output != '') {
+    let files = []
+    await readFile(modelTestData.output, files);
+    modelTestData.output = files[0];
+  }
   return modelTestData;
 }
 
@@ -791,6 +796,8 @@ async function runTestDataPython(testData) {
 
   py.on('exit', async (code) => {
     console.log(`child process exited with code ${code}`);
+    testData['output'] = `${pathModel}/output.txt`;
+    await NERMService.updateNERM(testData)
     py.kill()
   });
 

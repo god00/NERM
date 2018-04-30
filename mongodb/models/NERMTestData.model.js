@@ -7,6 +7,7 @@ var NERMSchema = new mongoose.Schema({
     projectName: String,
     modelname: String,
     testData: Array,
+    output: String
 }, { collection: 'testdata' })
 
 NERMSchema.plugin(mongoosePaginate)

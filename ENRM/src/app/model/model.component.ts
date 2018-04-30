@@ -184,6 +184,9 @@ export class ModelComponent implements OnInit, OnDestroy {
     this.clickTestModel = !this.clickTestModel;
     this.testModelSubscribe = this.databaseService.testModel(this.testDataId).subscribe((res) => {
       if (res) {
+        if (res.data) {
+          
+        }
         this.clickTestModel = !this.clickTestModel;
       }
     })
