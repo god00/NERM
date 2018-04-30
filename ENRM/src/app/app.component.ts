@@ -30,6 +30,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.getModelSubscribe = this.databaseService.getProjects(this.user['email']).subscribe((projectsByUser) => {
         if (projectsByUser) {
           this.projectsByUser = projectsByUser;
+          console.log(this.projectsByUser)
           this.addPathModel(projectsByUser);
         }
       })
@@ -37,7 +38,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log(this.projectsByUser)
   }
 
   ngOnDestroy() {
