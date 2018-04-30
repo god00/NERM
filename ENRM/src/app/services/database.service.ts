@@ -110,6 +110,7 @@ export class DatabaseService {
       }
     }).map((res) => {
       if (res != undefined) {
+        console.log(res["message"])
         //Maps the response object sent from the server
         return res["data"];
       }

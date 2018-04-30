@@ -84,7 +84,7 @@ export class ModelComponent implements OnInit, OnDestroy {
   getProject() {
     return new Promise((resolve, reject) => {
       console.log(this.user['email']);
-      
+      console.log(this.project.projectName);
       this.getProjectSubscribe = this.databaseService.getProject(this.user['email'], encodeURI(<string>this.project.projectName)).subscribe(async (data) => {
         if (data) {
           this.projectTmp = data['project'];
