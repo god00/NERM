@@ -301,7 +301,7 @@
             <button class="btn btn-primary" (click)="uploadModal(upload,'corpus')">Upload Corpus...</button>
             <!--  -->
             <div class="summit-button">
-              <button id="summit-button" class="btn btn-success" [disabled]="project.summitPreProcessing && project.corpus.length == 0" (click)="openSummitModal(summitPreProcess,'summitPreProcess')">Summit</button>
+              <button id="summit-button" class="btn btn-success" [disabled]="project.summitPreProcessing || project.corpus.length == 0" (click)="openSummitModal(summitPreProcess,'summitPreProcess')">Summit</button>
             </div>
           </ng-template>
         </ngb-tab>
