@@ -125,7 +125,6 @@ export class CreateModelComponent implements OnInit, OnDestroy {
     return new Promise((resolve, reject) => {
       this.getProjectSubscribe = this.databaseService.getProject(this.user['email'], encodeURI(<string>this.project.projectName)).subscribe((data) => {
         if (data) {
-          this.project = data['project'];
           this.project.isTraining = data['project'].isTraining;
           if (this.project.isTraining) {
             let routerPath = `${this.project.projectName}/${this.project.model[this.project.model.length - 1]}`
