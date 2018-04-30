@@ -130,11 +130,11 @@
     <div class="jumbotron special-card d-flex justify-content-around flex-column">
       <h1 class="display-3">{{modelName}}</h1>
 
-      <div class="training" *ngIf="project.isTraining && isLastModel ;else showCorpusResult">
+      <div class="training" *ngIf=" isLastModel && project.isTraining ;else showCorpusResult">
         <mat-spinner style="display: block"></mat-spinner>
       </div>
       <br>
-      <h4 class="training" *ngIf="project.isTraining && isLastModel">{{modelName}} is training</h4>
+      <h4 class="training" *ngIf="isLastModel && project.isTraining">{{modelName}} is training</h4>
 
       <!-- showResult block -->
       <ng-template #showCorpusResult>
@@ -174,7 +174,7 @@
                 </div>
               </li>
               <li class="list-group-item training">
-                <button class="btn btn-success btn-lg" [disabled]="project?.testData.length == 0" (click)="testModel()" >Test</button>
+                <button class="btn btn-success btn-lg" [disabled]="project?.testData.length == 0" (click)="testModel()">Test</button>
               </li>
             </ul>
           </div>
