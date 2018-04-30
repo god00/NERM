@@ -166,7 +166,7 @@
             <ul class="list-group list-group-flush">
               <li class="list-group-item">
                 <button class="btn btn-primary" (click)="uploadModal(uploadTestData,'testdata')" style="margin-bottom: 1vw;">Upload Test Data...</button>
-                <div class="card border-primary mb-3" *ngIf="project?.testData && project?.testData.length != 0">
+                <div class="card border-primary mb-3 test-data" *ngIf="project?.testData && project?.testData.length != 0">
                   <div class="card-header">Test File:</div>
                   <div class="card-body text-primary tags">
                     <p *ngFor="let file of project?.testData ;let i = index" class="card-text">{{file?.fileName}}

@@ -27,3 +27,8 @@
 .trash-icon{
     margin-left: 0.8vw;
 }
+
+.test-data{
+    overflow: auto;
+    max-height: 15vw;
+}
