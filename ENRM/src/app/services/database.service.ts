@@ -93,6 +93,15 @@ export class DatabaseService {
       })
   }
 
+  deleteTestData(id: string, fileName: string, modelname: string): any {
+    //Delete the object by the id
+    let deleteUrl = `${nermUrl}/testdata/${id}`
+    return this.http.delete(deleteUrl, { params: { fileName, modelname } })
+      .map(res => {
+        return res;
+      })
+  }
+
   getProject(email: string, projectName: string): Observable<Object> {
     return this.http.get(`${nermUrl}/project`, {
       params: {

@@ -23,3 +23,7 @@
     overflow-y: auto;
     max-height: 15vw;
 }
+
+.trash-icon{
+    margin-left: 0.8vw;
+}

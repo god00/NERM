@@ -17,6 +17,7 @@ const nermUrl = `${appConfig.apiUrl}/api/nerms/uploads`;
   styleUrls: ['./model.component.css']
 })
 export class ModelComponent implements OnInit, OnDestroy {
+  deleteTestDataName: any;
   public uploader: FileUploader = new FileUploader({ url: nermUrl });
   hasError: boolean = false;
   user: Object;
@@ -39,7 +40,7 @@ export class ModelComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.getProject();
+    this.getProjectWithModelName();
     if (this.intervalId) {
       clearInterval(this.intervalId);
     }
@@ -48,7 +49,7 @@ export class ModelComponent implements OnInit, OnDestroy {
         if (this.getProjectSubscribe) {
           this.getProjectSubscribe.unsubscribe();
         }
-        this.getProject();
+        this.getProjectWithModelName();
       }, 5000)
     }
 
@@ -64,9 +65,9 @@ export class ModelComponent implements OnInit, OnDestroy {
     clearInterval(this.intervalId);
   }
 
-  getProject() {
+  getProjectWithModelName() {
     return new Promise((resolve, reject) => {
-      this.getProjectSubscribe = this.databaseService.getProject(this.user['email'], encodeURI(<string>this.project.projectName)).subscribe((data) => {
+      this.getProjectSubscribe = this.databaseService.getProjectWithModelName(this.user['email'], encodeURI(<string>this.project.projectName), this.modelName).subscribe((data) => {
         if (data) {
           this.project = data['project'];
           let index = this.project.model.indexOf(this.modelName);
@@ -74,7 +75,6 @@ export class ModelComponent implements OnInit, OnDestroy {
             this.project.corpusInfo = data['project'].corpusInfo[index]
           }
         }
-        console.log(data)
       })
     })
   }
@@ -107,7 +107,7 @@ export class ModelComponent implements OnInit, OnDestroy {
       this.hasError = item.isError;
       if (this.getProjectSubscribe)
         this.getProjectSubscribe.unsubscribe();
-      this.getProject().then(() => {
+      this.getProjectWithModelName().then(() => {
       });
 
     };
@@ -122,4 +122,26 @@ export class ModelComponent implements OnInit, OnDestroy {
     this.modalService.open(content, { centered: true, size: 'lg' });
   }
 
+  openConfirmModal(content, index) {
+    this.deleteTestDataName = this.project.testData[this.modelName][index]['fileName'];
+    this.modalService.open(content, { centered: true, size: 'sm' }).result.then((result) => {
+      this.deleteTestDataName = '';
+    }, (reason) => {
+      this.deleteTestDataName = '';
+    });
+  }
+
+  deleteTestData() {
+    if (this.deleteTestDataName != '') {
+      this.databaseService.deleteTestData(this.project._id, this.deleteTestDataName, this.modelName).subscribe((res) => {
+        if (res) {
+          this.project.testData = res.testData;
+          console.log(res.message);
+        }
+        else {
+          console.log('ERROR: please try again!');
+        }
+      })
+    }
+  }
 }
