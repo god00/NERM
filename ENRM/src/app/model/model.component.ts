@@ -86,6 +86,7 @@ export class ModelComponent implements OnInit, OnDestroy {
             this.project.corpusInfo = data['project'].corpusInfo[index];
             this.project.testData = data['project'].testData[index];
           }
+          this.project.model = data['project'].model;
         }
         else {
           console.log('No model');
