@@ -246,7 +246,7 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-light" (click)="c('Close click')">No</button>
-      <button type="button" [disabled]="newModelName == '' || clickNewModel" class="btn btn-primary" (click)="onTrainModel()">Yes</button>
+      <button type="button" [disabled]="newModelName == '' || clickNewModel || project.isTraining" class="btn btn-primary" (click)="onTrainModel()">Yes</button>
     </div>
   </ng-template>
   <!--  -->
