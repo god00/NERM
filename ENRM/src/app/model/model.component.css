@@ -6,3 +6,8 @@
 .margin-button{
     margin-top: 10vw;
 }
+
+.tags{
+    overflow-y: auto;
+    max-height: 10vw;
+}
