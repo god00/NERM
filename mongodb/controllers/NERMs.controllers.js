@@ -242,8 +242,6 @@ exports.uploadsFile = async function (req, res, next) {
               .then(() => {
                 checkDirectory(pathUploads + req.body.email + '/' + req.body.projectName + '/' + req.body.mode)
                   .then(() => {
-
-                    console.log('other : uploading...')
                     if (!req.files[0]) {
                       return res.status(400).json({ status: 400 })
                     }
@@ -272,6 +270,7 @@ exports.uploadsFile = async function (req, res, next) {
                       })
                     }
                     else if (req.body.mode == 'testdata') {
+                      console.log('testdata : uploading...');
                       var query = NERMProject.findOne({ email: req.body.email, projectName: req.body.projectName });
                       query.exec(async function (err, project) {
                         if (err) {
