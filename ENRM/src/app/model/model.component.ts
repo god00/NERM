@@ -96,6 +96,7 @@ export class ModelComponent implements OnInit, OnDestroy {
     let count = 0;
     this.uploader = new FileUploader({ url: nermUrl });
     this.uploader.onBuildItemForm = (fileItem, form) => {
+      console.log(fileItem)
       form.append('email', this.user['email']);
       form.append('projectName', this.project.projectName);
       form.append('mode', mode);
