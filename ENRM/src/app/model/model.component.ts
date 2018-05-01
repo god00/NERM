@@ -27,6 +27,7 @@ export class ModelComponent implements OnInit, OnDestroy {
   projectTmp: any;
   testing: boolean;
   output: any = [];
+  isFillItem: boolean = false;
 
   // upload parameter
   public uploader: FileUploader = new FileUploader({ url: nermUrl });
@@ -60,6 +61,7 @@ export class ModelComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getProject().then(() => {
+      this.isFillItem = true;
       if (this.project.isTraining && this.isLastModel) {
         this.setIntervalProject();
       }
