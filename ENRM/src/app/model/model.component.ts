@@ -66,14 +66,13 @@ export class ModelComponent implements OnInit, OnDestroy {
       if (!this.project.model.includes(this.modelName)) {
         this.router.navigate([`${this.project.projectName}`])
       }
-      this.isFillItem = true;
       if (this.project.isTraining && this.isLastModel) {
         this.setIntervalProject();
       }
       this.getTestData().then(() => {
         this.setIntervalTestData();
       });
-
+      this.isFillItem = true;
     });
   }
 
