@@ -182,6 +182,13 @@
       </ng-template>
       <!--  -->
 
+      <div *ngIf="output" class="card text-white bg-secondary mb-3">
+        <div class="card-header">Test Output</div>
+        <div class="card-body">
+          <h5 class="card-title"></h5>
+          <p *ngFor="let text of output" class="card-text">{{text}}</p>
+        </div>
+      </div>
 
       <button *ngIf="!project.isTraining ;else newModel" class="btn btn-primary margin-button" (click)="goToCreateModel()">Create New Model</button>
       <ng-template #newModel>
@@ -190,13 +197,6 @@
         </button>
       </ng-template>
 
-      <div *ngIf="output" class="card text-white bg-secondary mb-3">
-        <div class="card-header">Test Output</div>
-        <div class="card-body">
-          <h5 class="card-title"></h5>
-          <p *ngFor="let text of output" class="card-text">{{text}}</p>
-        </div>
-      </div>
     </div>
   </div>
 
