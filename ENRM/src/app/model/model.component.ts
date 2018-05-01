@@ -121,7 +121,7 @@ export class ModelComponent implements OnInit, OnDestroy {
           this.project.testData = data['testData'];
           this.testDataId = data['id'];
           console.log(data['output'])
-          if (data['output'] != '') {
+          if (data['output']) {
             this.output = data['output'].data.split('\n');
           }
         }

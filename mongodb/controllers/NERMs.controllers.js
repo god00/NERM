@@ -350,7 +350,7 @@ exports.getTestData = async function (req, res, next) {
           })
         }
         else {
-          return res.status(200).json({ status: 200, data: { testData: modelTestData.testData, output: files[0], id: modelTestData._id }, message: "Succesfully nermsdb Recieved" });
+          return res.status(200).json({ status: 200, data: { testData: modelTestData.testData, id: modelTestData._id }, message: "Succesfully nermsdb Recieved" });
         }
       }
       else {
