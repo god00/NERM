@@ -577,7 +577,7 @@ exports.testModel = async function (req, res, next) {
         files = [];
         var pathOutput = `${path.dirname(process.cwd())}/storage/uploads/${modelTestData.email}/${modelTestData.projectName}/${modelTestData.modelname}_folder/output.txt`;
         runExtractFeaturePython_Test(modelTestData).then(() => {
-          runTestDataPython(testData).then(() => {
+          runTestDataPython(modelTestData).then(() => {
             readFile(pathOutput, files).then(() => {
               return res.status(200).json({ status: 200, data: files[0], message: `${modelTestData.projectName} test model successful` });
             })
