@@ -750,7 +750,6 @@ async function runExtractFeaturePython_Test(testData) {
 
     py.stderr.on('data', (data) => {
       console.log(`stderr: ${data}`);
-      reject()
     });
 
     py.on('exit', async (code) => {
