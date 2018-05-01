@@ -342,8 +342,16 @@ exports.getTestData = async function (req, res, next) {
         return res.status(400).json({ status: 400, message: err });
       }
       else if (modelTestData) {
+        let files = []
         await beforeSendToFrontTestData(modelTestData);
-        return res.status(200).json({ status: 200, data: { testData: modelTestData.testData, output: modelTestData.output, id: modelTestData._id }, message: "Succesfully nermsdb Recieved" });
+        if (modelTestData.output != "") {
+          readFile(modelTestData.output, files).then(() => {
+            return res.status(200).json({ status: 200, data: { testData: modelTestData.testData, output: files[0], id: modelTestData._id }, message: "Succesfully nermsdb Recieved" });
+          })
+        }
+        else {
+          return res.status(200).json({ status: 200, data: { testData: modelTestData.testData, output: files[0], id: modelTestData._id }, message: "Succesfully nermsdb Recieved" });
+        }
       }
       else {
         return res.status(204).json({ status: 204, message: "Please create project first" });
