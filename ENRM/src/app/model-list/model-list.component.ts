@@ -14,6 +14,7 @@ import NERMModel from '../models/nerm.model';
 export class ModelListComponent implements OnInit, OnDestroy {
   user: Object;
   project: NERMModel = new NERMModel();
+  urlModel: any = []
 
   getProjectSubscribe: any;
   updateProjectSubscribe: any;
@@ -57,6 +58,11 @@ export class ModelListComponent implements OnInit, OnDestroy {
       this.getProjectSubscribe = this.databaseService.getProject(this.user['email'], encodeURI(<string>this.project.projectName)).subscribe((data) => {
         if (data) {
           this.project = data['project'];
+          if (this.urlModel.length != 0)
+            this.urlModel = []
+          this.project.model.forEach((name) => {
+            this.urlModel.push(encodeURI(<string>name));
+          })
         }
         else {
           console.log('No model');
