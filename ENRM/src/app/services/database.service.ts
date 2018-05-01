@@ -64,12 +64,18 @@ export class DatabaseService {
   }
 
   genarateDictList(id: string): Observable<any> {
-    return this.http.post(`${nermUrl}/dictionary`, { id })
-      .map((res) => { return res["data"] });
+    return this.http.post(`${nermUrl}/dictionary`, { id });
   }
 
   testModel(id: string): Observable<any> {
-    return this.http.post(`${nermUrl}/testmodel`, { id });
+    return this.http.post(`${nermUrl}/testmodel`, { id })
+      .map((res) => {
+        if (res != undefined) {
+          return res["data"];
+        } else {
+          return res;
+        }
+      });;
   }
 
   genarateTemplate(id: string): Observable<any> {
