@@ -213,11 +213,13 @@ export class ModelComponent implements OnInit, OnDestroy {
       }
       else {
         let arrColumn = row.split('\t');
+        console.log(arrColumn, "arrCol")
         let dataObject = {};
         dataObject['class'] = arrColumn[0];
         dataObject['Recall'] = arrColumn[1];
         dataObject['Precision'] = arrColumn[2];
         dataObject['F1-measure'] = arrColumn[3];
+        console.log(dataObject, "object")
         this.outputTable.push(dataObject);
       }
     });
