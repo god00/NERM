@@ -755,11 +755,10 @@ async function runExtractFeaturePython_Test(testData) {
     console.log(`stderr: ${data}`);
   });
 
-  py.on('exit', async (code) => {
+  py.on('exit', (code) => {
     console.log(`child process exited with code ${code}`, " : extractPython_Test");
     // run test.py
     py.kill();
-    Promise.resolve()
   });
 
   py.unref();
