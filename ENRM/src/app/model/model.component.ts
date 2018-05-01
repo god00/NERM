@@ -61,6 +61,9 @@ export class ModelComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getProject().then(() => {
+      if (!this.project.model.includes(this.modelName)) {
+        this.router.navigate([`${this.project.projectName}`])
+      }
       this.isFillItem = true;
       if (this.project.isTraining && this.isLastModel) {
         this.setIntervalProject();
@@ -126,7 +129,7 @@ export class ModelComponent implements OnInit, OnDestroy {
           this.testing = data['testing'];
           if (data['output']) {
             this.output = data['output'].data.split('\n');
-            console.log(this.output," : output")
+            console.log(this.output, " : output")
             this.output.splice(-1, 1)
             this.insertDataTable();
           }
