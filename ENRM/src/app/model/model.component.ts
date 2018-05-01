@@ -123,8 +123,6 @@ export class ModelComponent implements OnInit, OnDestroy {
           if (data['output'] != '') {
             this.output = data['output'].data.split('\n');
           }
-
-          console.log(this.project.testData)
         }
         else {
           console.log('No Test Data');
@@ -190,7 +188,6 @@ export class ModelComponent implements OnInit, OnDestroy {
     this.clickTestModel = !this.clickTestModel;
     this.testModelSubscribe = this.databaseService.testModel(this.testDataId).subscribe((res) => {
       if (res) {
-        console.log(res)
         if (res.data) {
           this.output = res.data.split('\n');
         }
