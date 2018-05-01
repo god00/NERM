@@ -576,8 +576,8 @@ exports.testModel = async function (req, res, next) {
       else if (modelTestData) {
         files = [];
         var pathOutput = `${path.dirname(process.cwd())}/storage/uploads/${modelTestData.email}/${modelTestData.projectName}/${modelTestData.modelname}_folder/output.txt`;
-        runExtractFeaturePython_Test(modelTestData).then(runTestDataPython => {
-          runTestDataPython.then(() => {
+        runExtractFeaturePython_Test(modelTestData).then(() => {
+          runTestDataPython(testData).then(() => {
             readFile(pathOutput, files).then(() => {
               return res.status(200).json({ status: 200, data: files[0], message: `${modelTestData.projectName} test model successful` });
             })
@@ -741,7 +741,6 @@ async function runExtractFeaturePython_Test(testData) {
     console.log(`child process exited with code ${code}`);
     // run test.py
     py.kill()
-    return runTestDataPython(testData);
   });
 
   py.unref();
