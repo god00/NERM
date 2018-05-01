@@ -804,29 +804,30 @@ async function crf_learn(project, modelname) {
 }
 
 async function runTestDataPython(testData) {
-  return new Promise((resolve, reject) => {
-    var testScriptPath = config.testScriptPath;
-    var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}`;
-    var pathTestData = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/feature.txt`;
+  var testScriptPath = config.testScriptPath;
+  var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}`;
+  var pathTestData = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/feature.txt`;
 
-    console.log(pathModel, " : testDataPython")
-    console.log(pathTestData, " : testDataPython")
-    var logStream = fs.createWriteStream(`${pathModel}_folder/output.txt`);
+  console.log(pathModel, " : testDataPython")
+  console.log(pathTestData, " : testDataPython")
+  var logStream = fs.createWriteStream(`${pathModel}_folder/output.txt`);
 
-    const py = spawn('python', [testScriptPath, pathModel, pathTestData], { detached: true });  // arg[1] : path of extracted.txt , arg[2] : path of model
+  const py = spawn('python', [testScriptPath, pathModel, pathTestData], { detached: true });  // arg[1] : path of extracted.txt , arg[2] : path of model
 
-    py.stdout.pipe(logStream);
+  py.stderr.on('data', (data) => {
+    console.log(`stderr: ${data}`);
+  });
 
-    py.on('exit', async (code) => {
-      console.log(`child process exited with code ${code}`, " : TestDataPython");
-      testData['output'] = `${pathModel}_folder/output.txt`;
-      await NERMService.updateNERM(testData)
-      py.kill()
-      resolve();
-    });
+  py.stdout.pipe(logStream);
 
-    py.unref();
-  })
+  py.on('exit', async (code) => {
+    console.log(`child process exited with code ${code}`, " : TestDataPython");
+    testData['output'] = `${pathModel}_folder/output.txt`;
+    await NERMService.updateNERM(testData)
+    py.kill()
+  });
+
+  py.unref();
 
 }
 
