@@ -68,6 +68,7 @@ export class ModelComponent implements OnInit, OnDestroy {
       }
     });
     this.getTestData();
+    console.log(this.project.testData.length)
   }
 
   ngOnDestroy() {
