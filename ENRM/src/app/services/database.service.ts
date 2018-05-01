@@ -64,7 +64,8 @@ export class DatabaseService {
   }
 
   genarateDictList(id: string): Observable<any> {
-    return this.http.post(`${nermUrl}/dictionary`, { id });
+    return this.http.post(`${nermUrl}/dictionary`, { id })
+      .map((res) => { return res["data"] });
   }
 
   testModel(id: string): Observable<any> {
