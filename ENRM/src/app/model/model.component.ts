@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material';
 
+import { Buffer } from 'buffer';
+
 import { FileUploader, FileItem } from 'ng2-file-upload';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as FileSaver from 'file-saver';
@@ -247,8 +249,7 @@ export class ModelComponent implements OnInit, OnDestroy {
       this.downloadModelSubscribe.unsubscribe();
     }
     this.downloadModelSubscribe = this.databaseService.downloadModel(this.user['email'], encodeURI(<string>this.project.projectName), this.modelName).subscribe((res) => {
-      let buffer =  res.file.data;
-      // let buffer =  new Buffer.from(res.file.data);
+      let buffer = Buffer.from(res.file.data);
       var file = new File([buffer.toString()], this.modelName, { type: "application/octet-stream;charset=binary" });
       FileSaver.saveAs(file);
     })
