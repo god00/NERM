@@ -284,8 +284,10 @@
             <label style="display:block">Corpus:</label>
             <div class="corpus">
               <div class="list-group scroll list width20">
-                <button type="button" class="list-group-item flex-space-between" *ngFor="let c of project.corpus; let i = index" (click)="showCorpus(i)">
-                  <h6 style="word-wrap: break-word; width: 10vw;">{{c?.fileName}}</h6>
+                <button type="button" class="list-group-item flex-space-between" *ngFor="let c of project.corpus; let i = index" >
+                  <div (click)="showCorpus(i)">
+                    <h6 style="word-wrap: break-word; width: 10vw;">{{c?.fileName}}</h6>
+                  </div>
                   <span class="fa fa-trash-o trash-icon" aria-hidden="true" (click)="openConfirmModal(delete,i,'corpus')"></span>
                 </button>
               </div>
