@@ -785,24 +785,28 @@ async function crf_learn(project, modelname) {
 }
 
 async function runTestDataPython(testData) {
-  var testScriptPath = config.testScriptPath;
-  var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}`;
-  var pathTestData = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/feature.txt`;
+  return new Promise((resolve, reject) => {
+    var testScriptPath = config.testScriptPath;
+    var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}`;
+    var pathTestData = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/feature.txt`;
 
-  var logStream = fs.createWriteStream(`${pathModel}_folder/output.txt`);
+    var logStream = fs.createWriteStream(`${pathModel}_folder/output.txt`);
 
-  const py = spawn('python', [testScriptPath, pathModel, pathTestData], { detached: true });  // arg[1] : path of extracted.txt , arg[2] : path of model
+    const py = spawn('python', [testScriptPath, pathModel, pathTestData], { detached: true });  // arg[1] : path of extracted.txt , arg[2] : path of model
 
-  py.stdout.pipe(logStream);
+    py.stdout.pipe(logStream);
 
-  py.on('exit', async (code) => {
-    console.log(`child process exited with code ${code}`);
-    testData['output'] = `${pathModel}_folder/output.txt`;
-    await NERMService.updateNERM(testData)
-    py.kill()
-  });
+    py.on('exit', async (code) => {
+      console.log(`child process exited with code ${code}`);
+      testData['output'] = `${pathModel}_folder/output.txt`;
+      await NERMService.updateNERM(testData)
+      py.kill()
+      resolve();
+    });
 
-  py.unref();
+    py.unref();
+  })
+
 }
 
 async function copyDistList(email, projectName, modelname) {
