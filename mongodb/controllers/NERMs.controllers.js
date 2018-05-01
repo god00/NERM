@@ -599,6 +599,7 @@ exports.downloadModel = async function (req, res, next) {
     var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/${modelname}`;
 
     res.download(pathModel, modelname, async function (err) {
+      console.log('call back')
       if (err) {
         console.log('if')
         // Handle error, but keep in mind the response may be partially-sent
