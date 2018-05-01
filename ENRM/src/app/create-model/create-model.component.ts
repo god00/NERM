@@ -376,15 +376,15 @@ export class CreateModelComponent implements OnInit, OnDestroy {
 
   initDictFeature() {
     this.dictFeature = [
-      { 'dictionary': 'common (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
-      { 'dictionary': 'country (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
-      { 'dictionary': 'loc_clue (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
-      { 'dictionary': 'loc_name (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
-      { 'dictionary': 'org_clue (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
-      { 'dictionary': 'org_name (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
-      { 'dictionary': 'per_clue (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
-      { 'dictionary': 'per_first (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
-      { 'dictionary': 'per_last (default)', '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false },
+      { 'dictionary': 'common (default)', '0': true, '1': true, '2': true, '3': true, '-1': true, '-2': true, '-3': true },
+      { 'dictionary': 'country (default)', '0': true, '1': true, '2': true, '3': true, '-1': true, '-2': true, '-3': true },
+      { 'dictionary': 'loc_clue (default)', '0': true, '1': true, '2': true, '3': true, '-1': true, '-2': true, '-3': true },
+      { 'dictionary': 'loc_name (default)', '0': true, '1': true, '2': true, '3': true, '-1': true, '-2': true, '-3': true },
+      { 'dictionary': 'org_clue (default)', '0': true, '1': true, '2': true, '3': true, '-1': true, '-2': true, '-3': true },
+      { 'dictionary': 'org_name (default)', '0': true, '1': true, '2': true, '3': true, '-1': true, '-2': true, '-3': true },
+      { 'dictionary': 'per_clue (default)', '0': true, '1': true, '2': true, '3': true, '-1': true, '-2': true, '-3': true },
+      { 'dictionary': 'per_first (default)', '0': true, '1': true, '2': true, '3': true, '-1': true, '-2': true, '-3': true },
+      { 'dictionary': 'per_last (default)', '0': true, '1': true, '2': true, '3': true, '-1': true, '-2': true, '-3': true },
     ]
     this.project.selectedDict.map((dict) => {
       this.dictFeature.push({ 'dictionary': dict['fileName'], '0': false, '1': false, '2': false, '3': false, '-1': false, '-2': false, '-3': false })

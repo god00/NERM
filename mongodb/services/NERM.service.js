@@ -97,12 +97,12 @@ exports.createProject = async function (nerm) {
             ],
             dictFeature: [],
             wordFeature: [
-                { wordFeature: 'Alphanum', '0': false },
-                { wordFeature: 'Num', '0': false },
-                { wordFeature: 'Special Char', '0': false },
-                { wordFeature: 'English', '0': false },
-                { wordFeature: 'Blank Front', '0': false },
-                { wordFeature: 'Blank End', '0': false },
+                { wordFeature: 'Alphanum', '0': true },
+                { wordFeature: 'Num', '0': true },
+                { wordFeature: 'Special Char', '0': true },
+                { wordFeature: 'English', '0': true },
+                { wordFeature: 'Blank Front', '0': true },
+                { wordFeature: 'Blank End', '0': true },
             ],
             advanceFeature: [],     // [ {vocabFeature : [] , dictFeature: [] , wordFeature: []}, ... , (n)Object ]
         },
