@@ -763,7 +763,7 @@ async function crf_learn(project, modelname) {
         let corpusInfoTmp = {};
         corpusInfoTmp[modelname] = corpusInfo;
         project.corpusInfo.push(corpusInfoTmp);
-        checkDirectory(`${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/${modelname}`).then(() => {
+        checkDirectory(`${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/${modelname}`).then(async () => {
           await copyDistList(project.email, project.projectName, modelname);
           await NERMService.createModel(project.email, project.projectName, modelname);
           await NERMService.updateNERM(project);
