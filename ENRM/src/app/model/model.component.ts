@@ -190,8 +190,8 @@ export class ModelComponent implements OnInit, OnDestroy {
     this.testModelSubscribe = this.databaseService.testModel(this.testDataId).subscribe((res) => {
       if (res) {
         console.log(res)
-        if (res.data["data"]) {
-          this.output = res.data["data"];
+        if (res.data) {
+          this.output = res.data;
           console.log(this.output.split('\n'))
         }
         this.clickTestModel = !this.clickTestModel;
