@@ -155,7 +155,7 @@ export class DatabaseService {
         email: email,
         projectName: projectName,
         modelname: modelname
-      },
+      }
     });
   }
 
