@@ -25,7 +25,7 @@ export class ModelComponent implements OnInit, OnDestroy {
   testDataId: any;
   projectTmp: any;
   clickTestModel: boolean = false;
-  output: any;
+  output: any = [];
 
   // upload parameter
   public uploader: FileUploader = new FileUploader({ url: nermUrl });
