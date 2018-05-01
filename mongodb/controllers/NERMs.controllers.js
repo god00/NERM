@@ -595,20 +595,12 @@ exports.downloadModel = async function (req, res, next) {
   var email = req.body.email;
   var projectName = req.body.projectName;
   var modelname = req.body.modelname;
-  console.log('download')
   try {
     var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/${modelname}`;
     var stat = fs.statSync(pathModel);
     var fileToSend = fs.readFileSync(pathModel);
-    var filename = "33.jpg";
-    var filePath = path.join(__dirname, '..', '..', 'downloads', filename);
 
-    res.writeHead(200, {
-      'Content-Type': 'text/plain',
-      'Content-Length': stat.size,
-      'Content-Disposition': filename
-    });
-    res.end(fileToSend);
+    return res.status(200).json({ status: 204, file: fileToSend, message: "Please upload test data first" });
     // res.download(pathModel, modelname, async function (err) {
     //   if (err) {
     //     console.log('if')
