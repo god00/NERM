@@ -576,19 +576,17 @@ exports.testModel = async function (req, res, next) {
       else if (modelTestData) {
         files = [];
         var pathOutput = `${path.dirname(process.cwd())}/storage/uploads/${modelTestData.email}/${modelTestData.projectName}/${modelTestData.modelname}_folder/output.txt`;
-        runExtractFeaturePython_Test(modelTestData)
-          .then(() => {
-            runTestDataPython(modelTestData)
+        runExtractFeaturePython_Test(modelTestData).then(() => {
+          runTestDataPython(modelTestData).then(() => {
+            readFile(pathOutput, files)
               .then(() => {
-                readFile(pathOutput, files)
-                  .then(() => {
-                    return res.status(200).json({ status: 200, data: files[0], message: `${modelTestData.projectName} test model successful` });
-                  })
-                  .catch(() => {
-                    return res.status(204).json({ status: 204, message: "Error while readFile" });
-                  })
+                return res.status(200).json({ status: 200, data: files[0], message: `${modelTestData.projectName} test model successful` });
+              })
+              .catch(() => {
+                return res.status(204).json({ status: 204, message: "Error while readFile" });
               })
           })
+        })
       }
       else {
         return res.status(204).json({ status: 204, message: "Please upload test data first" });
