@@ -25,7 +25,7 @@ export class ModelComponent implements OnInit, OnDestroy {
   index: number;
   testDataId: any;
   projectTmp: any;
-  testing: boolean = false;
+  testing: boolean;
   output: any = [];
 
   // upload parameter
@@ -190,6 +190,7 @@ export class ModelComponent implements OnInit, OnDestroy {
     this.testing = true;
     this.testModelSubscribe = this.databaseService.testModel(this.user['email'], encodeURI(<string>this.project.projectName), this.modelName).subscribe((res) => {
       if (res) {
+        console.log(this.testing)
         this.setIntervalTestData();
       }
     })
