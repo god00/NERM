@@ -288,10 +288,9 @@
                   <div (click)="showCorpus(i)">
                     <h6 style="word-wrap: break-word; width: 10vw;">{{c?.fileName}}</h6>
                   </div>
-                  <div>
-                    <span class="fa fa-trash-o trash-icon" aria-hidden="true" (click)="openConfirmModal(delete,i,'corpus')"></span>
+                  <div (click)="openConfirmModal(delete,i,'corpus')">
+                    <span class="fa fa-trash-o trash-icon" aria-hidden="true"></span>
                   </div>
-                  
                 </button>
               </div>
 
