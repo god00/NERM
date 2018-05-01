@@ -789,6 +789,7 @@ async function runTestDataPython(testData) {
   const py = spawn('python', [testScriptPath, pathTestData, pathModel], { detached: true });  // arg[1] : path of extracted.txt , arg[2] : path of model
 
   py.stdout.on('data', (data) => {
+    console.log(data)
     data.pipe(logStream)
   })
 
