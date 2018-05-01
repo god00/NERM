@@ -129,7 +129,8 @@ exports.createModel = async function (email, projectName, modelname) {
         projectName: projectName,
         modelname: modelname,
         testData: [],
-        output: ''
+        output: '',
+        testing: false
     })
     try {
         var savedTestData = await newTestData.save()

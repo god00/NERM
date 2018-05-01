@@ -346,7 +346,7 @@ exports.getTestData = async function (req, res, next) {
         await beforeSendToFrontTestData(modelTestData);
         if (modelTestData.output != "") {
           readFile(modelTestData.output, files).then(() => {
-            return res.status(200).json({ status: 200, data: { testData: modelTestData.testData, output: files[0], id: modelTestData._id }, message: "Succesfully nermsdb Recieved" });
+            return res.status(200).json({ status: 200, data: { testData: modelTestData.testData, output: files[0], id: modelTestData._id, testing: modelTestData.testing }, message: "Succesfully nermsdb Recieved" });
           })
         }
         else {
@@ -574,9 +574,11 @@ exports.testModel = async function (req, res, next) {
         return res.status(400).json({ status: 400, message: err });
       }
       else if (modelTestData) {
+        modelTestData.testing = true;
+        await NERMService.updateNERM(modelTestData);
         files = [];
         var pathOutput = `${path.dirname(process.cwd())}/storage/uploads/${modelTestData.email}/${modelTestData.projectName}/${modelTestData.modelname}_folder/output.txt`;
-        runExtractFeaturePython_Test(modelTestData, res)
+        runExtractFeaturePython_Test(modelTestData)
       }
       else {
         return res.status(204).json({ status: 204, message: "Please upload test data first" });
@@ -737,7 +739,7 @@ async function runExtractFeaturePython_Test(testData, res) {
 
   py.on('exit', async (code) => {
     console.log(`child process exited with code ${code}`, " : extractPython_Test");
-    await copyFeature(testData.email, testData.projectName, testData.modelname);
+    await moveFeature(testData.email, testData.projectName, testData.modelname);
     runTestDataPython(testData, res);
     py.kill();
   });
@@ -805,14 +807,8 @@ async function runTestDataPython(testData, res) {
   py.on('exit', async (code) => {
     console.log(`child process exited with code ${code}`, " : TestDataPython");
     testData['output'] = `${pathModel}_folder/output.txt`;
+    testData['testing'] = false;
     await NERMService.updateNERM(testData)
-    readFile(`${pathModel}_folder/output.txt`, files)
-      .then(() => {
-        return res.status(200).json({ status: 200, data: files[0], message: `${modelTestData.projectName} test model successful` });
-      })
-      .catch(() => {
-        return res.status(204).json({ status: 204, message: "Error while readFile" });
-      })
     py.kill()
   });
 
@@ -836,11 +832,11 @@ async function copyDistList(email, projectName, modelname) {
   terminal.unref();
 }
 
-async function copyFeature(email, projectName, modelname) {
+async function moveFeature(email, projectName, modelname) {
   var pathFeature = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/testdata/feature.txt`
   var pathTarget = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/${modelname}_folder`
 
-  const terminal = spawn('cp', [pathFeature, pathTarget], { detached: true });
+  const terminal = spawn('mv', [pathFeature, pathTarget], { detached: true });
   terminal.stderr.on('data', (data) => {
     console.log(`stderr: ${data}`);
     return data;

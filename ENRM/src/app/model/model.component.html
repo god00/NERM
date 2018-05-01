@@ -174,7 +174,7 @@
                 </div>
               </li>
               <li class="list-group-item training">
-                <button class="btn btn-success btn-lg" [disabled]="project?.testData.length == 0 || clickTestModel" (click)="testModel()">Test</button>
+                <button class="btn btn-success btn-lg" [disabled]="project?.testData.length == 0 || testing" (click)="testModel()">Test</button>
                 <div class="download-icon text-primary">
                   <i class="fa fa-download download-icon-size" aria-hidden="true" (click)="downloadModel()"></i>
                   <u>Download</u>

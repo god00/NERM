@@ -25,7 +25,7 @@ export class ModelComponent implements OnInit, OnDestroy {
   index: number;
   testDataId: any;
   projectTmp: any;
-  clickTestModel: boolean = false;
+  testing: boolean = false;
   output: any = [];
 
   // upload parameter
@@ -125,6 +125,8 @@ export class ModelComponent implements OnInit, OnDestroy {
         if (data) {
           this.project.testData = data['testData'];
           this.testDataId = data['id'];
+          if (data['testing'] != undefined)
+            this.testing = data['testing'];
           if (data['output']) {
             this.output = data['output'].data.split('\n');
             this.output.splice(-1, 1)
@@ -192,19 +194,11 @@ export class ModelComponent implements OnInit, OnDestroy {
   }
 
   testModel() {
-    this.clickTestModel = !this.clickTestModel;
+    this.testing = true;
     this.testModelSubscribe = this.databaseService.testModel(this.user['email'], encodeURI(<string>this.project.projectName), this.modelName).subscribe((res) => {
       if (res) {
-        console.log(res)
-        if (res.data) {
-          console.log(res.data)
-          this.output = res.data.split('\n');
-          this.output.splice(-1, 1);
-          this.insertDataTable();
-          console.log(this.output)
-        }
+
       }
-      this.clickTestModel = !this.clickTestModel;
     })
   }
 
