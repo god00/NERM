@@ -767,6 +767,7 @@ async function crf_learn(project, modelname) {
         project.corpusInfo.push(corpusInfoTmp);
         await checkDirectory(`${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/${modelname}_folder`).then(async () => {
           await copyDistList(project.email, project.projectName, modelname);
+          await copyModel(project.email, project.projectName, modelname);
           await NERMService.createModel(project.email, project.projectName, modelname);
           await NERMService.updateNERM(project);
           crf.kill()
@@ -785,7 +786,7 @@ async function crf_learn(project, modelname) {
 async function runTestDataPython(testData) {
   return new Promise((resolve, reject) => {
     var testScriptPath = config.testScriptPath;
-    var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}`;
+    var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}_folder/${testData.modelname}`;
     var pathTestData = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/feature.txt`;
 
     var logStream = fs.createWriteStream(`${pathModel}_folder/output.txt`);
@@ -812,6 +813,23 @@ async function copyDistList(email, projectName, modelname) {
   var pathTarget = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/${modelname}_folder`
 
   const terminal = spawn('cp', [pathDictList, pathTarget], { detached: true });
+  terminal.stderr.on('data', (data) => {
+    console.log(`stderr: ${data}`);
+    return data;
+  });
+  terminal.on('exit', async (code) => {
+    console.log(`child process exited with code ${code}`);
+    terminal.kill();
+  });
+  terminal.unref();
+
+}
+
+async function copyModel(email, projectName, modelname) {
+  var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/${modelname}`;
+  var pathTarget = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/${modelname}_folder`
+
+  const terminal = spawn('cp', [pathModel, pathTarget], { detached: true });
   terminal.stderr.on('data', (data) => {
     console.log(`stderr: ${data}`);
     return data;
