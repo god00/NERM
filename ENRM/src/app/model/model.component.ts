@@ -205,6 +205,8 @@ export class ModelComponent implements OnInit, OnDestroy {
   }
 
   insertDataTable() {
+    if (this.outputTable.length != 0)
+      this.outputTable = []
     this.output.forEach((row, index) => {
       if (index == 0) {
         this.displayedColumnsOutput = row.split('\t');
