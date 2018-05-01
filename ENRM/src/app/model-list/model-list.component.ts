@@ -63,6 +63,7 @@ export class ModelListComponent implements OnInit, OnDestroy {
           this.project.model.forEach((name) => {
             this.urlModel.push(encodeURI(<string>name));
           })
+          console.log(this.urlModel)
         }
         else {
           console.log('No model');
