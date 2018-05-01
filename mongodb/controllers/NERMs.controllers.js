@@ -596,20 +596,20 @@ exports.downloadModel = async function (req, res, next) {
   var projectName = req.param('projectName');
   var modelname = req.param('modelname');
   try {
-    var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/${modelname}`;
+    var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/`;
     var fileToSend = fs.readFileSync(pathModel);
 
-    return res.status(200).json({ status: 200, file: fileToSend, message: "Success to send file" });
-    // res.download(pathModel, modelname, async function (err) {
-    //   if (err) {
-    //     console.log('if')
-    //     // Handle error, but keep in mind the response may be partially-sent
-    //     // so check res.headersSent
-    //   } else {
-    //     console.log('else')
-    //     // decrement a download credit, etc.
-    //   }
-    // });
+    // return res.status(200).json({ status: 200, file: fileToSend, message: "Success to send file" });
+    res.download(pathModel, modelname, async function (err) {
+      if (err) {
+        console.log('if')
+        // Handle error, but keep in mind the response may be partially-sent
+        // so check res.headersSent
+      } else {
+        console.log('else')
+        // decrement a download credit, etc.
+      }
+    });
   }
   catch (e) {
     return res.status(400).json({ status: 400, message: e.message })
