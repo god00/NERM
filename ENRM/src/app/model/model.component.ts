@@ -44,6 +44,8 @@ export class ModelComponent implements OnInit, OnDestroy {
   testModelSubscribe: any;
 
   intervalId: any;
+  testIntervalId: any;
+
   constructor(
     private router: Router,
     public databaseService: DatabaseService,
@@ -59,22 +61,12 @@ export class ModelComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getProject().then(() => {
       if (this.project.isTraining && this.isLastModel) {
-        if (this.intervalId)
-          clearInterval(this.intervalId);
-        this.intervalId = setInterval(() => {
-          if (this.getProjectSubscribe) {
-            this.getProjectSubscribe.unsubscribe();
-          }
-          this.getProject().then(() => {
-            if (!this.project.isTraining) {
-              if (this.intervalId)
-                clearInterval(this.intervalId);
-            }
-          });
-        }, 3500)
+        this.setIntervalProject();
       }
     });
-    this.getTestData();
+    this.getTestData().then(() => {
+      this.setIntervalTestData();
+    });
   }
 
   ngOnDestroy() {
@@ -92,6 +84,8 @@ export class ModelComponent implements OnInit, OnDestroy {
     }
     if (this.intervalId)
       clearInterval(this.intervalId);
+    if (this.testIntervalId)
+      clearInterval(this.testIntervalId);
   }
 
   getProject() {
@@ -125,8 +119,7 @@ export class ModelComponent implements OnInit, OnDestroy {
         if (data) {
           this.project.testData = data['testData'];
           this.testDataId = data['id'];
-          if (data['testing'] != undefined)
-            this.testing = data['testing'];
+          this.testing = data['testing'];
           if (data['output']) {
             this.output = data['output'].data.split('\n');
             this.output.splice(-1, 1)
@@ -234,4 +227,37 @@ export class ModelComponent implements OnInit, OnDestroy {
       })
     }
   }
+
+  setIntervalProject() {
+    if (this.intervalId)
+      clearInterval(this.intervalId);
+    this.intervalId = setInterval(() => {
+      if (this.getProjectSubscribe) {
+        this.getProjectSubscribe.unsubscribe();
+      }
+      this.getProject().then(() => {
+        if (!this.project.isTraining) {
+          if (this.intervalId)
+            clearInterval(this.intervalId);
+        }
+      });
+    }, 3500)
+  }
+  setIntervalTestData() {
+    if (this.testing) {
+      if (this.testIntervalId)
+        clearInterval(this.testIntervalId);
+      this.testIntervalId = setInterval(() => {
+        this.getTestData().then(() => {
+          if (!this.testing) {
+            if (this.testIntervalId)
+              clearInterval(this.testIntervalId);
+          }
+        });
+      }, 3500)
+    }
+  }
+
 }
+
+
