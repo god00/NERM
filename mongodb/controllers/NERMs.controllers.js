@@ -806,7 +806,7 @@ async function runTestDataPython(testData, res) {
     console.log(`child process exited with code ${code}`, " : TestDataPython");
     testData['output'] = `${pathModel}_folder/output.txt`;
     await NERMService.updateNERM(testData)
-    readFile(pathOutput, files)
+    readFile(`${pathModel}_folder/output.txt`, files)
       .then(() => {
         return res.status(200).json({ status: 200, data: files[0], message: `${modelTestData.projectName} test model successful` });
       })
