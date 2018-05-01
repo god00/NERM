@@ -10,6 +10,7 @@ import { Observable } from 'rxjs/Rx';
 
 //RxJS operator for mapping the observable
 import 'rxjs/add/operator/map';
+import { observableToBeFn } from 'rxjs/testing/TestScheduler';
 
 const nermUrl = `${appConfig.apiUrl}/api/nerms`;
 
@@ -148,7 +149,7 @@ export class DatabaseService {
     })
   }
 
-  downloadModel(email: string, projectName: string, modelname: string): Observable<Object> {
+  downloadModel(email: string, projectName: string, modelname: string): Observable<any> {
     let httpOptions = {
       params: {
         email: email,
