@@ -807,7 +807,11 @@ async function copyDistList(email, projectName, modelname) {
   var pathTarget = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/${modelname}/`
   checkDirectory(`${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/${modelname}`)
     .then(() => {
-      const terminal = spawn('cp', [pathDictList, pathTarget], { detached: true, stdio: 'ignore' });
+      const terminal = spawn('cp', [pathDictList, pathTarget], { detached: true });
+      terminal.stderr.on('data', (data) => {
+        console.log(`stderr: ${data}`);
+        return data;
+      });
       terminal.on('exit', async (code) => {
         console.log(`child process exited with code ${code}`);
         terminal.kill();
