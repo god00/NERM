@@ -733,7 +733,7 @@ async function runExtractFeaturePython(project, modelname) {
   // });
 
   py.on('exit', async (code) => {
-    console.log(`child process exited with code ${code}`);
+    console.log(`child process exited with code ${code}`, " : extractPython");
     crf_learn(project, modelname)
     py.kill()
   });
@@ -755,7 +755,7 @@ async function runExtractFeaturePython_Test(testData) {
   });
 
   py.on('exit', async (code) => {
-    console.log(`child process exited with code ${code}`);
+    console.log(`child process exited with code ${code}`, " : extractPython_Test");
     // run test.py
     py.kill();
     Promise.resolve()
@@ -778,7 +778,7 @@ async function crf_learn(project, modelname) {
   // });
 
   crf.on('exit', async (code) => {
-    console.log(`child process exited with code ${code}`);
+    console.log(`child process exited with code ${code}`, " : crf_learn");
     project.isTraining = false;
     NERMGetCorpusInfo.getCorpusInfo(project, modelname)
       .then(async (corpusInfo) => {
@@ -817,7 +817,7 @@ async function runTestDataPython(testData) {
     py.stdout.pipe(logStream);
 
     py.on('exit', async (code) => {
-      console.log(`child process exited with code ${code}`);
+      console.log(`child process exited with code ${code}`, " : TestDataPython");
       testData['output'] = `${pathModel}_folder/output.txt`;
       await NERMService.updateNERM(testData)
       py.kill()
