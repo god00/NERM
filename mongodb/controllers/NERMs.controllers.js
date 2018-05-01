@@ -716,10 +716,10 @@ async function runExtractFeaturePython(project, modelname) {
   //     return data;
   // });
 
-  py.stderr.on('data', (data) => {
-    console.log(`stderr: ${data}`);
-    return data;
-  });
+  // py.stderr.on('data', (data) => {
+  //   console.log(`stderr: ${data}`);
+  //   return data;
+  // });
 
   py.on('exit', async (code) => {
     console.log(`child process exited with code ${code}`);
