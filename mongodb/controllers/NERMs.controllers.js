@@ -769,7 +769,7 @@ async function runExtractFeaturePython_Test(testData) {
 async function crf_learn(project, modelname) {
   var template = `${config.templatePath}${project.email}/${project.projectName}/current_template.txt`
 
-  var train_data = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/feature.txt`;
+  var train_data = `${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/feature.txt`;
   var modelPath = `${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/${modelname}`
   const crf = spawn('crf_learn', [template, train_data, modelPath], { detached: true, stdio: 'ignore' })
 
@@ -807,7 +807,7 @@ async function crf_learn(project, modelname) {
 async function runTestDataPython(testData) {
   var testScriptPath = config.testScriptPath;
   var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}`;
-  var pathTestData = `${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/${modelname}_folder)/feature.txt`;
+  var pathTestData = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}_folder)/feature.txt`;
 
   console.log(pathModel, " : testDataPython")
   console.log(pathTestData, " : testDataPython")
