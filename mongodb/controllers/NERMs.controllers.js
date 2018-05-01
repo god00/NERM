@@ -742,28 +742,27 @@ async function runExtractFeaturePython(project, modelname) {
 }
 
 async function runExtractFeaturePython_Test(testData) {
-  return new Promise(async (resolve, reject) => {
-    var extractScriptPath = config.extractScriptPath;
-    var pathTestData = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/testdata/${testData.modelname}/`;
-    var pathDictList = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}_folder/current_dictlist.txt`;
+  var extractScriptPath = config.extractScriptPath;
+  var pathTestData = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/testdata/${testData.modelname}/`;
+  var pathDictList = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}_folder/current_dictlist.txt`;
 
-    console.log(pathTestData)
-    console.log(pathDictList)
-    const py = spawn('python', [extractScriptPath, pathTestData, pathDictList], { detached: true });  // arg[1] : path of corpus folder , arg[2] : path of file dictionary
+  console.log(pathTestData)
+  console.log(pathDictList)
+  const py = spawn('python', [extractScriptPath, pathTestData, pathDictList], { detached: true });  // arg[1] : path of corpus folder , arg[2] : path of file dictionary
 
-    py.stderr.on('data', (data) => {
-      console.log(`stderr: ${data}`);
-    });
+  py.stderr.on('data', (data) => {
+    console.log(`stderr: ${data}`);
+  });
 
-    py.on('exit', async (code) => {
-      console.log(`child process exited with code ${code}`);
-      // run test.py
-      py.kill();
-      resolve();
-    });
+  py.on('exit', async (code) => {
+    console.log(`child process exited with code ${code}`);
+    // run test.py
+    py.kill();
+    Promise.resolve()
+  });
 
-    py.unref();
-  })
+  py.unref();
+
 }
 
 
