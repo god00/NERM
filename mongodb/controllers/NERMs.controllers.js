@@ -743,7 +743,8 @@ async function runExtractFeaturePython_Test(testData) {
   py.on('exit', async (code) => {
     console.log(`child process exited with code ${code}`);
     // run test.py
-    py.kill()
+    py.kill();
+    resolve();
   });
 
   py.unref();
