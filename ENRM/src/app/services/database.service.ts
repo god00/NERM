@@ -149,7 +149,7 @@ export class DatabaseService {
     })
   }
 
-  downloadModel(email: string, projectName: string, modelname: string): Observable<any> {
+  downloadModel(email: string, projectName: string, modelname: string): Observable<Object> {
     let httpOptions = {
       params: {
         email: email,
