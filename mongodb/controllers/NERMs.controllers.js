@@ -768,7 +768,7 @@ async function runExtractFeaturePython_Test(testData) {
 
 async function crf_learn(project, modelname) {
   var template = `${config.templatePath}${project.email}/${project.projectName}/current_template.txt`
-  var train_data = `${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/feature.txt`
+  var train_data = `${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/${modelname}_folder)/feature.txt`;
   var modelPath = `${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/${modelname}`
   const crf = spawn('crf_learn', [template, train_data, modelPath], { detached: true, stdio: 'ignore' })
 
@@ -787,6 +787,7 @@ async function crf_learn(project, modelname) {
         project.corpusInfo.push(corpusInfoTmp);
         await checkDirectory(`${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/${modelname}_folder`).then(async () => {
           await copyDistList(project.email, project.projectName, modelname);
+          await copyFeature(project.email, project.projectName, modelname);
           await NERMService.createModel(project.email, project.projectName, modelname);
           await NERMService.updateNERM(project);
           crf.kill()
@@ -843,7 +844,22 @@ async function copyDistList(email, projectName, modelname) {
     terminal.kill();
   });
   terminal.unref();
+}
 
+async function copyFeature(email, projectName, modelname) {
+  var pathFeature = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/feature.txt`
+  var pathTarget = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/${modelname}_folder`
+
+  const terminal = spawn('cp', [pathFeature, pathTarget], { detached: true });
+  terminal.stderr.on('data', (data) => {
+    console.log(`stderr: ${data}`);
+    return data;
+  });
+  terminal.on('exit', async (code) => {
+    console.log(`child process exited with code ${code}`);
+    terminal.kill();
+  });
+  terminal.unref();
 }
 
 async function getDictByUser(email) {
