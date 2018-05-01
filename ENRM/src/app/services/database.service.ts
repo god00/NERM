@@ -156,7 +156,6 @@ export class DatabaseService {
         projectName: projectName,
         modelname: modelname
       },
-      responseType: "blob"
     });
   }
 
