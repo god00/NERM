@@ -762,7 +762,7 @@ async function crf_learn(project, modelname) {
         let corpusInfoTmp = {};
         corpusInfoTmp[modelname] = corpusInfo;
         project.corpusInfo.push(corpusInfoTmp);
-        await checkDirectory(`${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/${modelname}`).then(async () => {
+        await checkDirectory(`${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/${modelname}_folder`).then(async () => {
           await copyDistList(project.email, project.projectName, modelname);
           await NERMService.createModel(project.email, project.projectName, modelname);
           await NERMService.updateNERM(project);
@@ -802,7 +802,7 @@ async function runTestDataPython(testData) {
 
 async function copyDistList(email, projectName, modelname) {
   var pathDictList = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/current_dictlist.txt`;
-  var pathTarget = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/${modelname}`
+  var pathTarget = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/${modelname}_folder`
 
   const terminal = spawn('cp', [pathDictList, pathTarget], { detached: true });
   terminal.stderr.on('data', (data) => {
