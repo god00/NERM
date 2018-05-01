@@ -784,7 +784,7 @@ async function runTestDataPython(testData) {
   var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}`;
   var pathTestData = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/feature.txt`;
 
-  var logStream = fs.createWriteStream(`${pathModel}_folder/output.txt`, { flags: 'a' });
+  var logStream = fs.createWriteStream(`${pathModel}_folder/output.txt`);
 
   const py = spawn('python', [testScriptPath, pathModel, pathTestData], { detached: true });  // arg[1] : path of extracted.txt , arg[2] : path of model
 
