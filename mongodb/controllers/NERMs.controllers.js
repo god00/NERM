@@ -577,15 +577,13 @@ exports.testModel = async function (req, res, next) {
         files = [];
         var pathOutput = `${path.dirname(process.cwd())}/storage/uploads/${modelTestData.email}/${modelTestData.projectName}/${modelTestData.modelname}_folder/output.txt`;
         runExtractFeaturePython_Test(modelTestData).then(() => {
-          runTestDataPython(modelTestData).then(() => {
-            readFile(pathOutput, files)
-              .then(() => {
-                return res.status(200).json({ status: 200, data: files[0], message: `${modelTestData.projectName} test model successful` });
-              })
-              .catch(() => {
-                return res.status(204).json({ status: 204, message: "Error while readFile" });
-              })
-          })
+          readFile(pathOutput, files)
+            .then(() => {
+              return res.status(200).json({ status: 200, data: files[0], message: `${modelTestData.projectName} test model successful` });
+            })
+            .catch(() => {
+              return res.status(204).json({ status: 204, message: "Error while readFile" });
+            })
         })
       }
       else {
@@ -747,9 +745,9 @@ async function runExtractFeaturePython_Test(testData) {
     console.log(`stderr: ${data}`, " : extract_test");
   });
 
-  py.on('exit', (code) => {
+  py.on('exit', async (code) => {
     console.log(`child process exited with code ${code}`, " : extractPython_Test");
-    // run test.py
+    await runTestDataPython(testData);
     py.kill();
   });
 
@@ -778,6 +776,7 @@ async function crf_learn(project, modelname) {
         let corpusInfoTmp = {};
         corpusInfoTmp[modelname] = corpusInfo;
         project.corpusInfo.push(corpusInfoTmp);
+        project.summitPreProcessing = false;
         await checkDirectory(`${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/${modelname}_folder`).then(async () => {
           await copyDistList(project.email, project.projectName, modelname);
           await copyFeature(project.email, project.projectName, modelname);
