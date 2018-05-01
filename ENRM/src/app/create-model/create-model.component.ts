@@ -128,7 +128,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
         if (data) {
           this.project.isTraining = data['project'].isTraining;
           if (this.project.isTraining) {
-            let routerPath = `${this.project.projectName}/${this.project.model[this.project.model.length - 1]}`
+            let routerPath = encodeURI(`${this.project.projectName}/${this.project.model[this.project.model.length - 1]}`);
             this.router.navigate([routerPath]);
           }
           this.project._id = data['project']._id;
@@ -434,7 +434,7 @@ export class CreateModelComponent implements OnInit, OnDestroy {
           this.createModelSubcribe = this.databaseService.createModel(this.project._id, this.newModelName).subscribe((res) => {
             if (res) {
               this.modal.close();
-              let routerPath = `${this.project.projectName}/${this.newModelName}`
+              let routerPath = encodeURI(`${this.project.projectName}/${this.newModelName}`);
               this.router.config.unshift({ path: routerPath, component: ModelComponent })
               this.router.navigate([routerPath]);
             }
