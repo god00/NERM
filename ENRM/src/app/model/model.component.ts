@@ -191,7 +191,8 @@ export class ModelComponent implements OnInit, OnDestroy {
       if (res) {
         console.log(res)
         if (res.data["data"]) {
-          this.output = res.data["data"].split('\n');
+          this.output = res.data["data"];
+          console.log(this.output.split('\n'))
         }
         this.clickTestModel = !this.clickTestModel;
       }
