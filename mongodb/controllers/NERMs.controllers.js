@@ -576,21 +576,22 @@ exports.testModel = async function (req, res, next) {
       else if (modelTestData) {
         files = [];
         var pathOutput = `${path.dirname(process.cwd())}/storage/uploads/${modelTestData.email}/${modelTestData.projectName}/${modelTestData.modelname}_folder/output.txt`;
-        runExtractFeaturePython_Test(modelTestData).then(() => {
-          runTestDataPython(modelTestData)
-            .then(() => {
-              readFile(pathOutput, files)
-                .then(() => {
-                  return res.status(200).json({ status: 200, data: files[0], message: `${modelTestData.projectName} test model successful` });
-                })
-                .catch(() => {
-                  return res.status(204).json({ status: 204, message: "Error while readFile" });
-                })
-            })
-            .catch(() => {
-              return res.status(204).json({ status: 204, message: "Error while Test model" });
-            })
-        })
+        runExtractFeaturePython_Test(modelTestData)
+          .then(() => {
+            runTestDataPython(modelTestData)
+              .then(() => {
+                readFile(pathOutput, files)
+                  .then(() => {
+                    return res.status(200).json({ status: 200, data: files[0], message: `${modelTestData.projectName} test model successful` });
+                  })
+                  .catch(() => {
+                    return res.status(204).json({ status: 204, message: "Error while readFile" });
+                  })
+              })
+              .catch(() => {
+                return res.status(204).json({ status: 204, message: "Error while Test model" });
+              })
+          })
           .catch(() => {
             return res.status(204).json({ status: 204, message: "Error while Extract testdata" });
           });
@@ -809,8 +810,8 @@ async function runTestDataPython(testData) {
   var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}`;
   var pathTestData = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}_folder)/feature.txt`;
 
-  console.log(pathModel, " : testDataPython")
-  console.log(pathTestData, " : testDataPython")
+  console.log(pathModel, " : pathModel")
+  console.log(pathTestData, " : feature")
   var logStream = fs.createWriteStream(`${pathModel}_folder/output.txt`);
 
   const py = spawn('python', [testScriptPath, pathModel, pathTestData], { detached: true });  // arg[1] : path of extracted.txt , arg[2] : path of model
