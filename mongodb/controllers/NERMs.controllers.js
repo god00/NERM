@@ -600,7 +600,7 @@ exports.downloadModel = async function (req, res, next) {
     var stat = fs.statSync(pathModel);
     var fileToSend = fs.readFileSync(pathModel);
 
-    return res.status(200).json({ status: 200, file: fileToSend, message: "Please upload test data first" });
+    return res.status(200).json({ status: 200, file: fileToSend, message: "Success to send file" });
     // res.download(pathModel, modelname, async function (err) {
     //   if (err) {
     //     console.log('if')
