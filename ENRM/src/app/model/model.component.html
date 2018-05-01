@@ -176,6 +176,9 @@
               <li class="list-group-item training">
                 <button class="btn btn-success btn-lg" [disabled]="project?.testData.length == 0 || clickTestModel" (click)="testModel()">Test</button>
               </li>
+              <li class="list-group-item training">
+                <i class="fa fa-download" aria-hidden="true" (click)="downloadModel()"></i>
+              </li>
             </ul>
           </div>
         </div>
