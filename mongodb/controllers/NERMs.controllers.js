@@ -731,7 +731,7 @@ async function runExtractFeaturePython_Test(testData, res) {
 
   console.log(pathTestData)
   console.log(pathDictList)
-  const py = spawn('python', [extractScriptPath, pathTestData, pathDictList], { detached: true });  // arg[1] : path of corpus folder , arg[2] : path of file dictionary
+  const py = spawn('python', [extractScriptPath, pathTestData, pathDictList]);  // arg[1] : path of corpus folder , arg[2] : path of file dictionary
 
   py.stderr.on('data', (data) => {
     console.log(`stderr: ${data}`, " : extract_test");
@@ -739,11 +739,9 @@ async function runExtractFeaturePython_Test(testData, res) {
 
   py.on('exit', async (code) => {
     console.log(`child process exited with code ${code}`, " : extractPython_Test");
-    await runTestDataPython(testData, res);
+    runTestDataPython(testData, res);
     py.kill();
   });
-
-  py.unref();
 
 }
 
