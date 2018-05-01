@@ -149,7 +149,7 @@ export class DatabaseService {
     })
   }
 
-  downloadModel(email: string, projectName: string, modelname: string): Observable<Object> {
+  downloadModel(email: string, projectName: string, modelname: string): Observable<any> {
     return this.http.get(`${nermUrl}/download`, {
       params: {
         email: email,
