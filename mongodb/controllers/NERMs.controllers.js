@@ -588,13 +588,7 @@ exports.testModel = async function (req, res, next) {
                     return res.status(204).json({ status: 204, message: "Error while readFile" });
                   })
               })
-              .catch(() => {
-                return res.status(204).json({ status: 204, message: "Error while Test model" });
-              })
           })
-          .catch(() => {
-            return res.status(204).json({ status: 204, message: "Error while Extract testdata" });
-          });
       }
       else {
         return res.status(204).json({ status: 204, message: "Please upload test data first" });
@@ -752,7 +746,7 @@ async function runExtractFeaturePython_Test(testData) {
   const py = spawn('python', [extractScriptPath, pathTestData, pathDictList], { detached: true });  // arg[1] : path of corpus folder , arg[2] : path of file dictionary
 
   py.stderr.on('data', (data) => {
-    console.log(`stderr: ${data}` , " : extract_test");
+    console.log(`stderr: ${data}`, " : extract_test");
   });
 
   py.on('exit', (code) => {
