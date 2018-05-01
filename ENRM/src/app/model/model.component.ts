@@ -193,7 +193,7 @@ export class ModelComponent implements OnInit, OnDestroy {
 
   testModel() {
     this.clickTestModel = !this.clickTestModel;
-    this.testModelSubscribe = this.databaseService.testModel(this.project.email, this.project.projectName, this.modelName).subscribe((res) => {
+    this.testModelSubscribe = this.databaseService.testModel(this.user['email'], this.project.projectName, this.modelName).subscribe((res) => {
       if (res) {
         console.log(res)
         if (res.data) {
