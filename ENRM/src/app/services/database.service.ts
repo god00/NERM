@@ -150,14 +150,13 @@ export class DatabaseService {
   }
 
   downloadModel(email: string, projectName: string, modelname: string): Observable<Object> {
-    let httpOptions = {
+    return this.http.get(`${nermUrl}/download`, {
       params: {
         email: email,
         projectName: projectName,
         modelname: modelname
       }
-    }
-    return this.http.get(`${nermUrl}/download`, httpOptions);
+    });
   }
 
   //Default Error handling method.
