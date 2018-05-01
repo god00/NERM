@@ -39,6 +39,8 @@ router.post('/login', NERMController.loginNERM)
 
 router.post('/uploads', NERMController.uploadsFile)
 
+router.post('/download', NERMController.downloadModel)
+
 
 // Export the Router
 
