@@ -568,7 +568,7 @@ exports.genarateDictList = async function (req, res, next) {
 
 exports.testModel = async function (req, res, next) {
   try {
-    var query = NERMTestData.findOne({ _id: req.body.id });
+    var query = NERMTestData.findOne({ email: req.body.email, projectName: req.body.projectName, modelname: req.body.modelname });
     query.exec(async function (err, modelTestData) {
       if (err) {
         return res.status(400).json({ status: 400, message: err });

@@ -67,8 +67,8 @@ export class DatabaseService {
     return this.http.post(`${nermUrl}/dictionary`, { id });
   }
 
-  testModel(id: string): Observable<any> {
-    return this.http.post(`${nermUrl}/testmodel`, { id })
+  testModel(email: string, projectName: string, modelname: string): Observable<any> {
+    return this.http.post(`${nermUrl}/testmodel`, { email, projectName, modelname })
       .map((res) => {
         if (res != undefined) {
           return res["data"];
