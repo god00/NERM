@@ -52,7 +52,7 @@ export class ModelComponent implements OnInit, OnDestroy {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.project.projectName = decodeURI(this.router.url.split("/")[1]);
     this.modelName = this.router.url.split("/")[2];
-    console.log(this.modelName)
+    console.log(this.router.url.split("/"))
     this.project.email = this.user['email'];
   }
 
@@ -96,8 +96,6 @@ export class ModelComponent implements OnInit, OnDestroy {
 
   getProject() {
     return new Promise((resolve, reject) => {
-      console.log(this.user['email']);
-      console.log(this.project.projectName);
       this.getProjectSubscribe = this.databaseService.getProject(this.user['email'], encodeURI(<string>this.project.projectName)).subscribe(async (data) => {
         if (data) {
           this.projectTmp = data['project'];

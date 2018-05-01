@@ -49,7 +49,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.router.config.unshift({ path: `${project.projectName}/create/model`, component: CreateModelComponent })
       this.router.config.unshift({ path: project.projectName, component: ModelListComponent })
       for (let model of project.model) {
-        let routerPath = `${project.projectName}/${model}`
+        let routerPath = encodeURI(`${project.projectName}/${model}`);
         this.router.config.unshift({ path: routerPath, component: ModelComponent })
       }
     }
