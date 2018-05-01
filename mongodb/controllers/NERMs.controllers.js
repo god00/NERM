@@ -733,7 +733,7 @@ async function runExtractFeaturePython(project, modelname) {
 async function runExtractFeaturePython_Test(testData) {
   var extractScriptPath = config.extractScriptPath;
   var pathTestData = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/testdata/${testData.modelname}/`;
-  var pathDictList = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}/current_dictlist.txt`;
+  var pathDictList = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}_folder/current_dictlist.txt`;
   const py = spawn('python', [extractScriptPath, pathTestData, pathDictList], { detached: true });  // arg[1] : path of corpus folder , arg[2] : path of file dictionary
 
   py.stderr.on('data', (data) => {
