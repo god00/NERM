@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatTableDataSource } from '@angular/material';
 
 import { FileUploader, FileItem } from 'ng2-file-upload';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -31,6 +32,11 @@ export class ModelComponent implements OnInit, OnDestroy {
   public uploader: FileUploader = new FileUploader({ url: nermUrl });
   hasError: boolean = false;
   deleteTestDataName: string = '';
+
+  //Output table
+  displayedColumnsOutput: any;
+  outputTable: any = [];
+  dataSourceOutput: any;
 
   getProjectSubscribe: any;
   getTestDataSubscribe: any;
@@ -122,6 +128,7 @@ export class ModelComponent implements OnInit, OnDestroy {
           this.testDataId = data['id'];
           if (data['output']) {
             this.output = data['output'].data.split('\n');
+            this.insertDataTable();
           }
         }
         else {
@@ -188,13 +195,31 @@ export class ModelComponent implements OnInit, OnDestroy {
     this.clickTestModel = !this.clickTestModel;
     this.testModelSubscribe = this.databaseService.testModel(this.testDataId).subscribe((res) => {
       if (res) {
-        console.log(res)
         if (res.data) {
           this.output = res.data.split('\n');
+          this.insertDataTable();
         }
         this.clickTestModel = !this.clickTestModel;
       }
     })
+  }
+
+  insertDataTable() {
+    this.output.forEach((row, index) => {
+      if (index == 0) {
+        this.displayedColumnsOutput = row.split('\t');
+      }
+      else {
+        let arrColumn = row.split('\t');
+        let dataObject = {};
+        dataObject['class'] = arrColumn[0];
+        dataObject['Recall'] = arrColumn[1];
+        dataObject['Precision'] = arrColumn[2];
+        dataObject['F1-measure'] = arrColumn[3];
+        this.outputTable.push(dataObject);
+      }
+    });
+    this.dataSourceOutput = new MatTableDataSource(this.outputTable);
   }
 
   deleteTestData() {

@@ -188,7 +188,22 @@
       <div *ngIf="output && output.length != 0" class="card text-white bg-dark mb-3">
         <div class="card-header">Test Output</div>
         <div class="card-body">
-          <p *ngFor="let text of output" class="card-text">{{text}}</p>
+          <mat-table #outputTable [dataSource]="dataSourceOutput">
+            <!-- Word Column -->
+            <ng-container *ngFor="let col of displayedColumnsOutput" [matColumnDef]="col">
+              <mat-header-cell *matHeaderCellDef>
+                <h6>
+                  {{col}}
+                </h6>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <h6>{{element[col]}}</h6>
+              </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumnsOutput"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumnsOutput;"></mat-row>
+          </mat-table>
+          <!-- <p *ngFor="let text of output" class="card-text">{{text}}</p> -->
         </div>
       </div>
 
