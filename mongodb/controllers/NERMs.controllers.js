@@ -702,13 +702,6 @@ async function beforeSendToFrontTestData(modelTestData) {
       modelTestData.testData = item;
     })
   }
-  if (modelTestData.output != '') {
-    let files = []
-    await readFile(modelTestData.output, files);
-    modelTestData.output = files[0];
-    console.log(modelTestData.output)
-    console.log(files[0])
-  }
   return modelTestData;
 }
 
