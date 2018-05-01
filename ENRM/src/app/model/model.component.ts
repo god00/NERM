@@ -190,7 +190,7 @@ export class ModelComponent implements OnInit, OnDestroy {
     this.testing = true;
     this.testModelSubscribe = this.databaseService.testModel(this.user['email'], encodeURI(<string>this.project.projectName), this.modelName).subscribe((res) => {
       if (res) {
-
+        this.setIntervalTestData();
       }
     })
   }
