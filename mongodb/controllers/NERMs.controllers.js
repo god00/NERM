@@ -793,7 +793,7 @@ async function runTestDataPython(testData) {
 
   py.on('exit', async (code) => {
     console.log(`child process exited with code ${code}`);
-    testData['output'] = `${pathModel}/output.txt`;
+    testData['output'] = `${pathModel}_folder/output.txt`;
     await NERMService.updateNERM(testData)
     py.kill()
   });
