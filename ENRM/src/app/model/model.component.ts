@@ -67,6 +67,7 @@ export class ModelComponent implements OnInit, OnDestroy {
       }
     });
     this.getTestData().then(() => {
+      console.log(this.testing)
       this.setIntervalTestData();
     });
   }
