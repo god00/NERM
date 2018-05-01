@@ -593,8 +593,7 @@ exports.testModel = async function (req, res, next) {
 
 exports.downloadModel = async function (req, res, next) {
   try {
-    var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.projectName}/${req.body.modelname}`;
-    var stat = fs.statSync(pathModel);
+    var pathModel = await `${path.dirname(process.cwd())}/storage/uploads/${req.body.email}/${req.body.projectName}/${req.body.modelname}`;
     var fileToSend = fs.readFileSync(pathModel);
 
     return res.status(200).json({ status: 200, file: fileToSend, message: "Success to send file" });
