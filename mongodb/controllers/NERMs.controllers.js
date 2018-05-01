@@ -746,6 +746,9 @@ async function runExtractFeaturePython_Test(testData) {
     var extractScriptPath = config.extractScriptPath;
     var pathTestData = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/testdata/${testData.modelname}/`;
     var pathDictList = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}_folder/current_dictlist.txt`;
+
+    console.log(pathTestData)
+    console.log(pathDictList)
     const py = spawn('python', [extractScriptPath, pathTestData, pathDictList], { detached: true });  // arg[1] : path of corpus folder , arg[2] : path of file dictionary
 
     py.stderr.on('data', (data) => {
@@ -806,6 +809,8 @@ async function runTestDataPython(testData) {
     var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}`;
     var pathTestData = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/feature.txt`;
 
+    console.log(pathModel," : testDataPython")
+    console.log(pathTestData," : testDataPython")
     var logStream = fs.createWriteStream(`${pathModel}_folder/output.txt`);
 
     const py = spawn('python', [testScriptPath, pathModel, pathTestData], { detached: true });  // arg[1] : path of extracted.txt , arg[2] : path of model
