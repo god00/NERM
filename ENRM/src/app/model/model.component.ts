@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material';
 
 import { FileUploader, FileItem } from 'ng2-file-upload';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import * as FileSaver from 'file-saver';
 
 import { appConfig } from '../app.config';
 import { DatabaseService } from '../services/database.service';
@@ -247,7 +248,7 @@ export class ModelComponent implements OnInit, OnDestroy {
       this.downloadModelSubscribe.unsubscribe();
     }
     this.downloadModelSubscribe = this.databaseService.downloadModel(this.user['email'], encodeURI(<string>this.project.projectName), this.modelName).subscribe((res) => {
-      console.log(res)
+      FileSaver.saveAs(res, this.modelName);
     })
   }
 
