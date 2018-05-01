@@ -837,7 +837,7 @@ async function copyDistList(email, projectName, modelname) {
 }
 
 async function copyFeature(email, projectName, modelname) {
-  var pathFeature = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/feature.txt`
+  var pathFeature = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/testdata/feature.txt`
   var pathTarget = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/${modelname}_folder`
 
   const terminal = spawn('cp', [pathFeature, pathTarget], { detached: true });
