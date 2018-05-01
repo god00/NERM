@@ -129,6 +129,7 @@ export class ModelComponent implements OnInit, OnDestroy {
           if (data['output']) {
             this.output = data['output'].data.split('\n');
             this.insertDataTable();
+            console.log(this.outputTable)
           }
         }
         else {

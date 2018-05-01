@@ -188,15 +188,15 @@
       <div *ngIf="output && output.length != 0" class="card text-white bg-dark mb-3">
         <div class="card-header">Test Output</div>
         <div class="card-body">
-          <mat-table #outputTable [dataSource]="dataSourceOutput">
+          <mat-table class="bg-dark" #outputTable [dataSource]="dataSourceOutput">
             <!-- Word Column -->
             <ng-container *ngFor="let col of displayedColumnsOutput" [matColumnDef]="col">
-              <mat-header-cell *matHeaderCellDef>
+              <mat-header-cell *matHeaderCellDef class="text-white">
                 <h6>
                   {{col}}
                 </h6>
               </mat-header-cell>
-              <mat-cell *matCellDef="let element">
+              <mat-cell class="text-white" *matCellDef="let element">
                 <h6>{{element[col]}}</h6>
               </mat-cell>
             </ng-container>
