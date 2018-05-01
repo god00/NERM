@@ -576,14 +576,7 @@ exports.testModel = async function (req, res, next) {
       else if (modelTestData) {
         files = [];
         var pathOutput = `${path.dirname(process.cwd())}/storage/uploads/${modelTestData.email}/${modelTestData.projectName}/${modelTestData.modelname}_folder/output.txt`;
-        runExtractFeaturePython_Test(modelTestData)
-        readFile(pathOutput, files)
-          .then(() => {
-            return res.status(200).json({ status: 200, data: files[0], message: `${modelTestData.projectName} test model successful` });
-          })
-          .catch(() => {
-            return res.status(204).json({ status: 204, message: "Error while readFile" });
-          })
+        runExtractFeaturePython_Test(modelTestData, res)
       }
       else {
         return res.status(204).json({ status: 204, message: "Please upload test data first" });
@@ -731,7 +724,7 @@ async function runExtractFeaturePython(project, modelname) {
   py.unref();
 }
 
-async function runExtractFeaturePython_Test(testData) {
+async function runExtractFeaturePython_Test(testData, res) {
   var extractScriptPath = config.extractScriptPath;
   var pathTestData = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/testdata/${testData.modelname}/`;
   var pathDictList = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}_folder/current_dictlist.txt`;
@@ -746,7 +739,7 @@ async function runExtractFeaturePython_Test(testData) {
 
   py.on('exit', async (code) => {
     console.log(`child process exited with code ${code}`, " : extractPython_Test");
-    await runTestDataPython(testData);
+    await runTestDataPython(testData, res);
     py.kill();
   });
 
@@ -794,7 +787,7 @@ async function crf_learn(project, modelname) {
   crf.unref();
 }
 
-async function runTestDataPython(testData) {
+async function runTestDataPython(testData, res) {
   var testScriptPath = config.testScriptPath;
   var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}`;
   var pathTestData = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}_folder/feature.txt`;
@@ -815,6 +808,13 @@ async function runTestDataPython(testData) {
     console.log(`child process exited with code ${code}`, " : TestDataPython");
     testData['output'] = `${pathModel}_folder/output.txt`;
     await NERMService.updateNERM(testData)
+    readFile(pathOutput, files)
+      .then(() => {
+        return res.status(200).json({ status: 200, data: files[0], message: `${modelTestData.projectName} test model successful` });
+      })
+      .catch(() => {
+        return res.status(204).json({ status: 204, message: "Error while readFile" });
+      })
     py.kill()
   });
 
