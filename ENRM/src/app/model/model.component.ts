@@ -65,10 +65,11 @@ export class ModelComponent implements OnInit, OnDestroy {
       if (this.project.isTraining && this.isLastModel) {
         this.setIntervalProject();
       }
-    });
-    this.getTestData().then(() => {
-      console.log(this.testing)
-      this.setIntervalTestData();
+
+      this.getTestData().then(() => {
+        this.setIntervalTestData();
+      });
+
     });
   }
 
