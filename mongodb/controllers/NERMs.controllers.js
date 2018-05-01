@@ -737,7 +737,7 @@ async function runExtractFeaturePython_Test(testData, res) {
 
   py.on('exit', async (code) => {
     console.log(`child process exited with code ${code}`, " : extractPython_Test");
-    await copyFeature(testData.email, testData.projectName, modelname);
+    await copyFeature(testData.email, testData.projectName, testData.modelname);
     runTestDataPython(testData, res);
     py.kill();
   });
