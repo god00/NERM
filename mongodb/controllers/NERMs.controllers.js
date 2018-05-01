@@ -579,7 +579,7 @@ exports.testModel = async function (req, res, next) {
         files = [];
         var pathOutput = `${path.dirname(process.cwd())}/storage/uploads/${modelTestData.email}/${modelTestData.projectName}/${modelTestData.modelname}_folder/output.txt`;
         runExtractFeaturePython_Test(modelTestData)
-        return res.status(200).json({ status: 200, message: `${modelname} is testing` });
+        return res.status(200).json({ status: 200, message: `${req.body.modelname} is testing` });
       }
       else {
         return res.status(204).json({ status: 204, message: "Please upload test data first" });
