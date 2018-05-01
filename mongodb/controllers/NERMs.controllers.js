@@ -596,7 +596,7 @@ exports.downloadModel = async function (req, res, next) {
   var projectName = req.body.projectName;
   var modelname = req.body.modelname;
   try {
-    var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/`;
+    var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/${modelname}`;
     res.download(pathModel, async function (err) {
       if (err) {
         console.log('if')
