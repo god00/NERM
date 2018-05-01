@@ -579,6 +579,7 @@ exports.testModel = async function (req, res, next) {
         runExtractFeaturePython_Test(modelTestData).then(() => {
           runTestDataPython(modelTestData).then(() => {
             readFile(pathOutput, files).then(() => {
+              console.log(files)
               return res.status(200).json({ status: 200, data: files[0], message: `${modelTestData.projectName} test model successful` });
             })
           })
