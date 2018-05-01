@@ -781,12 +781,12 @@ async function crf_learn(project, modelname) {
 
 async function runTestDataPython(testData) {
   var testScriptPath = config.testScriptPath;
+  var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}`;
   var pathTestData = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/feature.txt`;
-  var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}_folder`;
 
-  var logStream = fs.createWriteStream(`${pathModel}/output.txt`, { flags: 'a' });
+  var logStream = fs.createWriteStream(`${pathModel}_folder/output.txt`, { flags: 'a' });
 
-  const py = spawn('python', [testScriptPath, pathTestData, pathModel], { detached: true });  // arg[1] : path of extracted.txt , arg[2] : path of model
+  const py = spawn('python', [testScriptPath, pathModel, pathTestData], { detached: true });  // arg[1] : path of extracted.txt , arg[2] : path of model
 
   py.stderr.on('data', (data) => {
     console.log(`stderr: ${data}`);
