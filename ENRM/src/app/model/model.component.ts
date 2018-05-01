@@ -68,7 +68,6 @@ export class ModelComponent implements OnInit, OnDestroy {
       }
     });
     this.getTestData();
-    console.log(this.project.testData)
   }
 
   ngOnDestroy() {
@@ -123,6 +122,8 @@ export class ModelComponent implements OnInit, OnDestroy {
           this.testDataId = data['id'];
           if (data['output'] != '')
             this.output = data['output'];
+
+          console.log(this.project.testData)
         }
         else {
           console.log('No Test Data');
