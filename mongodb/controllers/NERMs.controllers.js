@@ -567,10 +567,10 @@ exports.testModel = async function (req, res, next) {
       }
       else if (modelTestData) {
         files = [];
-        var pathOutput = `${path.dirname(process.cwd())}/storage/uploads/${modelTestData.email}/${modelTestData.projectName}/${modelTestData.modelname}/output.txt`;
+        var pathOutput = `${path.dirname(process.cwd())}/storage/uploads/${modelTestData.email}/${modelTestData.projectName}/${modelTestData.modelname}_folder/output.txt`;
         runExtractFeaturePython_Test(modelTestData).then(() => {
           readFile(pathOutput, files).then(() => {
-            return res.status(200).json({ status: 200, data: files, message: `${modelTestData.projectName} test model successful` });
+            return res.status(200).json({ status: 200, data: files[0], message: `${modelTestData.projectName} test model successful` });
           })
         });
       }
