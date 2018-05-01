@@ -203,8 +203,8 @@ export class ModelComponent implements OnInit, OnDestroy {
           this.insertDataTable();
           console.log(this.output)
         }
-        this.clickTestModel = !this.clickTestModel;
       }
+      this.clickTestModel = !this.clickTestModel;
     })
   }
 
