@@ -194,7 +194,7 @@
         <div class="card-header">Test Output</div>
         <div class="card-body">
           <h5 class="card-title"></h5>
-          <p class="card-text">{{output.data}}</p>
+          <p *ngFor="let text of output" class="card-text">{{text}}</p>
         </div>
       </div>
     </div>
