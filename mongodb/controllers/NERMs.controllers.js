@@ -807,7 +807,7 @@ async function crf_learn(project, modelname) {
 async function runTestDataPython(testData) {
   var testScriptPath = config.testScriptPath;
   var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}`;
-  var pathTestData = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}_folder)/feature.txt`;
+  var pathTestData = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}_folder/feature.txt`;
 
   console.log(pathModel, " : pathModel")
   console.log(pathTestData, " : feature")
