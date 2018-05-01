@@ -671,7 +671,7 @@ async function readFile(filePath, files) {
         resolve()
       } else {
         // files.push('ERROR : cannot read this' + filePath)
-        // console.log(err);
+        console.log(err);
         resolve()
       }
     });
