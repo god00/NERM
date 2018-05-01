@@ -326,7 +326,6 @@ exports.getProject = async function (req, res, next) {
           })
       }
       else {
-        console.log("Please create project first")
         return res.status(204).json({ status: 204, message: "Please create project first" });
       }
     })
@@ -764,13 +763,15 @@ async function crf_learn(project, modelname) {
         let corpusInfoTmp = {};
         corpusInfoTmp[modelname] = corpusInfo;
         project.corpusInfo.push(corpusInfoTmp);
+        checkDirectory(`${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/${modelname}`).then(() => {
+          await copyDistList(project.email, project.projectName, modelname);
+          await NERMService.createModel(project.email, project.projectName, modelname);
+          await NERMService.updateNERM(project);
+          crf.kill()
+        })
 
-        await copyDistList(project.email, project.projectName, modelname);
 
-        await NERMService.createModel(project.email, project.projectName, modelname);
-        await NERMService.updateNERM(project);
 
-        crf.kill()
       })
       .catch(async () => {
         await NERMService.updateNERM(project);
@@ -806,19 +807,18 @@ async function runTestDataPython(testData) {
 async function copyDistList(email, projectName, modelname) {
   var pathDictList = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/current_dictlist.txt`;
   var pathTarget = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/${modelname}/`
-  checkDirectory(`${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/${modelname}`)
-    .then(() => {
-      const terminal = spawn('cp', [pathDictList, pathTarget], { detached: true });
-      terminal.stderr.on('data', (data) => {
-        console.log(`stderr: ${data}`);
-        return data;
-      });
-      terminal.on('exit', async (code) => {
-        console.log(`child process exited with code ${code}`);
-        terminal.kill();
-      });
-      terminal.unref();
-    })
+
+  const terminal = spawn('cp', [pathDictList, pathTarget], { detached: true });
+  terminal.stderr.on('data', (data) => {
+    console.log(`stderr: ${data}`);
+    return data;
+  });
+  terminal.on('exit', async (code) => {
+    console.log(`child process exited with code ${code}`);
+    terminal.kill();
+  });
+  terminal.unref();
+
 }
 
 async function getDictByUser(email) {
