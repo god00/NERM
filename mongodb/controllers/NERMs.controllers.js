@@ -591,6 +591,26 @@ exports.testModel = async function (req, res, next) {
   }
 }
 
+exports.downloadModel = async function (req, res, next) {
+  var email = req.body.email;
+  var projectName = req.body.projectName;
+  var modelname = req.body.modelname;
+  try {
+    var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/`;
+    res.download(pathModel, async function (err) {
+      if (err) {
+        // Handle error, but keep in mind the response may be partially-sent
+        // so check res.headersSent
+      } else {
+        // decrement a download credit, etc.
+      }
+    });
+  }
+  catch (e) {
+    return res.status(400).json({ status: 400, message: e.message })
+  }
+}
+
 async function addPathsFromFileNames(fileNames, paths) {
   return new Promise((resolve, reject) => {
     let promise = [];

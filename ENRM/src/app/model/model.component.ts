@@ -43,6 +43,7 @@ export class ModelComponent implements OnInit, OnDestroy {
   getTestDataSubscribe: any;
   updateProjectSubscribe: any;
   testModelSubscribe: any;
+  downloadModelSubscribe: any;
 
   intervalId: any;
   testIntervalId: any;
@@ -88,6 +89,9 @@ export class ModelComponent implements OnInit, OnDestroy {
     }
     if (this.testModelSubscribe) {
       this.testModelSubscribe.unsubscribe();
+    }
+    if (this.downloadModelSubscribe) {
+      this.downloadModelSubscribe.unsubscribe();
     }
     if (this.intervalId)
       clearInterval(this.intervalId);
@@ -236,6 +240,15 @@ export class ModelComponent implements OnInit, OnDestroy {
         }
       })
     }
+  }
+
+  downloadModel() {
+    if (this.downloadModelSubscribe) {
+      this.downloadModelSubscribe.unsubscribe();
+    }
+    this.downloadModelSubscribe = this.databaseService.downloadModel(this.user['email'], encodeURI(<string>this.project.projectName), this.modelName).subscribe((res) => {
+      console.log(res)
+    })
   }
 
   setIntervalProject() {

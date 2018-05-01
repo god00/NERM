@@ -2,8 +2,8 @@ import NERM from '../models/nermUser.model';
 import NERMModel from '../models/nerm.model';
 import { appConfig } from '../app.config';
 
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Response, RequestOptions } from '@angular/http';
+import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Rx';
@@ -146,6 +146,17 @@ export class DatabaseService {
         return res
       }
     })
+  }
+
+  downloadModel(email: string, projectName: string, modelname: string): Observable<Object> {
+    let httpOptions = {
+      params: {
+        email: email,
+        projectName: projectName,
+        modelname: modelname
+      }
+    }
+    return this.http.get(`${nermUrl}/download`, httpOptions);
   }
 
   //Default Error handling method.
