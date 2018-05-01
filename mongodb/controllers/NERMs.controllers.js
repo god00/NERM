@@ -598,7 +598,6 @@ exports.downloadModel = async function (req, res, next) {
   try {
     var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/${modelname}`;
     var fileToSend = fs.readFileSync(pathModel);
-
     return res.status(200).json({ status: 200, file: fileToSend, message: "Success to send file" });
   }
   catch (e) {
