@@ -34,6 +34,8 @@
 
 .download-icon-size{
     font-size: 4vw;
+    display: flex;
+    justify-content: center;
 }
 
 .download-icon{
