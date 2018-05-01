@@ -599,9 +599,11 @@ exports.downloadModel = async function (req, res, next) {
     var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/`;
     res.download(pathModel, async function (err) {
       if (err) {
+        console.log('if')
         // Handle error, but keep in mind the response may be partially-sent
         // so check res.headersSent
       } else {
+        console.log('else')
         // decrement a download credit, etc.
       }
     });
