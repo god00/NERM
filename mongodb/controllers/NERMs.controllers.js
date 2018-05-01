@@ -616,6 +616,7 @@ async function checkDirectory(directory) {
   return new Promise((resolve, reject) => {
     if (!fs.existsSync(directory)) {
       fs.mkdirSync(directory);
+      console.log('mkdir @ : ', directory)
     }
     resolve();
   })
