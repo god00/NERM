@@ -250,7 +250,8 @@ export class ModelComponent implements OnInit, OnDestroy {
     this.downloadModelSubscribe = this.databaseService.downloadModel(this.user['email'], encodeURI(<string>this.project.projectName), this.modelName).subscribe((res) => {
       console.log(res.file)
       var blob = new Blob([res.file.data]);
-      FileSaver.saveAs(blob, this.modelName);
+      console.log(blob)
+      // FileSaver.saveAs(blob, this.modelName);
     })
   }
 
