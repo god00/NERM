@@ -595,6 +595,7 @@ exports.downloadModel = async function (req, res, next) {
   var email = req.body.email;
   var projectName = req.body.projectName;
   var modelname = req.body.modelname;
+  console.log('download')
   try {
     var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/${modelname}`;
     var stat = fs.statSync(pathModel);
