@@ -6,7 +6,7 @@
 
 .training{
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 .flex-row{
@@ -30,4 +30,8 @@
 
 .test-data{
     max-height: 15vw;
+}
+
+.download-icon{
+    font-size: 5vw;
 }
