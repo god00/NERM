@@ -788,7 +788,9 @@ async function runTestDataPython(testData) {
 
   const py = spawn('python', [testScriptPath, pathTestData, pathModel], { detached: true });  // arg[1] : path of extracted.txt , arg[2] : path of model
 
-  py.stdout.pipe(logStream);
+  py.stdout('data', (data) => {
+    data.pipe(logStream)
+  })
 
   py.on('exit', async (code) => {
     console.log(`child process exited with code ${code}`);
