@@ -35,3 +35,8 @@
 .download-icon{
     font-size: 4vw;
 }
+
+.download-icon{
+    display: flex;
+    flex-direction: column;
+}
