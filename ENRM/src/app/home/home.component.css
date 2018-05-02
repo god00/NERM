@@ -1,6 +1,6 @@
 .jumbotron-home {
     width: 85%;
-    margin: auto;
+    margin: auto !important;
     margin-top: 1vw;
     margin-bottom: 1vw;
 }
