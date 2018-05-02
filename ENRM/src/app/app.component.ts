@@ -17,6 +17,7 @@ import NERMModel from './models/nerm.model';
 })
 
 export class AppComponent implements OnInit, OnDestroy {
+  intervalId: any;
   user: Object;
   projectsByUser: NERMModel[] = [];
   getModelSubscribe: any;
@@ -35,13 +36,41 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       })
     }
+    else {
+      this.setIntervalGetUser()
+    }
   }
 
   ngOnInit() {
   }
 
   ngOnDestroy() {
-    this.getModelSubscribe.unsubscribe();
+    if (this.getModelSubscribe) {
+      this.getModelSubscribe.unsubscribe();
+    }
+    if (this.intervalId)
+      clearInterval(this.intervalId);
+  }
+
+  setIntervalGetUser() {
+    if (this.intervalId)
+      clearInterval(this.intervalId);
+    this.intervalId = setInterval(() => {
+      if (this.getModelSubscribe) {
+        this.getModelSubscribe.unsubscribe();
+      }
+      this.user = JSON.parse(localStorage.getItem('currentUser'));
+      if (this.user) {
+        this.getModelSubscribe = this.databaseService.getProjects(this.user['email']).subscribe((projectsByUser) => {
+          if (projectsByUser) {
+            this.projectsByUser = projectsByUser;
+            this.addPathModel(projectsByUser);
+            if (this.intervalId)
+              clearInterval(this.intervalId);
+          }
+        })
+      }
+    }, 3500)
   }
 
   addPathModel(projectsByUser: any) {
