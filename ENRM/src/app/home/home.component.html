@@ -26,24 +26,31 @@
 </head>
 
 <body>
-
-  <div class="d-flex flex-column align-items-center">
+  <div class="jumbotron">
+    <h1 class="display-4">Hello, world!</h1>
+    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <hr class="my-4">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+    </p>
+  </div>
+  <!-- <div class="d-flex flex-column align-items-center">
     <div class="jumbotron d-flex flex-column">
       <h1 class="display-3">Start New Project</h1>
-      
-      <!-- description about new project -->
+
       <p class="lead">
         ซอฟต์แวร์เครื่องมือนี้ จะมีคลังเอกสารดีฟอลต์ และฐานความรู้ทางภาษาเบื้องต้นให้
-      </p>  
-      <!--  -->
+      </p>
+
       <hr class="my-4">
-      <p>อย่างไรก็ดีหากผู้ใช้ต้องการพัฒนาระบบรู้จำ Named Entity ที่สามารถประมวลผลเอกสารในโดเมนเฉพาะเจาะจง 
-        หรือรู้จำประเภทของชื่อเฉพาะที่ต้องการ ผู้ใช้ จะต้องเป็นผู้สร้างฐานความรู้คำศัพท์และคลังเอกสารสำหรับฝึกฝนระบบด้วยตัวเอง</p>
+      <p>อย่างไรก็ดีหากผู้ใช้ต้องการพัฒนาระบบรู้จำ Named Entity ที่สามารถประมวลผลเอกสารในโดเมนเฉพาะเจาะจง หรือรู้จำประเภทของชื่อเฉพาะที่ต้องการ
+        ผู้ใช้ จะต้องเป็นผู้สร้างฐานความรู้คำศัพท์และคลังเอกสารสำหรับฝึกฝนระบบด้วยตัวเอง</p>
       <p class="lead">
         <button class="btn btn-primary btn-lg" (click)="openModal(content)">Get Started</button>
       </p>
     </div>
-  </div>
+  </div> -->
 
   <div class="d-flex flex-column align-items-center" *ngIf="projectsByUser.length != 0">
     <div class="jumbotron special-card d-flex justify-content-around flex-column">
