@@ -5,6 +5,12 @@
     margin-bottom: 1vw;
 }
 
+.jumbotron {
+    width: 85%;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+}
+
 #verticalline {
     border-left: 1px solid gray;
     height: 10vw;
