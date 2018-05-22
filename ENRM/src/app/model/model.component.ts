@@ -273,6 +273,7 @@ export class ModelComponent implements OnInit, OnDestroy {
         clearInterval(this.testIntervalId);
       this.testIntervalId = setInterval(() => {
         this.getTestData().then(() => {
+          console.log(this.testing)
           if (!this.testing) {
             if (this.testIntervalId)
               clearInterval(this.testIntervalId);
