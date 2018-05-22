@@ -177,7 +177,10 @@
                 </div>
               </li>
               <li class="list-group-item training">
-                <button class="btn btn-success btn-lg" [disabled]="project?.testData.length == 0 || testing" (click)="testModel()">Test</button>
+                <button class="btn btn-success btn-lg" *ngIf="!(project?.testData.length == 0 || testing) ;else testingModel" (click)="testModel()">Test</button>
+                <ng-template #testingModel>
+                  <mat-spinner style="display: block"></mat-spinner>
+                </ng-template>
                 <div class="download-icon text-primary">
                   <i class="fa fa-download download-icon-size" aria-hidden="true" (click)="downloadModel()"></i>
                   <u>Download</u>

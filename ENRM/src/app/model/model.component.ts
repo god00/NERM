@@ -200,13 +200,10 @@ export class ModelComponent implements OnInit, OnDestroy {
 
   testModel() {
     this.testing = true;
-    console.log(this.testing)
     this.testModelSubscribe = this.databaseService.testModel(this.user['email'], encodeURI(<string>this.project.projectName), this.modelName).subscribe((res) => {
       if (res) {
-        console.log(this.testing)
         this.setIntervalTestData();
       }
-      console.log(res)
     })
   }
 
@@ -275,9 +272,7 @@ export class ModelComponent implements OnInit, OnDestroy {
       if (this.testIntervalId)
         clearInterval(this.testIntervalId);
       this.testIntervalId = setInterval(() => {
-        console.log('gettestDATA')
         this.getTestData().then(() => {
-          console.log(this.testing)
           if (!this.testing) {
             if (this.testIntervalId)
               clearInterval(this.testIntervalId);
