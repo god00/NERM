@@ -69,15 +69,7 @@ export class DatabaseService {
   }
 
   testModel(email: String, projectName: String, modelname: string): Observable<any> {
-    return this.http.post(`${nermUrl}/testmodel`, { email, projectName, modelname })
-      .map((res) => {
-        console.log(res)
-        if (res != undefined) {
-          return res["data"];
-        } else {
-          return res;
-        }
-      });;
+    return this.http.post(`${nermUrl}/testmodel`, { email, projectName, modelname });
   }
 
   genarateTemplate(id: string): Observable<any> {
