@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit {
           this.duplicateProjectName = false;
           this.modal.close();
           this.router.navigate([`${this.newProjectName}/create/model`]);
-          this.appComponent.setIntervalGetUser();
+          this.appComponent.updateNavBar();
           this.updateNERM.unsubscribe();
         }
         this.clickCreate = !this.clickCreate;

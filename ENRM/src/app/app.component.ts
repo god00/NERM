@@ -73,6 +73,17 @@ export class AppComponent implements OnInit, OnDestroy {
     }, 3500)
   }
 
+  updateNavBar() {
+    this.getModelSubscribe = this.databaseService.getProjects(this.user['email']).subscribe((projectsByUser) => {
+      if (projectsByUser) {
+        this.projectsByUser = projectsByUser;
+        if (this.getModelSubscribe) {
+          this.getModelSubscribe.unsubscribe();
+        }
+      }
+    })
+  }
+
   addPathModel(projectsByUser: any) {
     for (let project of projectsByUser) {
       this.router.config.unshift({ path: `${project.projectName}/create/model`, component: CreateModelComponent })
