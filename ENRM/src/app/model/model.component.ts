@@ -59,7 +59,6 @@ export class ModelComponent implements OnInit, OnDestroy {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.project.projectName = decodeURI(this.router.url.split("/")[1]);
     this.modelName = decodeURI(this.router.url.split("/")[2]);
-    console.log(this.router.url.split("/"))
     this.project.email = this.user['email'];
   }
 
@@ -135,7 +134,6 @@ export class ModelComponent implements OnInit, OnDestroy {
           this.testing = data['testing'];
           if (data['output']) {
             this.output = data['output'].data.split('\n');
-            console.log(this.output, " : output")
             this.output.splice(-1, 1)
             this.insertDataTable();
           }
@@ -220,7 +218,6 @@ export class ModelComponent implements OnInit, OnDestroy {
       else {
         let arrColumn = row.split('\t');
         let dataObject = {};
-        console.log(arrColumn)
         dataObject['class'] = arrColumn[0];
         dataObject['Recall'] = arrColumn[1];
         dataObject['Precision'] = arrColumn[2];
