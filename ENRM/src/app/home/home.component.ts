@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { CreateModelComponent } from '../create-model/create-model.component';
+import { AppComponent } from '../app.component'
 
 import { debounceTime } from 'rxjs/operator/debounceTime';
 import { Subject } from 'rxjs';
@@ -40,7 +40,8 @@ export class HomeComponent implements OnInit {
     private route: ActivatedRoute,
     public authenicationService: AuthenticationService,
     public databaseService: DatabaseService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private appComponent: AppComponent
   ) {
   }
 
@@ -69,6 +70,7 @@ export class HomeComponent implements OnInit {
           this.duplicateProjectName = false;
           this.modal.close();
           this.router.navigate([`${this.newProjectName}/create/model`]);
+          this.appComponent.setIntervalGetUser();
           this.updateNERM.unsubscribe();
         }
         this.clickCreate = !this.clickCreate;
