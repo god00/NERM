@@ -33,7 +33,6 @@ export class AppComponent implements OnInit, OnDestroy {
         if (projectsByUser) {
           this.projectsByUser = projectsByUser;
           this.addPathModel(projectsByUser);
-          console.log(this.projectsByUser)
         }
       })
     }

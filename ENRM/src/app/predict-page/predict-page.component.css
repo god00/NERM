@@ -1,0 +1,45 @@
+.jumbotron {
+    width: 85%;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+}
+
+.training{
+    display: flex;
+    justify-content: space-around;
+}
+
+.flex-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.margin-button{
+    margin-bottom: 2vw;
+}
+
+.tags{
+    overflow-y: auto;
+    max-height: 15vw;
+}
+
+.trash-icon{
+    margin-left: 0.8vw;
+}
+
+.test-data{
+    max-height: 15vw;
+}
+
+.download-icon-size{
+    font-size: 4vw;
+    display: flex;
+    justify-content: center;
+}
+
+.download-icon{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

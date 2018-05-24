@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="th">
+
+<head>
+  <title>Predict</title>
+</head>
+
+<body>
+  <div class="d-flex flex-column align-items-center">
+    <div class="jumbotron special-card d-flex justify-content-around flex-column">
+      <label style="display:block">Select Model:</label>
+      <select class="selectpicker">
+        <optgroup *ngFor="let project of projectsByUser" [label]="project.projectName">
+          <option *ngFor="let model of project.model">{{model}}</option>
+        </optgroup>
+      </select>
+
+    </div>
+  </div>
+</body>
+
+</html>
