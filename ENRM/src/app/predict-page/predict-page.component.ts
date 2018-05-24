@@ -41,6 +41,7 @@ export class PredictPageComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.projectsByUser = this.appComponent.projectsByUser;
     this.getPredictData();
+    console.log(this.predicting)
   }
 
   onSelect() {
@@ -64,7 +65,6 @@ export class PredictPageComponent implements OnInit {
       count = 0;
       this.hasError = item.isError;
       this.getPredictData();
-      console.log(this.predicting)
     };
     this.uploader.onErrorItem = (item: any, response: any, status: any, headers: any) => {
       // console.log("fail:", item, status);
