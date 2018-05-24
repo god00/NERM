@@ -9,7 +9,7 @@
   <div class="d-flex flex-column align-items-center">
     <div class="jumbotron special-card d-flex justify-content-around flex-column">
       <label style="display:block">Select Model:</label>
-      <select (change)="onSelect($event.target)" class="selectpicker">
+      <select #selectModel (change)="onSelect($event.target)" class="selectpicker">
         <optgroup label="Default Model">
           <option (ngModel)="(Default)">(Default)</option>
         </optgroup>
