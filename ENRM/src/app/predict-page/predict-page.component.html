@@ -13,7 +13,7 @@
         <optgroup label="Default Model">
           <option>(Default)</option>
         </optgroup>
-        <optgroup *ngFor="let project of projectsByUser" [label]="project.projectName">
+        <optgroup *ngFor="let project of projectsByUser; let i = index" [label]="project.projectName">
           <option *ngFor="let model of project.model">{{model}}</option>
         </optgroup>
       </select>
