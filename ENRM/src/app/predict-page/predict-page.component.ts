@@ -8,7 +8,7 @@ import { appConfig } from '../app.config';
 import NERMModel from '../models/nerm.model';
 import { DatabaseService } from '../services/database.service';
 
-const nermUrl = `${appConfig.apiUrl}/api/nerms/uploads/predict`;
+const nermUrl = `${appConfig.apiUrl}/api/nerms/uploads`;
 
 @Component({
   selector: 'app-predict-page',
