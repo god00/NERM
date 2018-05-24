@@ -20,7 +20,7 @@ export class PredictPageComponent implements OnInit {
   projectsByUser: NERMModel[] = [];
   projectName: string = "DefaultModel";
   modelName: string = "(Default)";
-  predictData: any;
+  predictData: any = [];
   predictDataId: any;
   predicting: boolean;
   output: any = [];
