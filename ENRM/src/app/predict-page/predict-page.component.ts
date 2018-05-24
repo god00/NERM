@@ -18,8 +18,8 @@ export class PredictPageComponent implements OnInit {
     this.projectsByUser = this.appComponent.projectsByUser;
   }
 
-  onSelect() {
-    console.log("test")
+  onSelect(ev) {
+    console.log(ev)
   }
 
 }
