@@ -57,6 +57,15 @@ exports.createUser = async function (user) {
         dictionary: [],
     })
 
+    var newTestData = new NERMTestData({
+        email: user.email,
+        projectName: "DefaultModel",
+        modelname: "(Default)",
+        testData: [],
+        output: '',
+        testing: false
+    })
+
     // Creating a new Mongoose Object by using the new keyword
 
 
@@ -65,6 +74,7 @@ exports.createUser = async function (user) {
         // Saving the user 
         var savedUser = await newUser.save()
         var savedDict = await newDict.save()
+        var savedDict = await newTestData.save()
         return { savedUser, savedDict };
     } catch (e) {
 

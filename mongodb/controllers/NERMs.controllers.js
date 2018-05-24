@@ -786,7 +786,7 @@ async function crf_learn(project, modelname) {
         project.corpusInfo.push(corpusInfoTmp);
         project.summitPreProcessing = false;
         await checkDirectory(`${path.dirname(process.cwd())}/storage/uploads/${project.email}/${project.projectName}/${modelname}_folder`).then(async () => {
-          await copyDistList(project.email, project.projectName, modelname);
+          await copyDictList(project.email, project.projectName, modelname);
           await NERMService.createModel(project.email, project.projectName, modelname);
           await NERMService.updateNERM(project);
           crf.kill()
@@ -831,7 +831,7 @@ async function runTestDataPython(testData, res) {
 
 }
 
-async function copyDistList(email, projectName, modelname) {
+async function copyDictList(email, projectName, modelname) {
   var pathDictList = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/current_dictlist.txt`;
   var pathTarget = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/${modelname}_folder`
 
@@ -879,7 +879,6 @@ async function getDictByUser(email) {
     })
   })
 }
-
 
 function getFileName(fullpath) {
   let fileName = fullpath.split('/')
