@@ -107,6 +107,14 @@ export class DatabaseService {
       })
   }
 
+  deletePredict(id: string, fileName: string): any {
+    let deleteUrl = `${nermUrl}/predict/`
+    return this.http.delete(deleteUrl, { params: { fileName } })
+      .map(res => {
+        return res;
+      })
+  }
+
   getProject(email: string, projectName: string): Observable<Object> {
     return this.http.get(`${nermUrl}/project`, {
       params: {
