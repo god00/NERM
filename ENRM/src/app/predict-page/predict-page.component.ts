@@ -84,7 +84,6 @@ export class PredictPageComponent implements OnInit {
 
       this.getTestDataSubscribe = this.databaseService.getTestData(this.user['email'], encodeURI(<string>this.projectName), this.modelName).subscribe(async (data) => {
         if (data) {
-          console.log(data)
           this.predictData = data['testData'];
           this.predictDataId = data['id'];
           this.predicting = data['testing'];
