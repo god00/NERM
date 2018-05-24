@@ -126,7 +126,7 @@
             <div class="card-header">Predict File:</div>
             <div class="card-body text-primary tags">
               <p *ngFor="let file of predictData ;let i = index" class="card-text">{{file?.fileName}}
-                <span class="fa fa-trash-o trash-icon" aria-hidden="true" (click)="deletePredictData(file)"></span>
+                <span class="fa fa-trash-o trash-icon" aria-hidden="true" (click)="deletePredictData(file.fileName)"></span>
               </p>
             </div>
           </div>
