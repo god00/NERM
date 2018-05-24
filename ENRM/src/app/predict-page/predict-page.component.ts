@@ -16,7 +16,7 @@ export class PredictPageComponent implements OnInit {
 
   ngOnInit() {
     this.projectsByUser = this.appComponent.projectsByUser;
-
+    document.addEventListener('selectpicker', onchange);
   }
 
   onChange() {
