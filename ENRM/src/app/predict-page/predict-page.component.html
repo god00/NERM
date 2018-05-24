@@ -125,7 +125,7 @@
           <div class="card border-primary mb-3 test-data" *ngIf="predictData && predictData.length != 0">
             <div class="card-header">Predict File:</div>
             <div class="card-body text-primary tags">
-              <p *ngFor="let file of predictData ;let i = index" class="card-text">{{file}}
+              <p *ngFor="let file of predictData ;let i = index" class="card-text">{{file?.fileName}}
                 <span class="fa fa-trash-o trash-icon" aria-hidden="true" (click)="deletePredictData(file)"></span>
               </p>
             </div>
