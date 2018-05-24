@@ -9,12 +9,12 @@
   <div class="d-flex flex-column align-items-center">
     <div class="jumbotron special-card d-flex justify-content-around flex-column">
       <label style="display:block">Select Model:</label>
-      <select (onchange)="onChange()" class="selectpicker">
+      <select class="selectpicker">
         <optgroup label="Default Model">
           <option value="(Default)">(Default)</option>
         </optgroup>
         <optgroup *ngFor="let project of projectsByUser; let i = index" [label]="project.projectName">
-          <option *ngFor="let model of project.model" [value]="model">{{model}}</option>
+          <option *ngFor="let model of project.model; let j = index" (click)="onSelect(i,j)">{{model}}</option>
         </optgroup>
       </select>
 
