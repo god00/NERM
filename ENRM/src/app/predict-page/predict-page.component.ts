@@ -20,7 +20,7 @@ export class PredictPageComponent implements OnInit {
 
   onSelect(ev) {
     let target = document.getElementById('selectModel');
-    let projectName = target['selectedOptions'][0].parentNode;
+    let projectName = target['selectedOptions'][0].parentNode.label;
     let modelName = target['value'];
     console.log(projectName, "  :  ", modelName)
   }
