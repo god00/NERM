@@ -22,6 +22,7 @@ import { DatabaseService } from './services/database.service';
 import { AuthenticationService } from './services/authentication.service';
 
 import { AuthGuard } from './guard/auth.guard';
+import { PredictPageComponent } from './predict-page/predict-page.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -39,6 +40,7 @@ const routes: Routes = [
     CreateModelComponent,
     ModelComponent,
     ModelListComponent,
+    PredictPageComponent,
   ],
   imports: [
     BrowserModule,
