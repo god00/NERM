@@ -11,10 +11,10 @@
       <label style="display:block">Select Model:</label>
       <select (onchange)="onSelect()" class="selectpicker">
         <optgroup label="Default Model">
-          <option value="(Default)">(Default)</option>
+          <option [(ngModel)]="(Default)">(Default)</option>
         </optgroup>
         <optgroup *ngFor="let project of projectsByUser; let i = index" [label]="project.projectName">
-          <option *ngFor="let model of project.model; let j = index" [value]="model" ngModel>{{model}}</option>
+          <option *ngFor="let model of project.model; let j = index" [(ngModel)]="model">{{model}}</option>
         </optgroup>
       </select>
 
