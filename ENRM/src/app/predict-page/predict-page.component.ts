@@ -22,7 +22,7 @@ export class PredictPageComponent implements OnInit {
   modelName: string = "(Default)";
   predictData = [];
   predictDataId: any;
-  predicting: boolean;
+  predicting: boolean = false;
   output: any = [];
 
   getTestDataSubscribe: any;
