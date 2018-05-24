@@ -132,7 +132,7 @@
           </div>
         </li>
         <li class="list-group-item training">
-          <button class="btn btn-success btn-lg" *ngIf="!predicting ;else predicting" (click)="predictingModel()">Predict</button>
+          <button class="btn btn-success btn-lg" *ngIf="predicting ;else predicting" (click)="predictingModel()">Predict</button>
           <ng-template #predicting>
             <mat-spinner style="display: block"></mat-spinner>
           </ng-template>

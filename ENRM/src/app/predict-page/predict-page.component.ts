@@ -40,12 +40,14 @@ export class PredictPageComponent implements OnInit {
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.projectsByUser = this.appComponent.projectsByUser;
+    this.getPredictData();
   }
 
   onSelect() {
     let target = document.getElementById('selectModel');
     this.projectName = target['selectedOptions'][0].parentNode.label;
     this.modelName = target['value'];
+    this.getPredictData();
   }
 
   uploadModal(content, mode) {
