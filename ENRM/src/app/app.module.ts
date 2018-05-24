@@ -17,17 +17,18 @@ import { HomeComponent } from './home/home.component';
 import { CreateModelComponent } from './create-model/create-model.component';
 import { ModelListComponent } from './model-list/model-list.component';
 import { ModelComponent } from './model/model.component';
+import { PredictPageComponent } from './predict-page/predict-page.component';
 
 import { DatabaseService } from './services/database.service';
 import { AuthenticationService } from './services/authentication.service';
 
 import { AuthGuard } from './guard/auth.guard';
-import { PredictPageComponent } from './predict-page/predict-page.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginPageComponent },
   { path: ':name/create/model', component: CreateModelComponent },
+  { path: 'predict', component: PredictPageComponent },
   { path: ':name', component: ModelListComponent },
   { path: ':name/:name', component: ModelComponent },
 ];
