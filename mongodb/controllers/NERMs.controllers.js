@@ -916,7 +916,7 @@ async function runPredictData(testData) {
 
   crf.on('exit', async (code) => {
     console.log(`child process exited with code ${code}`, " : runPredictData");
-    testData['predict'] = `${pathModel}_folder/predict.txt`;
+    testData['predict'] = pathPredict;
     testData['testing'] = false;
     await NERMService.updateNERM(testData)
     crf.kill()
