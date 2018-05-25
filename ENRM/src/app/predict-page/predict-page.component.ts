@@ -153,7 +153,7 @@ export class PredictPageComponent implements OnInit, OnDestroy {
       let arrColumn = row.split('\t');
       let dataObject = {};
       dataObject['Word'] = arrColumn[0];
-      dataObject['Prediction'] = arrColumn[-1];
+      dataObject['Prediction'] = arrColumn[arrColumn.length - 1];
       this.predictTable.push(dataObject);
     });
     this.dataSourcePredict = new MatTableDataSource(this.predictTable);
