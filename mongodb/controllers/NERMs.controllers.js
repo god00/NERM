@@ -344,7 +344,7 @@ exports.getTestData = async function (req, res, next) {
       else if (modelTestData) {
         let files = []
         await beforeSendToFrontTestData(modelTestData);
-        if (modelTestData.output != "") {
+        if (modelTestData.output != "" || modelTestData.predict != "") {
           readFile(modelTestData.output, files).then(async () => {
             if (modelTestData.predict && modelTestData.predict != "") {
               let predictFiles = [];
