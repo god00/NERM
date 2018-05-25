@@ -43,3 +43,8 @@
     flex-direction: column;
     justify-content: center;
 }
+
+.predict-table{
+    max-height: 20vw;
+    overflow-y: auto;
+}
