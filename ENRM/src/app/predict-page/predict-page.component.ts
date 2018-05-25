@@ -52,6 +52,8 @@ export class PredictPageComponent implements OnInit, OnDestroy {
     if (this.predictModelSubscribe) {
       this.predictModelSubscribe.unsubscribe();
     }
+    if (this.predictDataId)
+      clearInterval(this.predictDataId);
   }
 
   onSelect() {
