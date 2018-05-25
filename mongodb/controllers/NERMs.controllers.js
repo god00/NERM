@@ -817,13 +817,8 @@ async function runExtractFeaturePython_Predict(predictData) {
   // });
 
   py.on('exit', async (code) => {
-    console.log(`child process exited with code ${code}`, " : extractPython_Predict");
-    await moveFeature(predictData.email, predictData.projectName, predictData.modelname);
-    console.log('after move')
-    console.log(fs.existsSync(`${path.dirname(process.cwd())}/storage/uploads/${predictData.email}/${predictData.projectName}/${predictData.modelname}_folder`))
     await checkDirectory(`${path.dirname(process.cwd())}/storage/uploads/${predictData.email}/${predictData.projectName}/${predictData.modelname}_folder`).then(async () => {
-      console.log('after check')
-      
+      await moveFeature(predictData.email, predictData.projectName, predictData.modelname);
       runPredictData(predictData);
       py.kill();
     });
