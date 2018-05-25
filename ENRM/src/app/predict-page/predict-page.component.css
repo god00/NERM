@@ -48,3 +48,8 @@
     max-height: 20vw;
     overflow-y: auto;
 }
+
+.select-model{
+    font-size: 1.5vw;
+    margin-bottom: 1.5vw;
+}
