@@ -803,7 +803,7 @@ async function runExtractFeaturePython_Test(testData) {
 async function runExtractFeaturePython_Predict(predictData) {
   var extractScriptPath = config.extractScriptPath;
   var pathPredictData = `${path.dirname(process.cwd())}/storage/uploads/${predictData.email}/${predictData.projectName}/testdata/${predictData.modelname}/`;
-  if (predictData.projectName == 'DefaultModel' && predictData.modelname == '(Default)') {
+  if (predictData.projectName == 'DefaultModel' && predictData.modelname == 'Default') {
     var pathDictList = `${config.defaultModelPath}/current_dictlist.txt`
   }
   else {
@@ -894,7 +894,7 @@ async function runTestDataPython(testData) {
 }
 
 async function runPredictData(testData) {
-  if (testData.projectName == 'DefaultModel' && testData.modelname == '(Default)') {
+  if (testData.projectName == 'DefaultModel' && testData.modelname == 'Default') {
     var pathModel = `${config.defaultModelPath}/model`;
   }
   else {

@@ -19,7 +19,7 @@ export class PredictPageComponent implements OnInit, OnDestroy {
   user: any;
   projectsByUser: NERMModel[] = [];
   projectName: string = "DefaultModel";
-  modelName: string = "(Default)";
+  modelName: string = "Default";
   predictData = [];
   predictDataId: any;
   predicting: boolean;
