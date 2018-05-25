@@ -112,7 +112,7 @@
     <div class="jumbotron special-card d-flex justify-content-around flex-column">
       <label style="display:block">Select Model:</label>
       <select id="selectModel" (change)="onSelect()" class="selectpicker">
-        <optgroup label="Default Model">
+        <optgroup label="DefaultModel">
           <option (ngModel)="Default">(Default)</option>
         </optgroup>
         <optgroup *ngFor="let project of projectsByUser" [label]="project.projectName">
