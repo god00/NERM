@@ -905,8 +905,9 @@ async function runPredictData(testData) {
     var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}`;
   }
   var pathFeature = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}_folder/feature.txt`;
+  var pathPredict = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}_folder/predict.txt`;
 
-  var logStream = fs.createWriteStream(`${pathModel}_folder/predict.txt`);
+  var logStream = fs.createWriteStream(pathPredict);
 
   const crf = spawn('crf_test', ["-m", pathModel, pathFeature], { detached: true });  // arg[1] : path of extracted.txt , arg[2] : path of model
 
