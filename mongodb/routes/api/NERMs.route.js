@@ -25,6 +25,8 @@ router.post('/templates', NERMController.genarateTemplate)
 
 router.post('/testmodel', NERMController.testModel)
 
+router.post('/predict', NERMController.predictModel)
+
 router.post('/model', NERMController.createModel)
 
 router.post('/dictionary', NERMController.genarateDictList)

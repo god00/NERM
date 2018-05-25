@@ -3,6 +3,7 @@
     "secret": "THIS IS SECRET",
     "DIR": "../storage/uploads/",
     "extractScriptPath": "/home/tin/scripts/extract_feature/NER/extract_features.py",
+    "defaultModelPath": "/home/tin/scripts/extract_feature/NER/model_and_result/all_feature",
     "testScriptPath": "/home/tin/scripts/extract_feature/NER/test.py",
     "templatePath": "/home/tin/templates/"
 }

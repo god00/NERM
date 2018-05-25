@@ -346,7 +346,14 @@ exports.getTestData = async function (req, res, next) {
         await beforeSendToFrontTestData(modelTestData);
         if (modelTestData.output != "") {
           readFile(modelTestData.output, files).then(() => {
-            return res.status(200).json({ status: 200, data: { testData: modelTestData.testData, output: files[0], id: modelTestData._id, testing: modelTestData.testing }, message: "Succesfully nermsdb Recieved" });
+            if (modelTestData.predict != "") {
+              let predictFiles = [];
+              readFile(modelTestData.predict, predictFiles).then(() => {
+                return res.status(200).json({ status: 200, data: { testData: modelTestData.testData, predict: predictFiles[0], id: modelTestData._id, testing: modelTestData.testing }, message: "Succesfully nermsdb Recieved" });
+              });
+            }
+            else
+              return res.status(200).json({ status: 200, data: { testData: modelTestData.testData, output: files[0], id: modelTestData._id, testing: modelTestData.testing }, message: "Succesfully nermsdb Recieved" });
           })
         }
         else {
@@ -576,9 +583,30 @@ exports.testModel = async function (req, res, next) {
       else if (modelTestData) {
         modelTestData.testing = true;
         await NERMService.updateNERM(modelTestData);
-        files = [];
-        var pathOutput = `${path.dirname(process.cwd())}/storage/uploads/${modelTestData.email}/${modelTestData.projectName}/${modelTestData.modelname}_folder/output.txt`;
         runExtractFeaturePython_Test(modelTestData)
+        return res.status(200).json({ status: 200, message: `${req.body.modelname} is testing` });
+      }
+      else {
+        return res.status(204).json({ status: 204, message: "Please upload test data first" });
+      }
+    })
+  }
+  catch (e) {
+    return res.status(400).json({ status: 400, message: e.message })
+  }
+}
+
+exports.predictModel = async function (req, res, next) {
+  try {
+    var query = NERMTestData.findOne({ email: req.body.email, projectName: req.body.projectName, modelname: req.body.modelname });
+    query.exec(async function (err, modelTestData) {
+      if (err) {
+        return res.status(400).json({ status: 400, message: err });
+      }
+      else if (modelTestData) {
+        modelTestData.testing = true;
+        await NERMService.updateNERM(modelTestData);
+        runExtractFeaturePython_Predict(modelTestData)
         return res.status(200).json({ status: 200, message: `${req.body.modelname} is testing` });
       }
       else {
@@ -635,6 +663,15 @@ async function checkDirectory(directory) {
   return new Promise((resolve, reject) => {
     if (!fs.existsSync(directory)) {
       fs.mkdirSync(directory);
+    }
+    resolve();
+  })
+}
+
+async function checkFileTxt(directory) {
+  return new Promise((resolve, reject) => {
+    if (!fs.existsSync(directory)) {
+
     }
     resolve();
   })
@@ -741,7 +778,7 @@ async function runExtractFeaturePython(project, modelname) {
   py.unref();
 }
 
-async function runExtractFeaturePython_Test(testData, res) {
+async function runExtractFeaturePython_Test(testData) {
   var extractScriptPath = config.extractScriptPath;
   var pathTestData = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/testdata/${testData.modelname}/`;
   var pathDictList = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}_folder/current_dictlist.txt`;
@@ -755,7 +792,34 @@ async function runExtractFeaturePython_Test(testData, res) {
   py.on('exit', async (code) => {
     console.log(`child process exited with code ${code}`, " : extractPython_Test");
     await moveFeature(testData.email, testData.projectName, testData.modelname);
-    runTestDataPython(testData, res);
+    runTestDataPython(testData);
+    py.kill();
+  });
+
+  py.unref();
+
+}
+
+async function runExtractFeaturePython_Predict(predictData) {
+  var extractScriptPath = config.extractScriptPath;
+  var pathPredictData = `${path.dirname(process.cwd())}/storage/uploads/${predictData.email}/${predictData.projectName}/testdata/${predictData.modelname}/`;
+  if (predictData.projectName == 'DefaultModel' && predictData.modelname == '(Default)') {
+    var pathDictList = `${config.defaultModelPath}/current_dictlist.txt`
+  }
+  else {
+    var pathDictList = `${path.dirname(process.cwd())}/storage/uploads/${predictData.email}/${predictData.projectName}/${predictData.modelname}_folder/current_dictlist.txt`;
+  }
+
+  const py = spawn('python', [extractScriptPath, pathPredictData, pathDictList], { detached: true, stdio: 'ignore' });  // arg[1] : path of testdata folder , arg[2] : path of file dictionary
+
+  // py.stderr.on('data', (data) => {
+  //   console.log(`stderr: ${data}`, " : extract_test");
+  // });
+
+  py.on('exit', async (code) => {
+    console.log(`child process exited with code ${code}`, " : extractPython_Test");
+    await moveFeature(predictData.email, predictData.projectName, predictData.modelname);
+    runPredictData(predictData);
     py.kill();
   });
 
@@ -802,16 +866,14 @@ async function crf_learn(project, modelname) {
   crf.unref();
 }
 
-async function runTestDataPython(testData, res) {
+async function runTestDataPython(testData) {
   var testScriptPath = config.testScriptPath;
   var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}`;
-  var pathTestData = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}_folder/feature.txt`;
+  var pathFeature = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}_folder/feature.txt`;
 
-  console.log(pathModel, " : pathModel")
-  console.log(pathTestData, " : feature")
   var logStream = fs.createWriteStream(`${pathModel}_folder/output.txt`);
 
-  const py = spawn('python', [testScriptPath, pathModel, pathTestData], { detached: true });  // arg[1] : path of extracted.txt , arg[2] : path of model
+  const py = spawn('python', [testScriptPath, pathModel, pathFeature], { detached: true });  // arg[1] : path of extracted.txt , arg[2] : path of model
 
   py.stderr.on('data', (data) => {
     console.log(`stderr: ${data}`, " : test.py");
@@ -828,6 +890,37 @@ async function runTestDataPython(testData, res) {
   });
 
   py.unref();
+
+}
+
+async function runPredictData(testData) {
+  if (testData.projectName == 'DefaultModel' && testData.modelname == '(Default)') {
+    var pathModel = `${config.defaultModelPath}/model`;
+  }
+  else {
+    var pathModel = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}`;
+  }
+  var pathFeature = `${path.dirname(process.cwd())}/storage/uploads/${testData.email}/${testData.projectName}/${testData.modelname}_folder/feature.txt`;
+
+  var logStream = fs.createWriteStream(`${pathModel}_folder/predict.txt`);
+
+  const crf = spawn('crf_test', ["-m", pathModel, pathFeature], { detached: true });  // arg[1] : path of extracted.txt , arg[2] : path of model
+
+  crf.stderr.on('data', (data) => {
+    console.log(`stderr: ${data}`, " : crf_test");
+  });
+
+  crf.stdout.pipe(logStream);
+
+  crf.on('exit', async (code) => {
+    console.log(`child process exited with code ${code}`, " : runPredictData");
+    testData['predict'] = `${pathModel}_folder/predict.txt`;
+    testData['testing'] = false;
+    await NERMService.updateNERM(testData)
+    crf.kill()
+  });
+
+  crf.unref();
 
 }
 
@@ -852,6 +945,21 @@ async function moveFeature(email, projectName, modelname) {
   var pathTarget = `${path.dirname(process.cwd())}/storage/uploads/${email}/${projectName}/${modelname}_folder`
 
   const terminal = spawn('mv', [pathFeature, pathTarget], { detached: true });
+  terminal.stderr.on('data', (data) => {
+    console.log(`stderr: ${data}`);
+    return data;
+  });
+  terminal.on('exit', async (code) => {
+    console.log(`child process exited with code ${code}`);
+    terminal.kill();
+  });
+  terminal.unref();
+}
+
+async function createEmptyTextFile() {
+  var pathDictList = `${config.testScriptPath}/current_dictlist.txt`;
+
+  const terminal = spawn('touch', [pathDictList], { detached: true });
   terminal.stderr.on('data', (data) => {
     console.log(`stderr: ${data}`);
     return data;

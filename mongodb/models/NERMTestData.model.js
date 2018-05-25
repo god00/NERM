@@ -8,6 +8,7 @@ var NERMSchema = new mongoose.Schema({
     modelname: String,
     testData: Array,
     output: String,
+    predict: String,
     testing: Boolean
 }, { collection: 'testdata' })
 

@@ -63,6 +63,7 @@ exports.createUser = async function (user) {
         modelname: "(Default)",
         testData: [],
         output: '',
+        predict: '',
         testing: false
     })
 
@@ -140,6 +141,7 @@ exports.createModel = async function (email, projectName, modelname) {
         modelname: modelname,
         testData: [],
         output: '',
+        predict: '',
         testing: false
     })
     try {

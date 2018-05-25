@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FileUploader, FileItem } from 'ng2-file-upload';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -15,7 +15,7 @@ const nermUrl = `${appConfig.apiUrl}/api/nerms/uploads`;
   templateUrl: './predict-page.component.html',
   styleUrls: ['./predict-page.component.css']
 })
-export class PredictPageComponent implements OnInit {
+export class PredictPageComponent implements OnInit, OnDestroy {
   user: any;
   projectsByUser: NERMModel[] = [];
   projectName: string = "DefaultModel";
@@ -26,6 +26,7 @@ export class PredictPageComponent implements OnInit {
   output: any = [];
 
   getTestDataSubscribe: any;
+  predictModelSubscribe: any;
 
   // upload parameter
   public uploader: FileUploader = new FileUploader({ url: nermUrl });
@@ -44,11 +45,44 @@ export class PredictPageComponent implements OnInit {
     console.log(this.predicting)
   }
 
+  ngOnDestroy() {
+    if (this.getTestDataSubscribe) {
+      this.getTestDataSubscribe.unsubscribe();
+    }
+    if (this.predictModelSubscribe) {
+      this.predictModelSubscribe.unsubscribe();
+    }
+  }
+
   onSelect() {
     let target = document.getElementById('selectModel');
     this.projectName = target['selectedOptions'][0].parentNode.label;
     this.modelName = target['value'];
     this.getPredictData();
+  }
+
+  predictModel() {
+    this.predicting = true;
+    this.predictModelSubscribe = this.databaseService.predictModel(this.user['email'], encodeURI(<string>this.projectName), this.modelName).subscribe((res) => {
+      if (res) {
+        this.setIntervalPredictData();
+      }
+    })
+  }
+
+  setIntervalPredictData() {
+    if (this.predicting) {
+      if (this.predictDataId)
+        clearInterval(this.predictDataId);
+      this.predictDataId = setInterval(() => {
+        this.getPredictData().then(() => {
+          if (!this.predicting) {
+            if (this.predictDataId)
+              clearInterval(this.predictDataId);
+          }
+        });
+      }, 3500)
+    }
   }
 
   uploadModal(content, mode) {
@@ -88,8 +122,9 @@ export class PredictPageComponent implements OnInit {
           this.predictData = data['testData'];
           this.predictDataId = data['id'];
           this.predicting = data['testing'];
-          if (data['output']) {
-            this.output = data['output'].data.split('\n');
+          if (data['predict']) {
+            this.output = data['predict'].data.split('\n');
+            console.log(this.output)
             // this.output.splice(-1, 1)
             // this.insertDataTable();
           }

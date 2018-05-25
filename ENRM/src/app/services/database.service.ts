@@ -72,6 +72,10 @@ export class DatabaseService {
     return this.http.post(`${nermUrl}/testmodel`, { email, projectName, modelname });
   }
 
+  predictModel(email: String, projectName: String, modelname: string): Observable<any> {
+    return this.http.post(`${nermUrl}/predict`, { email, projectName, modelname });
+  }
+
   genarateTemplate(id: string): Observable<any> {
     return this.http.post(`${nermUrl}/templates`, { id });
   }
