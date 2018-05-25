@@ -110,8 +110,9 @@
 <body>
   <div class="d-flex flex-column align-items-center">
     <div class="jumbotron special-card d-flex justify-content-around flex-column">
+
       <label style="display:block">Select Model:</label>
-      <select id="selectModel" (change)="onSelect()" class="selectpicker">
+      <select id="selectModel" (change)="onSelect()" class="selectpicker form-control">
         <optgroup label="DefaultModel">
           <option (ngModel)="Default">Default</option>
         </optgroup>
@@ -119,6 +120,7 @@
           <option *ngFor="let model of project.model" (ngModel)="model">{{model}}</option>
         </optgroup>
       </select>
+
       <ul class="list-group list-group-flush">
         <li class="list-group-item">
           <button class="btn btn-primary" (click)="uploadModal(uploadPredictData,'testdata')" style="margin-bottom: 1vw;">Upload Predict Data...</button>
