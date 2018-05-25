@@ -63,7 +63,7 @@ export class PredictPageComponent implements OnInit, OnDestroy {
 
   predictModel() {
     this.predicting = true;
-    this.predictModelSubscribe = this.databaseService.predictModel(this.user['email'], encodeURI(<string>this.projectName), encodeURI(this.modelName)).subscribe((res) => {
+    this.predictModelSubscribe = this.databaseService.predictModel(this.user['email'], encodeURI(<string>this.projectName), encodeURI(<string>this.modelName)).subscribe((res) => {
       if (res) {
         this.setIntervalPredictData();
       }
