@@ -27,7 +27,7 @@ export class PredictPageComponent implements OnInit, OnDestroy {
 
   getTestDataSubscribe: any;
   predictModelSubscribe: any;
-
+  predictDataIntervalId: any;
   // upload parameter
   public uploader: FileUploader = new FileUploader({ url: nermUrl });
   hasError: boolean = false;
@@ -52,8 +52,8 @@ export class PredictPageComponent implements OnInit, OnDestroy {
     if (this.predictModelSubscribe) {
       this.predictModelSubscribe.unsubscribe();
     }
-    if (this.predictDataId)
-      clearInterval(this.predictDataId);
+    if (this.predictDataIntervalId)
+      clearInterval(this.predictDataIntervalId);
   }
 
   onSelect() {
@@ -74,13 +74,13 @@ export class PredictPageComponent implements OnInit, OnDestroy {
 
   setIntervalPredictData() {
     if (this.predicting) {
-      if (this.predictDataId)
-        clearInterval(this.predictDataId);
-      this.predictDataId = setInterval(() => {
+      if (this.predictDataIntervalId)
+        clearInterval(this.predictDataIntervalId);
+      this.predictDataIntervalId = setInterval(() => {
         this.getPredictData().then(() => {
           if (!this.predicting) {
-            if (this.predictDataId)
-              clearInterval(this.predictDataId);
+            if (this.predictDataIntervalId)
+              clearInterval(this.predictDataIntervalId);
           }
         });
       }, 3500)
