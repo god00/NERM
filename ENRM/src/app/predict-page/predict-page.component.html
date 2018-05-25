@@ -113,7 +113,7 @@
       <label style="display:block">Select Model:</label>
       <select id="selectModel" (change)="onSelect()" class="selectpicker">
         <optgroup label="DefaultModel">
-          <option (ngModel)="Default">(Default)</option>
+          <option (ngModel)="Default">Default</option>
         </optgroup>
         <optgroup *ngFor="let project of projectsByUser" [label]="project.projectName">
           <option *ngFor="let model of project.model" (ngModel)="model">{{model}}</option>
