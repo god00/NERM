@@ -823,7 +823,7 @@ async function runExtractFeaturePython_Predict(predictData) {
     console.log('after move')
     await checkDirectory(`${path.dirname(process.cwd())}/storage/uploads/${predictData.email}/${predictData.projectName}/${predictData.modelname}_folder`).then(async () => {
       console.log('after check')
-      runPredictData(predictData);
+      // runPredictData(predictData);
       py.kill();
     });
   });
