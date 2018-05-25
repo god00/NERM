@@ -60,7 +60,7 @@ exports.createUser = async function (user) {
     var newTestData = new NERMTestData({
         email: user.email,
         projectName: "DefaultModel",
-        modelname: "(Default)",
+        modelname: "Default",
         testData: [],
         output: '',
         predict: '',
