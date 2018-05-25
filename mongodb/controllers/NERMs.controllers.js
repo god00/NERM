@@ -346,7 +346,7 @@ exports.getTestData = async function (req, res, next) {
         await beforeSendToFrontTestData(modelTestData);
         if (modelTestData.output != "") {
           readFile(modelTestData.output, files).then(() => {
-            if (modelTestData.predict != "") {
+            if (modelTestData.predict && modelTestData.predict != "") {
               let predictFiles = [];
               readFile(modelTestData.predict, predictFiles).then(() => {
                 return res.status(200).json({ status: 200, data: { testData: modelTestData.testData, predict: predictFiles[0], id: modelTestData._id, testing: modelTestData.testing }, message: "Succesfully nermsdb Recieved" });
@@ -606,6 +606,7 @@ exports.predictModel = async function (req, res, next) {
       else if (modelTestData) {
         modelTestData.testing = true;
         await NERMService.updateNERM(modelTestData);
+        console.log('predict')
         runExtractFeaturePython_Predict(modelTestData)
         return res.status(200).json({ status: 200, message: `${req.body.modelname} is testing` });
       }
