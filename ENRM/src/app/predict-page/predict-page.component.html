@@ -120,7 +120,7 @@
           <option *ngFor="let model of project.model" (ngModel)="model">{{model}}</option>
         </optgroup>
       </select>
-      <div class="card">
+      <div class="card" style="margin-bottom: 1.5vw;">
         <ul class="list-group list-group-flush card-body">
           <li class="list-group-item">
             <button class="btn btn-primary" (click)="uploadModal(uploadPredictData,'testdata')" style="margin-bottom: 1vw;">Upload Predict Data...</button>
@@ -134,7 +134,7 @@
             </div>
           </li>
           <li class="list-group-item training">
-            <button class="btn btn-success btn-lg" *ngIf="!predicting ;else predictingModel" (click)="predictModel()">Predict</button>
+            <button class="btn btn-success btn-lg" [disabled]="predictData.length == 0 || predicting" *ngIf="!predicting ;else predictingModel" (click)="predictModel()">Predict</button>
             <ng-template #predictingModel>
               <mat-spinner style="display: block"></mat-spinner>
             </ng-template>
