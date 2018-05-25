@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FileUploader, FileItem } from 'ng2-file-upload';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MatTableDataSource } from '@angular/material';
 
 import { AppComponent } from '../app.component';
 import { appConfig } from '../app.config';
@@ -28,7 +29,13 @@ export class PredictPageComponent implements OnInit, OnDestroy {
   getTestDataSubscribe: any;
   predictModelSubscribe: any;
   predictDataIntervalId: any;
-  // upload parameter
+
+  //Predict table
+  displayedColumnsPredict = ["Word", "Prediction"];
+  predictTable: any = [];
+  dataSourcePredict: any;
+
+  // Upload parameter
   public uploader: FileUploader = new FileUploader({ url: nermUrl });
   hasError: boolean = false;
 
@@ -126,7 +133,7 @@ export class PredictPageComponent implements OnInit, OnDestroy {
           this.predicting = data['testing'];
           if (data['predict']) {
             this.output = data['predict'].data.split('\n');
-            console.log(this.output)
+            this.insertDataTable()
             // this.output.splice(-1, 1)
             // this.insertDataTable();
           }
@@ -137,6 +144,19 @@ export class PredictPageComponent implements OnInit, OnDestroy {
         resolve();
       })
     })
+  }
+
+  insertDataTable() {
+    if (this.predictTable.length != 0)
+      this.predictTable = []
+    this.output.forEach((row) => {
+      let arrColumn = row.split('\t');
+      let dataObject = {};
+      dataObject['Word'] = arrColumn[0];
+      dataObject['Prediction'] = arrColumn[-1];
+      this.predictTable.push(dataObject);
+    });
+    this.dataSourcePredict = new MatTableDataSource(this.predictTable);
   }
 
   deletePredictData(fileName: string) {
