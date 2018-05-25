@@ -345,10 +345,10 @@ exports.getTestData = async function (req, res, next) {
         let files = []
         await beforeSendToFrontTestData(modelTestData);
         if (modelTestData.output != "") {
-          readFile(modelTestData.output, files).then(() => {
+          readFile(modelTestData.output, files).then(async () => {
             if (modelTestData.predict && modelTestData.predict != "") {
               let predictFiles = [];
-              readFile(modelTestData.predict, predictFiles).then(() => {
+              await readFile(modelTestData.predict, predictFiles).then(() => {
                 return res.status(200).json({ status: 200, data: { testData: modelTestData.testData, predict: predictFiles[0], id: modelTestData._id, testing: modelTestData.testing }, message: "Succesfully nermsdb Recieved" });
               });
             }
