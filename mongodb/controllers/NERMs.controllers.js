@@ -536,7 +536,6 @@ exports.createModel = async function (req, res, next) {
         project.isTraining = true;
         NERMService.updateNERM(project);
 
-        // run extract (then crf_learn) here
         runExtractFeaturePython(project, modelname);
 
         return res.status(200).json({ status: 200, message: `${modelname} is training` });
@@ -821,9 +820,9 @@ async function runExtractFeaturePython_Predict(predictData) {
     console.log(`child process exited with code ${code}`, " : extractPython_Predict");
     await moveFeature(predictData.email, predictData.projectName, predictData.modelname);
     console.log('after move')
-    await checkDirectory(`${path.dirname(process.cwd())}/storage/uploads/${predictData.email}/${predictData.projectName}/${predictData.modelname}_folder/`).then(async () => {
+    await checkDirectory(`${path.dirname(process.cwd())}/storage/uploads/${predictData.email}/${predictData.projectName}/${predictData.modelname}_folder`).then(async () => {
       console.log('after check')
-      // runPredictData(predictData);
+      runPredictData(predictData);
       py.kill();
     });
   });
