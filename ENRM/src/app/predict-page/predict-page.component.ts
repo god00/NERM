@@ -75,6 +75,7 @@ export class PredictPageComponent implements OnInit, OnDestroy {
     let target = document.getElementById('selectModel');
     this.projectName = target['selectedOptions'][0].parentNode.label;
     this.modelName = target['value'];
+    this.output = [];
     this.getPredictData();
   }
 

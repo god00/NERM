@@ -603,7 +603,6 @@ exports.predictModel = async function (req, res, next) {
       else if (modelTestData) {
         modelTestData.testing = true;
         await NERMService.updateNERM(modelTestData);
-        console.log('predict')
         runExtractFeaturePython_Predict(modelTestData)
         return res.status(200).json({ status: 200, message: `${req.body.modelname} is testing` });
       }
