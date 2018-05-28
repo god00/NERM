@@ -95,7 +95,6 @@ export class PredictPageComponent implements OnInit, OnDestroy {
         clearInterval(this.predictDataIntervalId);
       this.predictDataIntervalId = setInterval(() => {
         this.getPredictData().then(() => {
-          console.log(!this.predicting)
           if (!this.predicting) {
             if (this.predictDataIntervalId)
               clearInterval(this.predictDataIntervalId);
@@ -140,12 +139,8 @@ export class PredictPageComponent implements OnInit, OnDestroy {
         if (data) {
           this.predictData = data['testData'];
           this.predictDataId = data['id'];
-          if (data['testing'])
+          if (data['testing'] != undefined)
             this.predicting = data['testing'];
-
-          console.log(data['testing'], " : testing")
-          console.log(this.predictData.length == 0 || this.predicting, " : disabled")
-          console.log(!this.predicting, " : ngIf")
           if (data['predict']) {
             this.output = data['predict'].data.split('\n');
             this.insertDataTable()
