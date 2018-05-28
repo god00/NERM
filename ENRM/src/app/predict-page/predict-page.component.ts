@@ -3,7 +3,6 @@ import { FileUploader, FileItem } from 'ng2-file-upload';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MatTableDataSource } from '@angular/material';
 
-import { AppComponent } from '../app.component';
 import { appConfig } from '../app.config';
 
 import NERMModel from '../models/nerm.model';
@@ -29,6 +28,7 @@ export class PredictPageComponent implements OnInit, OnDestroy {
   getTestDataSubscribe: any;
   predictModelSubscribe: any;
   predictDataIntervalId: any;
+  getModelSubscribe: any;
 
   //Predict table
   displayedColumnsPredict = ["Word", "Prediction"];
@@ -40,15 +40,20 @@ export class PredictPageComponent implements OnInit, OnDestroy {
   hasError: boolean = false;
 
   constructor(
-    private appComponent: AppComponent,
     private modalService: NgbModal,
     public databaseService: DatabaseService,
   ) { }
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-    this.appComponent.updateNavBar();
-    this.projectsByUser = this.appComponent.projectsByUser;
+    this.getModelSubscribe = this.databaseService.getProjects(this.user['email']).subscribe((projectsByUser) => {
+      if (projectsByUser) {
+        this.projectsByUser = projectsByUser;
+        if (this.getModelSubscribe) {
+          this.getModelSubscribe.unsubscribe();
+        }
+      }
+    })
     this.getPredictData();
   }
 
@@ -58,6 +63,9 @@ export class PredictPageComponent implements OnInit, OnDestroy {
     }
     if (this.predictModelSubscribe) {
       this.predictModelSubscribe.unsubscribe();
+    }
+    if (this.getModelSubscribe) {
+      this.getModelSubscribe.unsubscribe();
     }
     if (this.predictDataIntervalId)
       clearInterval(this.predictDataIntervalId);
@@ -125,7 +133,7 @@ export class PredictPageComponent implements OnInit, OnDestroy {
       if (this.getTestDataSubscribe)
         this.getTestDataSubscribe.unsubscribe();
 
-      this.getTestDataSubscribe = this.databaseService.getTestData(this.user['email'], encodeURI(<string>this.projectName), this.modelName , 'predict').subscribe(async (data) => {
+      this.getTestDataSubscribe = this.databaseService.getTestData(this.user['email'], encodeURI(<string>this.projectName), this.modelName, 'predict').subscribe(async (data) => {
         if (data) {
           this.predictData = data['testData'];
           this.predictDataId = data['id'];
