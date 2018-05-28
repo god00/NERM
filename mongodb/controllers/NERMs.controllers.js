@@ -351,7 +351,10 @@ exports.getTestData = async function (req, res, next) {
         }
         else if (req.param('mode') == 'predict' && modelTestData.predict && modelTestData.predict != "") {
           readFile(modelTestData.predict, files).then(() => {
-            return res.status(200).json({ status: 200, data: { testData: modelTestData.testData, predict: files[0], id: modelTestData._id, testing: modelTestData.testing }, message: "Succesfully nermsdb Recieved" });
+            if (files[0])
+              return res.status(200).json({ status: 200, data: { testData: modelTestData.testData, predict: files[0], id: modelTestData._id, testing: modelTestData.testing }, message: "Succesfully nermsdb Recieved" });
+            else
+              return res.status(200).json({ status: 200, data: { testData: modelTestData.testData, id: modelTestData._id }, message: "Succesfully nermsdb Recieved" });
           });
         }
         else {
