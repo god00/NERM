@@ -50,7 +50,6 @@ export class PredictPageComponent implements OnInit, OnDestroy {
     this.appComponent.updateNavBar();
     this.projectsByUser = this.appComponent.projectsByUser;
     this.getPredictData();
-    console.log(this.predicting)
   }
 
   ngOnDestroy() {
