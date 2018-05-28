@@ -140,11 +140,12 @@ export class PredictPageComponent implements OnInit, OnDestroy {
           this.predictData = data['testData'];
           this.predictDataId = data['id'];
           this.predicting = data['testing'];
-          console.log(this.predictData.length == 0 || this.predicting , " : disabled")
+          console.log(this.predictData.length == 0 || this.predicting, " : disabled")
           console.log(!this.predicting, " : ngIf")
           if (data['predict']) {
             this.output = data['predict'].data.split('\n');
             this.insertDataTable()
+            console.log(this.output)
             // this.output.splice(-1, 1)
             // this.insertDataTable();
           }
