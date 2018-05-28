@@ -96,7 +96,7 @@ export class PredictPageComponent implements OnInit, OnDestroy {
       this.predictDataIntervalId = setInterval(() => {
         this.getPredictData().then(() => {
           console.log(!this.predicting)
-          if (!this.predicting) {
+          if (this.predicting) {
             if (this.predictDataIntervalId)
               clearInterval(this.predictDataIntervalId);
           }
