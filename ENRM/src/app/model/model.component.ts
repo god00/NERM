@@ -127,7 +127,7 @@ export class ModelComponent implements OnInit, OnDestroy {
       if (this.getTestDataSubscribe)
         this.getTestDataSubscribe.unsubscribe();
 
-      this.getTestDataSubscribe = this.databaseService.getTestData(this.user['email'], encodeURI(<string>this.project.projectName), this.modelName).subscribe(async (data) => {
+      this.getTestDataSubscribe = this.databaseService.getTestData(this.user['email'], encodeURI(<string>this.project.projectName), this.modelName , 'test').subscribe(async (data) => {
         if (data) {
           this.project.testData = data['testData'];
           this.testDataId = data['id'];

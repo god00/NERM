@@ -125,7 +125,7 @@ export class PredictPageComponent implements OnInit, OnDestroy {
       if (this.getTestDataSubscribe)
         this.getTestDataSubscribe.unsubscribe();
 
-      this.getTestDataSubscribe = this.databaseService.getTestData(this.user['email'], encodeURI(<string>this.projectName), this.modelName).subscribe(async (data) => {
+      this.getTestDataSubscribe = this.databaseService.getTestData(this.user['email'], encodeURI(<string>this.projectName), this.modelName , 'predict').subscribe(async (data) => {
         if (data) {
           this.predictData = data['testData'];
           this.predictDataId = data['id'];

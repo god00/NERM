@@ -136,12 +136,13 @@ export class DatabaseService {
     })
   }
 
-  getTestData(email: string, projectName: string, modelname: string): Observable<Object> {
+  getTestData(email: string, projectName: string, modelname: string, mode: string): Observable<Object> {
     return this.http.get(`${nermUrl}/testdata`, {
       params: {
         email: email,
         projectName: projectName,
-        modelname: modelname
+        modelname: modelname,
+        mode: mode
       }
     }).map((res) => {
       if (res != undefined) {
