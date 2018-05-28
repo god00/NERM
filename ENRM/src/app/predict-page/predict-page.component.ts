@@ -142,6 +142,8 @@ export class PredictPageComponent implements OnInit, OnDestroy {
           this.predictDataId = data['id'];
           if (data['testing'])
             this.predicting = data['testing'];
+
+          console.log(data)
           console.log(this.predictData.length == 0 || this.predicting, " : disabled")
           console.log(!this.predicting, " : ngIf")
           if (data['predict']) {
