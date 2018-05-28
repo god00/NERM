@@ -76,6 +76,7 @@ export class PredictPageComponent implements OnInit, OnDestroy {
     this.projectName = target['selectedOptions'][0].parentNode.label;
     this.modelName = target['value'];
     this.output = [];
+    this.predictData = [];
     this.getPredictData();
   }
 
@@ -139,8 +140,7 @@ export class PredictPageComponent implements OnInit, OnDestroy {
           this.predictData = data['testData'];
           this.predictDataId = data['id'];
           this.predicting = data['testing'];
-          console.log(this.predicting)
-          console.log(this.predictData)
+          console.log(this.predictData.length == 0 || this.predicting)
           if (data['predict']) {
             this.output = data['predict'].data.split('\n');
             this.insertDataTable()
